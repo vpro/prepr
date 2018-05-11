@@ -13,15 +13,10 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.HttpClients;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
@@ -66,22 +61,29 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Override
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException, URISyntaxException {
-        URIBuilder uri = new URIBuilder(api + "prepr/schedules/" + channel + "/guide");;
-        uri.addParameter("from", from.toString());
-        uri.addParameter("until", until.toString());
+        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+            .build();
+
+        GenericUrl url = new GenericUrl(api + "prepr/schedules/" + channel + "/guide");
+
+
+
+
+        url.set("from", from.toString());
+        url.set("until", until.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
-        uri.addParameter("fields", "timelines,show{tags,cover{source_file}},users");
+        url.set("fields", "timelines,show{tags,cover{source_file}},users");
 
-        HttpGet get = new HttpGet(uri.build());
-
-        authenticate(get);
-
-        HttpClient client = HttpClients.createDefault();
-
-        HttpResponse execute = client.execute(get);
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildGetRequest(url);
 
 
-        return MCObjectMapper.INSTANCE.readerFor(MCSchedule.class).readValue(execute.getEntity().getContent());
+        authenticate(httpRequest);
+
+        com.google.api.client.http.HttpResponse execute = httpRequest.execute();
+
+
+        return MCObjectMapper.INSTANCE.readerFor(MCSchedule.class).readValue(execute.getContent());
 
     }
 
@@ -105,9 +107,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
-    protected void authenticate(HttpRequestBase request) throws IOException {
+    protected void authenticate(HttpRequest request) throws IOException {
         authenticate();
-        request.addHeader("Authorization", tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
+        request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
 
 
     }
