@@ -37,11 +37,6 @@ import nl.vpro.io.mediaconnect.domain.MCSchedule;
 @NoArgsConstructor
 public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
-
-    //private String api = "https://api-eu1-graphlr-io-w2q2nyrvpv7n.runscope.net/v5/";
-
-
-
     private String api;
 
     private String clientId;
@@ -74,7 +69,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         URIBuilder uri = new URIBuilder(api + "prepr/schedules/" + channel + "/guide");;
         uri.addParameter("from", from.toString());
         uri.addParameter("until", until.toString());
-        uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
+        //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         uri.addParameter("fields", "timelines,show{tags,cover{source_file}},users");
 
         HttpGet get = new HttpGet(uri.build());
