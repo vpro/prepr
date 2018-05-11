@@ -1,0 +1,146 @@
+{
+  "from": "00:00:00",
+  "until": "00:10:00",
+  "offset": 0,
+  "limit": 600,
+  "rules": {
+    "id": "c4b6fd32-2bf0-4ce2-a8e5-7f657bb318ea",
+    "created_on": "2018-02-16T10:31:52+00:00",
+    "changed_on": "2018-05-07T09:13:12+00:00",
+    "label": "ShowSchedule",
+    "offset": 0,
+    "limit": 600,
+    "valid_from": "2018-02-12",
+    "valid_until": null,
+    "exception": false,
+    "days": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "7"
+    ]
+  },
+  "show": {
+    "id": "098cdfa6-5f13-4534-a013-d94956ad63f2",
+    "created_on": "2018-02-20T08:55:16+00:00",
+    "changed_on": "2018-05-07T09:18:15+00:00",
+    "published_on": "2018-05-07T09:18:15+00:00",
+    "unpublish_on": null,
+    "label": "Show",
+    "status": "published",
+    "slug": null,
+    "body": "Een ontbijt van lekkere muziek en actuele gesprekken met Manuëla Kemp en Henk Mouwe.",
+    "name": "Wekker-Wakker!",
+    "tags": [
+      {
+        "id": "6aeb3c99-f06a-40da-b8db-56ce9eab2a6a",
+        "created_on": "2018-02-19T10:20:22+00:00",
+        "changed_on": "2018-02-19T10:20:28+00:00",
+        "label": "Tag",
+        "name": "Omroep MAX",
+        "slug": "omroep-max",
+        "color": ""
+      }
+    ],
+    "cover": {
+      "id": "8b50c61a-242f-48e3-a3fa-7925ff8914db",
+      "created_on": "2018-05-07T09:18:04+00:00",
+      "changed_on": "2018-05-07T09:18:10+00:00",
+      "label": "Photo",
+      "name": null,
+      "body": null,
+      "reference": null,
+      "author": null,
+      "source_file": {
+        "id": "67a0dc5f-238a-4b5c-a648-f779738ece8d",
+        "created_on": "2018-05-07T09:18:04+00:00",
+        "changed_on": null,
+        "label": "SourceFile",
+        "original_name": "wekker-wakker_1100_600 (1).jpg",
+        "mime_type": "image/jpeg",
+        "file_size": 186961,
+        "file": "https://s3.eu-central-1.amazonaws.com/s3-nporadio5/67a0dc5f-238a-4b5c-a648-f779738ece8d",
+        "cdn_url": "https://d3f7xa61jjyoia.cloudfront.net/{format}/s3-nporadio5/67a0dc5f-238a-4b5c-a648-f779738ece8d.jpg"
+      }
+    }
+  },
+  "users": {
+    "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+      {
+        "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+        "created_on": "2018-02-19T11:56:02+00:00",
+        "changed_on": "2018-03-28T09:52:51+00:00",
+        "last_seen": "2018-02-19T11:56:02+00:00",
+        "label": "Person",
+        "preposition": "",
+        "initials": "",
+        "firstname": "Domien",
+        "prefix_lastname": "",
+        "lastname": "Verschuuren",
+        "nickname": null,
+        "tracking": false
+      },
+      {
+        "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+        "created_on": "2018-02-19T11:56:02+00:00",
+        "changed_on": "2018-03-28T09:52:51+00:00",
+        "last_seen": "2018-02-19T11:56:02+00:00",
+        "label": "Person",
+        "preposition": "",
+        "initials": "",
+        "firstname": "Domien2",
+        "prefix_lastname": "",
+        "lastname": "Verschuuren",
+        "nickname": null,
+        "tracking": false
+      }],
+      "47ea1173-8ce6-4022-8fff-7fce29bb335e": [
+      {
+        "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+        "created_on": "2018-02-19T11:56:02+00:00",
+        "changed_on": "2018-03-28T09:52:51+00:00",
+        "last_seen": "2018-02-19T11:56:02+00:00",
+        "label": "Person",
+        "preposition": "",
+        "initials": "",
+        "firstname": "Domien",
+        "prefix_lastname": "",
+        "lastname": "Verschuuren",
+        "nickname": null,
+        "tracking": false
+      },
+      {
+        "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+        "created_on": "2018-02-19T11:56:02+00:00",
+        "changed_on": "2018-03-28T09:52:51+00:00",
+        "last_seen": "2018-02-19T11:56:02+00:00",
+        "label": "Person",
+        "preposition": "",
+        "initials": "",
+        "firstname": "Domien",
+        "prefix_lastname": "",
+        "lastname": "Verschuuren",
+        "nickname": null,
+        "tracking": false
+      }
+    ]
+  },
+  "timelines": [
+    {
+      "id": "9d57c947-b004-4893-a476-973a82d6e00e",
+      "created_on": "2018-02-16T10:31:52+00:00",
+      "changed_on": "2018-02-16T10:31:52+00:00",
+      "label": "Timeline",
+      "reference_id": "2f867535-7381-435c-8004-6046ac057e93"
+    },
+    {
+      "id": "02f2b00c-6c3a-4191-9a95-8aaedd077db6",
+      "created_on": "2018-01-12T12:32:52+00:00",
+      "changed_on": "2018-01-12T15:43:11+00:00",
+      "label": "Timeline",
+      "reference_id": "2f867535-7381-435c-8004-6046ac057e93"
+    }
+  ]
+}

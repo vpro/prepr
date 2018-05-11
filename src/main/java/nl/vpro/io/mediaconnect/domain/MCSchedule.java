@@ -5,14 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -39,25 +36,33 @@ public class MCSchedule {
 
 
         @Override
-        public void serialize(MCSchedule value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            log.info("--");
-
+        public void serialize(MCSchedule value, JsonGenerator gen, SerializerProvider serializers) {
+            throw new UnsupportedOperationException();
         }
     }
 
      public static class Deserializer extends JsonDeserializer<MCSchedule> {
 
          @Override
-         public MCSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+         public MCSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
              MCSchedule result = new MCSchedule();
              result.days = new HashMap<>();
-             p.nextToken();
-             String date = p.getCurrentName();
-             p.nextToken();
-             MCEvent[] events = ctxt.getParser().readValueAs(MCEvent[].class);
-             result.days.put(LocalDate.parse(date), Arrays.asList(events));
-             return result;
+             JsonToken t = p.getCurrentToken();
 
+             if (t.isStructStart()) {
+                 while (true) {
+                     JsonToken token = p.nextToken();
+                     if (token.isStructEnd()) {
+                         break;
+                     }
+
+                     String date = p.getCurrentName();
+                     JsonToken array = p.nextToken();
+                     MCEvent[] events = ctxt.getParser().readValueAs(MCEvent[].class);
+                     result.days.put(LocalDate.parse(date), Arrays.asList(events));
+                 }
+             }
+             return result;
          }
      }
 }
