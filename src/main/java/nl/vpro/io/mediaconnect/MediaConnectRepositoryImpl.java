@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -60,7 +59,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException, URISyntaxException {
+    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
         NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
             .build();
 
