@@ -17,7 +17,7 @@ import org.junit.Test;
  * @since 0.1
  */
 @Slf4j
-public class MediaConnectRepositoryImplTest {
+public class MediaConnectRepositoryImplITest {
 
 
     MediaConnectRepositoryImpl impl;
