@@ -48,8 +48,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @lombok.Builder
     MediaConnectRepositoryImpl(
         @Named("mediaconnect.api") String api,
-        @Named("mediaconnect.client_id") String clientId,
-        @Named("mediaconnect.client_secret") String clientSecret
+        @Named("mediaconnect.clientId") String clientId,
+        @Named("mediaconnect.clientSecret") String clientSecret
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
@@ -84,6 +84,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
         return MCObjectMapper.INSTANCE.readerFor(MCSchedule.class).readValue(execute.getContent());
 
+    }
+
+    @Override
+    public String toString() {
+        return clientId + "@" + api;
     }
 
 
