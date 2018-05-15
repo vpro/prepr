@@ -60,6 +60,12 @@
         <version>2.21.0</version>
         <configuration>
           <useManifestOnlyJar>false</useManifestOnlyJar>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/*ITest.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
