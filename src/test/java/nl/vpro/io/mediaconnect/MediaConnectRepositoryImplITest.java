@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Properties;
 import java.util.UUID;
@@ -45,7 +44,7 @@ public class MediaConnectRepositoryImplITest {
     }
 
     @Test
-    public void getSchedule() throws IOException, URISyntaxException {
+    public void getSchedule() throws IOException {
         log.info("schedule: {}",
             impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
                 , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8))
