@@ -82,6 +82,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         com.google.api.client.http.HttpResponse execute = httpRequest.execute();
 
 
+        log.info("Calling {}", url);
         return MCObjectMapper.INSTANCE.readerFor(MCSchedule.class).readValue(execute.getContent());
 
     }
