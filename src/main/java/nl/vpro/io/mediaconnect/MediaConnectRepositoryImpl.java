@@ -66,9 +66,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Override
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
-
         GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
-
         url.set("from", from.toString());
         url.set("until", until.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
@@ -76,7 +74,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
         return get(url, MCSchedule.class);
     }
-
 
 
     @Override
@@ -95,7 +92,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Override
     public void deleteWebhook(UUID webhook) throws IOException {
-        log.info("--");
+        GenericUrl url = createUrl("webhooks", UUID.randomUUID().toString());
 
     }
 
