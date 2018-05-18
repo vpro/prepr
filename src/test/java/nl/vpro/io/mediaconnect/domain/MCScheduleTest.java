@@ -28,6 +28,9 @@ public class MCScheduleTest {
         assertThat(next.getShow().getBody()).isEqualTo("Een ontbijt van lekkere muziek en actuele gesprekken met Manuëla Kemp en Henk Mouwe.");
 
 
+
+
+
     }
 
 
