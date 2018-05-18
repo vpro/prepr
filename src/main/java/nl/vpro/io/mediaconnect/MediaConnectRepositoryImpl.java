@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -11,16 +12,21 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.core.MediaType;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
+import nl.vpro.io.mediaconnect.domain.MCWebhook;
 
 
 /**
@@ -60,31 +66,50 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Override
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
-        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-            .build();
 
-        GenericUrl url = new GenericUrl(api + "prepr/schedules/" + channel + "/guide");
-
-
-
+        GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
 
         url.set("from", from.toString());
         url.set("until", until.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "timelines,show{tags,cover{source_file}},users");
 
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-            .buildGetRequest(url);
+        return get(url, MCSchedule.class);
+    }
 
 
-        authenticate(httpRequest);
 
-        com.google.api.client.http.HttpResponse execute = httpRequest.execute();
+    @Override
+    public MCItems<MCWebhook> getWebhooks() throws IOException {
+        GenericUrl url = createUrl("webhooks");
+        return get(url, MCItems.class);
+    }
 
+    @Override
+    public void createWebhook(MCWebhook webhook) throws IOException {
+        GenericUrl url = createUrl("webhooks", UUID.randomUUID().toString());
+        HttpResponse response = put(url, webhook);
+        log.info("{} ", response);
 
-        log.info("Calling {}", url);
-        return MCObjectMapper.INSTANCE.readerFor(MCSchedule.class).readValue(execute.getContent());
+    }
 
+    @Override
+    public void deleteWebhook(UUID webhook) throws IOException {
+        log.info("--");
+
+    }
+
+    GenericUrl createUrl(Object ... path) {
+        GenericUrl url = new GenericUrl(api);
+        boolean append = false;
+        for (Object p : path) {
+            if (append) {
+                url.appendRawPath("/");
+            }
+            url.appendRawPath(p.toString());
+            append = true;
+        }
+        return url;
     }
 
     @Override
@@ -92,6 +117,53 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         return clientId + "@" + api;
     }
 
+
+    <T> T get(GenericUrl url, Class<T> clazz) throws IOException {
+        HttpResponse execute = get(url);
+
+        return MCObjectMapper.INSTANCE.readerFor(clazz).readValue(execute.getContent());
+    }
+
+
+    protected HttpResponse get(GenericUrl url) throws IOException {
+        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+            .build();
+
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildGetRequest(url);
+
+
+        authenticate(httpRequest);
+
+        return execute(httpRequest);
+
+    }
+
+      protected HttpResponse put(GenericUrl url, Object o) throws IOException {
+          NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+              .build();
+
+          ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+          MCObjectMapper.INSTANCE.writeValue(outputStream, o);
+          log.info("Putting {}", new String(outputStream.toByteArray()));
+          HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+              .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray()));
+
+          authenticate(httpRequest);
+
+
+          return execute(httpRequest);
+
+
+    }
+
+    protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
+         log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
+        HttpResponse execute = httpRequest.execute();
+
+
+          return execute;
+    }
 
     protected void authenticate() throws  IOException {
 

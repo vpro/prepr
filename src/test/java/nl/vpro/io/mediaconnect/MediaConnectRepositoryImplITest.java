@@ -11,6 +11,8 @@ import java.util.UUID;
 
 import org.junit.Test;
 
+import nl.vpro.io.mediaconnect.domain.MCWebhook;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -49,5 +51,27 @@ public class MediaConnectRepositoryImplITest {
             impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
                 , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8))
         );
+    }
+
+
+
+    @Test
+    public void getWebhooks() throws IOException {
+        log.info("webhooks: {}", impl.getWebhooks());
+
+        log.info("token {},",  impl.getTokenResponse());
+    }
+
+
+     @Test
+    public void createWebhook() throws IOException {
+
+         MCWebhook webhook = MCWebhook.builder()
+             .callback_url("https://api-dev.poms.omroep.nl/mediaconnect/RAD5")
+             .event("showschedule.created")
+             .event("showschedule.changed")
+             .event("showschedule.deleted")
+             .build();
+         impl.createWebhook(webhook);
     }
 }
