@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("MCTimeline")
+@JsonTypeName("Timeline")
 public class MCTimeline extends MCAbstractObject {
 
     String reference_id;

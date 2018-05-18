@@ -13,7 +13,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * @since 0.1
  */
 @Data
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "label")
+@JsonTypeInfo(
+    visible = true,
+    include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+    use = JsonTypeInfo.Id.NAME, property="label")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = MCWebhook.class, name = "Webhook"),
     @JsonSubTypes.Type(value = MCTimeline.class, name = "Timeline"),
@@ -26,5 +29,6 @@ public class MCAbstractObject  {
     Instant created_on;
     Instant changed_on;
     Instant last_seen;
-    //String label;
+
+    String label;
 }
