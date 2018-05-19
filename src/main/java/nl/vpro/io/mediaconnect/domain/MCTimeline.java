@@ -15,4 +15,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCTimeline extends MCAbstractObject {
 
     String reference_id;
+
+    @Override
+    public String getCrid() {
+        return "crid://mediaconnect/" + getLabel().toLowerCase() + "/" + getReference_id();
+    }
 }

@@ -26,6 +26,7 @@ public class MCEventTest {
 
         assertThat(event.getTimelines()).hasSize(2);
 
+
         log.info("{}", event);
     }
 

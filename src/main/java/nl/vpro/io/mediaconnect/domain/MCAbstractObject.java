@@ -31,4 +31,8 @@ public class MCAbstractObject  {
     Instant last_seen;
 
     String label;
+
+    public String getCrid() {
+        return "crid://mediaconnect.io/" + getLabel().toLowerCase() + "/" + getId();
+    }
 }
