@@ -14,10 +14,12 @@ public class MCEvent {
 
 
     LocalTime from;
+
     LocalTime until;
 
     // pleonastic
     Integer offset;
+
     Integer limit;
 
     MCRule rules;

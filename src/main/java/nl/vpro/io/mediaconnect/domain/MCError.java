@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class MCError {
 
     int code;
+
     String message;
+
     JsonNode errors;
 }

@@ -18,6 +18,6 @@ public class MCTimeline extends MCAbstractObject {
 
     @Override
     public String getCrid() {
-        return "crid://mediaconnect/" + getLabel().toLowerCase() + "/" + getReference_id();
+        return CRID_PREFIX + getLabel().toLowerCase() + "/" + getReference_id();
     }
 }

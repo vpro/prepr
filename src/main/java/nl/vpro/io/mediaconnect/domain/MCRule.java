@@ -18,9 +18,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCRule extends MCAbstractObject {
 
     Integer offset;
+
     Integer limit;
+
     LocalDate valid_from;
+
     LocalDate valid_until;
+
     List<Integer> days;
+
     boolean exception;
 }

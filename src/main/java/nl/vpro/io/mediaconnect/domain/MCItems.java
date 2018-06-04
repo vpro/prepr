@@ -12,6 +12,7 @@ import java.util.List;
 public class MCItems<T extends MCAbstractObject> {
 
     List<T> items;
+
     Integer total;
 
     String after;

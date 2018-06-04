@@ -5,8 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
+ * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the acutally provided json by MediaConnect.
+ *
+ * Use {@link #INSTANCE}
+ *
  * @author Michiel Meeuwissen
-* @since 0.1
+ * @since 0.1
  */
 public class MCObjectMapper extends ObjectMapper {
 

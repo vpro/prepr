@@ -17,13 +17,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCUser extends MCAbstractObject {
 
     Instant last_seen;
-    String preposition; // deheer/devrouw
-    String initials;
-    String firstname;
-    String prefix_lastname;
-    String lastname;
-    String nickname;
-    boolean tracking;
 
+    String preposition; // deheer/devrouw
+
+    String initials;
+
+    String firstname;
+
+    String prefix_lastname;
+
+    String lastname;
+
+    String nickname;
+
+    boolean tracking;
 
 }

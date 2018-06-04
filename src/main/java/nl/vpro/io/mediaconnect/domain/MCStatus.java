@@ -5,6 +5,7 @@ package nl.vpro.io.mediaconnect.domain;
  * @since 0.1
  */
 public enum MCStatus {
+
     published,
     pending,
     approval,

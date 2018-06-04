@@ -14,6 +14,8 @@ import java.time.Instant;
 public abstract class MCContent extends MCAbstractObject {
 
     Instant published_on;
+
     Instant unpublish_on;
+
     MCStatus status;
 }

@@ -17,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCShow extends MCContent {
 
     String slug;
+
     String name;
+
     String body;
 
     List<MCTag> tags;

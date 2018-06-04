@@ -16,8 +16,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCAsset extends MCAbstractObject {
 
     String name;
+
     String body;
+
     String reference;
+
     String author;
 
     MCSourceFile source_file;

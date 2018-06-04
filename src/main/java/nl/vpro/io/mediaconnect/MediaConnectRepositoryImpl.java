@@ -30,6 +30,9 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
 
 
 /**
+ * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
+ * with credentials.
+ *
  * @author Michiel Meeuwissen
  * @since 0.1
  */

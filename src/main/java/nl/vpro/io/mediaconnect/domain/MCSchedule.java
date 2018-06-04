@@ -19,12 +19,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * @author Michiel Meeuwissen
-* @since 0.1
+ * @since 0.1
  */
 @Data
 @JsonSerialize(using = MCSchedule.Serializer.class)
 @JsonDeserialize(using = MCSchedule.Deserializer.class)
-
 @Slf4j
 public class MCSchedule {
 

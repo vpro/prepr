@@ -25,14 +25,19 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public class MCAbstractObject  {
 
+    public static String CRID_PREFIX =  "crid://mediaconnect.io/";
+
     UUID id;
+
     Instant created_on;
+
     Instant changed_on;
+
     Instant last_seen;
 
     String label;
 
     public String getCrid() {
-        return "crid://mediaconnect.io/" + getLabel().toLowerCase() + "/" + getId();
+        return CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
     }
 }

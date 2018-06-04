@@ -13,7 +13,9 @@ import java.util.UUID;
 public class MCWebhookEvent {
 
     UUID id;
+
     Instant created_on;
+
     String event;
 
     MCEvent payload;

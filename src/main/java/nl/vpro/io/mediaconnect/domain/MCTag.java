@@ -13,7 +13,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Tag")
 public class MCTag extends MCAbstractObject {
+
     String name;
+
     String slug;
+
     String color;
 }

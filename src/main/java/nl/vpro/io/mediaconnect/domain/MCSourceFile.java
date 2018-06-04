@@ -14,12 +14,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("SourceFile")
-
 public class MCSourceFile extends MCAbstractObject {
+
     String original_name;
+
     String mime_type;
+
     Long file_size;
+
     URI file;
+
     String cdn_url;
 
 }

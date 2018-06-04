@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCWebhook extends MCAbstractObject{
 
     String callback_url;
+
     @Singular
     List<String> events;
 
