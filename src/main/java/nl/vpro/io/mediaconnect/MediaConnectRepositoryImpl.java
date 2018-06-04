@@ -43,9 +43,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     private String clientSecret;
 
-
     @Getter
     private TokenResponse tokenResponse;
+
     @Getter
     private Instant expiration;
 
