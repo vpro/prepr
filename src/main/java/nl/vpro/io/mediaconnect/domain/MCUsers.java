@@ -36,7 +36,10 @@ public class MCUsers {
                      }
 
                      String role = p.getCurrentName();
-                     //JsonToken array = p.nextToken();
+                     token = p.nextToken();
+                     if (token != JsonToken.START_ARRAY) {
+                         throw new IllegalStateException();
+                     }
                      MCUser[] users = ctxt.getParser().readValueAs(MCUser[].class);
                      result.users.put(UUID.fromString(role), Arrays.asList(users));
                  }
