@@ -34,8 +34,6 @@ import javax.ws.rs.NameBinding;
 }
 }</pre>
  *
- *
- *
  * @author Michiel Meeuwissen
  * @since 0.1
  */
