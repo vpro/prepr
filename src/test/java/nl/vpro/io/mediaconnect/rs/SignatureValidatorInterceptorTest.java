@@ -1,7 +1,6 @@
 package nl.vpro.io.mediaconnect.rs;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,7 +21,7 @@ public class SignatureValidatorInterceptorTest {
     SignatureValidatorInterceptor impl = new SignatureValidatorInterceptor();
 
     @Test
-    public void sign() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+    public void sign() throws NoSuchAlgorithmException, InvalidKeyException {
         String signed = impl.sign("62d77be4-d41d-4878-bffc-ed4a047a9101", example);
         assertThat(signed).isEqualTo(signature);
     }

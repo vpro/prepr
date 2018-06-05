@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.rs;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -33,9 +34,7 @@ import org.apache.commons.io.IOUtils;
 @Provider
 public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
-
     public static final String SIGNATURE = "Mediaconnect-Signature";
-
 
     Properties properties = new Properties();
 
@@ -73,12 +72,10 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         }
     }
 
-    String sign(String webhookId, byte[] json) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-
+    String sign(String webhookId, byte[] json) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(webhookId.getBytes("UTF-8"), "HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(webhookId.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         sha256_HMAC.init(secret_key);
-
         return new String(Hex.encodeHex(sha256_HMAC.doFinal(json)));
 
 
