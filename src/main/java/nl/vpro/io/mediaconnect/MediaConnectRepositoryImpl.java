@@ -1,7 +1,6 @@
 package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
@@ -35,24 +34,22 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
  * @since 0.1
  */
 @Slf4j
-@NoArgsConstructor
 public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
-    private String api;
+    private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
+        .build();
 
-    private String clientId;
+    private final String api;
 
-    private String clientSecret;
+    private final String clientId;
+
+    private final String clientSecret;
 
     @Getter
     private TokenResponse tokenResponse;
 
     @Getter
     private Instant expiration;
-
-    private final NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-          .build();
-
 
 
     @Inject
@@ -81,6 +78,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public MCItems<MCWebhook> getWebhooks() throws IOException {
         GenericUrl url = createUrl("webhooks");
@@ -102,21 +100,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     public void deleteWebhook(UUID webhook) throws IOException {
         GenericUrl url = createUrl("webhooks", webhook);
         delete(url);
-
     }
 
-    GenericUrl createUrl(Object ... path) {
-        GenericUrl url = new GenericUrl(api);
-        boolean append = false;
-        for (Object p : path) {
-            if (append) {
-                url.appendRawPath("/");
-            }
-            url.appendRawPath(p.toString());
-            append = true;
-        }
-        return url;
-    }
 
     @Override
     public String toString() {
@@ -124,35 +109,26 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
-    <T> T get(GenericUrl url, Class<T> clazz) throws IOException {
+    protected <T> T get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
-
         return MCObjectMapper.INSTANCE.readerFor(clazz).readValue(execute.getContent());
     }
 
 
     protected HttpResponse get(GenericUrl url) throws IOException {
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-            .buildGetRequest(url);
-
-        return execute(httpRequest);
-
+        return execute(NET_HTTP_TRANSPORT.createRequestFactory()
+            .buildGetRequest(url));
     }
 
-
     protected HttpResponse delete(GenericUrl url) throws IOException {
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-            .buildDeleteRequest(url);
-
-        return execute(httpRequest);
-
+        return execute(NET_HTTP_TRANSPORT.createRequestFactory()
+            .buildDeleteRequest(url));
     }
 
     protected HttpResponse put(GenericUrl url, Object o) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MCObjectMapper.INSTANCE.writeValue(outputStream, o);
-        log.info("Putting {}", new String(outputStream.toByteArray()));
-        return execute(netHttpTransport.createRequestFactory()
+        return execute(NET_HTTP_TRANSPORT.createRequestFactory()
             .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray())));
     }
 
@@ -172,7 +148,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             }
         });
 
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+        HttpRequest httpRequest = NET_HTTP_TRANSPORT.createRequestFactory()
             .buildPostRequest(url, new UrlEncodedContent(map));
         return execute(httpRequest);
     }
@@ -182,16 +158,19 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
-        log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         authenticate(httpRequest);
-
+        log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         return httpRequest.execute();
     }
 
-    protected void authenticate() throws  IOException {
 
+    protected void authenticate(HttpRequest request) throws IOException {
+        getToken();
+        request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
+    }
+    protected void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
-            log.info("Authenticating {}@{}", clientId, api);
+            log.debug("Authenticating {}@{}", clientId, api);
             tokenResponse =
                 new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
                     new GenericUrl(api + "oauth/access_token"), "authorization_code")
@@ -202,16 +181,22 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                     .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets,webhooks_publish,webhooks_delete")
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
-            log.info("Token -> {}", tokenResponse.getAccessToken());
+            log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
         }
 
     }
 
-
-    protected void authenticate(HttpRequest request) throws IOException {
-        authenticate();
-        request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
-
-
+    private GenericUrl createUrl(Object ... path) {
+        GenericUrl url = new GenericUrl(api);
+        boolean append = false;
+        for (Object p : path) {
+            if (append) {
+                url.appendRawPath("/");
+            }
+            url.appendRawPath(p.toString());
+            append = true;
+        }
+        return url;
     }
+
 }

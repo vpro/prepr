@@ -44,7 +44,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void authenticate() throws IOException {
-        impl.authenticate();
+        impl.getToken();
         log.info("Token: {}", impl.getTokenResponse());
     }
 
