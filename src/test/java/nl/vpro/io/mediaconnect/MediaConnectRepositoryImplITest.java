@@ -6,12 +6,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
 import org.junit.Test;
-
-import nl.vpro.io.mediaconnect.domain.MCWebhook;
 
 /**
  * @author Michiel Meeuwissen
@@ -65,13 +65,11 @@ public class MediaConnectRepositoryImplITest {
 
      @Test
     public void createWebhook() throws IOException {
-
-         MCWebhook webhook = MCWebhook.builder()
-             .callback_url("https://api-dev.poms.omroep.nl/mediaconnect/RAD5")
-             .event("showschedule.created")
-             .event("showschedule.changed")
-             .event("showschedule.deleted")
-             .build();
-         impl.createWebhook(webhook);
+         String url = "https://api-dev.poms.omroep.nl/mediaconnect/RAD5";
+         List<String> events = Arrays.asList(
+             "showschedule.created",
+             "showschedule.changed",
+             "showschedule.deleted");
+         log.info("new webook {}", impl.createWebhook(url, events));
     }
 }

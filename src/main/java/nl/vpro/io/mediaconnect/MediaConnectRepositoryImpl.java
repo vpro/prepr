@@ -8,7 +8,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,12 +20,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.GenericData;
 
 import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
@@ -86,11 +88,13 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public void createWebhook(MCWebhook webhook) throws IOException {
-        GenericUrl url = createUrl("webhooks", UUID.randomUUID().toString());
-        HttpResponse response = put(url, webhook);
-        log.info("{} ", response);
-
+    public MCWebhook createWebhook(String callback_url, List<String> events) throws IOException {
+        GenericUrl url = createUrl("webhooks");
+        Map<String, String> post = new HashMap<>();
+        post.put("callback_url", callback_url);
+        post.put("events", events.stream().collect(Collectors.joining(",")));
+        HttpResponse response = post(url, post);
+        return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class).readValue(response.getContent());
     }
 
     @Override
@@ -139,22 +143,40 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     }
 
-      protected HttpResponse put(GenericUrl url, Object o) throws IOException {
-          NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-              .build();
+    protected HttpResponse put(GenericUrl url, Object o) throws IOException {
+        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+            .build();
 
-          ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-          MCObjectMapper.INSTANCE.writeValue(outputStream, o);
-          log.info("Putting {}", new String(outputStream.toByteArray()));
-          HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-              .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray()));
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        MCObjectMapper.INSTANCE.writeValue(outputStream, o);
+        log.info("Putting {}", new String(outputStream.toByteArray()));
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray()));
 
-          authenticate(httpRequest);
-
-
-          return execute(httpRequest);
+        authenticate(httpRequest);
 
 
+        return execute(httpRequest);
+    }
+
+
+    protected HttpResponse post(GenericUrl url, Map<String, String> form) throws IOException {
+        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+            .build();
+
+        log.info("Posting {}", form);
+
+        GenericData data = new GenericData();
+        for (Map.Entry<String, String> entry : form.entrySet()) {
+            data.put(entry.getKey(), entry.getValue());
+        }
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildPostRequest(url, new UrlEncodedContent(form));
+
+        authenticate(httpRequest);
+
+
+        return execute(httpRequest);
     }
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
@@ -175,9 +197,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
                     .setGrantType("client_credentials")
-                    .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets")
+                    .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets,webhooks_publish,webhooks_delete")
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
+            log.info("Token -> {}", tokenResponse.getAccessToken());
         }
 
     }
