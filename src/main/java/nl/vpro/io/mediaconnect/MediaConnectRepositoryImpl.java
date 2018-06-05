@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -92,7 +92,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         GenericUrl url = createUrl("webhooks");
         Map<String, String> post = new HashMap<>();
         post.put("callback_url", callback_url);
-        post.put("events", events.stream().collect(Collectors.joining(",")));
+        AtomicInteger i = new AtomicInteger(0);
+        events.forEach((e) -> {
+            post.put("events[" + i.getAndIncrement() + "]", e);
+        });
         HttpResponse response = post(url, post);
         return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class).readValue(response.getContent());
     }
