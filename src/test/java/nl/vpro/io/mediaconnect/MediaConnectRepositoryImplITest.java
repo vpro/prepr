@@ -13,6 +13,9 @@ import java.util.UUID;
 
 import org.junit.Test;
 
+import nl.vpro.io.mediaconnect.domain.MCItems;
+import nl.vpro.io.mediaconnect.domain.MCWebhook;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -56,16 +59,23 @@ public class MediaConnectRepositoryImplITest {
 
 
     @Test
-    public void getWebhooks() throws IOException {
-        log.info("webhooks: {}", impl.getWebhooks());
+    public void getWebhooksAndDelete() throws IOException {
+        MCItems<MCWebhook> webhooks = impl.getWebhooks();
+        log.info("webhooks: {}", webhooks);
+        for (MCWebhook webhook : webhooks) {
+            if (webhook.getCallback_url().startsWith("https://api-itest")) {
+                log.info("Deleting {}", webhook);
 
-        log.info("token {},",  impl.getTokenResponse());
+                impl.deleteWebhook(webhook.getId());
+            }
+        }
+
     }
 
 
      @Test
     public void createWebhook() throws IOException {
-         String url = "https://api-dev.poms.omroep.nl/mediaconnect/RAD5";
+         String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
          List<String> events = Arrays.asList(
              "showschedule.created",
              "showschedule.changed",

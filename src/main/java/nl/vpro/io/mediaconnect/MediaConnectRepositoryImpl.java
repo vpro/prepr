@@ -8,10 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
@@ -23,7 +20,6 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.GenericData;
 
 import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
@@ -53,6 +49,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Getter
     private Instant expiration;
+
+    private final NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
+          .build();
+
 
 
     @Inject
@@ -90,19 +90,18 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @Override
     public MCWebhook createWebhook(String callback_url, List<String> events) throws IOException {
         GenericUrl url = createUrl("webhooks");
-        Map<String, String> post = new HashMap<>();
+        Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
-        AtomicInteger i = new AtomicInteger(0);
-        events.forEach((e) -> {
-            post.put("events[" + i.getAndIncrement() + "]", e);
-        });
+        post.put("events", events);
+
         HttpResponse response = post(url, post);
         return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class).readValue(response.getContent());
     }
 
     @Override
     public void deleteWebhook(UUID webhook) throws IOException {
-        GenericUrl url = createUrl("webhooks", UUID.randomUUID().toString());
+        GenericUrl url = createUrl("webhooks", webhook);
+        delete(url);
 
     }
 
@@ -133,58 +132,58 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     protected HttpResponse get(GenericUrl url) throws IOException {
-        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-            .build();
-
         HttpRequest httpRequest = netHttpTransport.createRequestFactory()
             .buildGetRequest(url);
 
+        return execute(httpRequest);
 
-        authenticate(httpRequest);
+    }
+
+
+    protected HttpResponse delete(GenericUrl url) throws IOException {
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildDeleteRequest(url);
 
         return execute(httpRequest);
 
     }
 
     protected HttpResponse put(GenericUrl url, Object o) throws IOException {
-        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-            .build();
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MCObjectMapper.INSTANCE.writeValue(outputStream, o);
         log.info("Putting {}", new String(outputStream.toByteArray()));
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-            .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray()));
-
-        authenticate(httpRequest);
-
-
-        return execute(httpRequest);
+        return execute(netHttpTransport.createRequestFactory()
+            .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray())));
     }
 
 
-    protected HttpResponse post(GenericUrl url, Map<String, String> form) throws IOException {
-        NetHttpTransport netHttpTransport = new NetHttpTransport.Builder()
-            .build();
+    @SuppressWarnings("unchecked")
+    protected HttpResponse post(GenericUrl url, Map<String, Object> form) throws IOException {
+        log.debug("Posting {}", form);
+        Map<String, String> map = new TreeMap<>();
+        form.forEach((k, v) -> {
+            if (v instanceof Collection) {
+                AtomicInteger i = new AtomicInteger(0);
+                ((Collection) v).forEach((e) -> {
+                    map.put(k + "[" + i.getAndIncrement() + "]", toString(e));
+                });
+            } else {
+                map.put(k, toString(v));
+            }
+        });
 
-        log.info("Posting {}", form);
+        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
+            .buildPostRequest(url, new UrlEncodedContent(map));
+        return execute(httpRequest);
+    }
 
-        GenericData data = new GenericData();
-        for (Map.Entry<String, String> entry : form.entrySet()) {
-            data.put(entry.getKey(), entry.getValue());
+    protected String toString(Object o) {
+            return o.toString();
         }
-        HttpRequest httpRequest = netHttpTransport.createRequestFactory()
-            .buildPostRequest(url, new UrlEncodedContent(form));
-
-        authenticate(httpRequest);
-
-
-        return execute(httpRequest);
-    }
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
-         log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
-
+        log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
+        authenticate(httpRequest);
 
         return httpRequest.execute();
     }

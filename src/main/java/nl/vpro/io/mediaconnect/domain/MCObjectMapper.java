@@ -1,6 +1,7 @@
 package nl.vpro.io.mediaconnect.domain;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -22,6 +23,9 @@ public class MCObjectMapper extends ObjectMapper {
         INSTANCE.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         INSTANCE.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true);
+        INSTANCE.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        INSTANCE.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
 
     }
 }

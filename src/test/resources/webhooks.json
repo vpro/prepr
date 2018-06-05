@@ -1,0 +1,88 @@
+{
+  "items": [
+    {
+      "id": "c2f84c7f-c50d-4088-a74e-84116b81e753",
+      "created_on": "2018-06-05T18:07:46+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5",
+      "events": [
+        "showschedule.deleted",
+        "showschedule.created",
+        "showschedule.changed"
+      ]
+    },
+    {
+      "id": "17fa461b-1451-475e-ae6b-10f4053566ee",
+      "created_on": "2018-06-05T15:31:44+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5",
+      "events": ""
+    },
+    {
+      "id": "d35be87c-9abd-4e14-a41a-4451351ef695",
+      "created_on": "2018-06-05T15:30:43+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5",
+      "events": ""
+    },
+    {
+      "id": "28d16c54-1f14-41e1-91f0-827841225415",
+      "created_on": "2018-06-05T15:24:41+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5@events=showschedule.created,showschedule.changed,showschedule.deleted",
+      "events": null
+    },
+    {
+      "id": "b0edacac-6a90-4b8e-b37e-081df68ab777",
+      "created_on": "2018-06-05T15:24:17+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5@events=showschedule.created,showschedule.changed,showschedule.deleted",
+      "events": null
+    },
+    {
+      "id": "0bfed259-9638-4842-ae5d-a079564d6647",
+      "created_on": "2018-06-05T15:24:08+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5@events=showschedule.created,showschedule.changed,showschedule.deleted",
+      "events": null
+    },
+    {
+      "id": "66d8d095-0af9-45a1-b8f9-a892daa92d16",
+      "created_on": "2018-06-05T15:23:27+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5@events=showschedule.created,showschedule.changed,showschedule.deleted",
+      "events": null
+    },
+    {
+      "id": "9cb35161-7c70-49ef-af68-5d399e4c417d",
+      "created_on": "2018-06-05T10:18:01+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "https:\/\/api-dev.poms.omroep.nl\/mediaconnect\/RAD5@events=showschedule.created,showschedule.changed,showschedule.deleted",
+      "events": null
+    },
+    {
+      "id": "f5251948-147a-45d2-8f90-9217b169e411",
+      "created_on": "2018-06-04T11:30:33+00:00",
+      "changed_on": null,
+      "label": "Webhook",
+      "callback_url": "http:\/\/example.com\/cli\/callback.php",
+      "events": [
+        "showschedule.created",
+        "showschedule.changed"
+      ]
+    }
+  ],
+  "total": 9,
+  "after": "YWZ0ZXJfMjU=",
+  "before": "YmVmb3JlXzA=",
+  "skip": 0,
+  "limit": 25
+}
