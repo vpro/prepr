@@ -159,10 +159,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
          log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
-        HttpResponse execute = httpRequest.execute();
 
 
-          return execute;
+        return httpRequest.execute();
     }
 
     protected void authenticate() throws  IOException {
