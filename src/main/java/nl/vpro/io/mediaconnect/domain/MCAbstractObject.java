@@ -38,6 +38,7 @@ public class MCAbstractObject  {
     String label;
 
     public String getCrid() {
-        return CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
+        String label = getLabel();
+        return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
     }
 }
