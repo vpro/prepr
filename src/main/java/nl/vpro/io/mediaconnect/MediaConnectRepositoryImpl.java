@@ -178,8 +178,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     protected String toString(Object o) {
-            return o.toString();
-        }
+        return o == null ? "" : String.valueOf(o);
+    }
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
         log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
