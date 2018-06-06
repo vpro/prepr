@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @AllArgsConstructor
 @lombok.Builder
 @JsonTypeName("Webhook")
-public class MCWebhook extends MCAbstractObject{
+public class MCWebhook extends MCAbstractObject {
 
     String callback_url;
 
