@@ -32,6 +32,9 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
  * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
  * with credentials.
  *
+ * This can be done by code (using {@link MediaConnectRepositoryImpl#builder()}, using config file {@link MediaConnectRepositoryImpl#configuredInUserHome()}
+ * or using some IoC-framework (depending on the {@link Inject} and {@link Named} annotations on the constructor.
+ *
  * @author Michiel Meeuwissen
  * @since 0.1
  */
@@ -74,8 +77,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
             return MediaConnectRepositoryImpl
                 .builder()
-                .clientId(properties.getProperty("client_id"))
-                .clientSecret(properties.getProperty("client_secret"))
+                .api(properties.getProperty("mediaconnect.api"))
+                .clientId(properties.getProperty("mediaconnect.clientId"))
+                .clientSecret(properties.getProperty("mediaconnect.clientSecret"))
                 .build();
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
