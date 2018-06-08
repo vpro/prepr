@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.rs;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -20,9 +21,13 @@ public class SignatureValidatorInterceptorTest {
 
     SignatureValidatorInterceptor impl = new SignatureValidatorInterceptor();
 
+    {
+        SignatureValidatorInterceptor.put("RAD5", UUID.fromString("62d77be4-d41d-4878-bffc-ed4a047a9101"));
+    }
+
     @Test
     public void sign() throws NoSuchAlgorithmException, InvalidKeyException {
-        String signed = impl.sign("62d77be4-d41d-4878-bffc-ed4a047a9101", example);
+        String signed = impl.sign(UUID.fromString("62d77be4-d41d-4878-bffc-ed4a047a9101"), example);
         assertThat(signed).isEqualTo(signature);
     }
 

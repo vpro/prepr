@@ -1,0 +1,67 @@
+{
+  /**
+  Dit komt weinig voor. De 'rule' is aangepast.
+  In principe moeten het hele kanaal guide.id vanaf rules.valid_from opnieuw inlezen (alleen toekomst, want dit gaat over schedule)
+  */
+  "id": "18518be2-9896-479d-8a1f-42268222616b",
+  "created_on": 1525701836,
+  "event": "showschedule.changed",
+  "payload": {
+    "from": "06:00:00",
+    "until": "07:00:00",
+    "offset": 21600,
+    "limit": 3600,
+    "rules": {
+      "id": "125a6200-8a9e-403b-a021-5a95d0a602fd",
+      "created_on": "2018-05-07T14:02:12+00:00",
+      "changed_on": "2018-05-07T14:03:55+00:00",
+      "label": "ShowSchedule",
+      "offset": 21600,
+      "limit": 3600,
+      "valid_from": "2018-02-12",
+      "valid_until": null,
+      "exception": false,
+      "days": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    "guide": {
+      "id": "59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16",
+      "created_on": "2018-02-16T10:31:12+00:00",
+      "changed_on": null,
+      "label": "Guide",
+      "body": "NPO Radio 5 Program"
+    },
+    "show": {
+      "id": "31ed796b-0282-4663-947c-64fc2c932e07",
+      "created_on": "2018-02-19T14:28:53+00:00",
+      "changed_on": "2018-03-28T14:53:33+00:00",
+      "label": "Show",
+      "body": "Wekker-Wakker! Non Stop"
+    },
+    "clock": null,
+    "users": {
+      "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        {
+          "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+          "created_on": "2018-02-19T11:56:02+00:00",
+          "changed_on": "2018-03-28T09:52:51+00:00",
+          "last_seen": "2018-02-19T11:56:02+00:00",
+          "label": "Person",
+          "preposition": "",
+          "initials": "",
+          "firstname": "Domien",
+          "prefix_lastname": "",
+          "lastname": "Verschuuren",
+          "nickname": null,
+          "tracking": false
+        }
+      ]
+    }
+  }
+}

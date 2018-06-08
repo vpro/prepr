@@ -24,7 +24,12 @@ public class MCEvent {
 
     MCRule rules;
 
+    MCGuide guide;
+
     MCShow show;
+
+    // No idea what this is.
+    String clock;
 
     MCUsers users;
 

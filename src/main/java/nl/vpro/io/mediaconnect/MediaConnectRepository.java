@@ -2,7 +2,6 @@ package nl.vpro.io.mediaconnect;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import nl.vpro.io.mediaconnect.domain.MCItems;
@@ -27,7 +26,7 @@ public interface MediaConnectRepository {
 
     MCItems<MCWebhook> getWebhooks() throws IOException;
 
-    MCWebhook createWebhook(String url, List<String> events) throws IOException;
+    MCWebhook createWebhook(String url, String... events) throws IOException;
 
     void deleteWebhook(UUID webhook) throws IOException;
 

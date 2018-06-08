@@ -1,0 +1,61 @@
+{
+  /**
+    Er is is bijgekomen op kanaal guide.id op 2018-05-08. Waarschijnlijk is het het simpelste om deze hele dag opnieuw in te lezen.
+    */
+  "id": "bcdb5d8d-61ae-4479-95a5-44151e40ac9b",
+  "created_on": 1525702141,
+  "event": "showschedule.created",
+  "payload": {
+    "from": "16:00:00",
+    "until": "18:00:00",
+    "offset": 57600,
+    "limit": 7200,
+    "rules": {
+      "id": "51ccaef8-31da-4ce2-beca-91af0675a476",
+      "created_on": "2018-05-07T14:09:00+00:00",
+      "changed_on": null,
+      "label": "ShowSchedule",
+      "offset": 57600,
+      "limit": 7200,
+      "valid_from": "2018-05-08",
+      "valid_until": "2018-05-08",
+      "exception": true,
+      "days": [
+        "2"
+      ]
+    },
+    "guide": {
+      "id": "59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16",
+      "created_on": "2018-02-16T10:31:12+00:00",
+      "changed_on": null,
+      "label": "Guide",
+      "body": "NPO Radio 5 Program"
+    },
+    "show": {
+      "id": "d5077a03-1b78-4725-b9d7-01275bd64efe",
+      "created_on": "2018-02-20T09:00:59+00:00",
+      "changed_on": "2018-03-28T13:21:11+00:00",
+      "label": "Show",
+      "body": "Andermans Veren"
+    },
+    "clock": null,
+    "users": {
+      "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        {
+          "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
+          "created_on": "2018-02-19T11:56:02+00:00",
+          "changed_on": "2018-03-28T09:52:51+00:00",
+          "last_seen": "2018-02-19T11:56:02+00:00",
+          "label": "Person",
+          "preposition": "",
+          "initials": "",
+          "firstname": "Domien",
+          "prefix_lastname": "",
+          "lastname": "Verschuuren",
+          "nickname": null,
+          "tracking": false
+        }
+      ]
+    }
+  }
+}

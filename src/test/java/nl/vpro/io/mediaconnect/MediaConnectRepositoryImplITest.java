@@ -2,13 +2,8 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -24,23 +19,7 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
 public class MediaConnectRepositoryImplITest {
 
 
-    MediaConnectRepositoryImpl impl;
-
-    {
-
-        try {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
-            impl = MediaConnectRepositoryImpl
-                .builder()
-                .clientId(properties.getProperty("client_id"))
-                .clientSecret(properties.getProperty("client_secret"))
-                .build();
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-        }
-    }
-
+    MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome();
 
     @Test
     public void authenticate() throws IOException {
@@ -76,10 +55,8 @@ public class MediaConnectRepositoryImplITest {
      @Test
     public void createWebhook() throws IOException {
          String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
-         List<String> events = Arrays.asList(
-             "showschedule.created",
+         log.info("new webook {}", impl.createWebhook(url,  "showschedule.created",
              "showschedule.changed",
-             "showschedule.deleted");
-         log.info("new webook {}", impl.createWebhook(url, events));
+             "showschedule.deleted"));
     }
 }

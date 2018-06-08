@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -65,6 +67,21 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     }
 
+    public static MediaConnectRepositoryImpl configuredInUserHome() {
+
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
+            return MediaConnectRepositoryImpl
+                .builder()
+                .clientId(properties.getProperty("client_id"))
+                .clientSecret(properties.getProperty("client_secret"))
+                .build();
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+    }
+
 
     @Override
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
@@ -86,7 +103,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public MCWebhook createWebhook(String callback_url, List<String> events) throws IOException {
+    public MCWebhook createWebhook(String callback_url, String... events) throws IOException {
         GenericUrl url = createUrl("webhooks");
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
@@ -138,6 +155,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         log.debug("Posting {}", form);
         Map<String, String> map = new TreeMap<>();
         form.forEach((k, v) -> {
+            if (v.getClass().isArray()) {
+                v = Arrays.asList((Object[]) v);
+            }
             if (v instanceof Collection) {
                 AtomicInteger i = new AtomicInteger(0);
                 ((Collection) v).forEach((e) -> {

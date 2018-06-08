@@ -2,12 +2,16 @@ package nl.vpro.io.mediaconnect.rs;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Properties;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -22,10 +26,14 @@ import org.apache.commons.io.IOUtils;
 /**
  * This can be used to verify webhook calls made by mediaconnect to your server
  *
- * It supposes an url of the form <code>../<channel id|webhook id></code>
+ * See
+ * https://developers.mediaconnect.io/docs/webhooks
+ * It supposes an url of the form <code>../<channel id></code>
  *
+ * It needs to know the webhook id, which must be registered via {#put(String channel, UUID)}
+
  *
- * TODO: perhaps it's clearer to simply suppose an url <code>/<webhook id></code> and ditch stuff with webhookids.properties.
+
  * @author Michiel Meeuwissen
  * @since 0.1
  */
@@ -36,13 +44,14 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     public static final String SIGNATURE = "Mediaconnect-Signature";
 
-    Properties properties = new Properties();
 
-    {
-        try {
-            properties.load(getClass().getResourceAsStream("/webhookids.properties"));
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
+
+    public static Map<String, UUID> webhookIds = new ConcurrentHashMap<>();
+
+
+    public static void put(String channel, UUID webhookId) {
+        if (webhookIds.put(channel, webhookId) == null) {
+            log.info("Registered webook {} -> {}", channel, webhookId);
         }
     }
 
@@ -64,21 +73,19 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     }
 
 
-    protected void validate(String signature, byte[] payload, String channel) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
-        String webhookId = properties.getProperty(channel + ".webhookid");
+    protected void validate(String signature, byte[] payload, String channel) throws NoSuchAlgorithmException, InvalidKeyException {
+        UUID webhookId = webhookIds.get(channel);
         String sign = sign(webhookId, payload);
         if (! Objects.equals(sign, signature)) {
             throw new SecurityException("Signature didn't match");
         }
     }
 
-    String sign(String webhookId, byte[] json) throws NoSuchAlgorithmException, InvalidKeyException {
+    String sign(UUID webhookId, byte[] json) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(webhookId.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(webhookId.toString().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         sha256_HMAC.init(secret_key);
         return new String(Hex.encodeHex(sha256_HMAC.doFinal(json)));
-
-
     }
 
 }
