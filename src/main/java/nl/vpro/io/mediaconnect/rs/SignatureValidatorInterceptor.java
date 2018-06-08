@@ -31,9 +31,7 @@ import org.apache.commons.io.IOUtils;
  * It supposes an url of the form <code>../<channel id></code>
  *
  * It needs to know the webhook id, which must be registered via {#put(String channel, UUID)}
-
  *
-
  * @author Michiel Meeuwissen
  * @since 0.1
  */
