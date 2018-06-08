@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.junit.Test;
 
 import nl.vpro.io.mediaconnect.domain.MCItems;
+import nl.vpro.io.mediaconnect.domain.MCSchedule;
 import nl.vpro.io.mediaconnect.domain.MCWebhook;
 
 /**
@@ -29,10 +30,9 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() throws IOException {
-        log.info("schedule: {}",
-            impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
-                , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8))
-        );
+        MCSchedule schedule = impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
+            , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8));
+        log.info("schedule: {}", schedule);
     }
 
 
