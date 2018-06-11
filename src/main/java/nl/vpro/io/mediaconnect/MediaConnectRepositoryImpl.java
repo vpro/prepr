@@ -90,8 +90,12 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @Override
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
         GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
-        url.set("from", from.toString());
-        url.set("until", until.toString());
+        if (from != null) {
+            url.set("from", from.toString());
+        }
+        if (until != null) {
+            url.set("until", until.toString());
+        }
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "timelines,show{tags,cover{source_file}},users");
 

@@ -24,6 +24,19 @@ public class MCShow extends MCContent {
 
     List<MCTag> tags;
 
-    MCAsset cover;
+    MCPhoto cover;
 
+    @Override
+    public String toString() {
+        return "MCShow{" +
+            "slug='" + slug + '\'' +
+            ", name='" + name + '\'' +
+            ", body='" + body + '\'' +
+            ", tags=" + tags +
+            ", cover=" + cover +
+            ", status=" + status +
+            ", id=" + id +
+            ", label='" + label + '\'' +
+            '}';
+    }
 }

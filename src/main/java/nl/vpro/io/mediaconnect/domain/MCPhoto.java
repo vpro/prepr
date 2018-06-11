@@ -12,8 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @JsonTypeName("Photo")
-
-public class MCAsset extends MCAbstractObject {
+public class MCPhoto extends MCAbstractObject {
 
     String name;
 
