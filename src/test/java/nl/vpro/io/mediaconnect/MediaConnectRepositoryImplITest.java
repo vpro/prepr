@@ -13,6 +13,8 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 import nl.vpro.io.mediaconnect.domain.MCWebhook;
 
+import static nl.vpro.io.mediaconnect.Paging.limit;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -43,7 +45,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() throws IOException {
-        MCItems<MCWebhook> webhooks = impl.getWebhooks(100L);
+        MCItems<MCWebhook> webhooks = impl.getWebhooks(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
@@ -68,7 +70,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getAsssets() throws IOException {
-        MCItems<MCAsset> assets  = impl.getAssets(100L);
+        MCItems<MCAsset> assets  = impl.getAssets(limit(100L));
         log.info("assets: {}", assets);
 
 

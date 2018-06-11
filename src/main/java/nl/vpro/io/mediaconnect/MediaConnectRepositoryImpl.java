@@ -107,9 +107,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCWebhook> getWebhooks(Long skip, Long limit) throws IOException {
+    public MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException {
         GenericUrl url = createUrl("webhooks");
-        addListParameters(url, skip, limit);
+        addListParameters(url, paging);
         return get(url, MCItems.class);
     }
 
@@ -131,21 +131,27 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public MCItems<MCAsset> getAssets(Long skip, Long limit) throws IOException {
+    public MCItems<MCAsset> getAssets(Paging paging) throws IOException {
         GenericUrl url = createUrl("assets");
-        addListParameters(url, skip, limit);
+        addListParameters(url, paging);
         url.set("fields", "name,body,reference,source_file,duration");
         return get(url, MCItems.class);
 
     }
 
 
-    protected void addListParameters(GenericUrl url, Long skip, Long limit) {
-        if (skip != null) {
-            url.set("skip", skip);
+    protected void addListParameters(GenericUrl url, Paging paging) {
+        if (paging.getSkip() != null) {
+            url.set("skip", paging.getSkip());
         }
-        if (limit != null) {
-            url.set("limit", limit);
+        if (paging.getLimit() != null) {
+            url.set("limit", paging.getLimit());
+        }
+        if (paging.getAfter() != null) {
+            log.warn("Not tested");
+        }
+           if (paging.getBefore() != null) {
+            log.warn("Not tested");
         }
 
     }
@@ -191,9 +197,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             }
             if (v instanceof Collection) {
                 AtomicInteger i = new AtomicInteger(0);
-                ((Collection) v).forEach((e) -> {
-                    map.put(k + "[" + i.getAndIncrement() + "]", toString(e));
-                });
+                ((Collection) v).forEach((e) ->
+                    map.put(k + "[" + i.getAndIncrement() + "]", toString(e))
+                );
             } else {
                 map.put(k, toString(v));
             }

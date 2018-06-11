@@ -25,22 +25,20 @@ public interface MediaConnectRepository {
 
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException;
 
-    MCItems<MCWebhook> getWebhooks(Long skip, Long limit) throws IOException;
+    MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException;
 
-    default MCItems<MCWebhook> getWebhooks(Long limit) throws IOException {
-        return getWebhooks(null, limit);
+    default MCItems<MCWebhook> getWebhooks() throws IOException {
+        return getWebhooks(Paging.builder().build());
     }
-
-
 
     MCWebhook createWebhook(String url, String... events) throws IOException;
 
     void deleteWebhook(UUID webhook) throws IOException;
 
-    MCItems<MCAsset> getAssets(Long skip, Long limit) throws IOException;
+    MCItems<MCAsset> getAssets(Paging paging) throws IOException;
 
-     default MCItems<MCAsset> getAssets(Long limit) throws IOException {
-        return getAssets(null, limit);
+     default MCItems<MCAsset> getAssets() throws IOException {
+        return getAssets(Paging.builder().build());
     }
 
 

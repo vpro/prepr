@@ -15,6 +15,8 @@ import javax.inject.Named;
 
 import nl.vpro.io.mediaconnect.MediaConnectRepository;
 
+import static nl.vpro.io.mediaconnect.Paging.limit;
+
 /**
  * When using {@link SignatureValidatorInterceptor} it needs to know the webhook ids. This class finds and registers them.
  *
@@ -51,7 +53,7 @@ public class WebhookIdsRegister {
 
     protected void registerWebhooks()  {
         try {
-            repository.getWebhooks(100L).forEach((mc) -> {
+            repository.getWebhooks(limit(100)).forEach((mc) -> {
                 if (mc.getCallback_url().startsWith(baseUrl)) {
                     URI uri = URI.create(mc.getCallback_url());
                     String[] path = uri.getPath().split("/");
