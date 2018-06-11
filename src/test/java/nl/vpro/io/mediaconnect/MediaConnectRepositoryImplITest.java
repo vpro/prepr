@@ -42,6 +42,7 @@ public class MediaConnectRepositoryImplITest {
         MCItems<MCWebhook> webhooks = impl.getWebhooks();
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
+            log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
