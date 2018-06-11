@@ -21,8 +21,9 @@ public class MCObjectMapper extends ObjectMapper {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         INSTANCE.registerModule(javaTimeModule);
         INSTANCE.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        INSTANCE.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
-        INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true);
+        INSTANCE.configure(JsonParser.Feature.ALLOW_COMMENTS, true); // always nice for examples
+        INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true); // forward compatibility
+        // We sometimes see for arrays : ""
         INSTANCE.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         INSTANCE.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
