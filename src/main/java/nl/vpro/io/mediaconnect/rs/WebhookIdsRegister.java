@@ -51,7 +51,7 @@ public class WebhookIdsRegister {
 
     protected void registerWebhooks()  {
         try {
-            repository.getWebhooks().forEach((mc) -> {
+            repository.getWebhooks(100L).forEach((mc) -> {
                 if (mc.getCallback_url().startsWith(baseUrl)) {
                     URI uri = URI.create(mc.getCallback_url());
                     String[] path = uri.getPath().split("/");

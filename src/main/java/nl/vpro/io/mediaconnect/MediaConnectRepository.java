@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import nl.vpro.io.mediaconnect.domain.MCAsset;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 import nl.vpro.io.mediaconnect.domain.MCWebhook;
@@ -24,11 +25,23 @@ public interface MediaConnectRepository {
 
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException;
 
-    MCItems<MCWebhook> getWebhooks() throws IOException;
+    MCItems<MCWebhook> getWebhooks(Long skip, Long limit) throws IOException;
+
+    default MCItems<MCWebhook> getWebhooks(Long limit) throws IOException {
+        return getWebhooks(null, limit);
+    }
+
+
 
     MCWebhook createWebhook(String url, String... events) throws IOException;
 
     void deleteWebhook(UUID webhook) throws IOException;
+
+    MCItems<MCAsset> getAssets(Long skip, Long limit) throws IOException;
+
+     default MCItems<MCAsset> getAssets(Long limit) throws IOException {
+        return getAssets(null, limit);
+    }
 
 
 }

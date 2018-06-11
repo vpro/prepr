@@ -20,9 +20,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = MCWebhook.class, name = "Webhook"),
     @JsonSubTypes.Type(value = MCTimeline.class, name = "Timeline"),
-    @JsonSubTypes.Type(value = MCShow.class, name = "Show")
-})
+    @JsonSubTypes.Type(value = MCShow.class, name = "Show"),
+    @JsonSubTypes.Type(value = MCPhoto.class, name = "Photo"),
+    @JsonSubTypes.Type(value = MCVideo.class, name = "Video"),
+    @JsonSubTypes.Type(value = MCAudio.class, name = "Audio")
 
+})
 public class MCAbstractObject  {
 
     public static String CRID_PREFIX =  "crid://mediaconnect.io/";

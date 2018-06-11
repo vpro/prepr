@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
+import nl.vpro.io.mediaconnect.domain.MCAsset;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 import nl.vpro.io.mediaconnect.domain.MCWebhook;
@@ -21,6 +22,9 @@ public class MediaConnectRepositoryImplITest {
 
 
     MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome();
+    {
+        impl.setLogAsCurl(true);
+    }
 
     @Test
     public void authenticate() throws IOException {
@@ -39,7 +43,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() throws IOException {
-        MCItems<MCWebhook> webhooks = impl.getWebhooks();
+        MCItems<MCWebhook> webhooks = impl.getWebhooks(100L);
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
@@ -59,5 +63,14 @@ public class MediaConnectRepositoryImplITest {
          log.info("new webook {}", impl.createWebhook(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
+    }
+
+
+    @Test
+    public void getAsssets() throws IOException {
+        MCItems<MCAsset> assets  = impl.getAssets(100L);
+        log.info("assets: {}", assets);
+
+
     }
 }

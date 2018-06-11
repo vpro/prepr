@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import java.net.URI;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("SourceFile")
+@JsonIgnoreProperties({"url", "url_msg"})   // deprecated
 public class MCSourceFile extends MCAbstractObject {
 
     String original_name;
@@ -25,5 +27,18 @@ public class MCSourceFile extends MCAbstractObject {
     URI file;
 
     String cdn_url;
+
+    String waveform_url;
+
+    String watermarked_url;
+
+    String chunks;
+
+    Long start_offset;
+
+    Long end_offset;
+
+
+
 
 }

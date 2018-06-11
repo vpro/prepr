@@ -1,6 +1,7 @@
 package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
@@ -22,10 +23,7 @@ import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import nl.vpro.io.mediaconnect.domain.MCItems;
-import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
-import nl.vpro.io.mediaconnect.domain.MCSchedule;
-import nl.vpro.io.mediaconnect.domain.MCWebhook;
+import nl.vpro.io.mediaconnect.domain.*;
 
 
 /**
@@ -49,6 +47,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     private final String clientId;
 
     private final String clientSecret;
+
+    @Setter
+    @Getter
+    private boolean logAsCurl;
 
     @Getter
     private TokenResponse tokenResponse;
@@ -97,7 +99,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             url.set("until", until.toString());
         }
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
-        url.set("fields", "timelines,show{tags,cover{source_file}},users");
+        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{source_file}},users");
 
         return get(url, MCSchedule.class);
     }
@@ -105,8 +107,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCWebhook> getWebhooks() throws IOException {
+    public MCItems<MCWebhook> getWebhooks(Long skip, Long limit) throws IOException {
         GenericUrl url = createUrl("webhooks");
+        addListParameters(url, skip, limit);
         return get(url, MCItems.class);
     }
 
@@ -125,6 +128,26 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     public void deleteWebhook(UUID webhook) throws IOException {
         GenericUrl url = createUrl("webhooks", webhook);
         delete(url);
+    }
+
+    @Override
+    public MCItems<MCAsset> getAssets(Long skip, Long limit) throws IOException {
+        GenericUrl url = createUrl("assets");
+        addListParameters(url, skip, limit);
+        url.set("fields", "name,body,reference,source_file,duration");
+        return get(url, MCItems.class);
+
+    }
+
+
+    protected void addListParameters(GenericUrl url, Long skip, Long limit) {
+        if (skip != null) {
+            url.set("skip", skip);
+        }
+        if (limit != null) {
+            url.set("limit", limit);
+        }
+
     }
 
 
@@ -187,7 +210,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
         authenticate(httpRequest);
-        log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
+        if (logAsCurl) {
+            log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}'\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl());
+        } else {
+            log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
+        }
         return httpRequest.execute();
     }
 
