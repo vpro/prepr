@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect;
 import lombok.Data;
 
 /**
+ * https://developers.mediaconnect.io/docs/fields-explained#section-offset-based-pagination-limits
+ *
  * @author Michiel Meeuwissen
  * @since 0.1
  */

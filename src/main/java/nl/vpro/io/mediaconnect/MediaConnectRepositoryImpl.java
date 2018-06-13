@@ -130,6 +130,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         delete(url);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public MCItems<MCAsset> getAssets(Paging paging) throws IOException {
         GenericUrl url = createUrl("assets");
