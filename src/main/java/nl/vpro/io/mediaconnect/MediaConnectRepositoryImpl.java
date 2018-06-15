@@ -93,7 +93,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    @SneakyThrows(IOException.class)
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
         GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {
@@ -111,7 +110,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    @SneakyThrows(IOException.class)
     public MCItems<MCWebhook> getWebhooks(Paging paging) {
         GenericUrl url = createUrl("webhooks");
         addListParameters(url, paging);
