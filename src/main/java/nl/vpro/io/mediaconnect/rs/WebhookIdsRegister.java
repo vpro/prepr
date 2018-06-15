@@ -2,7 +2,6 @@ package nl.vpro.io.mediaconnect.rs;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.net.URI;
 import java.time.Duration;
 import java.util.concurrent.Executors;
@@ -52,8 +51,7 @@ public class WebhookIdsRegister {
 
 
     protected void registerWebhooks()  {
-        try {
-            repository.getWebhooks(limit(100)).forEach((mc) -> {
+        repository.getWebhooks(limit(100)).forEach((mc) -> {
                 if (mc.getCallback_url().startsWith(baseUrl)) {
                     URI uri = URI.create(mc.getCallback_url());
                     String[] path = uri.getPath().split("/");
@@ -61,9 +59,6 @@ public class WebhookIdsRegister {
                 }
                 }
             );
-        } catch (IOException ioe) {
-            log.error(ioe.getMessage());
-        }
     }
 
 
