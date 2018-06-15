@@ -93,7 +93,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    @SneakyThrows
+    @SneakyThrows(IOException.class)
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
         GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {
@@ -111,7 +111,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    @SneakyThrows
+    @SneakyThrows(IOException.class)
     public MCItems<MCWebhook> getWebhooks(Paging paging) {
         GenericUrl url = createUrl("webhooks");
         addListParameters(url, paging);
@@ -143,7 +143,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    @SneakyThrows
+    @SneakyThrows(IOException.class)
     public MCWebhook createWebhook(String callback_url, String... events)  {
         GenericUrl url = createUrl("webhooks");
         Map<String, Object> post = new HashMap<>();
@@ -155,7 +155,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    @SneakyThrows
+    @SneakyThrows(IOException.class)
     public void deleteWebhook(UUID webhook) {
         GenericUrl url = createUrl("webhooks", webhook);
         delete(url);
@@ -195,7 +195,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
-    @SneakyThrows
+    @SneakyThrows(IOException.class)
     protected <T> T get(GenericUrl url, Class<T> clazz) {
         HttpResponse execute = get(url);
         return MCObjectMapper.INSTANCE.readerFor(clazz).readValue(execute.getContent());
