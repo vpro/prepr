@@ -1,6 +1,5 @@
 package nl.vpro.io.mediaconnect;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,25 +23,25 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
  */
 public interface MediaConnectRepository {
 
-    MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException;
+    MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
 
-    MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException;
+    MCItems<MCWebhook> getWebhooks(Paging paging);
 
-    MCItems<?> getChannels(Paging paging) throws IOException;
+    MCItems<?> getChannels(Paging paging);
 
-    MCItems<?> getPublications(Paging paging, UUID channel, LocalDateTime event_from, LocalDateTime event_utils) throws IOException;
+    MCItems<?> getPublications(Paging paging, UUID channel, LocalDateTime event_from, LocalDateTime event_utils);
 
-    default MCItems<MCWebhook> getWebhooks() throws IOException {
+    default MCItems<MCWebhook> getWebhooks() {
         return getWebhooks(Paging.builder().build());
     }
 
-    MCWebhook createWebhook(String url, String... events) throws IOException;
+    MCWebhook createWebhook(String url, String... events);
 
-    void deleteWebhook(UUID webhook) throws IOException;
+    void deleteWebhook(UUID webhook);
 
-    MCItems<MCAsset> getAssets(Paging paging) throws IOException;
+    MCItems<MCAsset> getAssets(Paging paging);
 
-     default MCItems<MCAsset> getAssets() throws IOException {
+     default MCItems<MCAsset> getAssets() {
         return getAssets(Paging.builder().build());
     }
 

@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
@@ -92,7 +93,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException {
+    @SneakyThrows
+    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
         GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {
             url.set("from", from.toString());
@@ -109,14 +111,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException {
+    @SneakyThrows
+    public MCItems<MCWebhook> getWebhooks(Paging paging) {
         GenericUrl url = createUrl("webhooks");
         addListParameters(url, paging);
         return get(url, MCItems.class);
     }
 
     @Override
-    public MCItems<?> getChannels(Paging paging) throws IOException {
+    public MCItems<?> getChannels(Paging paging) {
         GenericUrl url = createUrl("channels");
         addListParameters(url, paging);
         return get(url, MCItems.class);
@@ -125,7 +128,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public MCItems<?> getPublications(Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) throws IOException {
+    public MCItems<?> getPublications(Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
         GenericUrl url = createUrl("publications");
         addListParameters(url, paging);
         url.set("channel_id", channel);
@@ -140,7 +143,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public MCWebhook createWebhook(String callback_url, String... events) throws IOException {
+    @SneakyThrows
+    public MCWebhook createWebhook(String callback_url, String... events)  {
         GenericUrl url = createUrl("webhooks");
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
@@ -151,14 +155,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public void deleteWebhook(UUID webhook) throws IOException {
+    @SneakyThrows
+    public void deleteWebhook(UUID webhook) {
         GenericUrl url = createUrl("webhooks", webhook);
         delete(url);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCAsset> getAssets(Paging paging) throws IOException {
+    public MCItems<MCAsset> getAssets(Paging paging) {
         GenericUrl url = createUrl("assets");
         addListParameters(url, paging);
         url.set("fields", "name,body,reference,source_file,duration");
@@ -190,7 +195,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
-    protected <T> T get(GenericUrl url, Class<T> clazz) throws IOException {
+    @SneakyThrows
+    protected <T> T get(GenericUrl url, Class<T> clazz) {
         HttpResponse execute = get(url);
         return MCObjectMapper.INSTANCE.readerFor(clazz).readValue(execute.getContent());
     }
