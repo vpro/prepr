@@ -44,6 +44,24 @@ public class MediaConnectRepositoryImplITest {
 
 
     @Test
+    public void getPublications() throws IOException {
+        MCItems<?> publications = impl.getPublications(Paging.builder().build(),
+            UUID.fromString("028b041f-7951-45f4-a83f-cd88bdb336c0"),  // Channel.RAD5)
+                null, null);
+        log.info("publications : {}", publications);
+    }
+
+
+
+    @Test
+    public void getChannels() throws IOException {
+        MCItems<?> publications = impl.getChannels(Paging.builder().build());
+        log.info("publications : {}", publications);
+    }
+
+
+
+    @Test
     public void getWebhooksAndDelete() throws IOException {
         MCItems<MCWebhook> webhooks = impl.getWebhooks(limit(100L));
         log.info("webhooks: {}", webhooks);

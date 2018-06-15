@@ -10,9 +10,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
@@ -110,6 +112,30 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     public MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException {
         GenericUrl url = createUrl("webhooks");
         addListParameters(url, paging);
+        return get(url, MCItems.class);
+    }
+
+    @Override
+    public MCItems<?> getChannels(Paging paging) throws IOException {
+        GenericUrl url = createUrl("channels");
+        addListParameters(url, paging);
+        return get(url, MCItems.class);
+
+
+    }
+
+    @Override
+    public MCItems<?> getPublications(Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) throws IOException {
+        GenericUrl url = createUrl("publications");
+        addListParameters(url, paging);
+        url.set("channel_id", channel);
+        //url.set("label", "Post");
+        if (event_from != null) {
+            url.set("event_from", event_from);
+        }
+        if (event_until != null) {
+            url.set("event_until", event_until);
+        }
         return get(url, MCItems.class);
     }
 

@@ -23,7 +23,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = MCShow.class, name = "Show"),
     @JsonSubTypes.Type(value = MCPhoto.class, name = "Photo"),
     @JsonSubTypes.Type(value = MCVideo.class, name = "Video"),
-    @JsonSubTypes.Type(value = MCAudio.class, name = "Audio")
+    @JsonSubTypes.Type(value = MCAudio.class, name = "Audio"),
+    @JsonSubTypes.Type(value = MCPost.class, name = "Post")
+
 
 })
 public class MCAbstractObject  {

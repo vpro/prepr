@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import nl.vpro.io.mediaconnect.domain.MCAsset;
@@ -26,6 +27,10 @@ public interface MediaConnectRepository {
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) throws IOException;
 
     MCItems<MCWebhook> getWebhooks(Paging paging) throws IOException;
+
+    MCItems<?> getChannels(Paging paging) throws IOException;
+
+    MCItems<?> getPublications(Paging paging, UUID channel, LocalDateTime event_from, LocalDateTime event_utils) throws IOException;
 
     default MCItems<MCWebhook> getWebhooks() throws IOException {
         return getWebhooks(Paging.builder().build());
