@@ -35,8 +35,8 @@ public class MediaConnectRepositoryImplITest {
     public void getSchedule() {
         MCSchedule schedule = impl.getSchedule(
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"), // Guide ID van Channel.RAD2
-            LocalDate.of(2018, 7, 6),
-            LocalDate.of(2018, 7, 6));
+            LocalDate.of(2018, 7, 4),
+            LocalDate.of(2018, 7, 4));
         log.info("schedule: {}", schedule);
     }
 
@@ -53,8 +53,8 @@ public class MediaConnectRepositoryImplITest {
 
 
     @Test
-    public void getPublications() {
-        MCPost publications = impl.getPublications(
+    public void getPublication() {
+        MCPost publications = impl.getPublication(
             UUID.fromString("bd6bdae7-24c5-4185-90f8-005b1e8b0e83")
         );
         log.info("publications : {}", publications);

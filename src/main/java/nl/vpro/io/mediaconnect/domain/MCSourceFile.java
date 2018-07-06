@@ -7,6 +7,7 @@ import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -34,9 +35,20 @@ public class MCSourceFile extends MCAbstractObject {
 
     String chunks;
 
+    // betekent niks.
     Long start_offset;
 
     Long end_offset;
+
+    JsonNode resized;
+
+    public String getUrl() {
+        if (resized != null && resized.has("picture")) {
+            return resized.get("picture").textValue();
+        } else {
+            return cdn_url;
+        }
+    }
 
 
 

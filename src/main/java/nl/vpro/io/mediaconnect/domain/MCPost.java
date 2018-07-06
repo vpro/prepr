@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -28,8 +29,8 @@ public class MCPost extends MCContent {
 
     MCTimeline container;
 
-
-    List<MCAbstractObject> element;
+    @JsonProperty("element")
+    List<MCAbstractObject> elements;
 
     MCChannel channel;
 

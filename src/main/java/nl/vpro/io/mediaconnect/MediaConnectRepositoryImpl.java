@@ -144,12 +144,12 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    public MCPost getPublications(
+    public MCPost getPublication(
         @Nonnull  UUID id) {
         GenericUrl url = createUrl("publications", id.toString());
         url.set("label", "Post");
         url.set("status", "published");
-        url.set("fields", "container,element{media{source_file}}");
+        url.set("fields", "container,element{media{source_file{resized{picture.width(1920)}}}}");
         return get(url, MCPost.class);
     }
 

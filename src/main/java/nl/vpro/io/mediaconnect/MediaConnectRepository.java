@@ -33,7 +33,7 @@ public interface MediaConnectRepository {
         LocalDateTime event_utils
     );
 
-    MCPost getPublications(
+    MCPost getPublication(
         UUID id
     );
 

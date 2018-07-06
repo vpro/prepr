@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Timeline")
-public class MCTimeline extends MCAbstractObject {
+public class MCTimeline extends MCContent {
 
     String reference_id;
 
