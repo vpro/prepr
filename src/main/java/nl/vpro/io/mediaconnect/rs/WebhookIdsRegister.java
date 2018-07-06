@@ -44,6 +44,7 @@ public class WebhookIdsRegister {
 
     @PostConstruct
     public void init() {
+        log.info("Webhookids Registry: {}", baseUrl);
         backgroundExecutor.scheduleAtFixedRate(this::registerWebhooks
             , 0, Duration.ofMinutes(5).toMillis(), TimeUnit.MILLISECONDS
         );
