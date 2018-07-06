@@ -42,8 +42,6 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     public static final String SIGNATURE = "Mediaconnect-Signature";
 
-
-
     public static Map<String, UUID> webhookIds = new ConcurrentHashMap<>();
 
 
@@ -74,14 +72,13 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     protected void validate(String signature, byte[] payload, String channel) throws NoSuchAlgorithmException, InvalidKeyException {
         UUID webhookId = webhookIds.get(channel);
         if (webhookId == null)  {
-            log.warn("no webhook found for {}", channel);
-            return;
+            log.warn("no webhookId found for {}", channel);
         }
         String sign = sign(webhookId, payload);
 
         if (signature == null || ! Objects.equals(sign, signature)) {
-            log.warn("Signoature does'nt match");
-            //throw new SecurityException("Signature didn't match");
+            ///log.warn("Signoature does'nt match");
+            throw new SecurityException("Signature didn't match");
 
         } else {
             log.debug("Validated {}", signature);

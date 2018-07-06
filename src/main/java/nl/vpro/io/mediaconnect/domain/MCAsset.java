@@ -13,8 +13,6 @@ public abstract class MCAsset extends MCAbstractObject {
 
     String name;
 
-    String body;
-
     String reference;
 
     String author;
