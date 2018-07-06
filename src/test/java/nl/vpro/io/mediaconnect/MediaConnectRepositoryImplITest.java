@@ -79,9 +79,9 @@ public class MediaConnectRepositoryImplITest {
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
-
+                impl.deleteWebhook(webhook.getId());
             }
-            impl.deleteWebhook(webhook.getId());
+
         }
 
     }
