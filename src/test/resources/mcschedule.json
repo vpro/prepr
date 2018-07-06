@@ -30,7 +30,7 @@
         "body": "'t Wordt nu laat",
         "published_on": null,
         "unpublish_on": null,
-        "reference_id": "MID_123"
+        "reference": "MID_123"
       },
       "users": {
         "586643d3-0c02-43fe-80bf-fba9590aa41b": [
@@ -47,7 +47,7 @@
             "lastname": "de Bruijn",
             "nickname": null,
             "tracking": true,
-            "reference_id": "gtaa uri"
+            "reference": "gtaa uri"
           },
           {
             "id": "d06fc0d7-ccd3-4467-bd0c-6bd97341fbbf",

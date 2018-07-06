@@ -32,4 +32,6 @@ public class MCUser extends MCAbstractObject {
 
     boolean tracking;
 
+    String reference;
+
 }

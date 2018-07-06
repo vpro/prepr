@@ -26,6 +26,10 @@ public class MCShow extends MCContent {
 
     MCPhoto cover;
 
+    String reference;
+
+
+
     @Override
     public String toString() {
         return "MCShow{" +

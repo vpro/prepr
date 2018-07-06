@@ -25,9 +25,9 @@ public class MCScheduleTest {
 
         MCEvent next = schedule.getDays().get(LocalDate.of(2018, 7, 6)).iterator().next();
         assertThat(next.getFrom()).isEqualTo(LocalTime.of(0, 0));
-        assertThat(next.getShow().getBody()).isEqualTo("Een ontbijt van lekkere muziek en actuele gesprekken met Manuëla Kemp en Henk Mouwe.");
-        assertThat(next.getShow().getCrid()).isEqualTo("crid://mediaconnect.io/show/098cdfa6-5f13-4534-a013-d94956ad63f2");
-        assertThat(next.getShow().getTags().get(0).getSlug()).isEqualTo("omroep-max");
+        assertThat(next.getShow().getBody()).isEqualTo("'t Wordt nu laat");
+        assertThat(next.getShow().getCrid()).isEqualTo("crid://mediaconnect.io/show/57b397a5-4049-414f-bab2-771f60943321");
+        //assertThat(next.getShow().getTags().get(0).getSlug()).isEqualTo("omroep-max");
 
 
 
