@@ -74,12 +74,13 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         if (webhookId == null)  {
             log.warn("no webhookId found for {}", channel);
         }
+         if (signature == null) {
+             throw new SecurityException("No signature given");
+         }
         String sign = sign(webhookId, payload);
 
-        if (signature == null || ! Objects.equals(sign, signature)) {
-            ///log.warn("Signoature does'nt match");
+        if (! Objects.equals(sign, signature)) {
             throw new SecurityException("Signature didn't match");
-
         } else {
             log.debug("Validated {}", signature);
         }
