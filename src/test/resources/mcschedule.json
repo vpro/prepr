@@ -1,121 +1,146 @@
 {
-  "2018-05-07": [
+  "2018-07-06": [
     {
       "from": "00:00:00",
-      "until": "00:10:00",
+      "until": "02:00:00",
       "offset": 0,
-      "limit": 600,
+      "limit": 7200,
       "rules": {
-        "id": "c4b6fd32-2bf0-4ce2-a8e5-7f657bb318ea",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T09:13:12+00:00",
+        "id": "e165d807-bab2-48c8-a247-00db27397c72",
+        "created_on": "2018-06-07T07:35:28+00:00",
+        "changed_on": "2018-06-12T17:51:45+00:00",
         "label": "ShowSchedule",
         "offset": 0,
-        "limit": 600,
-        "valid_from": "2018-02-12",
+        "limit": 7200,
+        "valid_from": "2018-06-04",
         "valid_until": null,
         "exception": false,
         "days": [
-          "1",
           "2",
           "3",
           "4",
-          "5",
-          "7"
+          "5"
         ]
       },
       "show": {
-        "id": "098cdfa6-5f13-4534-a013-d94956ad63f2",
-        "created_on": "2018-02-20T08:55:16+00:00",
-        "changed_on": "2018-05-07T09:18:15+00:00",
-        "published_on": "2018-05-07T09:18:15+00:00",
-        "unpublish_on": null,
+        "id": "57b397a5-4049-414f-bab2-771f60943321",
+        "created_on": "2018-06-12T17:27:36+00:00",
+        "changed_on": "2018-06-26T08:17:02+00:00",
         "label": "Show",
-        "status": "published",
-        "slug": null,
-        "body": "Een ontbijt van lekkere muziek en actuele gesprekken met Manuëla Kemp en Henk Mouwe.",
-        "name": "Wekker-Wakker!",
-        "tags": [
-          {
-            "id": "6aeb3c99-f06a-40da-b8db-56ce9eab2a6a",
-            "created_on": "2018-02-19T10:20:22+00:00",
-            "changed_on": "2018-02-19T10:20:28+00:00",
-            "label": "Tag",
-            "name": "Omroep MAX",
-            "slug": "omroep-max",
-            "color": ""
-          }
-        ],
-        "cover": {
-          "id": "8b50c61a-242f-48e3-a3fa-7925ff8914db",
-          "created_on": "2018-05-07T09:18:04+00:00",
-          "changed_on": "2018-05-07T09:18:10+00:00",
-          "label": "Photo",
-          "name": null,
-          "body": null,
-          "reference": null,
-          "author": null,
-          "source_file": {
-            "id": "67a0dc5f-238a-4b5c-a648-f779738ece8d",
-            "created_on": "2018-05-07T09:18:04+00:00",
-            "changed_on": null,
-            "label": "SourceFile",
-            "original_name": "wekker-wakker_1100_600 (1).jpg",
-            "mime_type": "image/jpeg",
-            "file_size": 186961,
-            "file": "https://s3.eu-central-1.amazonaws.com/s3-nporadio5/67a0dc5f-238a-4b5c-a648-f779738ece8d",
-            "cdn_url": "https://d3f7xa61jjyoia.cloudfront.net/{format}/s3-nporadio5/67a0dc5f-238a-4b5c-a648-f779738ece8d.jpg"
-          }
-        }
+        "body": "'t Wordt nu laat",
+        "published_on": null,
+        "unpublish_on": null,
+        "reference_id": "MID_123"
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "97926b24-75c8-40d6-bf25-779d8ec77548",
+            "created_on": "2018-06-12T17:46:05+00:00",
+            "changed_on": "2018-06-12T17:51:39+00:00",
+            "last_seen": "2018-06-12T17:46:05+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Evelien",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "de Bruijn",
             "nickname": null,
-            "tracking": false
+            "tracking": true,
+            "reference_id": "gtaa uri"
+          },
+          {
+            "id": "d06fc0d7-ccd3-4467-bd0c-6bd97341fbbf",
+            "created_on": "2018-06-12T17:46:19+00:00",
+            "changed_on": null,
+            "last_seen": "2018-06-12T17:46:19+00:00",
+            "label": "Person",
+            "preposition": "",
+            "initials": "",
+            "firstname": "Carolien",
+            "prefix_lastname": "",
+            "lastname": "Borgers",
+            "nickname": null,
+            "tracking": true
           }
         ]
       },
       "timelines": [
         {
-          "id": "9d57c947-b004-4893-a476-973a82d6e00e",
+          "id": "3743297d-20c4-4c51-8482-8291d1d423ae",
           "created_on": "2018-02-16T10:31:52+00:00",
           "changed_on": "2018-02-16T10:31:52+00:00",
           "label": "Timeline",
-          "reference_id": "2f867535-7381-435c-8004-6046ac057e93"
+          "reference_id": "55c681b7-1301-482c-a1c4-06e48aa0f9a1"
         },
         {
-          "id": "02f2b00c-6c3a-4191-9a95-8aaedd077db6",
+          "id": "ad81b220-f405-4bfc-939b-7c2b9f7c41f7",
           "created_on": "2018-01-12T12:32:52+00:00",
           "changed_on": "2018-01-12T15:43:11+00:00",
           "label": "Timeline",
-          "reference_id": "2f867535-7381-435c-8004-6046ac057e93"
+          "reference_id": "55c681b7-1301-482c-a1c4-06e48aa0f9a1"
         }
       ]
     },
     {
-      "from": "00:10:00",
-      "until": "06:00:00",
-      "offset": 600,
-      "limit": 21000,
+      "from": "02:00:00",
+      "until": "04:00:00",
+      "offset": 7200,
+      "limit": 7200,
       "rules": {
-        "id": "377fbd37-dcb6-498d-91f4-56b987b3e2ca",
-        "created_on": "2018-02-16T10:31:49+00:00",
-        "changed_on": "2018-05-07T08:27:12+00:00",
+        "id": "9ac4e55c-d314-4c77-9917-fdbf36e90442",
+        "created_on": "2018-06-12T17:35:00+00:00",
+        "changed_on": null,
         "label": "ShowSchedule",
-        "offset": 600,
-        "limit": 21000,
-        "valid_from": "2018-02-12",
+        "offset": 7200,
+        "limit": 7200,
+        "valid_from": "2018-06-15",
+        "valid_until": null,
+        "exception": false,
+        "days": [
+          "5"
+        ]
+      },
+      "show": {
+        "id": "28d61c22-8fad-4b81-a928-f9663afed7c3",
+        "created_on": "2018-06-12T17:26:57+00:00",
+        "changed_on": "2018-06-12T17:26:57+00:00",
+        "label": "Show",
+        "body": "Rutger",
+        "published_on": null,
+        "unpublish_on": null
+      },
+      "users": null,
+      "timelines": [
+        {
+          "id": "204d54f5-bef8-4667-bfb4-e88353a2d1c1",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "ab8009e5-c19c-43dc-88e2-41c8d14e2c71"
+        },
+        {
+          "id": "d99790ab-7b02-4e95-8950-7d31534e9d7a",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "ab8009e5-c19c-43dc-88e2-41c8d14e2c71"
+        }
+      ]
+    },
+    {
+      "from": "04:00:00",
+      "until": "06:00:00",
+      "offset": 14400,
+      "limit": 7200,
+      "rules": {
+        "id": "1d22d015-14b5-4b8a-972a-c3ad14077ed5",
+        "created_on": "2018-06-07T07:35:28+00:00",
+        "changed_on": "2018-06-12T17:49:22+00:00",
+        "label": "ShowSchedule",
+        "offset": 14400,
+        "limit": 7200,
+        "valid_from": "2018-06-04",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -123,99 +148,66 @@
           "2",
           "3",
           "4",
-          "5",
-          "7"
+          "5"
         ]
       },
       "show": {
-        "id": "d265f6fb-d298-4bd2-8f6f-33138fdffbd1",
-        "created_on": "2018-02-16T10:31:48+00:00",
-        "changed_on": "2018-02-26T13:16:53+00:00",
+        "id": "01312fb8-045f-42c5-b163-82e818190c09",
+        "created_on": "2018-06-12T17:28:12+00:00",
+        "changed_on": "2018-06-26T08:26:17+00:00",
         "label": "Show",
-        "body": "Standaard programma"
+        "body": "Vroeg op Frank",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "fe115056-e198-4673-a4c8-7922cf324438",
+            "created_on": "2018-06-12T17:47:18+00:00",
+            "changed_on": null,
+            "last_seen": "2018-06-12T17:47:18+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Frank",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "van t Hof",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "7f3f64c5-7fe0-41d5-8152-5a399e07cf8b",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "34e81802-bf5c-4a72-82d0-02a4bfc9b123"
+        },
+        {
+          "id": "15e0ca6c-c4bb-4985-942d-4c7dec07a219",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "34e81802-bf5c-4a72-82d0-02a4bfc9b123"
+        }
+      ]
     },
     {
       "from": "06:00:00",
-      "until": "07:00:00",
+      "until": "09:00:00",
       "offset": 21600,
-      "limit": 3600,
-      "rules": {
-        "id": "6257faa9-e95a-471b-844d-f7f0b0fbb769",
-        "created_on": "2018-02-19T19:31:21+00:00",
-        "changed_on": "2018-05-07T08:27:21+00:00",
-        "label": "ShowSchedule",
-        "offset": 21600,
-        "limit": 3600,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6"
-        ]
-      },
-      "show": {
-        "id": "31ed796b-0282-4663-947c-64fc2c932e07",
-        "created_on": "2018-02-19T14:28:53+00:00",
-        "changed_on": "2018-03-28T14:53:33+00:00",
-        "label": "Show",
-        "body": "Wekker-Wakker! Non Stop"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "07:00:00",
-      "until": "10:00:00",
-      "offset": 25200,
       "limit": 10800,
       "rules": {
-        "id": "703fceb1-4e3a-400b-a40b-3fbbaec1e94f",
-        "created_on": "2018-02-19T19:32:18+00:00",
-        "changed_on": "2018-05-07T08:27:16+00:00",
+        "id": "89c86dad-8bf3-4023-854c-3db397360c93",
+        "created_on": "2018-07-04T11:30:56+00:00",
+        "changed_on": "2018-07-04T11:31:15+00:00",
         "label": "ShowSchedule",
-        "offset": 25200,
+        "offset": 21600,
         "limit": 10800,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-07-02",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -227,44 +219,78 @@
         ]
       },
       "show": {
-        "id": "df00cef1-a401-4941-b084-dd752a0e4cac",
-        "created_on": "2018-02-19T14:29:03+00:00",
-        "changed_on": "2018-03-28T15:05:43+00:00",
+        "id": "0ca919c2-0f4b-4eee-8595-f4da3876ae2a",
+        "created_on": "2018-07-04T11:29:18+00:00",
+        "changed_on": "2018-07-04T11:29:18+00:00",
         "label": "Show",
-        "body": "Je Dag Is Goed"
+        "body": "Jan-Willem start op",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "60671c1f-fe13-46f3-b2ef-17f77a7d2a5f": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "2aacc166-31cd-4fdb-bd1a-08ae6d13a507",
+            "created_on": "2018-06-12T17:41:59+00:00",
+            "changed_on": "2018-07-04T12:26:50+00:00",
+            "last_seen": "2018-06-12T17:41:59+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Jeroen",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "Kijk in de Vegte",
             "nickname": null,
-            "tracking": false
+            "tracking": true
+          }
+        ],
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
+          {
+            "id": "bca6ccbc-8e19-49c1-a7a2-5f871c2d5a1b",
+            "created_on": "2018-06-12T17:44:32+00:00",
+            "changed_on": "2018-07-04T12:26:31+00:00",
+            "last_seen": "2018-06-12T17:44:32+00:00",
+            "label": "Person",
+            "preposition": "",
+            "initials": "",
+            "firstname": "Jan-Willem",
+            "prefix_lastname": "",
+            "lastname": "Roodbeen",
+            "nickname": null,
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "12c86c8a-c531-4cab-91e3-f3bf029859fd",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "e99e5e38-fc89-455b-97c1-113f32c94fbd"
+        },
+        {
+          "id": "f1e6d1f1-9ccd-4bce-9dc1-837002a41dd4",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "e99e5e38-fc89-455b-97c1-113f32c94fbd"
+        }
+      ]
     },
     {
-      "from": "10:00:00",
+      "from": "09:00:00",
       "until": "12:00:00",
-      "offset": 36000,
-      "limit": 7200,
+      "offset": 32400,
+      "limit": 10800,
       "rules": {
-        "id": "dc79e625-1176-4a87-a788-fac1feeec478",
-        "created_on": "2018-02-19T19:41:29+00:00",
-        "changed_on": "2018-05-07T08:27:24+00:00",
+        "id": "4a56c0cf-c813-4875-8bce-fde48f9cd41b",
+        "created_on": "2018-06-07T07:35:29+00:00",
+        "changed_on": "2018-06-12T17:49:36+00:00",
         "label": "ShowSchedule",
-        "offset": 36000,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
+        "offset": 32400,
+        "limit": 10800,
+        "valid_from": "2018-06-04",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -276,30 +302,48 @@
         ]
       },
       "show": {
-        "id": "44310562-359e-4b79-80a8-b7e833ea921b",
-        "created_on": "2018-02-19T14:29:57+00:00",
-        "changed_on": "2018-03-28T13:21:25+00:00",
+        "id": "0a9a9d30-5ea4-4cb0-8853-721f6390d3ed",
+        "created_on": "2018-06-12T17:23:38+00:00",
+        "changed_on": "2018-06-26T08:18:31+00:00",
         "label": "Show",
-        "body": "Arbeidsvitaminen"
+        "body": "AAN DE SLAG!",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "f0468d5f-8d5d-4c76-ad38-3948fb4b4fdc",
+            "created_on": "2018-06-12T17:40:44+00:00",
+            "changed_on": "2018-06-12T17:41:08+00:00",
+            "last_seen": "2018-06-12T17:40:44+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Bart",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "Arens",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "9c6cae26-6111-4dd8-9741-cf53508e0a8e",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "ad2eb7db-3980-49ca-a2e0-f21c1abcc876"
+        },
+        {
+          "id": "66295f39-4c0d-4979-8757-ae4a8246d4a5",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "ad2eb7db-3980-49ca-a2e0-f21c1abcc876"
+        }
+      ]
     },
     {
       "from": "12:00:00",
@@ -307,13 +351,13 @@
       "offset": 43200,
       "limit": 7200,
       "rules": {
-        "id": "901a6e5b-9cf5-457a-ba5c-fa8eec0c3776",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-03-29T11:45:35+00:00",
+        "id": "dac42c4e-96a6-4113-afc6-16685910802d",
+        "created_on": "2018-06-07T07:35:29+00:00",
+        "changed_on": "2018-06-12T17:49:43+00:00",
         "label": "ShowSchedule",
         "offset": 43200,
         "limit": 7200,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-04",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -325,30 +369,48 @@
         ]
       },
       "show": {
-        "id": "93cf81fd-c355-437c-b164-d7456101bb80",
-        "created_on": "2018-02-19T14:30:11+00:00",
-        "changed_on": "2018-03-28T14:52:20+00:00",
+        "id": "c204779b-8801-4274-9c4e-ca901f5887ea",
+        "created_on": "2018-06-12T17:25:34+00:00",
+        "changed_on": "2018-06-26T08:29:58+00:00",
         "label": "Show",
-        "body": "TinekeShow"
+        "body": "Gijs 2.0",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "ef6219fd-0af3-4454-97a4-0ce10ccd1ce9",
+            "created_on": "2018-06-12T17:43:12+00:00",
+            "changed_on": "2018-06-12T17:48:34+00:00",
+            "last_seen": "2018-06-12T17:43:12+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Gijs",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "Staverman",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "12b5beee-4c78-41d1-99dc-c93bc29c76fb",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "888fb65a-3849-402c-9655-ea03298e9a58"
+        },
+        {
+          "id": "8025c0e4-764a-4b6b-a575-98e2d445ed38",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "888fb65a-3849-402c-9655-ea03298e9a58"
+        }
+      ]
     },
     {
       "from": "14:00:00",
@@ -356,13 +418,13 @@
       "offset": 50400,
       "limit": 7200,
       "rules": {
-        "id": "2d6e3278-be57-4c66-bb69-f6fe8f6f3719",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:30+00:00",
+        "id": "2ad8c503-9866-4466-8dcc-8c374cf005a6",
+        "created_on": "2018-06-07T07:35:29+00:00",
+        "changed_on": "2018-06-12T17:50:13+00:00",
         "label": "ShowSchedule",
         "offset": 50400,
         "limit": 7200,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-04",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -370,35 +432,52 @@
           "2",
           "3",
           "4",
-          "5",
-          "6"
+          "5"
         ]
       },
       "show": {
-        "id": "a4dcad37-9b86-491c-a493-b1365bf58be7",
-        "created_on": "2018-02-19T14:30:18+00:00",
-        "changed_on": "2018-03-28T13:24:35+00:00",
+        "id": "686e341b-400c-42ba-9c9d-e4f34ca41a64",
+        "created_on": "2018-06-12T17:27:30+00:00",
+        "changed_on": "2018-06-26T08:32:01+00:00",
         "label": "Show",
-        "body": "Open Huis"
+        "body": "Stenders Plantenbonanza",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "8362e686-3544-4324-b8d9-24815ef911b4",
+            "created_on": "2018-06-12T17:44:09+00:00",
+            "changed_on": "2018-06-12T17:48:37+00:00",
+            "last_seen": "2018-06-12T17:44:09+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Rob",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "Stenders",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "d112a6eb-e458-4bcd-9b06-7a4366090682",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "68bb47df-761d-41fa-923f-81980cb0b329"
+        },
+        {
+          "id": "dcb3ceaa-e89a-47de-a3ec-5aec930330e2",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "68bb47df-761d-41fa-923f-81980cb0b329"
+        }
+      ]
     },
     {
       "from": "16:00:00",
@@ -406,13 +485,13 @@
       "offset": 57600,
       "limit": 7200,
       "rules": {
-        "id": "9a006824-4877-4bd6-9806-13e7c2b5d688",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:34+00:00",
+        "id": "18bd0639-8a24-4d00-ba42-a572d19163e1",
+        "created_on": "2018-06-12T17:32:54+00:00",
+        "changed_on": "2018-06-12T17:50:19+00:00",
         "label": "ShowSchedule",
         "offset": 57600,
         "limit": 7200,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-11",
         "valid_until": null,
         "exception": false,
         "days": [
@@ -424,30 +503,48 @@
         ]
       },
       "show": {
-        "id": "335eb558-8a20-459b-bf8f-999454d64f07",
-        "created_on": "2018-02-19T14:30:27+00:00",
-        "changed_on": "2018-03-28T13:21:44+00:00",
+        "id": "33cdd300-bd45-4057-b2fe-b146c96ec34b",
+        "created_on": "2018-06-12T17:25:05+00:00",
+        "changed_on": "2018-06-26T08:30:16+00:00",
         "label": "Show",
-        "body": "Bert op 5"
+        "body": "De Wild in de middag",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "99dfe716-a1e8-419d-b4a4-22918efdbff1",
+            "created_on": "2018-06-12T17:42:49+00:00",
+            "changed_on": "2018-06-12T17:48:47+00:00",
+            "last_seen": "2018-06-12T17:42:49+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Ruud",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "de Wild",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "33bb1d0e-dd16-4a4d-8781-02bc6d12b7e1",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "b9910370-2966-4d27-87f9-5e77025c1916"
+        },
+        {
+          "id": "16f64369-2a87-4e21-a1ed-cf7780e38666",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "b9910370-2966-4d27-87f9-5e77025c1916"
+        }
+      ]
     },
     {
       "from": "18:00:00",
@@ -455,48 +552,45 @@
       "offset": 64800,
       "limit": 7200,
       "rules": {
-        "id": "d66e7b40-6660-489c-95ee-f4dd90734517",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:38+00:00",
+        "id": "5deec39e-00dd-4db1-bc59-8fff28a81e17",
+        "created_on": "2018-06-12T17:35:19+00:00",
+        "changed_on": null,
         "label": "ShowSchedule",
         "offset": 64800,
         "limit": 7200,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-15",
         "valid_until": null,
         "exception": false,
         "days": [
-          "1",
-          "2",
-          "3",
-          "4",
           "5"
         ]
       },
       "show": {
-        "id": "60e39b8b-d339-4e70-b7a2-5e198a45885e",
-        "created_on": "2018-02-19T14:30:34+00:00",
-        "changed_on": "2018-02-26T13:16:39+00:00",
+        "id": "812c6973-014c-4771-b2f2-aaf1006a0d48",
+        "created_on": "2018-06-12T17:28:07+00:00",
+        "changed_on": "2018-06-26T08:24:18+00:00",
         "label": "Show",
-        "body": "De Max!"
+        "body": "Vinyl Friday",
+        "published_on": null,
+        "unpublish_on": null
       },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
+      "users": null,
+      "timelines": [
+        {
+          "id": "c7bdeb6f-dc63-4753-a68d-f7099d33eaf3",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "eabd46dd-e875-4efc-bf69-0c7316cd07df"
+        },
+        {
+          "id": "5b000360-b9b3-40bd-ae79-a0cd8974f265",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "eabd46dd-e875-4efc-bf69-0c7316cd07df"
+        }
+      ]
     },
     {
       "from": "20:00:00",
@@ -504,48 +598,62 @@
       "offset": 72000,
       "limit": 7200,
       "rules": {
-        "id": "f0978693-d5c4-450c-aee6-c9727b767260",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T08:27:42+00:00",
+        "id": "8307576d-280a-40e8-a7a1-5280a66e0dee",
+        "created_on": "2018-06-12T17:35:35+00:00",
+        "changed_on": "2018-06-12T17:54:31+00:00",
         "label": "ShowSchedule",
         "offset": 72000,
         "limit": 7200,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-15",
         "valid_until": null,
         "exception": false,
         "days": [
-          "1",
-          "2",
-          "3",
-          "4",
           "5"
         ]
       },
       "show": {
-        "id": "5fa34afd-6fc1-48e6-9341-586529daaf3b",
-        "created_on": "2018-02-19T14:30:41+00:00",
-        "changed_on": "2018-03-28T14:52:56+00:00",
+        "id": "e0cbda93-b398-424f-b923-a7d8b8a2ff60",
+        "created_on": "2018-06-12T17:26:47+00:00",
+        "changed_on": "2018-06-26T08:42:35+00:00",
         "label": "Show",
-        "body": "Volgspot"
+        "body": "Paul & Frank op vrijdagshow",
+        "published_on": null,
+        "unpublish_on": null
       },
       "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
+        "586643d3-0c02-43fe-80bf-fba9590aa41b": [
           {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
+            "id": "fe115056-e198-4673-a4c8-7922cf324438",
+            "created_on": "2018-06-12T17:47:18+00:00",
+            "changed_on": null,
+            "last_seen": "2018-06-12T17:47:18+00:00",
             "label": "Person",
             "preposition": "",
             "initials": "",
-            "firstname": "Domien",
+            "firstname": "Frank",
             "prefix_lastname": "",
-            "lastname": "Verschuuren",
+            "lastname": "van t Hof",
             "nickname": null,
-            "tracking": false
+            "tracking": true
           }
         ]
-      }
+      },
+      "timelines": [
+        {
+          "id": "53c12a63-0cea-44ad-9b09-c35c89724df7",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "37bc0581-55bd-4803-835c-18603eb13907"
+        },
+        {
+          "id": "2bd1a1df-8efc-45c0-9409-c662cb3b6d2a",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "37bc0581-55bd-4803-835c-18603eb13907"
+        }
+      ]
     },
     {
       "from": "22:00:00",
@@ -553,593 +661,45 @@
       "offset": 79200,
       "limit": 7140,
       "rules": {
-        "id": "019a8319-32c5-493c-bc87-d32097998a42",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T08:27:47+00:00",
+        "id": "e8c9a7e2-215e-4b4a-a24c-aa3a38cced99",
+        "created_on": "2018-06-12T17:35:48+00:00",
+        "changed_on": null,
         "label": "ShowSchedule",
         "offset": 79200,
         "limit": 7140,
-        "valid_from": "2018-02-12",
+        "valid_from": "2018-06-15",
         "valid_until": null,
         "exception": false,
         "days": [
-          "1",
-          "2",
-          "3",
-          "4",
           "5"
         ]
       },
       "show": {
-        "id": "29fe0149-f21d-4aab-a2c8-8b9ee871b449",
-        "created_on": "2018-02-19T14:30:47+00:00",
-        "changed_on": "2018-03-28T13:25:38+00:00",
+        "id": "7d9a2532-a7f3-4f94-8733-1dd925c0ac12",
+        "created_on": "2018-06-12T17:26:18+00:00",
+        "changed_on": "2018-06-26T08:31:01+00:00",
         "label": "Show",
-        "body": "Thuis op 5"
+        "body": "One Night Stenders",
+        "published_on": null,
+        "unpublish_on": null
       },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    }
-  ],
-  "2018-05-08": [
-    {
-      "from": "00:00:00",
-      "until": "00:10:00",
-      "offset": 0,
-      "limit": 600,
-      "rules": {
-        "id": "c4b6fd32-2bf0-4ce2-a8e5-7f657bb318ea",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T09:42:51+00:00",
-        "label": "ShowSchedule",
-        "offset": 0,
-        "limit": 600,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "7"
-        ]
-      },
-      "show": {
-        "id": "926cf5b9-71a4-4215-84bc-82d9acb4cd8e",
-        "created_on": "2018-02-19T14:28:42+00:00",
-        "changed_on": "2018-03-28T13:24:47+00:00",
-        "label": "Show",
-        "body": "Politieke partijen"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "00:10:00",
-      "until": "06:00:00",
-      "offset": 600,
-      "limit": 21000,
-      "rules": {
-        "id": "377fbd37-dcb6-498d-91f4-56b987b3e2ca",
-        "created_on": "2018-02-16T10:31:49+00:00",
-        "changed_on": "2018-05-07T08:27:12+00:00",
-        "label": "ShowSchedule",
-        "offset": 600,
-        "limit": 21000,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "7"
-        ]
-      },
-      "show": {
-        "id": "d265f6fb-d298-4bd2-8f6f-33138fdffbd1",
-        "created_on": "2018-02-16T10:31:48+00:00",
-        "changed_on": "2018-02-26T13:16:53+00:00",
-        "label": "Show",
-        "body": "Standaard programma"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "06:00:00",
-      "until": "07:00:00",
-      "offset": 21600,
-      "limit": 3600,
-      "rules": {
-        "id": "6257faa9-e95a-471b-844d-f7f0b0fbb769",
-        "created_on": "2018-02-19T19:31:21+00:00",
-        "changed_on": "2018-05-07T08:27:21+00:00",
-        "label": "ShowSchedule",
-        "offset": 21600,
-        "limit": 3600,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6"
-        ]
-      },
-      "show": {
-        "id": "31ed796b-0282-4663-947c-64fc2c932e07",
-        "created_on": "2018-02-19T14:28:53+00:00",
-        "changed_on": "2018-03-28T14:53:33+00:00",
-        "label": "Show",
-        "body": "Wekker-Wakker! Non Stop"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "07:00:00",
-      "until": "10:00:00",
-      "offset": 25200,
-      "limit": 10800,
-      "rules": {
-        "id": "703fceb1-4e3a-400b-a40b-3fbbaec1e94f",
-        "created_on": "2018-02-19T19:32:18+00:00",
-        "changed_on": "2018-05-07T08:27:16+00:00",
-        "label": "ShowSchedule",
-        "offset": 25200,
-        "limit": 10800,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "df00cef1-a401-4941-b084-dd752a0e4cac",
-        "created_on": "2018-02-19T14:29:03+00:00",
-        "changed_on": "2018-03-28T15:05:43+00:00",
-        "label": "Show",
-        "body": "Je Dag Is Goed"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "10:00:00",
-      "until": "12:00:00",
-      "offset": 36000,
-      "limit": 7200,
-      "rules": {
-        "id": "dc79e625-1176-4a87-a788-fac1feeec478",
-        "created_on": "2018-02-19T19:41:29+00:00",
-        "changed_on": "2018-05-07T08:27:24+00:00",
-        "label": "ShowSchedule",
-        "offset": 36000,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "44310562-359e-4b79-80a8-b7e833ea921b",
-        "created_on": "2018-02-19T14:29:57+00:00",
-        "changed_on": "2018-03-28T13:21:25+00:00",
-        "label": "Show",
-        "body": "Arbeidsvitaminen"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "12:00:00",
-      "until": "14:00:00",
-      "offset": 43200,
-      "limit": 7200,
-      "rules": {
-        "id": "901a6e5b-9cf5-457a-ba5c-fa8eec0c3776",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-03-29T11:45:35+00:00",
-        "label": "ShowSchedule",
-        "offset": 43200,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "93cf81fd-c355-437c-b164-d7456101bb80",
-        "created_on": "2018-02-19T14:30:11+00:00",
-        "changed_on": "2018-03-28T14:52:20+00:00",
-        "label": "Show",
-        "body": "TinekeShow"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "14:00:00",
-      "until": "16:00:00",
-      "offset": 50400,
-      "limit": 7200,
-      "rules": {
-        "id": "2d6e3278-be57-4c66-bb69-f6fe8f6f3719",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:30+00:00",
-        "label": "ShowSchedule",
-        "offset": 50400,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5",
-          "6"
-        ]
-      },
-      "show": {
-        "id": "a4dcad37-9b86-491c-a493-b1365bf58be7",
-        "created_on": "2018-02-19T14:30:18+00:00",
-        "changed_on": "2018-03-28T13:24:35+00:00",
-        "label": "Show",
-        "body": "Open Huis"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "16:00:00",
-      "until": "18:00:00",
-      "offset": 57600,
-      "limit": 7200,
-      "rules": {
-        "id": "9a006824-4877-4bd6-9806-13e7c2b5d688",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:34+00:00",
-        "label": "ShowSchedule",
-        "offset": 57600,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "335eb558-8a20-459b-bf8f-999454d64f07",
-        "created_on": "2018-02-19T14:30:27+00:00",
-        "changed_on": "2018-03-28T13:21:44+00:00",
-        "label": "Show",
-        "body": "Bert op 5"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "18:00:00",
-      "until": "20:00:00",
-      "offset": 64800,
-      "limit": 7200,
-      "rules": {
-        "id": "d66e7b40-6660-489c-95ee-f4dd90734517",
-        "created_on": "2018-02-16T10:31:51+00:00",
-        "changed_on": "2018-05-07T08:27:38+00:00",
-        "label": "ShowSchedule",
-        "offset": 64800,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "60e39b8b-d339-4e70-b7a2-5e198a45885e",
-        "created_on": "2018-02-19T14:30:34+00:00",
-        "changed_on": "2018-02-26T13:16:39+00:00",
-        "label": "Show",
-        "body": "De Max!"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "20:00:00",
-      "until": "22:00:00",
-      "offset": 72000,
-      "limit": 7200,
-      "rules": {
-        "id": "f0978693-d5c4-450c-aee6-c9727b767260",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T08:27:42+00:00",
-        "label": "ShowSchedule",
-        "offset": 72000,
-        "limit": 7200,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "5fa34afd-6fc1-48e6-9341-586529daaf3b",
-        "created_on": "2018-02-19T14:30:41+00:00",
-        "changed_on": "2018-03-28T14:52:56+00:00",
-        "label": "Show",
-        "body": "Volgspot"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "22:00:00",
-      "until": "23:59:00",
-      "offset": 79200,
-      "limit": 7140,
-      "rules": {
-        "id": "019a8319-32c5-493c-bc87-d32097998a42",
-        "created_on": "2018-02-16T10:31:52+00:00",
-        "changed_on": "2018-05-07T08:27:47+00:00",
-        "label": "ShowSchedule",
-        "offset": 79200,
-        "limit": 7140,
-        "valid_from": "2018-02-12",
-        "valid_until": null,
-        "exception": false,
-        "days": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ]
-      },
-      "show": {
-        "id": "29fe0149-f21d-4aab-a2c8-8b9ee871b449",
-        "created_on": "2018-02-19T14:30:47+00:00",
-        "changed_on": "2018-03-28T13:25:38+00:00",
-        "label": "Show",
-        "body": "Thuis op 5"
-      },
-      "users": {
-        "47ea1173-8ce6-4022-8fff-7fce29bb335d": [
-          {
-            "id": "73f847fb-3a0f-4d9b-baed-6bcf871ec586",
-            "created_on": "2018-02-19T11:56:02+00:00",
-            "changed_on": "2018-03-28T09:52:51+00:00",
-            "last_seen": "2018-02-19T11:56:02+00:00",
-            "label": "Person",
-            "preposition": "",
-            "initials": "",
-            "firstname": "Domien",
-            "prefix_lastname": "",
-            "lastname": "Verschuuren",
-            "nickname": null,
-            "tracking": false
-          }
-        ]
-      }
+      "users": null,
+      "timelines": [
+        {
+          "id": "5d64bdcd-4011-4baf-9ca5-832e14d83b09",
+          "created_on": "2018-02-16T10:31:52+00:00",
+          "changed_on": "2018-02-16T10:31:52+00:00",
+          "label": "Timeline",
+          "reference_id": "6721f47c-4746-4b00-8f9e-eed22c0f5eeb"
+        },
+        {
+          "id": "ca270d57-3fec-45e1-ac8d-8a56666a6fb9",
+          "created_on": "2018-01-12T12:32:52+00:00",
+          "changed_on": "2018-01-12T15:43:11+00:00",
+          "label": "Timeline",
+          "reference_id": "6721f47c-4746-4b00-8f9e-eed22c0f5eeb"
+        }
+      ]
     }
   ]
 }

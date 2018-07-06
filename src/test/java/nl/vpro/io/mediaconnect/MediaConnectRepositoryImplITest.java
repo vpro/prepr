@@ -8,10 +8,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import nl.vpro.io.mediaconnect.domain.MCAsset;
-import nl.vpro.io.mediaconnect.domain.MCItems;
-import nl.vpro.io.mediaconnect.domain.MCSchedule;
-import nl.vpro.io.mediaconnect.domain.MCWebhook;
+import nl.vpro.io.mediaconnect.domain.*;
 
 import static nl.vpro.io.mediaconnect.Paging.limit;
 
@@ -35,19 +32,31 @@ public class MediaConnectRepositoryImplITest {
     }
 
     @Test
-    public void getSchedule() throws IOException {
-        MCSchedule schedule = impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
-            , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8));
+    public void getSchedule() {
+        MCSchedule schedule = impl.getSchedule(
+            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"), // Guide ID van Channel.RAD2
+            LocalDate.of(2018, 7, 6),
+            LocalDate.of(2018, 7, 6));
         log.info("schedule: {}", schedule);
     }
 
 
 
     @Test
-    public void getPublications() throws IOException {
-        MCItems<?> publications = impl.getPublications(Paging.builder().build(),
+    public void getPublicationsForChannel() {
+        MCItems<?> publications = impl.getPublicationsForChannel(Paging.builder().build(),
             UUID.fromString("028b041f-7951-45f4-a83f-cd88bdb336c0"),  // Channel.RAD5)
                 null, null);
+        log.info("publications : {}", publications);
+    }
+
+
+
+    @Test
+    public void getPublications() {
+        MCPost publications = impl.getPublications(
+            UUID.fromString("bd6bdae7-24c5-4185-90f8-005b1e8b0e83")
+        );
         log.info("publications : {}", publications);
     }
 
@@ -70,8 +79,9 @@ public class MediaConnectRepositoryImplITest {
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
-                impl.deleteWebhook(webhook.getId());
+
             }
+            impl.deleteWebhook(webhook.getId());
         }
 
     }

@@ -126,7 +126,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
-    public MCItems<?> getPublications(Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
+    public MCItems<?> getPublicationsForChannel(
+        Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
         GenericUrl url = createUrl("publications");
         addListParameters(url, paging);
         url.set("channel_id", channel);
@@ -138,6 +139,18 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             url.set("event_until", event_until);
         }
         return get(url, MCItems.class);
+    }
+
+
+
+    @Override
+    public MCPost getPublications(
+        @Nonnull  UUID id) {
+        GenericUrl url = createUrl("publications", id.toString());
+        url.set("label", "Post");
+        url.set("status", "published");
+        url.set("fields", "container,element{media{source_file}}");
+        return get(url, MCPost.class);
     }
 
     @Override
@@ -196,7 +209,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @SneakyThrows(IOException.class)
     protected <T> T get(GenericUrl url, Class<T> clazz) {
         HttpResponse execute = get(url);
-        return MCObjectMapper.INSTANCE.readerFor(clazz).readValue(execute.getContent());
+        //
+        return MCObjectMapper.INSTANCE.readerFor(clazz)
+            .readValue(execute.getContent());
     }
 
 

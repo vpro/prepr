@@ -5,6 +5,8 @@ import lombok.Data;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -18,5 +20,5 @@ public class MCWebhookEvent {
 
     String event;
 
-    MCEvent payload;
+    JsonNode payload;
 }

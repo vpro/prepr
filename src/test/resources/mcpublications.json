@@ -1,0 +1,207 @@
+{
+  "id": "bd6bdae7-24c5-4185-90f8-005b1e8b0e83",
+  "created_on": "2018-07-04T12:23:06+00:00",
+  "changed_on": "2018-07-04T12:36:26+00:00",
+  "published_on": "2018-07-04T06:07:00+00:00",
+  "unpublish_on": null,
+  "label": "Post",
+  "status": "published",
+  "slug": null,
+  "length": "",
+  "tease": "",
+  "body": "",
+  "container": {
+    "id": "578c550a-0a64-472c-bc30-4a9992222945",
+    "created_on": "2018-07-03T08:56:41+00:00",
+    "changed_on": "2018-07-04T12:36:26+00:00",
+    "label": "Timeline",
+    "body": "Ekdom in de ochtend",
+    "published_on": null,
+    "timecode": "2018-07-04:28800",
+    "unpublish_on": null,
+    "from": "2018-07-04 08:00:00",
+    "until": "2018-07-04 09:00:00"
+  },
+  "element": [
+    {
+      "id": "f382b338-2199-4c8c-9a00-d20f13c38b37",
+      "created_on": "2018-07-04T12:36:26+00:00",
+      "body": "Jan-Willem, Jeroen en Rob\u00e8rt van Beckhoven maken samen met jou Belgische WK Bonbon!",
+      "label": "Heading"
+    },
+    {
+      "id": "50868127-46bd-4bf1-9a79-25e546953e0b",
+      "created_on": "2018-07-04T12:36:26+00:00",
+      "body": "-----",
+      "label": "Text"
+    },
+    {
+      "id": "7a3f38a5-9754-40a4-92bf-92e3e8d2242d",
+      "label": "Media",
+      "created_on": "2018-07-04T12:36:26+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "410e4b8a-79c9-4396-9594-ffbf0f437a5e",
+          "created_on": "2018-07-04T12:30:30+00:00",
+          "changed_on": "2018-07-04T12:30:30+00:00",
+          "label": "Audio",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "duration": null,
+          "source_file": {
+            "id": "d1dcd55f-44b7-4373-aadb-e5a3cdfcf383",
+            "created_on": "2018-07-04T12:30:30+00:00",
+            "changed_on": "2018-07-04T12:30:32+00:00",
+            "label": "SourceFile",
+            "original_name": "31682-jan_willem_jeroen_en_robert_van_beckhoven_maken_samen_met_jou_belgische_wk_bonbon_.mp3",
+            "mime_type": "audio\/mpeg",
+            "file_size": 5065038,
+            "file": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "url": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "cdn_url": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "waveform_url": null,
+            "watermarked_url": null
+          },
+          "rel_description": null
+        },
+        {
+          "id": "f35995a3-27f1-45bc-aabd-3f0f38bb2d5a",
+          "created_on": "2018-07-04T12:31:11+00:00",
+          "changed_on": "2018-07-04T12:31:11+00:00",
+          "label": "Photo",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "source_file": {
+            "id": "2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24",
+            "created_on": "2018-07-04T12:31:11+00:00",
+            "changed_on": "2018-07-04T12:31:13+00:00",
+            "label": "SourceFile",
+            "original_name": "robert-jpg.jpg",
+            "mime_type": "image\/jpeg",
+            "file_size": 157764,
+            "file": "2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "cdn_url": "https:\/\/radio-images.npo.nl\/{format}\/718e5402-b06d-4588-bf03-89fa686c8437\/2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "url": "https:\/\/images.graphlr.io\/tF511D7g10kxKbl18H4CZZ7E5XSpjvWQ6hXM\/718e5402-b06d-4588-bf03-89fa686c8437\/2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "url_msg": "url will be deprecated in next api release."
+          },
+          "rel_description": null
+        },
+        {
+          "id": "8d74afc1-1f8e-41ad-934d-ec1c8f2a330a",
+          "created_on": "2018-07-04T12:31:06+00:00",
+          "changed_on": "2018-07-04T12:31:06+00:00",
+          "label": "Video",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "source_file": {
+            "id": "1e7b7ad2-334a-4f3f-9b86-7593c82e70be",
+            "created_on": "2018-07-04T12:31:06+00:00",
+            "changed_on": "2018-07-04T12:31:09+00:00",
+            "label": "SourceFile",
+            "original_name": "12212-jan-willem-jeroen-en-meester-patissier-robert-ontwikkelen-een-wk-bonbon-voor-de-rode-duivels",
+            "mime_type": null,
+            "file_size": 30788521,
+            "chunks": 1,
+            "start_offset": 21640279,
+            "end_offset": 30788521,
+            "url": "https:\/\/content.omroep.nl\/nporadio\/video\/718e5402-b06d-4588-bf03-89fa686c8437\/8d74afc1-1f8e-41ad-934d-ec1c8f2a330a.mp4",
+            "cdn_url": "https:\/\/content.omroep.nl\/nporadio\/video\/718e5402-b06d-4588-bf03-89fa686c8437\/8d74afc1-1f8e-41ad-934d-ec1c8f2a330a.mp4"
+          },
+          "rel_description": null
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "7a3f38a5-9754-40a4-92bf-92e3e8d2242d",
+      "label": "Media",
+      "created_on": "2018-07-04T12:36:26+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "410e4b8a-79c9-4396-9594-ffbf0f437a5e",
+          "created_on": "2018-07-04T12:30:30+00:00",
+          "changed_on": "2018-07-04T12:30:30+00:00",
+          "label": "Audio",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "duration": null,
+          "source_file": {
+            "id": "d1dcd55f-44b7-4373-aadb-e5a3cdfcf383",
+            "created_on": "2018-07-04T12:30:30+00:00",
+            "changed_on": "2018-07-04T12:30:32+00:00",
+            "label": "SourceFile",
+            "original_name": "31682-jan_willem_jeroen_en_robert_van_beckhoven_maken_samen_met_jou_belgische_wk_bonbon_.mp3",
+            "mime_type": "audio\/mpeg",
+            "file_size": 5065038,
+            "file": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "url": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "cdn_url": "https:\/\/content.omroep.nl\/nporadio\/audio\/718e5402-b06d-4588-bf03-89fa686c8437\/d1dcd55f-44b7-4373-aadb-e5a3cdfcf383.mp3",
+            "waveform_url": null,
+            "watermarked_url": null
+          },
+          "rel_description": null
+        },
+        {
+          "id": "f35995a3-27f1-45bc-aabd-3f0f38bb2d5a",
+          "created_on": "2018-07-04T12:31:11+00:00",
+          "changed_on": "2018-07-04T12:31:11+00:00",
+          "label": "Photo",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "source_file": {
+            "id": "2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24",
+            "created_on": "2018-07-04T12:31:11+00:00",
+            "changed_on": "2018-07-04T12:31:13+00:00",
+            "label": "SourceFile",
+            "original_name": "robert-jpg.jpg",
+            "mime_type": "image\/jpeg",
+            "file_size": 157764,
+            "file": "2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "cdn_url": "https:\/\/radio-images.npo.nl\/{format}\/718e5402-b06d-4588-bf03-89fa686c8437\/2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "url": "https:\/\/images.graphlr.io\/tF511D7g10kxKbl18H4CZZ7E5XSpjvWQ6hXM\/718e5402-b06d-4588-bf03-89fa686c8437\/2ca49cd1-5b02-4cc3-98ae-d34f1ced2a24.jpg",
+            "url_msg": "url will be deprecated in next api release."
+          },
+          "rel_description": null
+        },
+        {
+          "id": "8d74afc1-1f8e-41ad-934d-ec1c8f2a330a",
+          "created_on": "2018-07-04T12:31:06+00:00",
+          "changed_on": "2018-07-04T12:31:06+00:00",
+          "label": "Video",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "author": null,
+          "source_file": {
+            "id": "1e7b7ad2-334a-4f3f-9b86-7593c82e70be",
+            "created_on": "2018-07-04T12:31:06+00:00",
+            "changed_on": "2018-07-04T12:31:09+00:00",
+            "label": "SourceFile",
+            "original_name": "12212-jan-willem-jeroen-en-meester-patissier-robert-ontwikkelen-een-wk-bonbon-voor-de-rode-duivels",
+            "mime_type": null,
+            "file_size": 30788521,
+            "chunks": 1,
+            "start_offset": 21640279,
+            "end_offset": 30788521,
+            "url": "https:\/\/content.omroep.nl\/nporadio\/video\/718e5402-b06d-4588-bf03-89fa686c8437\/8d74afc1-1f8e-41ad-934d-ec1c8f2a330a.mp4",
+            "cdn_url": "https:\/\/content.omroep.nl\/nporadio\/video\/718e5402-b06d-4588-bf03-89fa686c8437\/8d74afc1-1f8e-41ad-934d-ec1c8f2a330a.mp4"
+          },
+          "rel_description": null
+        }
+      ]
+    }
+  ]
+}

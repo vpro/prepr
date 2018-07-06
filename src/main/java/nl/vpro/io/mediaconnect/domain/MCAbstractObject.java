@@ -24,7 +24,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = MCPhoto.class, name = "Photo"),
     @JsonSubTypes.Type(value = MCVideo.class, name = "Video"),
     @JsonSubTypes.Type(value = MCAudio.class, name = "Audio"),
-    @JsonSubTypes.Type(value = MCPost.class, name = "Post")
+    @JsonSubTypes.Type(value = MCPost.class, name = "Post"),
+    @JsonSubTypes.Type(value = MCHeading.class, name = "Heading"),
+    @JsonSubTypes.Type(value = MCText.class, name = "Text"),
+    @JsonSubTypes.Type(value = MCMedia.class, name = "Media"),
+    @JsonSubTypes.Type(value = MCTrackPlay.class, name = "TrackPlay"),
+    @JsonSubTypes.Type(value = MCChannel.class, name = "Channel")
+
+
 
 
 })
@@ -41,6 +48,8 @@ public class MCAbstractObject  {
     Instant last_seen;
 
     String label;
+
+    String body;
 
     public String getCrid() {
         String label = getLabel();

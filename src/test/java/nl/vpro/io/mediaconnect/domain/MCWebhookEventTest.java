@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Michiel Meeuwissen
  * @since ...
@@ -28,6 +30,18 @@ public class MCWebhookEventTest {
 
         MCWebhookEvent webhook = MCObjectMapper.INSTANCE.readerFor(MCWebhookEvent.class)
             .readValue(getClass().getResourceAsStream("/webhook.scheduleevent.created.json"));
+
+
+    }
+
+     @Test
+    public void unmarshalAnother() throws IOException {
+
+
+        MCWebhookEvent webhook = MCObjectMapper.INSTANCE.readerFor(MCWebhookEvent.class)
+            .readValue(getClass().getResourceAsStream("/mcwebhookevent.json"));
+
+        assertThat(webhook.getPayload().get("label").textValue()).isEqualTo("TrackPlay");
 
 
     }

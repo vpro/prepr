@@ -1,0 +1,38 @@
+{
+  "id": "86f413b5-0193-4312-94ce-40f1a94d3429",
+  "created_on": 1530870839,
+  "event": "publication.published",
+  "payload": {
+    "id": "dea2f506-81df-4dde-8d64-65d0c000cac0",
+    "created_on": "2018-07-05T13:20:26+00:00",
+    "changed_on": "2018-07-06T09:53:38+00:00",
+    "published_on": "2018-07-06T07:58:00+00:00",
+    "unpublish_on": null,
+    "label": "TrackPlay",
+    "status": "published",
+    "slug": null,
+    "custom": null,
+    "artist": "Ting Tings",
+    "reference_id": "2058561",
+    "note": "",
+    "artist_text": "Ting Tings",
+    "body": "Shut Up And Let Me Go",
+    "element": null,
+    "channel": {
+      "id": "8208ec7b-0fe3-48fb-9cfc-826348f4123c",
+      "created_on": "2018-06-07T07:35:03+00:00",
+      "changed_on": null,
+      "label": "Channel",
+      "name": "Prepr Webapp",
+      "username": null,
+      "screen_name": null,
+      "profile_pic": null,
+      "picture": null,
+      "type": "site",
+      "share_construct_url": null,
+      "preview_construct_url": null,
+      "share_url": null
+    },
+    "tags": null
+  }
+}

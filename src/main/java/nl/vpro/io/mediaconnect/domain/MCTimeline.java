@@ -16,6 +16,12 @@ public class MCTimeline extends MCAbstractObject {
 
     String reference_id;
 
+    String timecode;
+
+    String from; // formatted time, in Europe/Amsterdam
+
+    String until;
+
     @Override
     public String getCrid() {
         return CRID_PREFIX + getLabel().toLowerCase() + "/" + getReference_id();

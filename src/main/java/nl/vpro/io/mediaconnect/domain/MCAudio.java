@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @since 0.1
  */
 @JsonTypeName("Audio")
-public class MCAudio extends MCMedia {
+public class MCAudio extends MCAbstractMedia {
 
 
 }

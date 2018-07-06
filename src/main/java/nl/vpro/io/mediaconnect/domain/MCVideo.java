@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @since 0.1
  */
 @JsonTypeName("Video")
-public class MCVideo extends MCMedia {
+public class MCVideo extends MCAbstractMedia {
 
 
 }

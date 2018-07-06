@@ -9,28 +9,19 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public abstract class MCAsset extends MCAbstractObject {
+public abstract class MCAbstractMedia extends MCAsset {
 
-    String name;
+    String duration;
 
-    String body;
 
-    String reference;
-
-    String author;
-
-    MCSourceFile source_file;
-
-    String rel_description;
 
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-            "name='" + name + '\'' +
+            "duration='" + duration + '\'' +
+            ", name='" + name + '\'' +
             ", body='" + body + '\'' +
-            ", reference='" + reference + '\'' +
-            ", author='" + author + '\'' +
             ", source_file=" + source_file +
             ", id=" + id +
             '}';

@@ -34,4 +34,15 @@ public class MCWebhookTest {
 
 
     }
+
+    @Test
+    public void unmarshal2() throws IOException {
+
+
+        MCWebhook webhook = MCObjectMapper.INSTANCE.readerFor(MCWebhook.class)
+            .readValue(getClass().getResourceAsStream("/webhook.json"));
+        assertThat(webhook.getEvents()).hasSize(3);
+
+
+    }
 }

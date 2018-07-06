@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -18,7 +20,18 @@ public class MCPost extends MCContent {
 
     String slug;
 
+    String custom;
+
     String length;
 
     String tease;
+
+    MCTimeline container;
+
+
+    List<MCAbstractObject> element;
+
+    MCChannel channel;
+
+    List<MCTag> tags;
 }
