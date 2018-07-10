@@ -33,10 +33,13 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        MCSchedule schedule = impl.getSchedule(
-            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"), // Guide ID van Channel.RAD2
-            LocalDate.of(2018, 7, 4),
-            LocalDate.of(2018, 7, 4));
+        //LocalDate date = LocalDate.of(2018, 7, 10);
+        LocalDate date = LocalDate.of(2018, 5, 7);
+        MCSchedule schedule = impl.getTimelines().getSchedule(
+            UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
+            //UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
+            ,
+          date);
         log.info("schedule: {}", schedule);
     }
 
@@ -54,16 +57,33 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        MCPost publications = impl.getPublication(
+        MCContent publications = impl.getPublication(
             UUID.fromString("bd6bdae7-24c5-4185-90f8-005b1e8b0e83")
         );
         log.info("publications : {}", publications);
     }
 
+    @Test
+    public void getProgram() {
+        log.info("{}",
+            impl.getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351"))
+        );
+
+          log.info("{}",
+            impl.getPublication(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
+        );
+    }
 
 
     @Test
-    public void getChannels() throws IOException {
+    public void getTag() {
+        log.info("{}",
+            impl.getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))
+        );
+    }
+
+    @Test
+    public void getChannels() {
         MCItems<?> publications = impl.getChannels(Paging.builder().build());
         log.info("publications : {}", publications);
     }
@@ -71,15 +91,15 @@ public class MediaConnectRepositoryImplITest {
 
 
     @Test
-    public void getWebhooksAndDelete() throws IOException {
-        MCItems<MCWebhook> webhooks = impl.getWebhooks(limit(100L));
+    public void getWebhooksAndDelete() {
+        MCItems<MCWebhook> webhooks = impl.getWebhooks().getWebhooks(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
-                impl.deleteWebhook(webhook.getId());
+                impl.getWebhooks().deleteWebhook(webhook.getId());
             }
 
         }
@@ -88,17 +108,17 @@ public class MediaConnectRepositoryImplITest {
 
 
      @Test
-    public void createWebhook() throws IOException {
+    public void createWebhook() {
          String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
-         log.info("new webook {}", impl.createWebhook(url,  "showschedule.created",
+         log.info("new webook {}", impl.getWebhooks().createWebhook(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
     }
 
 
     @Test
-    public void getAsssets() throws IOException {
-        MCItems<MCAsset> assets  = impl.getAssets(limit(100L));
+    public void getAsssets() {
+        MCItems<MCAsset> assets  = impl.getAssets().getAssets(limit(100L));
         log.info("assets: {}", assets);
 
 

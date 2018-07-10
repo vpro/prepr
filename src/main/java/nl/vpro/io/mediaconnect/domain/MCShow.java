@@ -39,7 +39,7 @@ public class MCShow extends MCContent {
             ", tags=" + tags +
             ", cover=" + cover +
             ", status=" + status +
-            ", id=" + id +
+            ", crid=" + getCrid() +
             ", label='" + label + '\'' +
             '}';
     }

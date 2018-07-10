@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -42,6 +41,10 @@ import nl.vpro.io.mediaconnect.domain.*;
 @Slf4j
 public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
+    private static String RATELIMIT_RESET = "X-Graphlr-RateLimit-Reset";
+    private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
+    private static String RATELIMIT_HOURLIMIT = "X-Graphlr-RateLimit-Hour-Limit";
+
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
 
@@ -50,6 +53,13 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     private final String clientId;
 
     private final String clientSecret;
+
+    @Getter
+    private Integer rateLimitReset = null;
+    @Getter
+    private Integer rateLimitHourRemaining = null;
+    @Getter
+    private Integer rateLimitHourLimit = null;
 
     @Setter
     @Getter
@@ -60,6 +70,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     @Getter
     private Instant expiration;
+
+    @Getter
+    private final MediaConnectTimelines timelines = new MediaConnectTimelinesImpl(this);
+
+    @Getter
+    private final MediaConnectWebhooks webhooks = new MediaConnectWebhooksImpl(this);
+
+    @Getter
+    private final MediaConnectAssets assets = new MediaConnectAssetsImpl(this);
 
 
     @Inject
@@ -92,29 +111,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
 
-    @Override
-    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
-        GenericUrl url = createUrl("prepr", "schedules", channel,  "guide");
-        if (from != null) {
-            url.set("from", from.toString());
-        }
-        if (until != null) {
-            url.set("until", until.toString());
-        }
-        //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
-        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{source_file}},users");
 
-        return get(url, MCSchedule.class);
-    }
-
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public MCItems<MCWebhook> getWebhooks(Paging paging) {
-        GenericUrl url = createUrl("webhooks");
-        addListParameters(url, paging);
-        return get(url, MCItems.class);
-    }
 
     @Override
     public MCItems<?> getChannels(Paging paging) {
@@ -144,43 +141,17 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
 
     @Override
-    public MCPost getPublication(
+    public  <T extends MCContent> T getPublication(
         @Nonnull  UUID id) {
         GenericUrl url = createUrl("publications", id.toString());
-        url.set("label", "Post");
+        //url.set("label", "Post");
         url.set("status", "published");
-        url.set("fields", "container,element{media{source_file{resized{picture.width(1920)}}}}");
-        return get(url, MCPost.class);
+        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}}");
+        return (T) get(url, MCContent.class);
     }
 
-    @Override
-    @SneakyThrows(IOException.class)
-    public MCWebhook createWebhook(String callback_url, String... events)  {
-        GenericUrl url = createUrl("webhooks");
-        Map<String, Object> post = new HashMap<>();
-        post.put("callback_url", callback_url);
-        post.put("events", events);
 
-        HttpResponse response = post(url, post);
-        return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class).readValue(response.getContent());
-    }
 
-    @Override
-    @SneakyThrows(IOException.class)
-    public void deleteWebhook(UUID webhook) {
-        GenericUrl url = createUrl("webhooks", webhook);
-        delete(url);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public MCItems<MCAsset> getAssets(Paging paging) {
-        GenericUrl url = createUrl("assets");
-        addListParameters(url, paging);
-        url.set("fields", "name,body,reference,source_file,duration");
-        return get(url, MCItems.class);
-
-    }
 
 
     protected void addListParameters(GenericUrl url, Paging paging) {
@@ -209,9 +180,14 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @SneakyThrows(IOException.class)
     protected <T> T get(GenericUrl url, Class<T> clazz) {
         HttpResponse execute = get(url);
-        //
         return MCObjectMapper.INSTANCE.readerFor(clazz)
             .readValue(execute.getContent());
+    }
+
+    protected void consumerGraphrlHeader(HttpResponse response) {
+        rateLimitReset  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_RESET));
+        rateLimitHourRemaining  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURREMAINING));
+        rateLimitHourLimit  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURLIMIT));
     }
 
 
@@ -267,7 +243,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         } else {
             log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }
-        return httpRequest.execute();
+        HttpResponse response = httpRequest.execute();
+        consumerGraphrlHeader(response);
+        return response;
     }
 
 
@@ -293,7 +271,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     }
 
-    private GenericUrl createUrl(Object ... path) {
+    GenericUrl createUrl(Object ... path) {
         GenericUrl url = new GenericUrl(api);
         boolean append = false;
         for (Object p : path) {

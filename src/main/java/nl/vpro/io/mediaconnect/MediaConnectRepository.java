@@ -1,10 +1,10 @@
 package nl.vpro.io.mediaconnect;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import nl.vpro.io.mediaconnect.domain.*;
+import nl.vpro.io.mediaconnect.domain.MCContent;
+import nl.vpro.io.mediaconnect.domain.MCItems;
 
 /**
  *
@@ -20,9 +20,10 @@ import nl.vpro.io.mediaconnect.domain.*;
  */
 public interface MediaConnectRepository {
 
-    MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
+    MediaConnectTimelines getTimelines();
+    MediaConnectWebhooks getWebhooks();
+    MediaConnectAssets getAssets();
 
-    MCItems<MCWebhook> getWebhooks(Paging paging);
 
     MCItems<?> getChannels(Paging paging);
 
@@ -33,24 +34,11 @@ public interface MediaConnectRepository {
         LocalDateTime event_utils
     );
 
-    MCPost getPublication(
+    <T extends MCContent> T getPublication(
         UUID id
     );
 
 
-    default MCItems<MCWebhook> getWebhooks() {
-        return getWebhooks(Paging.builder().build());
-    }
-
-    MCWebhook createWebhook(String url, String... events);
-
-    void deleteWebhook(UUID webhook);
-
-    MCItems<MCAsset> getAssets(Paging paging);
-
-     default MCItems<MCAsset> getAssets() {
-        return getAssets(Paging.builder().build());
-    }
 
 
 }

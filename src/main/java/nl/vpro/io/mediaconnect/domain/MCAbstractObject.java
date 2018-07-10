@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = MCWebhook.class, name = "Webhook"),
     @JsonSubTypes.Type(value = MCTimeline.class, name = "Timeline"),
     @JsonSubTypes.Type(value = MCShow.class, name = "Show"),
+    @JsonSubTypes.Type(value = MCShowDetail.class, name = "ShowDetail"),
     @JsonSubTypes.Type(value = MCPhoto.class, name = "Photo"),
     @JsonSubTypes.Type(value = MCVideo.class, name = "Video"),
     @JsonSubTypes.Type(value = MCAudio.class, name = "Audio"),
@@ -54,5 +55,10 @@ public class MCAbstractObject  {
     public String getCrid() {
         String label = getLabel();
         return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
+    }
+
+    @Override
+    public String toString() {
+        return getCrid();
     }
 }
