@@ -28,6 +28,14 @@ public interface MediaConnectContent {
     MCItems<?> getChannels(Paging paging);
 
 
+    MCItems<?> getContainers(Paging paging);
+
+
+    <T extends MCContent> T getContainer(
+        UUID id
+    );
+
+
 
 
 }

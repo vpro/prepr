@@ -81,6 +81,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectContent content = new MediaConnectContentImpl(this);
 
+    @Getter
+    private final MediaConnectTags tags = new MediaConnectTagsImpl(this);
 
 
     @Inject
@@ -175,7 +177,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
 
 
     @SuppressWarnings("unchecked")
-    protected HttpResponse post(GenericUrl url, Map<String, Object> form) throws IOException {
+    @SneakyThrows(IOException.class)
+    protected HttpResponse post(GenericUrl url, Map<String, Object> form) {
         log.debug("Posting {}", form);
         Map<String, String> map = new TreeMap<>();
         form.forEach((k, v) -> {
@@ -197,6 +200,13 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         return execute(httpRequest);
     }
 
+    @SneakyThrows(IOException.class)
+    protected <T> T post(GenericUrl url, Map<String, Object> map, Class<T> clazz) {
+        HttpResponse execute = post(url, map);
+        return MCObjectMapper.INSTANCE.readerFor(clazz)
+            .readValue(execute.getContent());
+    }
+
     protected String toString(Object o) {
         return o == null ? "" : String.valueOf(o);
     }
@@ -204,7 +214,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
         authenticate(httpRequest);
         if (logAsCurl) {
-            log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}'\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl());
+            HttpContent content = httpRequest.getContent();
+            String data = "";
+            if (content != null) {
+                UrlEncodedContent urlEncoded = (UrlEncodedContent) content;
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                urlEncoded.writeTo(out);
+                data = " -d '" + out.toString() + "'";
+            }
+            log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
         } else {
             log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }

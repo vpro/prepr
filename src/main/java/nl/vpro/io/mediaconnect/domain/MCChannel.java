@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Michiel Meeuwissen
@@ -11,7 +12,7 @@ import java.net.URI;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MCChannel extends MCAbstractObject {
+public class MCChannel extends MCContent {
 
 
     String name;
@@ -31,6 +32,9 @@ public class MCChannel extends MCAbstractObject {
     URI preview_construct_url;
 
     URI share_url;
+
+    List<MCAsset> assets;
+
 
 
 }

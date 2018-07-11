@@ -18,6 +18,8 @@ public interface MediaConnectRepository {
     MediaConnectWebhooks  getWebhooks();
     MediaConnectAssets    getAssets();
     MediaConnectContent   getContent();
+    MediaConnectTags      getTags();
+
 
 
 }

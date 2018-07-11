@@ -12,7 +12,7 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.1
  */
 public class MediaConnectContentImpl implements MediaConnectContent {
 
@@ -60,6 +60,24 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         return impl.get(url, MCItems.class);
 
 
+    }
+
+    @Override
+    public MCItems<?> getContainers(Paging paging) {
+        GenericUrl url = impl.createUrl("containers");
+        impl.addListParameters(url, paging);
+        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}},assets{source_file,custom}");
+
+        return impl.get(url, MCItems.class);
+    }
+
+    @Override
+    public <T extends MCContent> T getContainer(UUID id) {
+        GenericUrl url = impl.createUrl("containers", id.toString());
+        //url.set("label", "Post");
+        url.set("status", "published");
+        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}}");
+        return (T) impl.get(url, MCContent.class);
     }
 
 }
