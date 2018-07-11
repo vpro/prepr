@@ -21,7 +21,7 @@ Example code:
    
     public void getSchedule() throws IOException, URISyntaxException {
         log.info("schedule: {}",
-            impl.getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
+            impl.getTimelines().getSchedule(UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
                 , LocalDate.of(2018, 5, 7), LocalDate.of(2018, 5, 8))
         );
     }
