@@ -7,6 +7,8 @@ import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 
+import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIELD;
+
 /**
  * @author Michiel Meeuwissen
  * @since ...
@@ -30,7 +32,7 @@ public class MediaConnectTimelinesImpl implements MediaConnectTimelines {
             url.set("until", until.toString());
         }
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
-        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{source_file}},users");
+        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + SOURCEFILE_FIELD + "}},users");
 
         return impl.get(url, MCSchedule.class);
     }

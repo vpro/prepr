@@ -47,7 +47,6 @@ public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
     }
 
     @Override
-    @SneakyThrows(IOException.class)
     public void delete(UUID webhook) {
         GenericUrl url = impl.createUrl("webhooks", webhook);
         impl.delete(url);

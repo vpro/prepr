@@ -7,7 +7,7 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.1
  */
 public class MediaConnectAssetsImpl implements MediaConnectAssets {
 

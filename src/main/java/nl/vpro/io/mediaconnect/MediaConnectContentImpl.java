@@ -10,6 +10,8 @@ import com.google.api.client.http.GenericUrl;
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 
+import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIELD;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -76,7 +78,7 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         GenericUrl url = impl.createUrl("containers", id.toString());
         //url.set("label", "Post");
         url.set("status", "published");
-        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}}");
+        url.set("fields", "container,tags,element{media{" + SOURCEFILE_FIELD + "}}");
         return (T) impl.get(url, MCContent.class);
     }
 

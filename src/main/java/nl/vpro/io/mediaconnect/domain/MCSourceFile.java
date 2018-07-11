@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("SourceFile")
 @JsonIgnoreProperties({"url", "url_msg"})   // deprecated
+@Slf4j
 public class MCSourceFile extends MCAbstractObject {
 
     String original_name;
@@ -46,7 +48,8 @@ public class MCSourceFile extends MCAbstractObject {
         if (resized != null && resized.has("picture")) {
             return resized.get("picture").textValue();
         } else {
-            return cdn_url;
+            log.warn("No picture found. Trying to make from {}", cdn_url);
+            return cdn_url.replace("{format}", "w_1920");
         }
     }
 

@@ -56,6 +56,17 @@ public class MediaConnectRepositoryImplITest {
           date);
         log.info("schedule: {}", schedule);
     }
+     // werkt met account 2
+    @Test
+    public void getSchedule3() {
+        LocalDate date = LocalDate.of(2018, 7, 7);
+        MCSchedule schedule = impl.getTimelines().getSchedule(
+            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
+            ,
+          date);
+        log.info("schedule: {}", schedule);
+    }
+
 
 
 

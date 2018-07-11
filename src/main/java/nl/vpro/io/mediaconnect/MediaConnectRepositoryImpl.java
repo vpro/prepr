@@ -47,6 +47,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
     private static String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
 
+    static String SOURCEFILE_FIELD = "source_file{resized{picture.width(1920)}}";
+
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
 
@@ -111,20 +113,17 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         }
     }
 
+    @SneakyThrows(IOException.class)
     public static MediaConnectRepositoryImpl configuredInUserHome() {
 
-        try {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
-            return MediaConnectRepositoryImpl
-                .builder()
-                .api(properties.getProperty("mediaconnect.api"))
-                .clientId(properties.getProperty("mediaconnect.clientId"))
-                .clientSecret(properties.getProperty("mediaconnect.clientSecret"))
-                .build();
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-        }
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
+        return MediaConnectRepositoryImpl
+            .builder()
+            .api(properties.getProperty("mediaconnect.api"))
+            .clientId(properties.getProperty("mediaconnect.clientId"))
+            .clientSecret(properties.getProperty("mediaconnect.clientSecret"))
+            .build();
     }
 
 
@@ -142,7 +141,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
            if (paging.getBefore() != null) {
             log.warn("Not tested");
         }
-
     }
 
 
@@ -159,24 +157,27 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             .readValue(execute.getContent());
     }
 
-    protected void consumerGraphrlHeader(HttpResponse response) {
+    protected void consumeGraphrlHeaders(HttpResponse response) {
         rateLimitReset  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_RESET));
         rateLimitHourRemaining  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURREMAINING));
         rateLimitHourLimit  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURLIMIT));
     }
 
 
-    protected HttpResponse get(GenericUrl url) throws IOException {
+    @SneakyThrows(IOException.class)
+    protected HttpResponse get(GenericUrl url)  {
         return execute(NET_HTTP_TRANSPORT.createRequestFactory()
             .buildGetRequest(url));
     }
 
-    protected HttpResponse delete(GenericUrl url) throws IOException {
+    @SneakyThrows(IOException.class)
+    protected HttpResponse delete(GenericUrl url) {
         return execute(NET_HTTP_TRANSPORT.createRequestFactory()
             .buildDeleteRequest(url));
     }
 
-    protected HttpResponse put(GenericUrl url, Object o) throws IOException {
+    @SneakyThrows(IOException.class)
+    protected HttpResponse put(GenericUrl url, Object o)  {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         MCObjectMapper.INSTANCE.writeValue(outputStream, o);
         return execute(NET_HTTP_TRANSPORT.createRequestFactory()
@@ -219,7 +220,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         return o == null ? "" : String.valueOf(o);
     }
 
-    protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
+    @SneakyThrows(IOException.class)
+    protected HttpResponse execute(HttpRequest httpRequest)  {
         authenticate(httpRequest);
         if (logAsCurl) {
             HttpContent content = httpRequest.getContent();
@@ -235,7 +237,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }
         HttpResponse response = httpRequest.execute();
-        consumerGraphrlHeader(response);
+        consumeGraphrlHeaders(response);
         return response;
     }
 
