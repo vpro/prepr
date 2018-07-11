@@ -10,11 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +23,7 @@ import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import nl.vpro.io.mediaconnect.domain.*;
+import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
 
 
 /**
@@ -39,7 +37,7 @@ import nl.vpro.io.mediaconnect.domain.*;
  * @since 0.1
  */
 @Slf4j
-public class MediaConnectRepositoryImpl implements MediaConnectRepository {
+public class MediaConnectRepositoryImpl implements MediaConnectRepository, MediaConnectRepositoryImplMXBean {
 
     private static String RATELIMIT_RESET = "X-Graphlr-RateLimit-Reset";
     private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
@@ -80,6 +78,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @Getter
     private final MediaConnectAssets assets = new MediaConnectAssetsImpl(this);
 
+    @Getter
+    private final MediaConnectContent content = new MediaConnectContentImpl(this);
+
+
 
     @Inject
     @lombok.Builder
@@ -91,7 +93,12 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-
+      /*  try {
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            mbs.registerMBean(this, new ObjectName("nl.vpro.io.mediaconnect:name=mediaconnectRepository"));
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }*/
     }
 
     public static MediaConnectRepositoryImpl configuredInUserHome() {
@@ -109,48 +116,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             throw new RuntimeException(ioe);
         }
     }
-
-
-
-
-    @Override
-    public MCItems<?> getChannels(Paging paging) {
-        GenericUrl url = createUrl("channels");
-        addListParameters(url, paging);
-        return get(url, MCItems.class);
-
-
-    }
-
-    @Override
-    public MCItems<?> getPublicationsForChannel(
-        Paging paging, @Nonnull  UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
-        GenericUrl url = createUrl("publications");
-        addListParameters(url, paging);
-        url.set("channel_id", channel);
-        //url.set("label", "Post");
-        if (event_from != null) {
-            url.set("event_from", event_from);
-        }
-        if (event_until != null) {
-            url.set("event_until", event_until);
-        }
-        return get(url, MCItems.class);
-    }
-
-
-
-    @Override
-    public  <T extends MCContent> T getPublication(
-        @Nonnull  UUID id) {
-        GenericUrl url = createUrl("publications", id.toString());
-        //url.set("label", "Post");
-        url.set("status", "published");
-        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}}");
-        return (T) get(url, MCContent.class);
-    }
-
-
 
 
 

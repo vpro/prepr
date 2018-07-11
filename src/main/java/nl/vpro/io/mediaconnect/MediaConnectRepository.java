@@ -1,11 +1,5 @@
 package nl.vpro.io.mediaconnect;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import nl.vpro.io.mediaconnect.domain.MCContent;
-import nl.vpro.io.mediaconnect.domain.MCItems;
-
 /**
  *
  * <p>A java representation of the rest services provided by the <a href="https://developers.mediaconnect.io/">mediaconnect API</a>
@@ -21,24 +15,9 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 public interface MediaConnectRepository {
 
     MediaConnectTimelines getTimelines();
-    MediaConnectWebhooks getWebhooks();
-    MediaConnectAssets getAssets();
-
-
-    MCItems<?> getChannels(Paging paging);
-
-    MCItems<?> getPublicationsForChannel(
-        Paging paging,
-        UUID channel,
-        LocalDateTime event_from,
-        LocalDateTime event_utils
-    );
-
-    <T extends MCContent> T getPublication(
-        UUID id
-    );
-
-
+    MediaConnectWebhooks  getWebhooks();
+    MediaConnectAssets    getAssets();
+    MediaConnectContent   getContent();
 
 
 }

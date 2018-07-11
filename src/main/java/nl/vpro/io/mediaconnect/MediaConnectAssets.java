@@ -10,10 +10,10 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 public interface MediaConnectAssets {
 
 
-    MCItems<MCAsset> getAssets(Paging paging);
+    MCItems<MCAsset> get(Paging paging);
 
-    default MCItems<MCAsset> getAssets() {
-        return getAssets(Paging.builder().build());
+    default MCItems<MCAsset> get() {
+        return get(Paging.builder().build());
     }
 
 }

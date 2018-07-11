@@ -47,7 +47,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublicationsForChannel() {
-        MCItems<?> publications = impl.getPublicationsForChannel(Paging.builder().build(),
+        MCItems<?> publications = impl.getContent().getPublicationsForChannel(Paging.builder().build(),
             UUID.fromString("028b041f-7951-45f4-a83f-cd88bdb336c0"),  // Channel.RAD5)
                 null, null);
         log.info("publications : {}", publications);
@@ -57,7 +57,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        MCContent publications = impl.getPublication(
+        MCContent publications = impl.getContent().getPublication(
             UUID.fromString("bd6bdae7-24c5-4185-90f8-005b1e8b0e83")
         );
         log.info("publications : {}", publications);
@@ -66,11 +66,11 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getProgram() {
         log.info("{}",
-            impl.getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351"))
+            impl.getContent().getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351"))
         );
 
           log.info("{}",
-            impl.getPublication(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
+            impl.getContent().getPublication(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
         );
     }
 
@@ -78,13 +78,14 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getTag() {
         log.info("{}",
-            impl.getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))
+            impl.getContent().getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))
         );
     }
 
     @Test
     public void getChannels() {
-        MCItems<?> publications = impl.getChannels(Paging.builder().build());
+        MCItems<?> publications = impl.getContent()
+            .getChannels(Paging.builder().build());
         log.info("publications : {}", publications);
     }
 
@@ -92,14 +93,14 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MCItems<MCWebhook> webhooks = impl.getWebhooks().getWebhooks(limit(100L));
+        MCItems<MCWebhook> webhooks = impl.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
-                impl.getWebhooks().deleteWebhook(webhook.getId());
+                impl.getWebhooks().delete(webhook.getId());
             }
 
         }
@@ -110,7 +111,7 @@ public class MediaConnectRepositoryImplITest {
      @Test
     public void createWebhook() {
          String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
-         log.info("new webook {}", impl.getWebhooks().createWebhook(url,  "showschedule.created",
+         log.info("new webook {}", impl.getWebhooks().create(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
     }
@@ -118,7 +119,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getAsssets() {
-        MCItems<MCAsset> assets  = impl.getAssets().getAssets(limit(100L));
+        MCItems<MCAsset> assets  = impl.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
 
 

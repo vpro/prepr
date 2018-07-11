@@ -28,7 +28,7 @@ public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCWebhook> getWebhooks(Paging paging) {
+    public MCItems<MCWebhook> get(Paging paging) {
         GenericUrl url = impl.createUrl("webhooks");
         impl.addListParameters(url, paging);
         return impl.get(url, MCItems.class);
@@ -36,7 +36,7 @@ public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
 
     @Override
     @SneakyThrows(IOException.class)
-    public MCWebhook createWebhook(String callback_url, String... events)  {
+    public MCWebhook create(String callback_url, String... events)  {
         GenericUrl url = impl.createUrl("webhooks");
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
@@ -48,7 +48,7 @@ public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
 
     @Override
     @SneakyThrows(IOException.class)
-    public void deleteWebhook(UUID webhook) {
+    public void delete(UUID webhook) {
         GenericUrl url = impl.createUrl("webhooks", webhook);
         impl.delete(url);
     }

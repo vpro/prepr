@@ -11,13 +11,13 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
  */
 public interface MediaConnectWebhooks {
 
-    MCItems<MCWebhook> getWebhooks(Paging paging);
+    MCItems<MCWebhook> get(Paging paging);
 
-    default MCItems<MCWebhook> getWebhooks() {
-        return getWebhooks(Paging.builder().build());
+    default MCItems<MCWebhook> get() {
+        return get(Paging.builder().build());
     }
 
-    MCWebhook createWebhook(String url, String... events);
+    MCWebhook create(String url, String... events);
 
-    void deleteWebhook(UUID webhook);
+    void delete(UUID webhook);
 }

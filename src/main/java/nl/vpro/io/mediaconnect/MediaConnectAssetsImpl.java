@@ -21,7 +21,7 @@ public class MediaConnectAssetsImpl implements MediaConnectAssets {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCAsset> getAssets(Paging paging) {
+    public MCItems<MCAsset> get(Paging paging) {
         GenericUrl url = impl.createUrl("assets");
         impl.addListParameters(url, paging);
         url.set("fields", "name,body,reference,source_file,duration");
