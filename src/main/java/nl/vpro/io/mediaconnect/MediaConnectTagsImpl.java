@@ -24,8 +24,7 @@ public class MediaConnectTagsImpl implements MediaConnectTags {
     }
 
 
-    @Override
-    public MCItems<MCTagGroup> getGroups(Paging paging, String name) {
+    public MCItems<MCTagGroup> createGroup(Paging paging, String name) {
         GenericUrl url = impl.createUrl("taggroups");
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
@@ -38,8 +37,11 @@ public class MediaConnectTagsImpl implements MediaConnectTags {
 
 
     @Override
-    public MCItems<MCTagGroup> getGroups(Paging paging) {
+    public MCItems<MCTagGroup> getGroups(Paging paging, String q) {
         GenericUrl url = impl.createUrl("taggroups");
+        if (q != null) {
+            url.set("q", q);
+        }
         url.set("fields", "tags");
         return impl.get(url, MCItems.class);
 

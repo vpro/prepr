@@ -9,12 +9,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
@@ -39,9 +43,9 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
 @Slf4j
 public class MediaConnectRepositoryImpl implements MediaConnectRepository, MediaConnectRepositoryImplMXBean {
 
-    private static String RATELIMIT_RESET = "X-Graphlr-RateLimit-Reset";
+    private static String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
-    private static String RATELIMIT_HOURLIMIT = "X-Graphlr-RateLimit-Hour-Limit";
+    private static String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
@@ -89,18 +93,22 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @lombok.Builder
     MediaConnectRepositoryImpl(
         @Named("mediaconnect.api") String api,
-        @Named("mediaconnect.clientId") String clientId,
-        @Named("mediaconnect.clientSecret") String clientSecret
+        @Nonnull @Named("mediaconnect.clientId") String clientId,
+        @Nonnull @Named("mediaconnect.clientSecret") String clientSecret
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-      /*  try {
+        try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            mbs.registerMBean(this, new ObjectName("nl.vpro.io.mediaconnect:name=mediaconnectRepository"));
+            ObjectName objectName = new ObjectName("nl.vpro.io.mediaconnect:name=mediaconnectRepository-" + clientId);
+            if (! mbs.isRegistered(objectName)) {
+
+                mbs.registerMBean(this, objectName);
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-        }*/
+        }
     }
 
     public static MediaConnectRepositoryImpl configuredInUserHome() {

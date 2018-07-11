@@ -22,5 +22,9 @@ public class Paging {
         return Paging.builder().limit(limit).build();
     }
 
+    public static Paging one() {
+        return limit(1);
+    }
+
 
 }
