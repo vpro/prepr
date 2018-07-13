@@ -11,10 +11,9 @@ import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIEL
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.1
  */
 public class MediaConnectTimelinesImpl implements MediaConnectTimelines {
-
 
     private  final MediaConnectRepositoryImpl impl;
 
