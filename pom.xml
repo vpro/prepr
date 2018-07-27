@@ -4,7 +4,7 @@
   <groupId>nl.vpro</groupId>
   <artifactId>mediaconnect</artifactId>
   <name>vpro-mediaconnect</name>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <inceptionYear>2018</inceptionYear>
   <description>Java client for mediaconnect api</description>
   <url>https://github.com/vpro/mediaconnect</url>
@@ -37,7 +37,7 @@
     <connection>scm:git:git://git@github.com/vpro/mediaconnect.git</connection>
     <developerConnection>scm:git:git@github.com:vpro/mediaconnect.git</developerConnection>
     <url>https://github.com/vpro/mediaconnect</url>
-    <tag>HEAD</tag>
+    <tag>0.1</tag>
   </scm>
 
   <properties>
