@@ -1,11 +1,12 @@
 package nl.vpro.io.mediaconnect;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import com.google.api.client.http.GenericUrl;
 
+import nl.vpro.io.mediaconnect.domain.MCGuide;
+import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 
 import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIELD;
@@ -39,14 +40,14 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
     }
 
     @Override
-    public List<UUID> getGuides(String q) {
+    public MCItems<MCGuide> getGuides(String q) {
          GenericUrl url = impl.createUrl("guides");
         if (q!= null) {
             url.set("q", q);
         }
         url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + SOURCEFILE_FIELD + "}},users");
 
-        return impl.get(url, List.class);
+        return impl.get(url, MCItems.class);
 
 
     }

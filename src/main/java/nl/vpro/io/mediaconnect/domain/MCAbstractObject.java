@@ -33,12 +33,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = MCChannel.class, name = "Channel"),
     @JsonSubTypes.Type(value = MCNewsCast.class, name = "NewsCast"),
     @JsonSubTypes.Type(value = MCTag.class, name = "Tag"),
-    @JsonSubTypes.Type(value = MCTagGroup.class, name = "TagGroup")
-
-
-
-
-
+    @JsonSubTypes.Type(value = MCTagGroup.class, name = "TagGroup"),
+    @JsonSubTypes.Type(value = MCGuide.class, name = "Guide")
 })
 public class MCAbstractObject  {
 

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import nl.vpro.io.mediaconnect.domain.MCGuide;
+import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 
 /**
@@ -19,7 +21,7 @@ public interface MediaConnectGuides {
         return getSchedule(channel, from, from);
     }
 
-    List<UUID> getGuides(String q);
+     MCItems<MCGuide> getGuides(String q);
 
 
 

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Ignore;
@@ -38,7 +39,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getSchedule1() {
         LocalDate date = LocalDate.of(2018, 5, 7);
-        MCSchedule schedule = impl.getTimelines().getSchedule(
+        MCSchedule schedule = impl.getPrepr().getSchedule(
             UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
             ,
           date);
@@ -51,7 +52,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getSchedule2() {
         LocalDate date = LocalDate.of(2018, 7, 10);
-        MCSchedule schedule = impl.getTimelines().getSchedule(
+        MCSchedule schedule = impl.getPrepr().getSchedule(
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
             ,
           date);
@@ -61,11 +62,17 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getSchedule3() {
         LocalDate date = LocalDate.of(2018, 7, 7);
-        MCSchedule schedule = impl.getTimelines().getSchedule(
+        MCSchedule schedule = impl.getPrepr().getSchedule(
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
             ,
           date);
         log.info("schedule: {}", schedule);
+        for (Map.Entry<LocalDate, List<MCEvent>> e : schedule) {
+            log.info("{}", e.getKey());
+            for (MCEvent event : e.getValue()) {
+                log.info("  {}", event);
+            }
+        }
     }
 
 
@@ -73,9 +80,22 @@ public class MediaConnectRepositoryImplITest {
        // werkt met account 2
     @Test
     public void getGuides() {
-        List result = impl.getGuides().getGuides(null);
-        log.info("schedule: {}", result);
+        MCItems<MCGuide> result = impl.getGuides().getGuides(null);
+        for (MCGuide guide : result) {
+            log.info("guide: {}", guide);
+        }
     }
+    // werkt met account 2
+    @Test
+    public void getSchedule4() {
+        LocalDate date = LocalDate.of(2018, 7, 7);
+        MCSchedule schedule = impl.getGuides().getSchedule(
+            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
+            ,
+          date);
+        log.info("schedule: {}", schedule);
+    }
+
 
 
     @Test

@@ -13,15 +13,20 @@ import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIEL
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public class MediaConnectTimelinesImpl implements MediaConnectTimelines {
+public class MediaConnectPreprImpl implements MediaConnectPrepr {
 
     private  final MediaConnectRepositoryImpl impl;
 
-    public MediaConnectTimelinesImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectPreprImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }
 
+
+    /**
+     * @deprecated Use {@link MediaConnectGuides#getSchedule(UUID, LocalDate, LocalDate)})
+     */
     @Override
+    @Deprecated
     public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
         GenericUrl url = impl.createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {

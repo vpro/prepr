@@ -14,7 +14,8 @@ package nl.vpro.io.mediaconnect;
  */
 public interface MediaConnectRepository {
 
-    MediaConnectTimelines getTimelines();
+    MediaConnectPrepr     getPrepr();
+    MediaConnectGuides    getGuides();
     MediaConnectWebhooks  getWebhooks();
     MediaConnectAssets    getAssets();
     MediaConnectContent   getContent();

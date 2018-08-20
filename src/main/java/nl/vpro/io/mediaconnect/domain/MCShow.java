@@ -28,6 +28,7 @@ public class MCShow extends MCContent {
 
     String reference_id;
 
+    String reference;
 
 
     @Override

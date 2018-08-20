@@ -9,7 +9,7 @@ import nl.vpro.io.mediaconnect.domain.MCSchedule;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectTimelines {
+public interface MediaConnectPrepr {
 
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
 

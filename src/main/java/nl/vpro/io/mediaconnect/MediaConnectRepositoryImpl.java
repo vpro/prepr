@@ -76,7 +76,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private Instant expiration;
 
     @Getter
-    private final MediaConnectTimelines timelines = new MediaConnectTimelinesImpl(this);
+    private final MediaConnectPrepr prepr = new MediaConnectPreprImpl(this);
 
 
     @Getter

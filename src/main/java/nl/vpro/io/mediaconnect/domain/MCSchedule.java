@@ -25,10 +25,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonSerialize(using = MCSchedule.Serializer.class)
 @JsonDeserialize(using = MCSchedule.Deserializer.class)
 @Slf4j
-public class MCSchedule {
+public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>> {
 
 
     Map<LocalDate, List<MCEvent>> days;
+
+    @Override
+    public Iterator<Map.Entry<LocalDate, List<MCEvent>>> iterator() {
+        return days.entrySet().iterator();
+
+    }
 
 
     public static class Serializer extends JsonSerializer<MCSchedule> {
