@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.management.MBeanServer;
@@ -100,17 +101,20 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     MediaConnectRepositoryImpl(
         @Named("mediaconnect.api") String api,
         @Nonnull @Named("mediaconnect.clientId") String clientId,
-        @Nonnull @Named("mediaconnect.clientSecret") String clientSecret
+        @Nonnull @Named("mediaconnect.clientSecret") String clientSecret,
+        @Nullable @Named("mediaconnect.jmxName") String jmxName
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName objectName = new ObjectName("nl.vpro.io.mediaconnect:name=mediaconnectRepository-" + clientId);
+            String name = jmxName == null || jmxName.length() == 0  ? "mediaconnectRepository" :jmxName;
+            ObjectName objectName = new ObjectName("nl.vpro.io.mediaconnect:name=" + name + "-" + clientId);
             if (! mbs.isRegistered(objectName)) {
-
                 mbs.registerMBean(this, objectName);
+            } else {
+                log.info("Already registered {}", objectName);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
