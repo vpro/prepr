@@ -78,6 +78,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectTimelines timelines = new MediaConnectTimelinesImpl(this);
 
+
+    @Getter
+    private final MediaConnectGuides guides = new MediaConnectGuidesImpl(this);
+
     @Getter
     private final MediaConnectWebhooks webhooks = new MediaConnectWebhooksImpl(this);
 
@@ -256,7 +260,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
                     .setGrantType("client_credentials")
-                    .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets,webhooks_publish,webhooks_delete")
+                    .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets,webhooks_publish,webhooks_delete,guides")
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());

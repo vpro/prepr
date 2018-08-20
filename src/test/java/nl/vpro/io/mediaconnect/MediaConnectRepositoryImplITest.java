@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.Ignore;
@@ -68,6 +69,13 @@ public class MediaConnectRepositoryImplITest {
     }
 
 
+
+       // werkt met account 2
+    @Test
+    public void getGuides() {
+        List result = impl.getGuides().getGuides(null);
+        log.info("schedule: {}", result);
+    }
 
 
     @Test

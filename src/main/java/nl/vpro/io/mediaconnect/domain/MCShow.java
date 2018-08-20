@@ -26,7 +26,7 @@ public class MCShow extends MCContent {
 
     MCPhoto cover;
 
-    String reference;
+    String reference_id;
 
 
 
