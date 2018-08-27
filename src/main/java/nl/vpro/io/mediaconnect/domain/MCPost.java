@@ -19,15 +19,29 @@ import com.fasterxml.jackson.databind.JsonNode;
 @ToString(callSuper = true)
 @JsonTypeName("Post")
 public class MCPost extends MCContent {
-
+     /**
+     * What does this mean?
+     */
     String slug;
 
+    /**
+     * What does this mean?
+     */
     JsonNode custom;
 
+     /**
+     * What does this mean?
+     */
     String length;
 
+     /**
+     * What does this mean?
+     */
     String tease;
 
+     /**
+     * What does this mean?
+     */
     MCTimeline container;
 
     @JsonProperty("element")
