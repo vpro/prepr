@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -21,7 +22,7 @@ public class MCPost extends MCContent {
 
     String slug;
 
-    String custom;
+    JsonNode custom;
 
     String length;
 
