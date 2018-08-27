@@ -95,24 +95,29 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectTags tags = new MediaConnectTagsImpl(this);
 
-
-    @Inject
     @lombok.Builder
     MediaConnectRepositoryImpl(
-        @Named("mediaconnect.api") String api,
-        @Nonnull @Named("mediaconnect.clientId") String clientId,
-        @Nonnull @Named("mediaconnect.clientSecret") String clientSecret,
-        @Nullable @Named("mediaconnect.jmxName") String jmxName
+        String api,
+        @Nonnull String clientId,
+        @Nonnull String clientSecret,
+        @Nullable String jmxName
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+
+
+    }
+
+    public void registerBean(String jmxName) {
+        String name = jmxName == null || jmxName.length() == 0  ? "mediaconnectRepository"  : jmxName;
+
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            String name = jmxName == null || jmxName.length() == 0  ? "mediaconnectRepository" :jmxName;
             ObjectName objectName = new ObjectName("nl.vpro.io.mediaconnect:name=" + name + "-" + clientId);
             if (! mbs.isRegistered(objectName)) {
                 mbs.registerMBean(this, objectName);
+                log.info("Registered {}", objectName);
             } else {
                 log.info("Already registered {}", objectName);
             }
