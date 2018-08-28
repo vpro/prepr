@@ -11,15 +11,25 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class MCAsset extends MCAbstractObject {
 
+    public static String REFERENCE_CRID_PREFIX =  "crid://mediaconnect.io/reference/";
+
+
     String name;
 
     String reference;
+
+    String reference_id;
+
 
     String author;
 
     MCSourceFile source_file;
 
     String rel_description;
+
+    public String getCridForReference() {
+        return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id;
+    }
 
 
     @Override

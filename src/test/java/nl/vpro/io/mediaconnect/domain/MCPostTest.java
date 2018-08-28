@@ -22,4 +22,15 @@ public class MCPostTest {
 
 
     }
+
+
+    @Test
+    public void unmarshal2() throws IOException {
+        MCPost post = MCObjectMapper.INSTANCE.readerFor(MCPost.class)
+             .readValue(getClass().getResourceAsStream("/mcpost2.json"));
+        log.info("{}", post);
+
+
+
+    }
 }

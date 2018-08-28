@@ -19,15 +19,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 @ToString(callSuper = true)
 @JsonTypeName("Post")
 public class MCPost extends MCContent {
-     /**
-     * What does this mean?
-     */
-    String slug;
+
 
     /**
      * What does this mean?
      */
     JsonNode custom;
+
+    /**
+     * This seems to contain MID's.
+     */
+    String reference_id;
+
 
      /**
      * What does this mean?
