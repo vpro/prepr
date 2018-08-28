@@ -1,0 +1,78 @@
+{
+  "id": "948f793b-83e9-4c65-8c8e-60156e11e252",
+  "created_on": "2018-08-27T10:51:04+00:00",
+  "changed_on": "2018-08-28T08:19:02+00:00",
+  "published_on": "2018-08-27T10:22:00+00:00",
+  "unpublish_on": null,
+  "label": "Post",
+  "status": "published",
+  "slug": null,
+  "custom": {
+    "pbxupdated": "2018-08-27 13:21:27"
+  },
+  "reference_id": "RBX_KN_13081884",
+  "length": "",
+  "tease": "",
+  "element": [
+    {
+      "id": "6ecff79d-ca1c-4f94-abea-f4c65ba454ec",
+      "created_on": "2018-08-28T08:19:02+00:00",
+      "body": "Jos B. aangehouden in Cataloni?",
+      "label": "Heading"
+    },
+    {
+      "id": "3ddfa8a1-95f7-44df-9185-1bde17bf3e83",
+      "created_on": "2018-08-28T08:19:02+00:00",
+      "body": "Test<br><br>",
+      "label": "Text"
+    },
+    {
+      "id": "68928f65-e576-49e2-bed0-9e4425721a72",
+      "label": "Media",
+      "created_on": "2018-08-28T08:19:02+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "81c9b250-e5e0-4129-a195-6bae5a5e9d85",
+          "created_on": "2018-08-27T10:51:03+00:00",
+          "changed_on": "2018-08-27T10:51:03+00:00",
+          "label": "Audio",
+          "name": "Jos B. aangehouden in Cataloni? Gijs 2.0 2018-08-27",
+          "body": null,
+          "reference": null,
+          "duration": null,
+          "reference_id": "RBX_KN_13081885",
+          "rel_description": null
+        },
+        {
+          "id": "858c0ec1-f2c3-4b06-aca2-3f81901fc371",
+          "created_on": "2018-08-27T10:51:04+00:00",
+          "changed_on": "2018-08-27T10:51:04+00:00",
+          "label": "Photo",
+          "name": null,
+          "body": null,
+          "reference": null,
+          "reference_id": "PBX369712",
+          "rel_description": null
+        }
+      ]
+    }
+  ],
+  "channel": {
+    "id": "a16f06da-dac0-4c45-b94e-dd8788f9a691",
+    "created_on": "2018-06-07T07:35:03+00:00",
+    "changed_on": null,
+    "label": "Channel",
+    "name": "Website & app",
+    "username": null,
+    "screen_name": null,
+    "profile_pic": null,
+    "picture": null,
+    "type": "site",
+    "share_construct_url": null,
+    "preview_construct_url": null,
+    "share_url": null
+  },
+  "tags": null
+}
+
