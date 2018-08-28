@@ -206,7 +206,7 @@ public class MediaConnectRepositoryImplITest {
             if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
 
-                impl.getWebhooks().delete(webhook.getId());
+                //impl.getWebhooks().delete(webhook.getId());
             }
 
         }

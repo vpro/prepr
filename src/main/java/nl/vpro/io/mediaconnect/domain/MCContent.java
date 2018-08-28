@@ -18,4 +18,9 @@ public abstract class MCContent extends MCAbstractObject {
     Instant unpublish_on;
 
     MCStatus status;
+
+    /**
+     * What does this mean?
+     */
+    String slug;
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -19,14 +20,31 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("Post")
 public class MCPost extends MCContent {
 
-    String slug;
 
-    String custom;
+    /**
+     * What does this mean?
+     */
+    JsonNode custom;
 
+    /**
+     * This seems to contain MID's.
+     */
+    String reference_id;
+
+
+     /**
+     * What does this mean?
+     */
     String length;
 
+     /**
+     * What does this mean?
+     */
     String tease;
 
+     /**
+     * What does this mean?
+     */
     MCTimeline container;
 
     @JsonProperty("element")
