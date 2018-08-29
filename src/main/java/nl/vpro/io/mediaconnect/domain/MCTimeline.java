@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -22,8 +24,5 @@ public class MCTimeline extends MCContent {
 
     String until;
 
-    @Override
-    public String getCrid() {
-        return CRID_PREFIX + getLabel().toLowerCase() + "/" + getReference_id();
-    }
+    List<MCAbstractMedia> assets;
 }

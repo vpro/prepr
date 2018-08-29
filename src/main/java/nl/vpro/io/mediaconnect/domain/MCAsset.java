@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Map;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -13,19 +15,21 @@ public abstract class MCAsset extends MCAbstractObject {
 
     public static String REFERENCE_CRID_PREFIX =  "crid://mediaconnect.io/reference/";
 
-
     String name;
 
     String reference;
 
     String reference_id;
 
-
     String author;
 
     MCSourceFile source_file;
 
     String rel_description;
+
+    MCCustom custom;
+
+    Map<String, MCMediaFile> media;
 
     public String getCridForReference() {
         return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id;

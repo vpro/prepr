@@ -71,6 +71,10 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private boolean logAsCurl;
 
     @Getter
+    @Setter
+    private UUID guideId;
+
+    @Getter
     private TokenResponse tokenResponse;
 
     @Getter
@@ -95,15 +99,20 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectTags tags = new MediaConnectTagsImpl(this);
 
+    @Getter
+    private final MediaConnectContainers containers = new MediaConnectContainersImpl(this);
+
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryImpl(
-        String api,
+        @Nullable String api,
         @Nonnull String clientId,
-        @Nonnull String clientSecret
+        @Nonnull String clientSecret,
+        @Nullable String guideId
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.guideId = guideId == null ? null : UUID.fromString(guideId);
 
 
     }
@@ -141,6 +150,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             .api(properties.get("mediaconnect.api"))
             .clientId(properties.get("mediaconnect.clientId" + postfix))
             .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
+            .guideId(properties.get("mediaconnect.guideId" + postfix))
             .build();
         impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
         String jmxName = properties.get("mediaconnect.jmxname");

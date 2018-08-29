@@ -19,7 +19,6 @@ public abstract class MCAbstractMedia extends MCAsset {
     @JsonSerialize(using = DurationSerializer.class)
     Duration duration;
 
-    String custom_type;
 
     @Override
     public String toString() {

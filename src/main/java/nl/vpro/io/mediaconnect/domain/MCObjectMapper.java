@@ -29,22 +29,26 @@ public class MCObjectMapper extends ObjectMapper {
 
     public static final MCObjectMapper INSTANCE = new MCObjectMapper();
 
-    private static  boolean lenient = false;
-
     static {
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        INSTANCE.registerModule(javaTimeModule);
+        INSTANCE.registerModule(new JavaTimeModule());
+        INSTANCE.registerModule(new MCModule());
+        configureInstance(true);
+    }
+
+    public static void configureInstance(boolean lenient) {
+
         INSTANCE.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         INSTANCE.configure(JsonParser.Feature.ALLOW_COMMENTS, true); // always nice for examples
         if (lenient) {
             INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true); // forward compatibility
             INSTANCE.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);// forward compatibility
+        } else {
+            INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, false);
+            INSTANCE.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         }
         // We sometimes see for arrays : ""
         INSTANCE.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         INSTANCE.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        INSTANCE.registerModule(new MCModule());
-
 
     }
 

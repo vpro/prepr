@@ -6,6 +6,10 @@ import lombok.Singular;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
+import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
+
 /**
  * Maintains a map of {@link MediaConnectRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
  *
@@ -36,6 +40,8 @@ public class MediaConnectRepositories implements Iterable<MediaConnectRepository
                     .configured(configuration, channel)
             );
         }
+        String lenient = configuration.get("mediaconnect.lenientjson");
+        MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         return builder.build();
     }
 

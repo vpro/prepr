@@ -89,10 +89,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getSchedule4() {
         LocalDate date = LocalDate.of(2018, 7, 7);
-        MCSchedule schedule = impl.getGuides().getSchedule(
-            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
-            ,
-          date);
+        MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
     }
 
@@ -180,7 +177,7 @@ public class MediaConnectRepositoryImplITest {
         log.info("channels : {}", publications);
     }
     @Test
-    public void getContainer() {
+    public void getContentContainer() {
 
           log.info("{}",
             impl.getContent().getContainer(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
@@ -203,10 +200,9 @@ public class MediaConnectRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://api-itest")) {
+            if (webhook.getCallback_url().startsWith("http://mitulo")) {
                 log.info("Deleting {}", webhook);
-
-                //impl.getWebhooks().delete(webhook.getId());
+                impl.getWebhooks().delete(webhook.getId());
             }
 
         }
@@ -214,7 +210,7 @@ public class MediaConnectRepositoryImplITest {
     }
 
 
-     @Test
+    @Test
     public void createWebhook() {
          String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
          log.info("new webook {}", impl.getWebhooks().create(url,  "showschedule.created",
@@ -227,6 +223,14 @@ public class MediaConnectRepositoryImplITest {
     public void getAsssets() {
         MCItems<MCAsset> assets  = impl.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
+
+
+    }
+
+    @Test
+    public void getTimeline() {
+        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("8dddfc93-7dc5-4229-b695-3288e1b07276"));
+        log.info("timeline: {}", timeline);
 
 
     }

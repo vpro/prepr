@@ -1,7 +1,6 @@
 package nl.vpro.io.mediaconnect;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -24,8 +23,8 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
     }
 
     @Override
-    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
-        GenericUrl url = impl.createUrl("guides", channel);
+    public MCSchedule getSchedule(LocalDate from, LocalDate until) {
+        GenericUrl url = impl.createUrl("guides", impl.getGuideId());
         //GenericUrl url = impl.createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {
             url.set("from", from.toString());
@@ -34,7 +33,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
             url.set("until", until.toString());
         }
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
-        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + SOURCEFILE_FIELD + "}},users");
+        url.set("fields", "timelines{assets{custom,source_file}},guide,show{slug,name,body,tags,status,cover{" + SOURCEFILE_FIELD + "}},users");
 
         return impl.get(url, MCSchedule.class);
     }

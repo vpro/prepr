@@ -20,6 +20,8 @@ public interface MediaConnectRepository {
     MediaConnectAssets    getAssets();
     MediaConnectContent   getContent();
     MediaConnectTags      getTags();
+    MediaConnectContainers getContainers();
+
 
 
 
