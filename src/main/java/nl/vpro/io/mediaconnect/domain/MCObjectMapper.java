@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import nl.vpro.jackson2.DurationToJsonTimestamp;
+import nl.vpro.jackson2.LocalDateTimeToJsonDateWithSpace;
 
 /**
  * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the acutally provided json by MediaConnect.
@@ -61,6 +63,9 @@ public class MCObjectMapper extends ObjectMapper {
 
             addDeserializer(Duration.class, DurationToJsonTimestamp.Deserializer.INSTANCE);
             addSerializer(Duration.class, DurationToJsonTimestamp.Serializer.INSTANCE);
+
+            addDeserializer(LocalDateTime.class, LocalDateTimeToJsonDateWithSpace.Deserializer.INSTANCE);
+            addSerializer(LocalDateTime.class, LocalDateTimeToJsonDateWithSpace.Serializer.INSTANCE);
         }
     }
 

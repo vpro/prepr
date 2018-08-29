@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -20,9 +21,9 @@ public class MCTimeline extends MCContent {
 
     String timecode;
 
-    String from; // formatted time, in Europe/Amsterdam
+    LocalDateTime from;
 
-    String until;
+    LocalDateTime until;
 
     List<MCAbstractMedia> assets;
 }
