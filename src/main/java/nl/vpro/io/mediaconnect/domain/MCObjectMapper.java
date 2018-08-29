@@ -2,14 +2,19 @@ package nl.vpro.io.mediaconnect.domain;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import nl.vpro.jackson2.DurationToJsonTimestamp;
 
 /**
  * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the acutally provided json by MediaConnect.
@@ -38,8 +43,21 @@ public class MCObjectMapper extends ObjectMapper {
         // We sometimes see for arrays : ""
         INSTANCE.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         INSTANCE.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        INSTANCE.registerModule(new MCModule());
 
 
+    }
+
+    public static class MCModule extends SimpleModule {
+
+        private static final long serialVersionUID = 1L;
+
+        public MCModule() {
+            super(new Version(0, 3, 0, "", "nl.vpro", "mediaconnect"));
+
+            addDeserializer(Duration.class, DurationToJsonTimestamp.Deserializer.INSTANCE);
+            addSerializer(Duration.class, DurationToJsonTimestamp.Serializer.INSTANCE);
+        }
     }
 
     public static <T> Optional<T> unmap(JsonNode payload, Class<T> clazz) {

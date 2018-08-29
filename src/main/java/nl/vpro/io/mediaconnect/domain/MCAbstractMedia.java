@@ -3,6 +3,11 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Duration;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.DurationSerializer;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -11,7 +16,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class MCAbstractMedia extends MCAsset {
 
-    String duration;
+    @JsonSerialize(using = DurationSerializer.class)
+    Duration duration;
 
     String custom_type;
 

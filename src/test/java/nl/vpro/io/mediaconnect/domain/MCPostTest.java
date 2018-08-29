@@ -3,8 +3,11 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Michiel Meeuwissen
@@ -40,7 +43,8 @@ public class MCPostTest {
         MCPost post = MCObjectMapper.INSTANCE.readerFor(MCPost.class)
              .readValue(getClass().getResourceAsStream("/mcpost3.json"));
         log.info("{}", post);
-
+        MCAudio audio = (MCAudio) ((MCMedia) post.getElements().get(2)).getContent().get(0);
+        assertThat(audio.getDuration()).isEqualTo(Duration.ofMinutes(1));
 
 
     }

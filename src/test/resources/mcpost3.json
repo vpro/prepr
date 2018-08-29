@@ -37,7 +37,7 @@
           "name": null,
           "body": "Rabbering Laat 2018-08-28 23:00",
           "reference": null,
-          "duration": null,
+          "duration": 60000,
           "custom_type": "hourly",
           "rel_description": null
         }
