@@ -95,12 +95,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectTags tags = new MediaConnectTagsImpl(this);
 
-    @lombok.Builder
+    @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryImpl(
         String api,
         @Nonnull String clientId,
-        @Nonnull String clientSecret,
-        @Nullable String jmxName
+        @Nonnull String clientSecret
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
@@ -126,19 +125,30 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         }
     }
 
+    @SuppressWarnings("unchecked")
     @SneakyThrows(IOException.class)
-    public static MediaConnectRepositoryImpl configuredInUserHome() {
+    public static MediaConnectRepositoryImpl configuredInUserHome(String channel) {
 
         Properties properties = new Properties();
         properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
-        return MediaConnectRepositoryImpl
-            .builder()
-            .api(properties.getProperty("mediaconnect.api"))
-            .clientId(properties.getProperty("mediaconnect.clientId"))
-            .clientSecret(properties.getProperty("mediaconnect.clientSecret"))
-            .build();
+        return configured((Map) properties, channel);
     }
 
+    public static MediaConnectRepositoryImpl configured(Map<String, String> properties, String channel) {
+        String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
+        MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
+            .builder()
+            .api(properties.get("mediaconnect.api"))
+            .clientId(properties.get("mediaconnect.clientId" + postfix))
+            .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
+            .build();
+        String jmxName = properties.get("mediaconnect.jmxname");
+        if (jmxName != null && jmxName.length() > 0) {
+            impl.registerBean(jmxName);
+        }
+
+        return impl;
+    }
 
 
     protected void addListParameters(GenericUrl url, Paging paging) {

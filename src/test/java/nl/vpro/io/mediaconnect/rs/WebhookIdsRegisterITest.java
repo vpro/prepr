@@ -2,9 +2,8 @@ package nl.vpro.io.mediaconnect.rs;
 
 import org.junit.Test;
 
+import nl.vpro.io.mediaconnect.MediaConnectRepositories;
 import nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -13,10 +12,14 @@ import static org.junit.Assert.*;
 public class WebhookIdsRegisterITest {
 
 
-    MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome();
+    MediaConnectRepositories repositories = MediaConnectRepositories
+        .builder()
+        .repository("RAD2",
+            MediaConnectRepositoryImpl.configuredInUserHome("RAD2"))
+        .build();
 
 
-    WebhookIdsRegister register = new WebhookIdsRegister(impl, "");
+    WebhookIdsRegister register = new WebhookIdsRegister(repositories, "");
 
     @Test
     public void init() {

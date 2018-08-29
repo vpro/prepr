@@ -23,7 +23,7 @@ import static nl.vpro.io.mediaconnect.Paging.limit;
 public class MediaConnectRepositoryImplITest {
 
 
-    MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome();
+    MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
     {
         impl.setLogAsCurl(true);
     }
