@@ -142,6 +142,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             .clientId(properties.get("mediaconnect.clientId" + postfix))
             .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
             .build();
+        impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
         String jmxName = properties.get("mediaconnect.jmxname");
         if (jmxName != null && jmxName.length() > 0) {
             impl.registerBean(jmxName);

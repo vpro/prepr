@@ -13,6 +13,8 @@ public abstract class MCAbstractMedia extends MCAsset {
 
     String duration;
 
+    String custom_type;
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +

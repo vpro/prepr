@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Maintains a map of {@link MediaConnectRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
+ *
  * @author Michiel Meeuwissen
  * @since 0.3
  */
