@@ -1,0 +1,62 @@
+{
+  "id": "91cb8786-411e-4d8b-9808-4838ac094f98",
+  "created_on": "2018-08-29T08:11:55+00:00",
+  "changed_on": "2018-08-29T08:12:13+00:00",
+  "published_on": "2018-08-25T22:26:00+00:00",
+  "unpublish_on": null,
+  "label": "Post",
+  "status": "draft",
+  "slug": null,
+  "custom": null,
+  "length": "",
+  "tease": "",
+  "element": [
+    {
+      "id": "247a50e9-f7a1-4eb0-9f7a-d4cfe5843d3e",
+      "created_on": "2018-08-29T08:12:13+00:00",
+      "body": "TEst test",
+      "label": "Heading"
+    },
+    {
+      "id": "fb815459-0ecf-44a0-af80-b616f0130410",
+      "created_on": "2018-08-29T08:12:13+00:00",
+      "body": "testtest",
+      "label": "Text"
+    },
+    {
+      "id": "cb8a61d1-7f2e-406a-8221-1ca88be4dc72",
+      "label": "Media",
+      "created_on": "2018-08-29T08:12:13+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "d9de050e-3b75-4d65-b30f-cdfabb7b2e0b",
+          "created_on": "2018-08-28T22:28:03+00:00",
+          "changed_on": "2018-08-28T22:28:03+00:00",
+          "label": "Audio",
+          "name": null,
+          "body": "Rabbering Laat 2018-08-28 23:00",
+          "reference": null,
+          "duration": null,
+          "custom_type": "hourly",
+          "rel_description": null
+        }
+      ]
+    }
+  ],
+  "channel": {
+    "id": "2f7328a8-2878-49b6-b1f8-0b5bc9d11fd5",
+    "created_on": "2018-07-20T11:03:05+00:00",
+    "changed_on": null,
+    "label": "Channel",
+    "name": "Mediatransfer",
+    "username": null,
+    "screen_name": null,
+    "profile_pic": null,
+    "picture": null,
+    "type": "site",
+    "share_construct_url": "",
+    "preview_construct_url": "",
+    "share_url": null
+  }
+}
