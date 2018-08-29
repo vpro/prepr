@@ -3,7 +3,7 @@ Domain classes and client for https://developers.mediaconnect.io/
 
 
 [![Build Status](https://travis-ci.org/vpro/mediaconnect.svg?)](https://travis-ci.org/vpro/mediaconnect)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/nl.vpro/mediaconnect/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/nl.vpro/mediaconnect)
+[![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/mediaconnect.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22mediaconnect%22)
 
 
 This was created because [POMS](https://rs.poms.omroep.nl/v3) (at the moment a future version of it) sychronizes data from mediaconnect for radio related data of the dutch public broadcasters
