@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 public class MediaConnectRepositories implements Iterable<MediaConnectRepository> {
 
     @Getter
-    private final Map<String, MediaConnectRepository> repositories;
+    private final Map<String, MediaConnectRepository> repositories = new TreeMap<>();
 
     @lombok.Builder
     public MediaConnectRepositories(
         @Singular Map<String, MediaConnectRepository> repositories) {
-        this.repositories = repositories;
+        this.repositories.putAll(repositories);
     }
 
     public static MediaConnectRepositories fromMap(Map<String, String> configuration) {
