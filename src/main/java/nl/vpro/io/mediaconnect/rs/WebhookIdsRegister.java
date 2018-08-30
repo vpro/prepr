@@ -10,6 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,7 +27,8 @@ import static nl.vpro.io.mediaconnect.Paging.limit;
 @Slf4j
 public class WebhookIdsRegister {
 
-    public static final ScheduledExecutorService backgroundExecutor = Executors.newScheduledThreadPool(1);
+    public static final ScheduledExecutorService backgroundExecutor =
+        Executors.newScheduledThreadPool(1);
 
     private final MediaConnectRepositories repositories;
 
@@ -49,6 +51,10 @@ public class WebhookIdsRegister {
         backgroundExecutor.scheduleAtFixedRate(this::registerWebhooks
             , 0, Duration.ofMinutes(5).toMillis(), TimeUnit.MILLISECONDS
         );
+    }
+    @PreDestroy
+    public void shutdown() {
+        backgroundExecutor.shutdownNow();
     }
 
 
