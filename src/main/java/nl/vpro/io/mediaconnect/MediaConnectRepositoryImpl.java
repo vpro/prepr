@@ -35,7 +35,7 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
  * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
  * with credentials.
  *
- * This can be done by code (using {@link MediaConnectRepositoryImpl#builder()}, using config file {@link MediaConnectRepositoryImpl#configuredInUserHome()}
+ * This can be done by code (using {@link MediaConnectRepositoryImpl#builder()}, using config file {@link MediaConnectRepositoryImpl#configuredInUserHome(String)}}
  * or using some IoC-framework (depending on the {@link Inject} and {@link Named} annotations on the constructor.
  *
  * @author Michiel Meeuwissen
