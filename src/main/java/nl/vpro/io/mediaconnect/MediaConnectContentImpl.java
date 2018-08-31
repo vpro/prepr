@@ -10,7 +10,7 @@ import com.google.api.client.http.GenericUrl;
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 
-import static nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl.SOURCEFILE_FIELD;
+import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
 
 /**
  * @author Michiel Meeuwissen

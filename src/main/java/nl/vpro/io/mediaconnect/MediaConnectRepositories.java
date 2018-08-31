@@ -30,7 +30,9 @@ public class MediaConnectRepositories implements Iterable<MediaConnectRepository
     public static MediaConnectRepositories fromMap(Map<String, String> configuration) {
         MediaConnectRepositoriesBuilder builder = MediaConnectRepositories.builder();
         String prefix = "mediaconnect.clientId.";
-        List<String> channels = configuration.keySet().stream()
+        List<String> channels = configuration.entrySet().stream()
+            .filter((e) -> StringUtils.isNotBlank(e.getValue()))
+            .map(Map.Entry::getKey)
             .filter((k) -> k.startsWith(prefix))
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());

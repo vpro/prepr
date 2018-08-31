@@ -22,6 +22,7 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang3.StringUtils;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
@@ -47,8 +48,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private static String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
     private static String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
-
-    static String SOURCEFILE_FIELD = "source_file{resized{picture.width(1920)}}";
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
@@ -143,22 +142,28 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         return configured((Map) properties, channel);
     }
 
-    public static MediaConnectRepositoryImpl configured(Map<String, String> properties, String channel) {
+    public static MediaConnectRepositoryImpl configured(
+        Map<String, String> properties, String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
-        MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
-            .builder()
-            .api(properties.get("mediaconnect.api"))
-            .clientId(properties.get("mediaconnect.clientId" + postfix))
-            .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
-            .guideId(properties.get("mediaconnect.guideId" + postfix))
-            .build();
-        impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
-        String jmxName = properties.get("mediaconnect.jmxname");
-        if (jmxName != null && jmxName.length() > 0) {
-            impl.registerBean(jmxName);
-        }
+        String clientId = properties.get("mediaconnect.clientId" + postfix);
+        if (StringUtils.isNotBlank(clientId)) {
+            MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
+                .builder()
+                .api(properties.get("mediaconnect.api"))
+                .clientId(clientId)
+                .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
+                .guideId(properties.get("mediaconnect.guideId" + postfix))
+                .build();
+            impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
+            String jmxName = properties.get("mediaconnect.jmxname");
+            if (jmxName != null && jmxName.length() > 0) {
+                impl.registerBean(jmxName);
+            }
 
-        return impl;
+            return impl;
+        } else {
+            throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());
+        }
     }
 
 
