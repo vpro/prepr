@@ -13,6 +13,7 @@ import java.lang.management.ManagementFactory;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -295,7 +296,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
                     .setGrantType("client_credentials")
-                    .set("scope", "webhooks,tags,taggroups,publications,prepr,containers,assets,webhooks_publish,webhooks_delete,guides")
+                    .set("scope", Arrays.stream(Scope.values()).map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());

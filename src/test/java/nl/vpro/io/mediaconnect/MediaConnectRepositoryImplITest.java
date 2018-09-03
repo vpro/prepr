@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import nl.vpro.io.mediaconnect.domain.*;
@@ -98,7 +97,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getPublicationsForChannel() {
         MCItems<?> publications = impl.getContent().getPublicationsForChannel(Paging.builder().build(),
-            UUID.fromString("028b041f-7951-45f4-a83f-cd88bdb336c0"),  // Channel.RAD5)
+            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"),  // Channel.RAD5)
                 null, null);
         log.info("publications : {}", publications);
     }
@@ -161,12 +160,12 @@ public class MediaConnectRepositoryImplITest {
     }
 
     @Test
-    @Ignore("Our account gives 401 only.")
     public void getChannels() {
         MCItems<?> publications = impl.getContent()
             .getChannels(Paging.builder().build());
         log.info("channels : {}", publications);
     }
+
 
 
 
@@ -183,6 +182,7 @@ public class MediaConnectRepositoryImplITest {
             impl.getContent().getContainer(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
         );
     }
+
 
      @Test
     public void getContainer2() {
@@ -229,7 +229,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("8dddfc93-7dc5-4229-b695-3288e1b07276"));
+        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("bb2b134a-93a3-451f-b0a8-d46cd51b1d23"));
         log.info("timeline: {}", timeline);
 
 
