@@ -29,6 +29,8 @@ public abstract class MCAsset extends MCAbstractObject {
 
     MCCustom custom;
 
+    String custom_type;
+
     Map<String, MCMediaFile> media;
 
     public String getCridForReference() {

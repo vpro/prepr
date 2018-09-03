@@ -73,7 +73,7 @@ public class MCObjectMapper extends ObjectMapper {
         try {
             return Optional.of(INSTANCE.treeToValue(payload, clazz));
         } catch (JsonProcessingException e) {
-            log.error("Could not unmap {} to {}: {}", payload, clazz, e.getMessage(), e);
+            log.error("Could not unmap \n{}\n to {}: {}", payload, clazz, e.getMessage(), e);
             return Optional.empty();
         }
 
