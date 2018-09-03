@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.Singular;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,9 +36,17 @@ public class Fields {
 
     public static class Builder {
 
-        Builder f(String name) {
+        public Builder f(String name) {
             return field(Field.builder(name).build());
         }
+
+        public Builder fs(String... name) {
+            return fields(Arrays.stream(name).map(n -> new Field(n, null)).collect(Collectors.toList()));
+        }
+        public Builder fs(Field... fields) {
+            return fields(Arrays.asList(fields));
+        }
+
 
     }
 }

@@ -18,6 +18,18 @@ import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
  */
 public class MediaConnectContentImpl implements MediaConnectContent {
 
+    public static Fields PUBLICATION_FIELDS = Fields.builder()
+        .fs("container", "tags")
+        //.field(ASSETS)
+        .field(Field.builder("element")
+            .field(Field.builder("media")
+                .field(SOURCEFILE_FIELD)
+                .build()
+            )
+            .build()
+        )
+    .build();
+
     private  final MediaConnectRepositoryImpl impl;
 
     public MediaConnectContentImpl(MediaConnectRepositoryImpl impl) {
@@ -48,7 +60,7 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         GenericUrl url = impl.createUrl("publications", id.toString());
         //url.set("label", "Post");
         url.set("status", "published");
-        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}}");
+        url.set("fields", PUBLICATION_FIELDS);
         return (T) impl.get(url, MCContent.class);
     }
 
@@ -68,7 +80,7 @@ public class MediaConnectContentImpl implements MediaConnectContent {
     public MCItems<?> getContainers(Paging paging) {
         GenericUrl url = impl.createUrl("containers");
         impl.addListParameters(url, paging);
-        url.set("fields", "container,tags,element{media{source_file{resized{picture.width(1920)}}}},assets{source_file,custom}");
+        url.set("fields", PUBLICATION_FIELDS);
 
         return impl.get(url, MCItems.class);
     }
@@ -78,7 +90,7 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         GenericUrl url = impl.createUrl("containers", id.toString());
         //url.set("label", "Post");
         url.set("status", "published");
-        url.set("fields", "container,tags,element{media{" + SOURCEFILE_FIELD + "}}");
+        url.set("fields", PUBLICATION_FIELDS);
         return (T) impl.get(url, MCContent.class);
     }
 
