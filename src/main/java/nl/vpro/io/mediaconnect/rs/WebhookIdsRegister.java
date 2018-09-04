@@ -59,15 +59,19 @@ public class WebhookIdsRegister {
 
 
     protected void registerWebhooks()  {
-        for (MediaConnectRepository repository : repositories) {
-            repository.getWebhooks().get(limit(100)).forEach((mc) -> {
-                if (mc.getCallback_url().startsWith(baseUrl)) {
-                    URI uri = URI.create(mc.getCallback_url());
-                    String[] path = uri.getPath().split("/");
-                    SignatureValidatorInterceptor.put(path[path.length - 1], mc.getId());
-                }
-                }
-            );
+        try {
+            for (MediaConnectRepository repository : repositories) {
+                repository.getWebhooks().get(limit(100)).forEach((mc) -> {
+                        if (mc.getCallback_url().startsWith(baseUrl)) {
+                            URI uri = URI.create(mc.getCallback_url());
+                            String[] path = uri.getPath().split("/");
+                            SignatureValidatorInterceptor.put(path[path.length - 1], mc.getId());
+                        }
+                    }
+                );
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
     }
 
