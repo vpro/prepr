@@ -5,6 +5,7 @@ import lombok.Data;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
@@ -53,7 +54,7 @@ public class MCEvent {
         @Override
         public MCEvent convert(MCEvent mcEvent) {
             if (mcEvent != null && mcEvent.timelines != null) {
-                mcEvent.timelines.sort(Comparator.comparing(MCTimeline::getFrom));
+                mcEvent.timelines.sort((t1, t2) -> Objects.compare(t1.getFrom(), t2.getFrom(), Comparator.naturalOrder()));
             }
             return mcEvent;
         }
