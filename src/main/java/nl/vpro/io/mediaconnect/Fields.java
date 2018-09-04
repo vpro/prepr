@@ -1,5 +1,6 @@
 package nl.vpro.io.mediaconnect;
 
+import lombok.Getter;
 import lombok.Singular;
 
 import java.util.Arrays;
@@ -22,12 +23,15 @@ public class Fields {
 
     static final Field ASSETS = Field.builder("assets").fs("custom", "source_file", "media").build();
 
+    @Getter
     private final List<Field> fields;
 
     @lombok.Builder(builderClassName = "Builder")
     public Fields(@Singular  @Nonnull  List<Field> fields) {
         this.fields = fields;
     }
+
+
 
     @Override
     public String toString() {

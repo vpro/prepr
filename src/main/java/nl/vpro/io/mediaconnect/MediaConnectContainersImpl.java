@@ -12,6 +12,11 @@ import nl.vpro.io.mediaconnect.domain.MCTimeline;
  */
 public class MediaConnectContainersImpl implements MediaConnectContainers {
 
+    public static Fields TIMELINE_FIELDS = Fields.builder()
+        .f("publications")
+        .field(Fields.ASSETS)
+        .build();
+
     private  final MediaConnectRepositoryImpl impl;
 
     public MediaConnectContainersImpl(MediaConnectRepositoryImpl impl) {
@@ -21,7 +26,7 @@ public class MediaConnectContainersImpl implements MediaConnectContainers {
     @Override
     public MCTimeline getTimeline(UUID id) {
         GenericUrl url = impl.createUrl("containers", id);
-        url.set("fields", "assets{custom,source_file}");
+        url.set("fields", TIMELINE_FIELDS);
         return impl.get(url, MCTimeline.class);
     }
 }

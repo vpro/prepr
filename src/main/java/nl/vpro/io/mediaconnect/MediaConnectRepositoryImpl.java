@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -102,19 +103,23 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private final MediaConnectContainers containers = new MediaConnectContainersImpl(this);
 
+
+    private List<Scope> scopes;
+
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryImpl(
         @Nullable String api,
         @Nonnull String clientId,
         @Nonnull String clientSecret,
-        @Nullable String guideId
+        @Nullable String guideId,
+        @Nullable @Singular  List<Scope> scopes
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
-
-
+        this.scopes = scopes == null || scopes.isEmpty() ?
+            Arrays.asList(Scope.values()) : scopes;
     }
 
     public void registerBean(String jmxName) {
@@ -160,6 +165,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             if (jmxName != null && jmxName.length() > 0) {
                 impl.registerBean(jmxName);
             }
+            String scopes = properties.get("mediaconnect.scopes");
+            if (scopes != null && scopes.length() > 0) {
+                impl.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
+            }
+
 
             return impl;
         } else {
@@ -288,7 +298,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     }
     protected void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
-            log.debug("Authenticating {}@{}", clientId, api);
+            log.debug("Authenticating {}@{} with scopes {}", clientId, api, scopes);
             tokenResponse =
                 new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
                     new GenericUrl(api + "oauth/access_token"), "authorization_code")
@@ -296,12 +306,17 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
                     .setGrantType("client_credentials")
-                    .set("scope", Arrays.stream(Scope.values()).map(Enum::name).collect(Collectors.joining(",")))
+                    .set("scope", scopes.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
         }
 
+    }
+
+    public void setScopes(List<Scope> scopes) {
+        this.scopes = scopes;
+        tokenResponse = null;
     }
 
     GenericUrl createUrl(Object ... path) {

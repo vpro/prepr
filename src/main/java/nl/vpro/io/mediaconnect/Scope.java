@@ -2,7 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.3
  */
 public enum Scope {
     webhooks,

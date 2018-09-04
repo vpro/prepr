@@ -11,8 +11,10 @@ import nl.vpro.io.mediaconnect.domain.MCSchedule;
  */
 public interface MediaConnectPrepr {
 
+    @Deprecated
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
 
+    @Deprecated
     default MCSchedule getSchedule(UUID channel, LocalDate from) {
         return getSchedule(channel, from, from);
     }

@@ -8,9 +8,7 @@ import nl.vpro.io.mediaconnect.domain.MCGuide;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
 
-import static nl.vpro.io.mediaconnect.Fields.ASSETS;
-import static nl.vpro.io.mediaconnect.Fields.COVER;
-import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
+import static nl.vpro.io.mediaconnect.Fields.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -24,12 +22,24 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
     private final Fields SCHEDULE_FIELDS = Fields.builder()
         .field(Field.builder("timelines")
             .field(ASSETS)
-            .build())
+            .field(Field.builder("publications")
+               /* .fs("tags")
+                .field(ASSETS)
+                .field(Field.builder("element")
+                        .field(Field.builder("media")
+                            .field(SOURCEFILE_FIELD)
+                            .build()
+                        )
+                        .build()
+                )*/
+                .build()
+            ).build()
+        )
         .f("guide")
         .field(Field.builder("show")
-            .fs("slug", "name", "body", "tags", "status")
-            .field(COVER)
-            .build()
+                .fs("slug", "name", "body", "tags", "status")
+                .field(COVER)
+                .build()
         )
         .f("users")
         .build();

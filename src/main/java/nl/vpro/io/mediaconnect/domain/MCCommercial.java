@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.time.Duration;
-
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -15,14 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@JsonTypeName("Talk")
-public class MCTalk extends MCContent {
-
-    private String note;
-
-    private String name;
-
-    private Duration length;
-
-    private String tease;
+@JsonTypeName("Commercial")
+public class MCCommercial extends MCContent {
 }

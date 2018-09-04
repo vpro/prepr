@@ -26,4 +26,6 @@ public class MCTimeline extends MCContent {
     LocalDateTime until;
 
     List<MCAbstractMedia> assets;
+
+    List<MCAbstractObject> publications;
 }

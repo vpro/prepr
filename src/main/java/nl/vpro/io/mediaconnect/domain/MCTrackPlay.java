@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -12,7 +14,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("TrackPlay")
-public class MCTrackPlay extends MCAbstractObject {
+public class MCTrackPlay extends MCContent {
+
+    private String artist;
+
+    private String artist_text;
+
+    private String reference_id;
+
+    private String note;
+
+    private Duration duration;
+
 
 
 }

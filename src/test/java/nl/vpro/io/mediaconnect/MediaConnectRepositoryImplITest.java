@@ -49,8 +49,8 @@ public class MediaConnectRepositoryImplITest {
 
     // werkt met account 2
     @Test
-    public void getSchedule2() {
-        LocalDate date = LocalDate.of(2018, 8, 31);
+    public void getPreprSchedule() {
+        LocalDate date = LocalDate.of(2018, 9, 3);
         MCSchedule schedule = impl.getPrepr().getSchedule(
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
             ,
@@ -59,7 +59,7 @@ public class MediaConnectRepositoryImplITest {
     }
      // werkt met account 2
     @Test
-    public void getSchedule3() {
+    public void getPreprSchedule3() {
         LocalDate date = LocalDate.of(2018, 7, 4);
         MCSchedule schedule = impl.getPrepr().getSchedule(
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
@@ -87,7 +87,7 @@ public class MediaConnectRepositoryImplITest {
     // werkt met account 2
     @Test
     public void getSchedule4() {
-        LocalDate date = LocalDate.of(2018, 8, 31);
+        LocalDate date = LocalDate.of(2018, 9, 3);
         MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
     }
@@ -107,7 +107,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getPublication() {
         MCContent publications = impl.getContent().getPublication(
-            UUID.fromString("bd6bdae7-24c5-4185-90f8-005b1e8b0e83") // an post?
+            UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
         log.info("publications : {}", publications);
     }
@@ -202,7 +202,7 @@ public class MediaConnectRepositoryImplITest {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("http://mitulo")) {
                 log.info("Deleting {}", webhook);
-                impl.getWebhooks().delete(webhook.getId());
+                //impl.getWebhooks().delete(webhook.getId());
             }
 
         }
@@ -229,7 +229,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("bb2b134a-93a3-451f-b0a8-d46cd51b1d23"));
+        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
         log.info("timeline: {}", timeline);
 
 
