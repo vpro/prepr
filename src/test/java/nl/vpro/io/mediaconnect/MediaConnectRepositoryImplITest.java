@@ -87,7 +87,7 @@ public class MediaConnectRepositoryImplITest {
     // werkt met account 2
     @Test
     public void getSchedule4() {
-        LocalDate date = LocalDate.of(2018, 9, 3);
+        LocalDate date = LocalDate.of(2018, 8, 29);
         MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
     }

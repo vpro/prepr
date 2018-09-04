@@ -4,9 +4,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdConverter;
 
 /**
  * @author Michiel Meeuwissen
@@ -15,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Timeline")
+@JsonDeserialize(converter= MCTimeline.Deserializer.class)
 public class MCTimeline extends MCContent {
 
     String reference_id;
@@ -27,5 +32,32 @@ public class MCTimeline extends MCContent {
 
     List<MCAbstractMedia> assets;
 
-    List<MCAbstractObject> publications;
+    List<MCContent> publications;
+
+
+    /**
+     * We want the publication to be in a logical order. That is, the first one first.
+     */
+
+    public static class Deserializer extends StdConverter<MCTimeline, MCTimeline> {
+
+        @Override
+        public MCTimeline convert(MCTimeline mcTimeline) {
+            if (mcTimeline != null) {
+                if (mcTimeline.publications != null) {
+                    mcTimeline.publications.sort((t1, t2) -> Objects.compare(t1.getPublished_on(), t2.getPublished_on(), Comparator.naturalOrder()));
+                }
+                if (mcTimeline.assets != null) {
+                    mcTimeline.assets.sort((t1, t2) -> {
+                        int result = t1.getCustom().getType().compareTo(t2.getCustom().getType());
+                        if (result != 0) {
+                            return result;
+                        }
+                        return Objects.compare(t1.getCreated_on(), t2.getChanged_on(), Comparator.naturalOrder());
+                    });
+                }
+            }
+            return mcTimeline;
+        }
+    }
 }

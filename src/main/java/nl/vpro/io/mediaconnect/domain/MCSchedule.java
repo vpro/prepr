@@ -62,7 +62,7 @@ public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>>
                      }
 
                      String date = p.getCurrentName();
-                     JsonToken array = p.nextToken();
+                     p.nextToken();
                      MCEvent[] events = ctxt.getParser().readValueAs(MCEvent[].class);
                      result.days.put(LocalDate.parse(date), Arrays.asList(events));
                  }

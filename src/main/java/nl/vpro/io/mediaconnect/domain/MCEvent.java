@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
  * @since 0.1
  */
 @Data
-@JsonDeserialize(converter= MCEvent.MCEventDeserializer.class)
+@JsonDeserialize(converter= MCEvent.Deserializer.class)
 public class MCEvent {
 
 
@@ -49,7 +49,7 @@ public class MCEvent {
      * We use the _first_ timeline to generate a ID, so it should always be the same one.
      */
 
-    public static class MCEventDeserializer extends StdConverter<MCEvent, MCEvent> {
+    public static class Deserializer extends StdConverter<MCEvent, MCEvent> {
 
         @Override
         public MCEvent convert(MCEvent mcEvent) {
