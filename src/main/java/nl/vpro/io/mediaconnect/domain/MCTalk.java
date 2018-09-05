@@ -9,6 +9,9 @@ import java.time.Duration;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
+ * A talk seems to a kind 'segment' in the show. It seems that it at last approximately know when it was, but we don't get it back.
+ * So for now we ignore it.
+ *
  * @author Michiel Meeuwissen
  * @since 0.3
  */
