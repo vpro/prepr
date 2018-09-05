@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
@@ -30,4 +32,7 @@ public abstract class MCContent extends MCAbstractObject {
      * What does this mean?
      */
     JsonNode custom;
+
+    @JsonProperty("element")
+    List<MCAbstractObject> elements;
 }
