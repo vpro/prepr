@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -21,10 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class MCPost extends MCContent {
 
 
-    /**
-     * What does this mean?
-     */
-    JsonNode custom;
+
 
     /**
      * This seems to contain MID's.

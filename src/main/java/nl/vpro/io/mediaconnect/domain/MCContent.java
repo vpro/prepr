@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -23,4 +25,9 @@ public abstract class MCContent extends MCAbstractObject {
      * What does this mean?
      */
     String slug;
+
+    /**
+     * What does this mean?
+     */
+    JsonNode custom;
 }
