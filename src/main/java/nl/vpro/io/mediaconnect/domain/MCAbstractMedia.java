@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.Duration;
+import java.time.Instant;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.DurationSerializer;
@@ -19,6 +20,8 @@ public abstract class MCAbstractMedia extends MCAsset {
     @JsonSerialize(using = DurationSerializer.class)
     Duration duration;
 
+    Instant started_on;
+    Instant ended_on;
 
     @Override
     public String toString() {
