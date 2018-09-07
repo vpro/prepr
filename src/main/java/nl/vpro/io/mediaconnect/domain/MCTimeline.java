@@ -49,9 +49,11 @@ public class MCTimeline extends MCContent {
                 }
                 if (mcTimeline.assets != null) {
                     mcTimeline.assets.sort((t1, t2) -> {
-                        int result = t1.getCustom().getType().compareTo(t2.getCustom().getType());
-                        if (result != 0) {
-                            return result;
+                        if (t1.getCustom() != null && t2.getCustom() != null) {
+                            int result = Objects.compare(t1.getCustom().getType(), t2.getCustom().getType(), Comparator.naturalOrder());
+                            if (result != 0) {
+                                return result;
+                            }
                         }
                         return Objects.compare(t1.getCreated_on(), t2.getChanged_on(), Comparator.naturalOrder());
                     });
