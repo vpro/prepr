@@ -34,4 +34,6 @@ public class MCUser extends MCAbstractObject {
 
     String reference;
 
+    boolean exclude_until;
+
 }

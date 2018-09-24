@@ -26,3 +26,7 @@ Example code:
         );
     }
 ```
+
+## Testing
+
+There are junit test in the normal spots. Some things are in '*ITest' classes. These are currently mainly used to try things out. They find credentials in `${USER.HOME}/conf/mediaconnect.properties`. We don't have proper integration tests yet.

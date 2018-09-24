@@ -10,10 +10,7 @@ import java.util.*;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -63,8 +60,12 @@ public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>>
 
                      String date = p.getCurrentName();
                      p.nextToken();
-                     MCEvent[] events = ctxt.getParser().readValueAs(MCEvent[].class);
-                     result.days.put(LocalDate.parse(date), Arrays.asList(events));
+                     try {
+                         MCEvent[] events = ctxt.getParser().readValueAs(MCEvent[].class);
+                         result.days.put(LocalDate.parse(date), Arrays.asList(events));
+                     } catch (JsonMappingException jma) {
+                         log.error(jma.getMessage(), jma);
+                     }
                  }
              }
              return result;

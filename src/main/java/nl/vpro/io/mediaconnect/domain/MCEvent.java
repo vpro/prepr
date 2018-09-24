@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 @JsonDeserialize(converter= MCEvent.Deserializer.class)
 public class MCEvent {
 
+    //String id; // no idea
 
     LocalTime from;
 

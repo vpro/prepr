@@ -25,6 +25,7 @@ public class MediaConnectRepositoryImplITest {
     MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
     {
         impl.setLogAsCurl(true);
+        MCObjectMapper.configureInstance(false);
     }
 
     @Test
@@ -87,7 +88,7 @@ public class MediaConnectRepositoryImplITest {
     // werkt met account 2
     @Test
     public void getSchedule4() {
-        LocalDate date = LocalDate.of(2018, 8, 29);
+        LocalDate date = LocalDate.of(2018, 9, 25);
         MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
     }
@@ -200,9 +201,9 @@ public class MediaConnectRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("http://mitulo")) {
+            if (webhook.getCallback_url().startsWith("https://proxy.meeuw")) {
                 log.info("Deleting {}", webhook);
-                //impl.getWebhooks().delete(webhook.getId());
+                impl.getWebhooks().delete(webhook.getId());
             }
 
         }
