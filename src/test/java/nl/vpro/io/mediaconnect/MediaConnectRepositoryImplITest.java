@@ -22,23 +22,24 @@ import static nl.vpro.io.mediaconnect.Paging.limit;
 public class MediaConnectRepositoryImplITest {
 
 
-    MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
+    MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
+    MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
-        impl.setLogAsCurl(true);
+        rad2.setLogAsCurl(true);
         MCObjectMapper.configureInstance(false);
     }
 
     @Test
     public void authenticate() throws IOException {
-        impl.getToken();
-        log.info("Token: {}", impl.getTokenResponse());
+        rad2.getToken();
+        log.info("Token: {}", rad2.getTokenResponse());
     }
 
 
     @Test
     public void getSchedule() {
-        LocalDate date = LocalDate.of(2018, 5, 7);
-        MCSchedule schedule = impl.getGuides().getSchedule(
+        LocalDate date = LocalDate.of(2018, 9, 26);
+        MCSchedule schedule = rad2.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);
         for (Map.Entry<LocalDate, List<MCEvent>> e : schedule) {
@@ -54,7 +55,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getGuides() {
-        MCItems<MCGuide> result = impl.getGuides().getGuides(null);
+        MCItems<MCGuide> result = rad2.getGuides().getGuides(null);
         for (MCGuide guide : result) {
             log.info("guide: {}", guide);
         }
@@ -64,7 +65,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublicationsForChannel() {
-        MCItems<?> publications = impl.getContent().getPublicationsForChannel(Paging.builder().build(),
+        MCItems<?> publications = rad2.getContent().getPublicationsForChannel(Paging.builder().build(),
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"),  // Channel.RAD5)
                 null, null);
         log.info("publications : {}", publications);
@@ -74,7 +75,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        MCContent publications = impl.getContent().getPublication(
+        MCContent publications = rad2.getContent().getPublication(
             UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
         log.info("publications : {}", publications);
@@ -83,7 +84,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getProgram() {
         log.info("{}",
-            impl.getContent().getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351")) // a showdetails. This is deprecated!
+            rad2.getContent().getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351")) // a showdetails. This is deprecated!
         );
 
     }
@@ -92,7 +93,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getProgram2() {
         log.info("{}",
-            impl.getContent().getPublication(UUID.fromString("0033f611-188e-438f-878b-ca976dfa18dd")) // a showdetails. This is deprecated!
+            rad2.getContent().getPublication(UUID.fromString("0033f611-188e-438f-878b-ca976dfa18dd")) // a showdetails. This is deprecated!
         );
 
     }
@@ -101,7 +102,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getTag() {
         log.info("{}",
-            impl.getContent().getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))
+            rad2.getContent().getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))
         );
     }
 
@@ -109,7 +110,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getTagGroups() {
         log.info("{}",
-            impl.getTags().getGroups(Paging.builder().build())
+            rad2.getTags().getGroups(Paging.builder().build())
         );
 
 
@@ -120,7 +121,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getTagGroup() {
         log.info("{}",
-            impl.getTags().getGroups(Paging.builder().build(), "Rollen")
+            rad2.getTags().getGroups(Paging.builder().build(), "Rollen")
         );
 
 
@@ -129,7 +130,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getChannels() {
-        MCItems<?> publications = impl.getContent()
+        MCItems<?> publications = rad2.getContent()
             .getChannels(Paging.builder().build());
         log.info("channels : {}", publications);
     }
@@ -139,7 +140,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getContainers() {
-        MCItems<?> publications = impl.getContent()
+        MCItems<?> publications = rad2.getContent()
             .getContainers(Paging.builder().build());
         log.info("channels : {}", publications);
     }
@@ -147,7 +148,7 @@ public class MediaConnectRepositoryImplITest {
     public void getContentContainer() {
 
           log.info("{}",
-            impl.getContent().getContainer(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
+            rad2.getContent().getContainer(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
         );
     }
 
@@ -156,7 +157,7 @@ public class MediaConnectRepositoryImplITest {
     public void getContainer2() {
 
           log.info("{}",
-            impl.getContent().getContainer(UUID.fromString("5d3e2d15-7bfa-4ab2-96d8-20a4f86847cf"))
+            rad2.getContent().getContainer(UUID.fromString("5d3e2d15-7bfa-4ab2-96d8-20a4f86847cf"))
         );
     }
 
@@ -164,13 +165,13 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MCItems<MCWebhook> webhooks = impl.getWebhooks().get(limit(100L));
+        MCItems<MCWebhook> webhooks = rad2.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://proxy.meeuw")) {
                 log.info("Deleting {}", webhook);
-                impl.getWebhooks().delete(webhook.getId());
+                rad2.getWebhooks().delete(webhook.getId());
             }
 
         }
@@ -181,7 +182,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void createWebhook() {
          String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
-         log.info("new webook {}", impl.getWebhooks().create(url,  "showschedule.created",
+         log.info("new webook {}", rad2.getWebhooks().create(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
     }
@@ -189,7 +190,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getAsssets() {
-        MCItems<MCAsset> assets  = impl.getAssets().get(limit(100L));
+        MCItems<MCAsset> assets  = rad2.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
 
 
@@ -197,7 +198,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        MCTimeline timeline = impl.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
+        MCTimeline timeline = rad2.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
         log.info("timeline: {}", timeline);
 
 
