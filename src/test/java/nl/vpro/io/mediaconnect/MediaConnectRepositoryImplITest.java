@@ -35,36 +35,10 @@ public class MediaConnectRepositoryImplITest {
     }
 
 
-    // werkt met account 1
     @Test
-    public void getSchedule1() {
+    public void getSchedule() {
         LocalDate date = LocalDate.of(2018, 5, 7);
-        MCSchedule schedule = impl.getPrepr().getSchedule(
-            UUID.fromString("59ad94c1-7dec-4ea0-a9b4-b9eb4b6cfb16") // Channel.RAD5)
-            ,
-          date);
-        log.info("schedule: {}", schedule);
-    }
-
-
-
-    // werkt met account 2
-    @Test
-    public void getPreprSchedule() {
-        LocalDate date = LocalDate.of(2018, 9, 3);
-        MCSchedule schedule = impl.getPrepr().getSchedule(
-            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
-            ,
-          date);
-        log.info("schedule: {}", schedule);
-    }
-     // werkt met account 2
-    @Test
-    public void getPreprSchedule3() {
-        LocalDate date = LocalDate.of(2018, 7, 4);
-        MCSchedule schedule = impl.getPrepr().getSchedule(
-            UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01") // Guide ID van Channel.RAD2
-            ,
+        MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);
         for (Map.Entry<LocalDate, List<MCEvent>> e : schedule) {
@@ -77,20 +51,13 @@ public class MediaConnectRepositoryImplITest {
 
 
 
-       // werkt met account 2
+
     @Test
     public void getGuides() {
         MCItems<MCGuide> result = impl.getGuides().getGuides(null);
         for (MCGuide guide : result) {
             log.info("guide: {}", guide);
         }
-    }
-    // werkt met account 2
-    @Test
-    public void getSchedule4() {
-        LocalDate date = LocalDate.of(2018, 9, 25);
-        MCSchedule schedule = impl.getGuides().getSchedule(date);
-        log.info("schedule: {}", schedule);
     }
 
 

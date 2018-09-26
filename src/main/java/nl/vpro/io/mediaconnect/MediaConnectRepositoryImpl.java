@@ -299,6 +299,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     protected void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
             log.debug("Authenticating {}@{} with scopes {}", clientId, api, scopes);
+            if (StringUtils.isBlank(clientSecret)) {
+                throw new IllegalStateException("No client secret defined for " + clientId);
+            }
             tokenResponse =
                 new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
                     new GenericUrl(api + "oauth/access_token"), "authorization_code")
