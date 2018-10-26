@@ -23,9 +23,12 @@ public class MediaConnectRepositoryImplITest {
 
 
     MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
-    MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
+    MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
+    //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
         rad2.setLogAsCurl(true);
+        funx.setLogAsCurl(true);
+
         MCObjectMapper.configureInstance(false);
     }
 
@@ -56,6 +59,17 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getGuides() {
         MCItems<MCGuide> result = rad2.getGuides().getGuides(null);
+        for (MCGuide guide : result) {
+            log.info("guide: {}", guide);
+        }
+    }
+
+
+
+
+    @Test
+    public void getGuidesFunx() {
+        MCItems<MCGuide> result = funx.getGuides().getGuides(null);
         for (MCGuide guide : result) {
             log.info("guide: {}", guide);
         }
