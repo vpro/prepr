@@ -49,7 +49,7 @@ public class MediaConnectRepositoryImplITest {
 
 
     protected void getSchedule(MediaConnectRepositoryImpl impl) {
-        LocalDate date = LocalDate.of(2018, 9, 26);
+        LocalDate date = LocalDate.of(2018, 10, 29);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);

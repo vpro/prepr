@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -15,4 +17,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @ToString(callSuper = true)
 @JsonTypeName("WeatherTalk")
 public class MCWeatherTalk extends MCContent {
+
+    private String name;
+
+    private Duration length;
+
+    private String tease;
+
+
 }
