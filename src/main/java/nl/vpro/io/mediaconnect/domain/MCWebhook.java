@@ -25,6 +25,8 @@ public class MCWebhook extends MCAbstractObject {
     @Singular
     List<String> events;
 
+    boolean active;
+
     public MCWebhook() {
 
     }
