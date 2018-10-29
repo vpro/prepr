@@ -2,6 +2,7 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
 import lombok.Singular;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
  * @author Michiel Meeuwissen
  * @since 0.3
  */
+@Slf4j
 public class MediaConnectRepositories implements Iterable<MediaConnectRepository> {
 
     @Getter
@@ -37,10 +39,15 @@ public class MediaConnectRepositories implements Iterable<MediaConnectRepository
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());
         for (String channel : channels) {
-            builder.repository(channel,
-                MediaConnectRepositoryImpl
-                    .configured(configuration, channel)
-            );
+            String secret = configuration.get("mediaconnect.clientSecret." + channel);
+            if (StringUtils.isNotEmpty(secret)) {
+                builder.repository(channel,
+                    MediaConnectRepositoryImpl
+                        .configured(configuration, channel)
+                );
+            } else {
+                log.info("Ignored mediaconnect repository for {}  because no client secret configured", channel);
+            }
         }
         String lenient = configuration.get("mediaconnect.lenientjson");
         MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
