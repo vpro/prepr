@@ -2,6 +2,9 @@ package nl.vpro.io.mediaconnect;
 
 import java.time.LocalDate;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCGuide;
@@ -14,6 +17,7 @@ import static nl.vpro.io.mediaconnect.Fields.*;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
+@Named
 public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
     private  final MediaConnectRepositoryImpl impl;
@@ -46,6 +50,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
 
 
+    @Inject
     public MediaConnectGuidesImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }

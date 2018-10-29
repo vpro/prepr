@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.cache.annotation.CacheResult;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -13,14 +15,17 @@ import nl.vpro.io.mediaconnect.domain.MCTag;
 import nl.vpro.io.mediaconnect.domain.MCTagGroup;
 
 /**
+ * TODO Cacheable annotations need to be implemented by proxy. That does not really work togehter with {@link MediaConnectRepositories} we now use to implement a bunch of these.
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.3
  */
+@Named
 public class MediaConnectTagsImpl implements MediaConnectTags {
 
 
     private  final MediaConnectRepositoryImpl impl;
 
+    @Inject
     public MediaConnectTagsImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }

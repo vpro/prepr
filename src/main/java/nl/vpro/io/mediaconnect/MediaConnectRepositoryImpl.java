@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Provider;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
@@ -45,6 +46,7 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
  * @since 0.1
  */
 @Slf4j
+@Named
 public class MediaConnectRepositoryImpl implements MediaConnectRepository, MediaConnectRepositoryImplMXBean {
 
     private static String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
@@ -86,27 +88,27 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Getter
     private Instant expiration;
 
-    @Getter
-    private final MediaConnectPrepr prepr = new MediaConnectPreprImpl(this);
+    @Inject
+    private Provider<MediaConnectPrepr> prepr = memoize(() -> new MediaConnectPreprImpl(this));
 
 
-    @Getter
-    private final MediaConnectGuides guides = new MediaConnectGuidesImpl(this);
+    @Inject
+    private Provider<MediaConnectGuides> guides = memoize(() -> new MediaConnectGuidesImpl(this));
 
-    @Getter
-    private final MediaConnectWebhooks webhooks = new MediaConnectWebhooksImpl(this);
+    @Inject
+    private Provider<MediaConnectWebhooks> webhooks = memoize(() -> new MediaConnectWebhooksImpl(this));
 
-    @Getter
-    private final MediaConnectAssets assets = new MediaConnectAssetsImpl(this);
+    @Inject
+    private Provider<MediaConnectAssets> assets =  memoize(() -> new MediaConnectAssetsImpl(this));
 
-    @Getter
-    private final MediaConnectContent content = new MediaConnectContentImpl(this);
+    @Inject
+    private Provider<MediaConnectContent> content = memoize(() -> new MediaConnectContentImpl(this));
 
-    @Getter
-    private final MediaConnectTags tags = new MediaConnectTagsImpl(this);
+    @Inject
+    private Provider<MediaConnectTags> tags = memoize(() -> new MediaConnectTagsImpl(this));
 
-    @Getter
-    private final MediaConnectContainers containers = new MediaConnectContainersImpl(this);
+    @Inject
+    private Provider<MediaConnectContainers> containers = memoize(() -> new MediaConnectContainersImpl(this));
 
 
     @Getter
@@ -356,6 +358,48 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         return url;
     }
 
+    @Override
+    public MediaConnectPrepr getPrepr() {
+        return prepr.get();
+
+    }
+
+    @Override
+    public MediaConnectGuides getGuides() {
+        return guides.get();
+
+    }
+
+    @Override
+    public MediaConnectWebhooks getWebhooks() {
+        return webhooks.get();
+
+    }
+
+    @Override
+    public MediaConnectAssets getAssets() {
+        return assets.get();
+
+    }
+
+    @Override
+    public MediaConnectContent getContent() {
+        return content.get();
+
+    }
+
+    @Override
+    public MediaConnectTags getTags() {
+        return tags.get();
+
+    }
+
+    @Override
+    public MediaConnectContainers getContainers() {
+        return containers.get();
+
+    }
+
     public static class Builder {
         Builder scopesAsString(String scopes) {
             if (StringUtils.isNotEmpty(scopes)) {
@@ -363,6 +407,22 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             }
             return this;
         }
+    }
+
+    public static <T> Provider<T> memoize(Provider<T> provider) {
+
+        return new Provider<T>() {
+            T memoized;
+            @Override
+            public T get() {
+                if (memoized == null) {
+                    memoized = provider.get();
+                    log.info("Created without IOC {}", memoized);
+                }
+                return memoized;
+
+            }
+        };
     }
 
 }

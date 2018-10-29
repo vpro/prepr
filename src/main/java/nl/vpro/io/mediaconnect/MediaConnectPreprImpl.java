@@ -3,6 +3,9 @@ package nl.vpro.io.mediaconnect;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCSchedule;
@@ -13,10 +16,12 @@ import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
+@Named
 public class MediaConnectPreprImpl implements MediaConnectPrepr {
 
     private  final MediaConnectRepositoryImpl impl;
 
+    @Inject
     public MediaConnectPreprImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }

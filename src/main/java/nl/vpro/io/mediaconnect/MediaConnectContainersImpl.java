@@ -2,6 +2,9 @@ package nl.vpro.io.mediaconnect;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCTimeline;
@@ -10,6 +13,7 @@ import nl.vpro.io.mediaconnect.domain.MCTimeline;
  * @author Michiel Meeuwissen
  * @since 0.3
  */
+@Named
 public class MediaConnectContainersImpl implements MediaConnectContainers {
 
     public static Fields TIMELINE_FIELDS = Fields.builder()
@@ -19,6 +23,7 @@ public class MediaConnectContainersImpl implements MediaConnectContainers {
 
     private  final MediaConnectRepositoryImpl impl;
 
+    @Inject
     public MediaConnectContainersImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }

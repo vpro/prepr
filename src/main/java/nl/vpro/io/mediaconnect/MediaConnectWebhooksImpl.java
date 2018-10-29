@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpResponse;
 
@@ -18,10 +21,12 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
  * @author Michiel Meeuwissen
  * @since ...
  */
+@Named
 public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
 
     private  final MediaConnectRepositoryImpl impl;
 
+    @Inject
     public MediaConnectWebhooksImpl(MediaConnectRepositoryImpl impl) {
         this.impl = impl;
     }
