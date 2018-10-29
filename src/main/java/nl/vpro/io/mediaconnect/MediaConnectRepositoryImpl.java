@@ -208,7 +208,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
 
     @Override
     public String toString() {
-        return clientId + "@" + api;
+        return channel + "=" + clientId + "@" + api;
     }
 
 
