@@ -3,27 +3,18 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * @author Michiel Meeuwissen
- * @since 0.1
+ * @since 0.3
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("Tag")
-public class MCTag extends MCAbstractObject {
+@JsonTypeName("TagType")
+public class MCTagType extends MCAbstractObject {
 
     String name;
 
-    String slug;
 
-    String color;
-
-
-    List<MCTagType> tag_types;
-
-    List<MCTagGroup> tag_groups;
 }

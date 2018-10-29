@@ -35,6 +35,7 @@ public class MCTimeline extends MCContent {
     List<MCContent> publications;
 
 
+
     /**
      * We want the publication to be in a logical order. That is, the first one first.
      */

@@ -27,6 +27,8 @@ public interface MediaConnectTags {
 
     MCItems<MCTag> getTags(UUID tagGroup);
 
+    MCTag getTag(UUID tag);
+
 
 
 

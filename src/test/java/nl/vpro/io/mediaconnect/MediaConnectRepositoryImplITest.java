@@ -49,7 +49,7 @@ public class MediaConnectRepositoryImplITest {
 
 
     protected void getSchedule(MediaConnectRepositoryImpl impl) {
-        LocalDate date = LocalDate.of(2018, 10, 29);
+        LocalDate date = LocalDate.of(2018, 9, 30);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);
@@ -129,6 +129,14 @@ public class MediaConnectRepositoryImplITest {
     }
 
 
+     @Test
+    public void getTagFunx() {
+        log.info("{}",
+            funx.getTags().getTag(UUID.fromString("233238cb-5b35-499f-919e-a59f20ec9b83"))
+        );
+    }
+
+
     @Test
     public void getTagGroups() {
         log.info("{}",
@@ -140,10 +148,13 @@ public class MediaConnectRepositoryImplITest {
     }
 
 
+
+
+
     @Test
     public void getTagGroup() {
         log.info("{}",
-            rad2.getTags().getGroups(Paging.builder().build(), "Rollen")
+            funx.getTags().getGroups(Paging.builder().build(), "Rollen")
         );
 
 

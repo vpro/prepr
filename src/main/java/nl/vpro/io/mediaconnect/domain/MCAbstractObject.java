@@ -71,6 +71,8 @@ public class MCAbstractObject  {
 
     String body;
 
+    String description;
+
     public String getCrid() {
         String label = getLabel();
         return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.cache.annotation.CacheResult;
+
 import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCItems;
@@ -49,11 +51,24 @@ public class MediaConnectTagsImpl implements MediaConnectTags {
     }
 
     @Override
+    @CacheResult
     public MCItems<MCTag> getTags(UUID tagGroup) {
         GenericUrl url = impl.createUrl("taggroups", tagGroup.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "tags");
         return impl.get(url, MCItems.class);
+
+
+    }
+
+
+    @Override
+    @CacheResult
+    public MCTag getTag(UUID tag) {
+        GenericUrl url = impl.createUrl("tags", tag.toString());
+        //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
+        url.set("fields", "tag_groups,tag_types");
+        return impl.get(url, MCTag.class);
 
 
     }
