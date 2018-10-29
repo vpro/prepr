@@ -119,7 +119,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         @Nonnull String clientId,
         @Nonnull String clientSecret,
         @Nullable String guideId,
-        @Nullable @Singular  List<Scope> scopes
+        @Nullable @Singular  List<Scope> scopes,
+        boolean logAsCurl
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
@@ -127,6 +128,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         this.clientSecret = clientSecret;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes;
+        this.logAsCurl = logAsCurl;
     }
 
     public void registerBean(String jmxName) {
@@ -161,6 +163,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("mediaconnect.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
+            boolean logAsCurl = Boolean.valueOf(properties.getOrDefault("mediaconnect.logascurl", "false"));
             MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
                 .builder()
                 .channel(channel)
@@ -169,8 +172,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
                 .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
                 .guideId(properties.get("mediaconnect.guideId" + postfix))
                 .scopesAsString(properties.get("mediaconnect.scopes" + postfix))
+                .logAsCurl(logAsCurl)
                 .build();
-            impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
             String jmxName = properties.get("mediaconnect.jmxname");
             if (jmxName != null && jmxName.length() > 0) {
                 impl.registerBean(jmxName);

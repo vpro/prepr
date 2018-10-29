@@ -76,6 +76,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         UUID webhookId = webhookIds.get(channel);
         if (webhookId == null)  {
             log.warn("no webhookId found for {} (Only known for {})", channel, webhookIds.keySet());
+            throw new SecurityException("Webhook id currently not registered for " + channel);
         }
          if (signature == null) {
              throw new SecurityException("No signature given");
