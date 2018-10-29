@@ -13,7 +13,13 @@ import nl.vpro.io.mediaconnect.domain.MCSchedule;
 public interface MediaConnectGuides {
 
 
-    MCSchedule getSchedule(LocalDate from, LocalDate until);
+
+
+    MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions);
+
+    default MCSchedule getSchedule(LocalDate from, LocalDate until) {
+        return getSchedule(from, until, true);
+    }
 
     default MCSchedule getSchedule(LocalDate from) {
         return getSchedule(from, from);

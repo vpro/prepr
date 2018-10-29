@@ -51,7 +51,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
     }
 
     @Override
-    public MCSchedule getSchedule(LocalDate from, LocalDate until) {
+    public MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions) {
         if (impl.getGuideId() == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }
@@ -65,6 +65,8 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
         }
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", SCHEDULE_FIELDS);
+
+        url.set("exceptions", exceptions);
 
         return impl.get(url, MCSchedule.class);
     }
