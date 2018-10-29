@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.Duration;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -28,4 +29,8 @@ public class MCTalk extends MCContent {
     private Duration length;
 
     private String tease;
+
+    private MCChannel channel;
+
+    private List<MCTag> tags;
 }
