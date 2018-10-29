@@ -75,6 +75,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     @Setter
     private UUID guideId;
 
+
+    @Getter
+    @Setter
+    private String channel;
+
     @Getter
     private TokenResponse tokenResponse;
 
@@ -104,22 +109,24 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private final MediaConnectContainers containers = new MediaConnectContainersImpl(this);
 
 
+    @Getter
     private List<Scope> scopes;
 
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryImpl(
         @Nullable String api,
+        @Nonnull String channel,
         @Nonnull String clientId,
         @Nonnull String clientSecret,
         @Nullable String guideId,
         @Nullable @Singular  List<Scope> scopes
     ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
+        this.channel = channel;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
-        this.scopes = scopes == null || scopes.isEmpty() ?
-            Arrays.asList(Scope.values()) : scopes;
+        this.scopes = scopes;
     }
 
     public void registerBean(String jmxName) {
@@ -149,16 +156,19 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     }
 
     public static MediaConnectRepositoryImpl configured(
-        Map<String, String> properties, String channel) {
+        Map<String, String> properties,
+        String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("mediaconnect.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
             MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
                 .builder()
+                .channel(channel)
                 .api(properties.get("mediaconnect.api"))
                 .clientId(clientId)
                 .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
                 .guideId(properties.get("mediaconnect.guideId" + postfix))
+                .scopesAsString(properties.get("mediaconnect.scopes" + postfix))
                 .build();
             impl.setLogAsCurl(Boolean.parseBoolean(properties.get("mediaconnect.logascurl")));
             String jmxName = properties.get("mediaconnect.jmxname");
@@ -167,7 +177,9 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             }
             String scopes = properties.get("mediaconnect.scopes");
             if (scopes != null && scopes.length() > 0) {
-                impl.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
+                if (impl.getScopes() == null || impl.getScopes().isEmpty()) {
+                    impl.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
+                }
             }
 
 
@@ -298,7 +310,13 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     }
     protected void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
-            log.debug("Authenticating {}@{} with scopes {}", clientId, api, scopes);
+            List<Scope> scopesToUse = scopes;
+            if (scopesToUse == null || scopesToUse.isEmpty()) {
+                scopesToUse = Arrays.asList(Scope.values());
+                log.info("No scopes configured, using {}", scopesToUse);
+
+            }
+            log.debug("Authenticating {}@{} with scopes {}", clientId, api, scopesToUse);
             if (StringUtils.isBlank(clientSecret)) {
                 throw new IllegalStateException("No client secret defined for " + clientId);
             }
@@ -309,7 +327,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
                     .setGrantType("client_credentials")
-                    .set("scope", scopes.stream().map(Enum::name).collect(Collectors.joining(",")))
+                    .set("scope", scopesToUse.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
@@ -333,6 +351,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             append = true;
         }
         return url;
+    }
+
+    public static class Builder {
+        Builder scopesAsString(String scopes) {
+            if (StringUtils.isNotEmpty(scopes)) {
+                return scopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
+            }
+            return this;
+        }
     }
 
 }

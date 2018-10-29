@@ -21,6 +21,8 @@ public abstract class MCContent extends MCAbstractObject {
 
     Instant unpublish_on;
 
+    String reference_id;
+
     MCStatus status;
 
     /**
@@ -35,4 +37,5 @@ public abstract class MCContent extends MCAbstractObject {
 
     @JsonProperty("element")
     List<MCAbstractObject> elements;
+
 }

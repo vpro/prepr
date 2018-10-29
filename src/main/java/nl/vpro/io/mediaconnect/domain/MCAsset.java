@@ -33,6 +33,8 @@ public abstract class MCAsset extends MCAbstractObject {
 
     Map<String, MCMediaFile> media;
 
+    MCStatus status;
+
     public String getCridForReference() {
         return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id;
     }
