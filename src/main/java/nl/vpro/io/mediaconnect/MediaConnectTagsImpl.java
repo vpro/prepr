@@ -15,7 +15,7 @@ import nl.vpro.io.mediaconnect.domain.MCTag;
 import nl.vpro.io.mediaconnect.domain.MCTagGroup;
 
 /**
- * TODO Cacheable annotations need to be implemented by proxy. That does not really work togehter with {@link MediaConnectRepositories} we now use to implement a bunch of these.
+ * TODO Cacheable annotations need to be implemented by proxy. That does not really work togehter with {@link StandaloneMediaConnectRepositories} we now use to implement a bunch of these.
  * @author Michiel Meeuwissen
  * @since 0.3
  */
@@ -23,10 +23,10 @@ import nl.vpro.io.mediaconnect.domain.MCTagGroup;
 public class MediaConnectTagsImpl implements MediaConnectTags {
 
 
-    private  final MediaConnectRepositoryImpl impl;
+    private final MediaConnectRepositoryClient impl;
 
     @Inject
-    public MediaConnectTagsImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectTagsImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

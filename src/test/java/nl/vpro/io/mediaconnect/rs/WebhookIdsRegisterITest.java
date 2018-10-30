@@ -2,8 +2,8 @@ package nl.vpro.io.mediaconnect.rs;
 
 import org.junit.Test;
 
-import nl.vpro.io.mediaconnect.MediaConnectRepositories;
 import nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl;
+import nl.vpro.io.mediaconnect.StandaloneMediaConnectRepositories;
 
 /**
  * @author Michiel Meeuwissen
@@ -12,7 +12,7 @@ import nl.vpro.io.mediaconnect.MediaConnectRepositoryImpl;
 public class WebhookIdsRegisterITest {
 
 
-    MediaConnectRepositories repositories = MediaConnectRepositories
+    StandaloneMediaConnectRepositories repositories = StandaloneMediaConnectRepositories
         .builder()
         .repository("RAD2",
             MediaConnectRepositoryImpl.configuredInUserHome("RAD2"))

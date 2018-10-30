@@ -20,7 +20,7 @@ import static nl.vpro.io.mediaconnect.Fields.*;
 @Named
 public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
 
     private final Fields SCHEDULE_FIELDS = Fields.builder()
@@ -51,7 +51,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
 
     @Inject
-    public MediaConnectGuidesImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectGuidesImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

@@ -22,7 +22,6 @@ public interface MediaConnectRepository {
     MediaConnectTags      getTags();
     MediaConnectContainers getContainers();
 
-
-
+    String getChannel();
 
 }

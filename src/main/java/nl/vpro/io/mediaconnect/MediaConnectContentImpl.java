@@ -30,9 +30,9 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         )
     .build();
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
-    public MediaConnectContentImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectContentImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

@@ -1,69 +1,16 @@
 package nl.vpro.io.mediaconnect;
 
-import lombok.Getter;
-import lombok.Singular;
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-
-import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
+import java.util.Map;
+import java.util.Optional;
 
 /**
- * Maintains a map of {@link MediaConnectRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
- *
  * @author Michiel Meeuwissen
  * @since 0.3
  */
-@Slf4j
-public class MediaConnectRepositories implements Iterable<MediaConnectRepository> {
+public interface MediaConnectRepositories extends Iterable<MediaConnectRepository>  {
 
-    @Getter
-    private final Map<String, MediaConnectRepository> repositories = new TreeMap<>();
+    Optional<MediaConnectRepository> get(String channel);
 
-    @lombok.Builder
-    public MediaConnectRepositories(
-        @Singular Map<String, MediaConnectRepository> repositories) {
-        this.repositories.putAll(repositories);
-    }
+    Map<String, MediaConnectRepository> getRepositories();
 
-    public static MediaConnectRepositories fromMap(Map<String, String> configuration) {
-        MediaConnectRepositoriesBuilder builder = MediaConnectRepositories.builder();
-        String prefix = "mediaconnect.clientId.";
-        List<String> channels = configuration.entrySet().stream()
-            .filter((e) -> StringUtils.isNotBlank(e.getValue()))
-            .map(Map.Entry::getKey)
-            .filter((k) -> k.startsWith(prefix))
-            .map((k) -> k.substring(prefix.length()))
-            .collect(Collectors.toList());
-        for (String channel : channels) {
-            String secret = configuration.get("mediaconnect.clientSecret." + channel);
-            if (StringUtils.isNotEmpty(secret)) {
-                builder.repository(channel,
-                    MediaConnectRepositoryImpl
-                        .configured(configuration, channel)
-                );
-            } else {
-                log.info("Ignored mediaconnect repository for {}  because no client secret configured", channel);
-            }
-        }
-        String lenient = configuration.get("mediaconnect.lenientjson");
-        MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
-        return builder.build();
-    }
-
-    @Override
-    public Iterator<MediaConnectRepository> iterator() {
-        return repositories.values().iterator();
-    }
-
-    public Optional<MediaConnectRepository> get(String channel) {
-        return Optional.ofNullable(repositories.get(channel));
-    }
-    @Override
-    public String toString() {
-        return repositories.toString();
-    }
 }

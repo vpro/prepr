@@ -19,10 +19,10 @@ import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
 @Named
 public class MediaConnectPreprImpl implements MediaConnectPrepr {
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
     @Inject
-    public MediaConnectPreprImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectPreprImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

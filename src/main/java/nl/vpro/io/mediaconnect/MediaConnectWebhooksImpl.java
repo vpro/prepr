@@ -24,10 +24,10 @@ import nl.vpro.io.mediaconnect.domain.MCWebhook;
 @Named
 public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
     @Inject
-    public MediaConnectWebhooksImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectWebhooksImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

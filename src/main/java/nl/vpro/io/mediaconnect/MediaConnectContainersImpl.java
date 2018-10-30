@@ -21,10 +21,10 @@ public class MediaConnectContainersImpl implements MediaConnectContainers {
         .field(Fields.ASSETS)
         .build();
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
     @Inject
-    public MediaConnectContainersImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectContainersImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 

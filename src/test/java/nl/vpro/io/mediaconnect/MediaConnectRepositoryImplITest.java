@@ -2,7 +2,6 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -26,17 +25,16 @@ public class MediaConnectRepositoryImplITest {
     MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
-        rad2.setLogAsCurl(true);
-        funx.setLogAsCurl(true);
-
         MCObjectMapper.configureInstance(false);
     }
+/*
 
     @Test
     public void authenticate() throws IOException {
-        rad2.getToken();
+        rad2.getContent().getToken();
         log.info("Token: {}", rad2.getTokenResponse());
     }
+*/
 
 
     @Test
@@ -48,7 +46,7 @@ public class MediaConnectRepositoryImplITest {
 
 
 
-    protected void getSchedule(MediaConnectRepositoryImpl impl) {
+    protected void getSchedule(MediaConnectRepository impl) {
         LocalDate date = LocalDate.of(2018, 9, 30);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);

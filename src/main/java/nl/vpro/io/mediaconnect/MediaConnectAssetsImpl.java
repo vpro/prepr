@@ -15,10 +15,10 @@ import nl.vpro.io.mediaconnect.domain.MCItems;
 @Named
 public class MediaConnectAssetsImpl implements MediaConnectAssets {
 
-    private  final MediaConnectRepositoryImpl impl;
+    private  final MediaConnectRepositoryClient impl;
 
     @Inject
-    public MediaConnectAssetsImpl(MediaConnectRepositoryImpl impl) {
+    public MediaConnectAssetsImpl(MediaConnectRepositoryClient impl) {
         this.impl = impl;
     }
 
