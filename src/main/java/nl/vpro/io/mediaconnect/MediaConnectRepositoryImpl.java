@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.3
  */
 @Getter
 @Named
@@ -37,11 +37,11 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     private final MediaConnectContainers containers;
 
-    private final String channel;
+    private final MediaConnectRepositoryClient client;
 
     @Inject
     public MediaConnectRepositoryImpl(
-        String channel,
+        MediaConnectRepositoryClient client,
         MediaConnectPrepr prepr,
         MediaConnectGuides guides,
         MediaConnectWebhooks webhooks,
@@ -57,7 +57,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.content = content;
         this.tags = tags;
         this.containers = containers;
-        this.channel = channel;
+        this.client = client;
     }
 
 
@@ -98,8 +98,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                 }
             }
 
-
-            return new MediaConnectRepositoryImpl(channel,
+            return new MediaConnectRepositoryImpl(client,
                 new MediaConnectPreprImpl(client),
                 new MediaConnectGuidesImpl(client),
                 new MediaConnectWebhooksImpl(client),
@@ -113,4 +112,13 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         }
     }
 
+    @Override
+    public String getChannel() {
+        return client.getChannel();
+    }
+
+    @Override
+    public String toString() {
+        return client.toString();
+    }
 }

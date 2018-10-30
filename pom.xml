@@ -41,10 +41,13 @@
   </scm>
 
   <properties>
-    <lombok.version>1.18.2</lombok.version>
+    <lombok.version>1.18.4</lombok.version>
     <google.client.version>1.26.0</google.client.version>
     <jackson2.version>2.9.7</jackson2.version>
     <slf4j.version>1.7.25</slf4j.version>
+
+    <spring.version>5.1.2.RELEASE</spring.version> <!-- spring dependench is optional -->
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -201,17 +204,19 @@
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
     </dependency>
+
+    <!-- spring dependency is optional, as long as you don't use the classes in nl.vpro.io.mediaconnect.spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>5.1.2.RELEASE</version>
-      <scope>provided</scope>
+      <version>${spring.version}</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.1.2.RELEASE</version>
-      <scope>provided</scope>
+      <version>${spring.version}</version>
+      <optional>true</optional>
     </dependency>
 
   </dependencies>

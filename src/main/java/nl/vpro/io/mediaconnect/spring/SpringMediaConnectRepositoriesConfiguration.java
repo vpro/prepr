@@ -22,6 +22,8 @@ import org.springframework.core.io.ClassPathResource;
 import nl.vpro.io.mediaconnect.*;
 
 /**
+ * This is used to instantiate all classes by spring. The advantage is that spring than also will proxy them (e.g. for the @CacheResult annotation)
+ *
  * @author Michiel Meeuwissen
  * @since 0.3
  */
@@ -29,12 +31,26 @@ import nl.vpro.io.mediaconnect.*;
 @Configuration
 public class SpringMediaConnectRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
 
+    private final static String PREF = "mediaconnect";
+    private final static String CPREF = "mediaconnectrepository";
+
+    private final String properties;
+
+    public SpringMediaConnectRepositoriesConfiguration(String properties) {
+        this.properties = properties;
+    }
+
+
+    public SpringMediaConnectRepositoriesConfiguration() {
+        this("mediaconnect.properties");
+    }
+
     @Override
     @SneakyThrows
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         Properties properties = new Properties();
-        properties.load(new ClassPathResource("mediaconnect.properties").getInputStream());
-        String prefix = "mediaconnect.clientId.";
+        properties.load(new ClassPathResource(this.properties).getInputStream());
+        String prefix = PREF + ".clientId.";
         List<String> channels = properties.entrySet().stream()
             .map(e -> new AbstractMap.SimpleEntry<>(e.getKey().toString(), e.getValue().toString()))
             .filter((e) -> StringUtils.isNotBlank(e.getValue()))
@@ -43,22 +59,17 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());
         for (String channel : channels) {
-
-
-
-            BeanDefinition client = BeanDefinitionBuilder
-                .genericBeanDefinition(MediaConnectRepositoryClient.class)
-                .addConstructorArgValue(properties.get("mediaconnect.api"))
-                .addConstructorArgValue(channel)
-                .addConstructorArgValue(properties.get("mediaconnect.clientId." + channel))
-                .addConstructorArgValue(properties.get("mediaconnect.clientSecret." + channel))
-                .addConstructorArgValue(properties.get("mediaconnect.guideId." + channel))
-                .addConstructorArgValue(properties.get("mediaconnect.roles"))
-                .addConstructorArgValue(properties.get("mediaconnect.logascurl"))
-                .getBeanDefinition();
-
-            beanDefinitionRegistry
-                .registerBeanDefinition("mediaconnectrepository.client." + channel, client);
+            beanDefinitionRegistry.registerBeanDefinition(CPREF + ".client." + channel,
+                BeanDefinitionBuilder
+                    .genericBeanDefinition(MediaConnectRepositoryClient.class)
+                    .addConstructorArgValue(properties.get(PREF + ".api"))
+                    .addConstructorArgValue(channel)
+                    .addConstructorArgValue(properties.get(PREF + ".clientId." + channel))
+                    .addConstructorArgValue(properties.get(PREF + ".clientSecret." + channel))
+                    .addConstructorArgValue(properties.get(PREF + ".guideId." + channel))
+                    .addConstructorArgValue(properties.get(PREF + ".scopes"))
+                    .addConstructorArgValue(properties.get(PREF + ".logascurl"))
+                    .getBeanDefinition());
 
             define(beanDefinitionRegistry, "assets", MediaConnectAssetsImpl.class, channel);
             define(beanDefinitionRegistry, "containers", MediaConnectContainersImpl.class, channel);
@@ -68,35 +79,30 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
             define(beanDefinitionRegistry, "tags", MediaConnectTagsImpl.class, channel);
             define(beanDefinitionRegistry, "webhooks", MediaConnectWebhooksImpl.class, channel);
 
-            BeanDefinition repository  = BeanDefinitionBuilder
-                .genericBeanDefinition(MediaConnectRepositoryImpl.class)
-                .addConstructorArgValue(channel)
-                .addConstructorArgReference("mediaconnectrepository.prepr." + channel)
-                .addConstructorArgReference("mediaconnectrepository.guides." + channel)
-                .addConstructorArgReference("mediaconnectrepository.webhooks." + channel)
-                .addConstructorArgReference("mediaconnectrepository.assets." + channel)
-                .addConstructorArgReference("mediaconnectrepository.content." + channel)
-                .addConstructorArgReference("mediaconnectrepository.tags." + channel)
-                .addConstructorArgReference("mediaconnectrepository.containers." + channel)
-                .getBeanDefinition();
-
-            beanDefinitionRegistry
-                .registerBeanDefinition("mediaconnectrepository." + channel, repository);
-
-
-
-
+            beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
+                BeanDefinitionBuilder
+                    .genericBeanDefinition(MediaConnectRepositoryImpl.class)
+                    .addConstructorArgReference(CPREF + ".client." + channel)
+                    .addConstructorArgReference(CPREF + ".prepr." + channel)
+                    .addConstructorArgReference(CPREF + ".guides." + channel)
+                    .addConstructorArgReference(CPREF + ".webhooks." + channel)
+                    .addConstructorArgReference(CPREF + ".assets." + channel)
+                    .addConstructorArgReference(CPREF + ".content." + channel)
+                    .addConstructorArgReference(CPREF + ".tags." + channel)
+                    .addConstructorArgReference(CPREF + ".containers." + channel)
+                    .getBeanDefinition()
+            );
 
         }
-        BeanDefinitionBuilder mr = BeanDefinitionBuilder.genericBeanDefinition(SpringMediaConnectRepositories.class);
-        beanDefinitionRegistry.registerBeanDefinition("mediaconnectrepositories", mr.getBeanDefinition());
+        beanDefinitionRegistry.registerBeanDefinition("mediaconnectrepositories",
+            BeanDefinitionBuilder.genericBeanDefinition(SpringMediaConnectRepositories.class).getBeanDefinition());
 
     }
 
     BeanDefinition define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel) {
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(clazz).setLazyInit(true);
-        beanDefinitionRegistry.registerBeanDefinition("mediaconnectrepository." + name + "." + channel, builder.getBeanDefinition());
-        builder.addConstructorArgReference("mediaconnectrepository.client." + channel).setLazyInit(true);
+        beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + name + "." + channel, builder.getBeanDefinition());
+        builder.addConstructorArgReference(CPREF + ".client." + channel).setLazyInit(true);
         return builder.getBeanDefinition();
     }
 

@@ -25,6 +25,7 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
 
     final Map<String, MediaConnectRepository> repositories = new HashMap<>();
     private ApplicationContext applicationContext;
+
     @Override
     public Optional<MediaConnectRepository> get(String channel) {
         return Optional.ofNullable(repositories.get(channel));
@@ -54,7 +55,12 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
         applicationContext.getBeansOfType(MediaConnectRepository.class).values().forEach(mc -> {
             repositories.put(mc.getChannel(), mc);
         });
-        log.info("{}", repositories);
+        log.info("{}", repositories.values());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " for " + repositories.keySet();
     }
 
 }
