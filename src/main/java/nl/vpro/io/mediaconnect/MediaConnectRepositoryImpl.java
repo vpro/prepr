@@ -60,6 +60,19 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.client = client;
     }
 
+    public MediaConnectRepositoryImpl(
+        MediaConnectRepositoryClient client
+        ) {
+        this.prepr = new MediaConnectPreprImpl(client);
+        this.guides = new MediaConnectGuidesImpl(client);
+        this.webhooks = new MediaConnectWebhooksImpl(client);
+        this.assets = new MediaConnectAssetsImpl(client);
+        this.content = new MediaConnectContentImpl(client);
+        this.tags = new MediaConnectTagsImpl(client);
+        this.containers = new MediaConnectContainersImpl(client);
+        this.client = client;
+    }
+
 
     @SuppressWarnings("unchecked")
     @SneakyThrows(IOException.class)

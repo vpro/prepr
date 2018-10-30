@@ -11,7 +11,8 @@ This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a f
 
 Example code:
 ```java
-   MediaConnectRepositoryImpl impl = MediaConnectRepositoryImpl
+   MediaConnectRepositoryImpl impl = new MediaConnectRepositoryImpl(
+       MediaConnectRepository.
         .builder()
         .clientId("<your client id>")
         .clientSecret("<your client secret>")
@@ -26,6 +27,21 @@ Example code:
         );
     }
 ```
+It is also possible to instantiate a bunch of  repositories using spring
+```xml
+  <bean class="nl.vpro.io.mediaconnect.spring.SpringMediaConnectRepositoriesConfiguration">
+    <constructor-arg value="media.properties" />
+  </bean>
+```
+This will create MediaConnectRepositoryImpl beans ``mediaconnectrepository.<channel>``, and also one instance of ``MediaConnectRepositories``
+
+
+Something similar can also be accomplished without spring
+```java
+nl.vpro.io.mediaconnect.StandaloneMediaConnectRepositories.fromMap()
+
+```
+(note that ``@CacheResult`` is not working then.)
 
 ## Testing
 
