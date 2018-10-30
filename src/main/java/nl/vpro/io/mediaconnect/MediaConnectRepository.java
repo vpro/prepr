@@ -23,5 +23,7 @@ public interface MediaConnectRepository {
     MediaConnectContainers getContainers();
 
     String getChannel();
+    boolean isLogAsCurl();
+    void setLogAsCurl(boolean logAsCurl);
 
 }

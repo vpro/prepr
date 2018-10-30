@@ -9,12 +9,14 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import nl.vpro.io.mediaconnect.MediaConnectRepositories;
 import nl.vpro.io.mediaconnect.MediaConnectRepository;
+import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
 
 /**
  * @author Michiel Meeuwissen
@@ -51,10 +53,14 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
 
     }
     @PostConstruct
-    public void fill(){
+    public void fill() {
+        boolean logAsCurl = Boolean.valueOf(applicationContext.getBean("mediaconnect.logascurl", String.class));
         applicationContext.getBeansOfType(MediaConnectRepository.class).values().forEach(mc -> {
             repositories.put(mc.getChannel(), mc);
+            mc.setLogAsCurl(logAsCurl);
         });
+        String lenient = applicationContext.getBean("mediaconnect.lenientjson", String.class);
+        MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         log.info("{}", repositories.values());
     }
 

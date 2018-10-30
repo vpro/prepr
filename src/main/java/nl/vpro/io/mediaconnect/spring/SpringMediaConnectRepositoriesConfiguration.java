@@ -16,6 +16,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
@@ -29,6 +30,7 @@ import nl.vpro.io.mediaconnect.*;
  */
 @Slf4j
 @Configuration
+@EnableCaching
 public class SpringMediaConnectRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
 
     private final static String PREF = "mediaconnect";
@@ -58,7 +60,13 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
             .filter((k) -> k.startsWith(prefix))
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());
+
         for (String channel : channels) {
+            String secret = (String) properties.get(PREF + ".clientSecret." + channel);
+            if (secret == null) {
+                log.info("Skipped creating bean for {}, because no client secret configured", channel);
+                continue;
+            }
             beanDefinitionRegistry.registerBeanDefinition(CPREF + ".client." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(MediaConnectRepositoryClient.class)

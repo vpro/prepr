@@ -118,6 +118,16 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     }
 
     @Override
+    public boolean isLogAsCurl() {
+        return client.isLogAsCurl();
+    }
+
+    @Override
+    public void setLogAsCurl(boolean logAsCurl) {
+        client.setLogAsCurl(logAsCurl);
+    }
+
+    @Override
     public String toString() {
         return client.toString();
     }
