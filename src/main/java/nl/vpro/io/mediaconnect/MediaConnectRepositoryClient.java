@@ -69,6 +69,9 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Getter
     private Integer authenticationCount = 0;
 
+    @Getter
+    private Integer callCount = 0;
+
     @Setter
     @Getter
     private boolean logAsCurl;
@@ -251,9 +254,11 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
     protected void authenticate(HttpRequest request) throws IOException {
         getToken();
+        callCount++;
         request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
     }
     protected synchronized  void getToken() throws  IOException {
+
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
 
             List<Scope> scopesToUse = scopes;

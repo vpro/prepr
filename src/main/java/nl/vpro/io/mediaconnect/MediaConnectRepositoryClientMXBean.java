@@ -8,5 +8,7 @@ public interface MediaConnectRepositoryClientMXBean {
     Integer getRateLimitReset();
     Integer getRateLimitHourRemaining();
     Integer getRateLimitHourLimit();
+
     Integer getAuthenticationCount();
+    Integer getCallCount();
 }
