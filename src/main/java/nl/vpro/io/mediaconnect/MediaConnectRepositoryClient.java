@@ -2,16 +2,12 @@ package nl.vpro.io.mediaconnect;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Singular;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
-import java.lang.reflect.Constructor;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,7 +17,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Provider;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
@@ -70,6 +65,9 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     private Integer rateLimitHourRemaining = null;
     @Getter
     private Integer rateLimitHourLimit = null;
+
+    @Getter
+    private Integer authenticationCount = 0;
 
     @Setter
     @Getter
@@ -128,6 +126,12 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Integer getAuthenticationCount() {
+        return null;
+
     }
 
 
@@ -249,8 +253,9 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         getToken();
         request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
     }
-    protected void getToken() throws  IOException {
+    protected synchronized  void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
+
             List<Scope> scopesToUse = scopes;
             if (scopesToUse == null || scopesToUse.isEmpty()) {
                 scopesToUse = Arrays.asList(Scope.values());
@@ -272,8 +277,8 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
+            authenticationCount++;
         }
-
     }
 
     public void setScopes(List<Scope> scopes) {
