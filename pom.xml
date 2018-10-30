@@ -42,7 +42,7 @@
 
   <properties>
     <lombok.version>1.18.2</lombok.version>
-    <google.client.version>1.25.0</google.client.version>
+    <google.client.version>1.26.0</google.client.version>
     <jackson2.version>2.9.7</jackson2.version>
     <slf4j.version>1.7.25</slf4j.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -201,7 +201,6 @@
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
     </dependency>
-
   </dependencies>
 
 

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.Constructor;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,6 +27,7 @@ import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
+
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
@@ -89,27 +91,28 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
     private Instant expiration;
 
     @Inject
-    private Provider<MediaConnectPrepr> prepr = memoize(() -> new MediaConnectPreprImpl(this));
+    private Provider<MediaConnectPrepr> prepr = createAndMemoize(MediaConnectPreprImpl.class);
 
 
     @Inject
-    private Provider<MediaConnectGuides> guides = memoize(() -> new MediaConnectGuidesImpl(this));
+    private Provider<MediaConnectGuides> guides = createAndMemoize(MediaConnectGuidesImpl.class);
 
     @Inject
-    private Provider<MediaConnectWebhooks> webhooks = memoize(() -> new MediaConnectWebhooksImpl(this));
+    private Provider<MediaConnectWebhooks> webhooks = createAndMemoize(MediaConnectWebhooksImpl.class);
 
     @Inject
-    private Provider<MediaConnectAssets> assets =  memoize(() -> new MediaConnectAssetsImpl(this));
+    private Provider<MediaConnectAssets> assets =  createAndMemoize(MediaConnectAssetsImpl.class);
 
     @Inject
-    private Provider<MediaConnectContent> content = memoize(() -> new MediaConnectContentImpl(this));
+    private Provider<MediaConnectContent> content = createAndMemoize(MediaConnectContentImpl.class);
 
     @Inject
-    private Provider<MediaConnectTags> tags = memoize(() -> new MediaConnectTagsImpl(this));
+    private Provider<MediaConnectTags> tags = createAndMemoize(MediaConnectTagsImpl.class);
 
     @Inject
-    private Provider<MediaConnectContainers> containers = memoize(() -> new MediaConnectContainersImpl(this));
+    private Provider<MediaConnectContainers> containers = createAndMemoize(MediaConnectContainersImpl.class);
 
+    private Creator creator = new CreatorImpl();
 
     @Getter
     private List<Scope> scopes;
@@ -121,6 +124,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         @Nonnull String clientId,
         @Nonnull String clientSecret,
         @Nullable String guideId,
+        @Nullable Creator creator,
         @Nullable @Singular  List<Scope> scopes,
         boolean logAsCurl
     ) {
@@ -131,6 +135,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes;
         this.logAsCurl = logAsCurl;
+        this.creator = creator == null ? this.creator : creator;
     }
 
     public void registerBean(String jmxName) {
@@ -407,6 +412,25 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository, Media
             }
             return this;
         }
+    }
+
+    @FunctionalInterface
+    public interface Creator {
+        <T> T apply(Class<T> objectClass);
+    }
+
+    public class CreatorImpl implements Creator {
+
+        @Override
+        @SneakyThrows
+        public <T> T apply(Class<T> objectClass) {
+            Constructor<T> constructor = objectClass.getConstructor(MediaConnectRepositoryImpl.class);
+            return constructor.newInstance(MediaConnectRepositoryImpl.this);
+        }
+    }
+
+    protected <T, S extends T> Provider<T> createAndMemoize(Class<S> clazz) {
+        return memoize(() -> creator.apply(clazz));
     }
 
     public static <T> Provider<T> memoize(Provider<T> provider) {
