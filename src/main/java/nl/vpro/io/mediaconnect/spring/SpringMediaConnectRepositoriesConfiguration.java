@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -35,6 +34,7 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
 
     private final static String PREF = "mediaconnect";
     private final static String CPREF = "mediaconnectrepository";
+    private final static String CLIENT_PREF = CPREF + ".client";
 
     private final String properties;
 
@@ -67,7 +67,7 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
                 log.info("Skipped creating bean for {}, because no client secret configured", channel);
                 continue;
             }
-            beanDefinitionRegistry.registerBeanDefinition(CPREF + ".client." + channel,
+            beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(MediaConnectRepositoryClient.class)
                     .addConstructorArgValue(properties.get(PREF + ".api"))
@@ -79,18 +79,19 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
                     .addConstructorArgValue(properties.get(PREF + ".logascurl"))
                     .getBeanDefinition());
 
-            define(beanDefinitionRegistry, "assets", MediaConnectAssetsImpl.class, channel);
-            define(beanDefinitionRegistry, "containers", MediaConnectContainersImpl.class, channel);
-            define(beanDefinitionRegistry, "content", MediaConnectContentImpl.class, channel);
-            define(beanDefinitionRegistry, "guides", MediaConnectGuidesImpl.class, channel);
             define(beanDefinitionRegistry, "prepr", MediaConnectPreprImpl.class, channel);
-            define(beanDefinitionRegistry, "tags", MediaConnectTagsImpl.class, channel);
+            define(beanDefinitionRegistry, "guides", MediaConnectGuidesImpl.class, channel);
             define(beanDefinitionRegistry, "webhooks", MediaConnectWebhooksImpl.class, channel);
+            define(beanDefinitionRegistry, "assets", MediaConnectAssetsImpl.class, channel);
+            define(beanDefinitionRegistry, "content", MediaConnectContentImpl.class, channel);
+            define(beanDefinitionRegistry, "tags", MediaConnectTagsImpl.class, channel);
+            define(beanDefinitionRegistry, "containers", MediaConnectContainersImpl.class, channel);
+
 
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(MediaConnectRepositoryImpl.class)
-                    .addConstructorArgReference(CPREF + ".client." + channel)
+                    .addConstructorArgReference(CLIENT_PREF + "." + channel)
                     .addConstructorArgReference(CPREF + ".prepr." + channel)
                     .addConstructorArgReference(CPREF + ".guides." + channel)
                     .addConstructorArgReference(CPREF + ".webhooks." + channel)
@@ -107,11 +108,15 @@ public class SpringMediaConnectRepositoriesConfiguration implements BeanDefiniti
 
     }
 
-    BeanDefinition define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel) {
-        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(clazz).setLazyInit(true);
-        beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + name + "." + channel, builder.getBeanDefinition());
-        builder.addConstructorArgReference(CPREF + ".client." + channel).setLazyInit(true);
-        return builder.getBeanDefinition();
+    void define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel) {
+        beanDefinitionRegistry
+            .registerBeanDefinition(CPREF + "." + name + "." + channel,
+                BeanDefinitionBuilder
+                    .genericBeanDefinition(clazz)
+                    .setLazyInit(true)
+                    .addConstructorArgReference(CLIENT_PREF + "." + channel)
+                    .getBeanDefinition()
+            );
     }
 
     @Override
