@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -36,6 +38,13 @@ public class MediaConnectRepositoryImplITest {
     }
 */
 
+    @Test
+    public void localdatetime() {
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+        log.info("{}", LocalDateTime.parse("2007-04-05T24:00", FORMATTER));
+
+    }
 
     @Test
     public void getSchedules() {

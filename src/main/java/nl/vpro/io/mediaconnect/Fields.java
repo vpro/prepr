@@ -21,7 +21,7 @@ public class Fields {
         .build();
     static final Field COVER = Field.builder("cover").field(SOURCEFILE_FIELD).build();
 
-    static final Field ASSETS = Field.builder("assets").fs("custom", "source_file", "media").build();
+    static final Field ASSETS = Field.builder("assets").fs("cdn_files", "custom", "source_file", "media").build();
 
     @Getter
     private final List<Field> fields;

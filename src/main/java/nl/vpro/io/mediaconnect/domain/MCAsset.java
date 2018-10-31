@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +29,8 @@ public abstract class MCAsset extends MCAbstractObject {
     String rel_description;
 
     MCCustom custom;
+
+    List<MCCdnFile> cdn_files;
 
     String custom_type;
 
