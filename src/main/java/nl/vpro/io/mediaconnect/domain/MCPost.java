@@ -19,11 +19,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class MCPost extends MCContent {
 
 
-    /**
-     * This seems to contain MID's.
-     */
-    String reference_id;
-
 
      /**
      * What does this mean?
