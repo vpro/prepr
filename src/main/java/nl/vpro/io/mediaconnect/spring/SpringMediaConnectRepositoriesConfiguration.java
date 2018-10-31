@@ -16,6 +16,6 @@ public class SpringMediaConnectRepositoriesConfiguration extends AbstractSpringM
 
 
     public SpringMediaConnectRepositoriesConfiguration() {
-        super("mediaconnect.properties");
+        super();
     }
 }

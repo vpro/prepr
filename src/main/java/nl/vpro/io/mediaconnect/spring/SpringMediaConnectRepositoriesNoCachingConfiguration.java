@@ -12,6 +12,6 @@ public class SpringMediaConnectRepositoriesNoCachingConfiguration extends Abstra
 
 
     public SpringMediaConnectRepositoriesNoCachingConfiguration() {
-        super("mediaconnect.properties");
+        super();
     }
 }
