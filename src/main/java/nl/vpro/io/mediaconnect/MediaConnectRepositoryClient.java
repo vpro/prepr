@@ -15,14 +15,12 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
-
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
@@ -33,11 +31,7 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
 
 
 /**
- * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
- * with credentials.
- *
- * This can be done by code (using {@link MediaConnectRepositoryClient#builder()}, using config file {@link MediaConnectRepositoryClient#configuredInUserHome(String)}}
- * or using some IoC-framework (depending on the {@link Inject} and {@link Named} annotations on the constructor.
+
  *
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -110,7 +104,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
-        this.scopes = scopes == null ? Arrays.asList(Scope.values()) : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
+        this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         this.logAsCurl = logAsCurl;
     }
 
@@ -129,12 +123,6 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-    }
-
-    @Override
-    public Integer getAuthenticationCount() {
-        return null;
-
     }
 
 

@@ -14,7 +14,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import nl.vpro.io.mediaconnect.StandaloneMediaConnectRepositories;
+import nl.vpro.io.mediaconnect.MediaConnectRepositories;
 import nl.vpro.io.mediaconnect.MediaConnectRepository;
 
 import static nl.vpro.io.mediaconnect.Paging.limit;
@@ -30,14 +30,14 @@ public class WebhookIdsRegister {
     public static final ScheduledExecutorService backgroundExecutor =
         Executors.newScheduledThreadPool(1);
 
-    private final StandaloneMediaConnectRepositories repositories;
+    private final MediaConnectRepositories repositories;
 
     private final String baseUrl;
 
 
     @Inject
     WebhookIdsRegister(
-        StandaloneMediaConnectRepositories repositories,
+        MediaConnectRepositories repositories,
         @Named("mediaconnect.webhook.baseUrl") String baseUrl
         ) {
         this.repositories = repositories;

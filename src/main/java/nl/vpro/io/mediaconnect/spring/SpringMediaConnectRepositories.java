@@ -54,10 +54,13 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
     }
     @PostConstruct
     public void fill() {
-        boolean logAsCurl = applicationContext.containsBean("mediaconnect.logascurl") && Boolean.valueOf(applicationContext.getBean("mediaconnect.logascurl", String.class));
+        boolean foundLogAsCurl = applicationContext.containsBean("mediaconnect.logascurl");
+        boolean logAsCurl = foundLogAsCurl && Boolean.valueOf(applicationContext.getBean("mediaconnect.logascurl", String.class));
         applicationContext.getBeansOfType(MediaConnectRepository.class).values().forEach(mc -> {
             repositories.put(mc.getChannel(), mc);
-            mc.setLogAsCurl(logAsCurl);
+            if (foundLogAsCurl) {
+                mc.setLogAsCurl(logAsCurl);
+            }
         });
         if (applicationContext.containsBean("mediaconnect.lenientjson")) {
             String lenient = applicationContext.getBean("mediaconnect.lenientjson", String.class);

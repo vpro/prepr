@@ -17,6 +17,11 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
+ *  with credentials.
+ *  *
+ *  This can be done by code (using {@link MediaConnectRepositoryClient#builder()}, using config file {@link MediaConnectRepositoryImpl#configuredInUserHome(String)}}
+ *  or using some IoC-framework (depending on the {@link Inject} and {@link Named} annotations on the constructor.
  * @author Michiel Meeuwissen
  * @since 0.3
  */
@@ -106,7 +111,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
             }
             String scopes = properties.get("mediaconnect.scopes");
             if (scopes != null && scopes.length() > 0) {
-                if (client.getScopes() == null || client.getScopes().isEmpty()) {
+                if (client.getScopes() != null || client.getScopes().isEmpty()) {
                     client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
                 }
             }
