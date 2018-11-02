@@ -22,4 +22,9 @@ public class MCCdnFile extends MCAbstractObject {
     String file;
     URI url;
 
+    /**
+     * wtf?
+     */
+    String c_d_n;
+
 }
