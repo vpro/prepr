@@ -243,4 +243,13 @@ public class MediaConnectRepositoryImplITest {
 
 
     }
+
+
+    @Test
+    public void getPerson() {
+        MCPerson person = funx.getPersons().get(UUID.fromString("6ab9b623-6815-4696-b276-de43cde4d06f"));
+        log.info("psers: {}", person);
+
+
+    }
 }

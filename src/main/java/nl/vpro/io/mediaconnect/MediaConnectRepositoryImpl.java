@@ -42,7 +42,12 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     private final MediaConnectContainers containers;
 
+    private final MediaConnectPersons persons;
+
     private final MediaConnectRepositoryClient client;
+
+
+
 
     @Inject
     public MediaConnectRepositoryImpl(
@@ -53,7 +58,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         MediaConnectAssets assets,
         MediaConnectContent content,
         MediaConnectTags tags,
-        MediaConnectContainers containers
+        MediaConnectContainers containers,
+        MediaConnectPersons persons
         ) {
         this.prepr = prepr;
         this.guides = guides;
@@ -62,6 +68,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.content = content;
         this.tags = tags;
         this.containers = containers;
+        this.persons = persons;
         this.client = client;
     }
 
@@ -75,6 +82,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.content = new MediaConnectContentImpl(client);
         this.tags = new MediaConnectTagsImpl(client);
         this.containers = new MediaConnectContainersImpl(client);
+        this.persons = new MediaConnectPersonsImpl(client);
         this.client = client;
     }
 
@@ -123,7 +131,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                 new MediaConnectAssetsImpl(client),
                 new MediaConnectContentImpl(client),
                 new MediaConnectTagsImpl(client),
-                new MediaConnectContainersImpl(client)
+                new MediaConnectContainersImpl(client),
+                new MediaConnectPersonsImpl(client)
             );
         } else {
             throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());

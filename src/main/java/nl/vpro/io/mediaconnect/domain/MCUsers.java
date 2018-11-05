@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @Slf4j
 public class MCUsers {
 
-    Map<UUID, List<MCUser>> users;
+    Map<UUID, List<MCPerson>> users;
 
      public static class Deserializer extends JsonDeserializer<MCUsers> {
 
@@ -44,7 +44,7 @@ public class MCUsers {
                          throw new IllegalStateException();
                      }
                      try {
-                         MCUser[] users = ctxt.getParser().readValueAs(MCUser[].class);
+                         MCPerson[] users = ctxt.getParser().readValueAs(MCPerson[].class);
                          result.users.put(UUID.fromString(role), Arrays.asList(users));
                      } catch (JsonMappingException jma) {
                          log.error(jma.getMessage(), jma);

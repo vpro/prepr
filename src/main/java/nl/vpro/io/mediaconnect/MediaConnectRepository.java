@@ -21,6 +21,8 @@ public interface MediaConnectRepository {
     MediaConnectContent   getContent();
     MediaConnectTags      getTags();
     MediaConnectContainers getContainers();
+    MediaConnectPersons getPersons();
+
 
     String getChannel();
     boolean isLogAsCurl();

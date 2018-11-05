@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Person")
-public class MCUser extends MCAbstractObject {
+public class MCPerson extends MCAbstractObject {
 
     Instant last_seen;
 

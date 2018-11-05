@@ -84,6 +84,8 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
             define(beanDefinitionRegistry, "content", MediaConnectContentImpl.class, channel);
             define(beanDefinitionRegistry, "tags", MediaConnectTagsImpl.class, channel);
             define(beanDefinitionRegistry, "containers", MediaConnectContainersImpl.class, channel);
+            define(beanDefinitionRegistry, "persons", MediaConnectPersonsImpl.class, channel);
+
 
 
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
@@ -97,6 +99,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
                     .addConstructorArgReference(CPREF + ".content." + channel)
                     .addConstructorArgReference(CPREF + ".tags." + channel)
                     .addConstructorArgReference(CPREF + ".containers." + channel)
+                    .addConstructorArgReference(CPREF + ".persons." + channel)
                     .getBeanDefinition()
             );
 

@@ -15,5 +15,6 @@ public enum Scope {
     webhooks_publish,
     webhooks_delete,
     guides,
-    channels
+    channels,
+    persons
 }
