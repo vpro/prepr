@@ -205,13 +205,14 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MCItems<MCWebhook> webhooks = rad2.getWebhooks().get(limit(100L));
+        MediaConnectRepository repo = funx;
+        MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://proxy.meeuw")) {
+            if (webhook.getCallback_url().startsWith("https://api-dev")) {
                 log.info("Deleting {}", webhook);
-                rad2.getWebhooks().delete(webhook.getUUID());
+                repo.getWebhooks().delete(webhook.getUUID());
             }
 
         }
