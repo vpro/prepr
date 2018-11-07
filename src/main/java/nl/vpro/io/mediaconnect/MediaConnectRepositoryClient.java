@@ -3,7 +3,6 @@ package nl.vpro.io.mediaconnect;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,6 +20,8 @@ import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
@@ -36,7 +37,6 @@ import nl.vpro.io.mediaconnect.domain.MCObjectMapper;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Slf4j
 @Named
 public class MediaConnectRepositoryClient implements MediaConnectRepositoryClientMXBean {
 
@@ -46,6 +46,8 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
+
+    private final Logger log;
 
     private final String api;
 
@@ -106,6 +108,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         this.logAsCurl = logAsCurl;
+        this.log = LoggerFactory.getLogger(MediaConnectRepositoryImpl.class.getName() + "." + channel);
     }
 
     public void registerBean(String jmxName) {
@@ -186,7 +189,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @SuppressWarnings("unchecked")
     @SneakyThrows(IOException.class)
     protected HttpResponse post(GenericUrl url, Map<String, Object> form) {
-        log.debug("Posting {}", form);
+        log.debug("{}: Posting {}", channel, form);
         Map<String, String> map = new TreeMap<>();
         form.forEach((k, v) -> {
             if (v.getClass().isArray()) {
@@ -269,7 +272,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
                     .set("scope", scopesToUse.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
-            log.info("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
+            log.debug("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
             authenticationCount++;
         }
     }
