@@ -129,6 +129,23 @@ public class MediaConnectRepositoryImplITest {
 
 
     @Test
+    public void getPost() {
+        log.info("{}",
+            funx.getContent().getPublication(UUID.fromString("ba1d6137-99fe-4aba-b92e-2090ee614b93")));
+
+    }
+
+
+
+    @Test
+    public void getShow() {
+        log.info("{}",
+            funx.getContent().getPublication(UUID.fromString("a30ebc44-6832-4e68-91c7-3a7e668375db")));
+
+    }
+
+
+    @Test
     public void getTag() {
         log.info("{}",
             rad2.getContent().getPublication(UUID.fromString("717a29f6-930e-4988-9a03-872b404cf4af"))

@@ -16,17 +16,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("Show")
 public class MCShow extends MCContent {
 
-    String slug;
-
     String name;
-
-    String body;
 
     List<MCTag> tags;
 
     MCPhoto cover;
-
-    String reference_id;
 
     String reference;
 
