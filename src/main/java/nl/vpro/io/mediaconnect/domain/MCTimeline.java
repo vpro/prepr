@@ -22,8 +22,6 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 @JsonDeserialize(converter= MCTimeline.Deserializer.class)
 public class MCTimeline extends MCContent {
 
-    String reference_id;
-
     String timecode;
 
     LocalDateTime from;

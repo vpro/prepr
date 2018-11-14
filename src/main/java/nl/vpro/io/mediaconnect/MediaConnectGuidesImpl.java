@@ -24,10 +24,12 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
 
     private final Fields SCHEDULE_FIELDS = Fields.builder()
-        .field(Field.builder("timelines")
-            .field(ASSETS)
-            .field(Field.builder("publications")
-               /* .fs("tags")
+        .field(
+            Field.builder("timelines")
+                .field(ASSETS)
+                .f("custom")
+                .field(Field.builder("publications")
+                    /* .fs("tags")
                 .field(ASSETS)
                 .field(Field.builder("element")
                         .field(Field.builder("media")
@@ -36,6 +38,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
                         )
                         .build()
                 )*/
+
                 .build()
             ).build()
         )

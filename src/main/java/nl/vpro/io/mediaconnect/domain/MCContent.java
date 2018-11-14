@@ -32,6 +32,8 @@ public abstract class MCContent extends MCAbstractObject {
 
     /**
      * What does this mean?
+     *
+     * This custom field may for example contains radiobox 'times' objects.
      */
     JsonNode custom;
 
