@@ -46,9 +46,13 @@ public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
         post.put("events", events);
+        post.put("active", "1");
+
+
 
         HttpResponse response = impl.post(url, post);
-        return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class).readValue(response.getContent());
+        return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class)
+            .readValue(response.getContent());
     }
 
     @Override

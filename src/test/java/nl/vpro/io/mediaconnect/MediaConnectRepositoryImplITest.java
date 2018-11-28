@@ -56,7 +56,7 @@ public class MediaConnectRepositoryImplITest {
 
 
     protected void getSchedule(MediaConnectRepository impl) {
-        LocalDate date = LocalDate.of(2018, 9, 27);
+        LocalDate date = LocalDate.of(2018, 10, 1);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);
@@ -187,7 +187,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getChannels() {
-        MCItems<?> publications = rad2.getContent()
+        MCItems<?> publications = funx.getContent()
             .getChannels(Paging.builder().build());
         log.info("channels : {}", publications);
     }
@@ -227,7 +227,7 @@ public class MediaConnectRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://api-dev")) {
+            if (webhook.getCallback_url().startsWith("https://proxy")) {
                 log.info("Deleting {}", webhook);
                 repo.getWebhooks().delete(webhook.getUUID());
             }
@@ -239,8 +239,8 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void createWebhook() {
-         String url = "https://api-itest.poms.omroep.nl/mediaconnect/RAD5";
-         log.info("new webook {}", rad2.getWebhooks().create(url,  "showschedule.created",
+         String url = "https://api-itest.poms.omroep.nl/mediaconnect/FUNX";
+         log.info("new webook {}", funx.getWebhooks().create(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
     }
