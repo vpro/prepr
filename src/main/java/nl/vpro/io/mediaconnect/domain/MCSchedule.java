@@ -48,7 +48,7 @@ public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>>
          @Override
          public MCSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
              MCSchedule result = new MCSchedule();
-             result.days = new HashMap<>();
+             result.days = new LinkedHashMap<>();
              JsonToken t = p.getCurrentToken();
 
              if (t.isStructStart()) {
