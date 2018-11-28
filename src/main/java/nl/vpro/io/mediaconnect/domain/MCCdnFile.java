@@ -20,9 +20,4 @@ public class MCCdnFile extends MCAbstractObject {
     String file;
     String url;
 
-    /**
-     * wtf?
-     */
-    String c_d_n;
-
 }
