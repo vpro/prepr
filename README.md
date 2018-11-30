@@ -1,5 +1,5 @@
 # mediaconnect
-Domain classes and client for https://developers.mediaconnect.io/
+Domain classes and client for https://developers.mediaconnect.io/ ('prepr')
 
 
 [![Build Status](https://travis-ci.org/vpro/mediaconnect.svg?)](https://travis-ci.org/vpro/mediaconnect)
