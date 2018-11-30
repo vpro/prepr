@@ -25,9 +25,7 @@ public class MCWebhook extends MCAbstractObject {
     @Singular
     List<String> events;
 
-
-    // TODO, I think this actually is a boolean
-    int active;
+    boolean active;
 
     public MCWebhook() {
 
