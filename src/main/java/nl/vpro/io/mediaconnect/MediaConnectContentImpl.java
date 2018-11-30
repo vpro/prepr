@@ -22,10 +22,11 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         .fs("container", "tags", "custom")
         //.field(ASSETS)
         .field(Field.builder("element")
+            .f("custom")
             .field(
                 Field.builder("media")
                     .field(SOURCEFILE_FIELD)
-                    .f("cdn_files")
+                    .fs("cdn_files", "custom")
                     .build()
             )
             .build()

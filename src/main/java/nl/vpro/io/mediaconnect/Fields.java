@@ -15,10 +15,12 @@ import javax.annotation.Nonnull;
  */
 public class Fields {
 
-    static final Field SOURCEFILE_FIELD = Field.builder("source_file")
-        .field(Field.builder("resized").f("picture.width(1920)")
-            .build())
-        .build();
+    static final Field SOURCEFILE_FIELD =
+        Field.builder("source_file")
+            .f("custom")
+            .field(Field.builder("resized").f("picture.width(1920)")
+                .build())
+            .build();
     static final Field COVER = Field.builder("cover").field(SOURCEFILE_FIELD).build();
 
     static final Field ASSETS = Field.builder("assets").fs("cdn_files", "custom", "source_file", "media").build();
