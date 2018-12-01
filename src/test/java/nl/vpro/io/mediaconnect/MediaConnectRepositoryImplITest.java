@@ -48,15 +48,15 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedules() {
-        //getSchedule(rad2);
-        getSchedule(funx);
+        getSchedule(rad2);
+        //getSchedule(funx);
 
     }
 
 
 
     protected void getSchedule(MediaConnectRepository impl) {
-        LocalDate date = LocalDate.of(2018, 10, 1);
+        LocalDate date = LocalDate.of(2018, 11, 26);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);
@@ -227,9 +227,9 @@ public class MediaConnectRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://proxy")) {
+            if (webhook.getCallback_url().startsWith("https://api-itest")) {
                 log.info("Deleting {}", webhook);
-                repo.getWebhooks().delete(webhook.getUUID());
+                //repo.getWebhooks().delete(webhook.getUUID());
             }
 
         }
