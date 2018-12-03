@@ -24,6 +24,10 @@ public abstract class MCAsset extends MCAbstractObject {
 
     String author;
 
+    /**
+     * Tim: nee, source_file moet je gewoon vergeten. Alleen kijken naar cdn_fules.
+     */
+    @Deprecated
     MCSourceFile source_file;
 
     String rel_description;
@@ -50,7 +54,7 @@ public abstract class MCAsset extends MCAbstractObject {
             ", body='" + body + '\'' +
             ", reference='" + reference + '\'' +
             ", author='" + author + '\'' +
-            ", source_file=" + source_file +
+            ", cdn_files=" + cdn_files +
             ", id=" + id +
             '}';
     }

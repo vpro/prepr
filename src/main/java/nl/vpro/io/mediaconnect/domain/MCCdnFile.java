@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -19,5 +20,6 @@ public class MCCdnFile extends MCAbstractObject {
     String profile;
     String file;
     String url;
+    JsonNode resized;
 
 }
