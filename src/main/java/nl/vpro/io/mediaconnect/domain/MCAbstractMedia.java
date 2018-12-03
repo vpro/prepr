@@ -31,7 +31,6 @@ public abstract class MCAbstractMedia extends MCAsset {
             ", body='" + body + '\'' +
             ", source_file=" + source_file +
             ", reference_id=" + reference_id +
-
             ", id=" + id +
             '}';
     }

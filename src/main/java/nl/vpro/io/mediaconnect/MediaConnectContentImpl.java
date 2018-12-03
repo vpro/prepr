@@ -10,6 +10,7 @@ import com.google.api.client.http.GenericUrl;
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 
+import static nl.vpro.io.mediaconnect.Fields.CDN_FILES;
 import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
 
 /**
@@ -26,7 +27,8 @@ public class MediaConnectContentImpl implements MediaConnectContent {
             .field(
                 Field.builder("media")
                     .field(SOURCEFILE_FIELD)
-                    .fs("cdn_files", "custom")
+                    .field(CDN_FILES)
+                    .fs("custom")
                     .build()
             )
             .build()
