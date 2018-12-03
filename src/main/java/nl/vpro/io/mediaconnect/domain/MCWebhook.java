@@ -8,6 +8,9 @@ import lombok.Singular;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import nl.vpro.jackson2.LenientBooleanDeserializer;
 
 /**
  * @author Michiel Meeuwissen
@@ -25,9 +28,8 @@ public class MCWebhook extends MCAbstractObject {
     @Singular
     List<String> events;
 
-
-    // TODO, I think this actually is a boolean
-    int active;
+    @JsonDeserialize(using = LenientBooleanDeserializer.class)
+    Boolean active;
 
     public MCWebhook() {
 

@@ -45,8 +45,9 @@
     <google.client.version>1.26.0</google.client.version>
     <jackson2.version>2.9.7</jackson2.version>
     <slf4j.version>1.7.25</slf4j.version>
+    <vpro.shared.version>2.3-SNAPSHOT</vpro.shared.version>
 
-    <spring.version>5.1.2.RELEASE</spring.version> <!-- spring dependench is optional -->
+    <spring.version>5.1.2.RELEASE</spring.version> <!-- spring dependency is optional -->
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -197,7 +198,7 @@
     <dependency>
       <groupId>nl.vpro.shared</groupId>
       <artifactId>vpro-shared-jackson2</artifactId>
-      <version>2.1</version>
+      <version>${vpro.shared.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
