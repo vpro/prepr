@@ -42,11 +42,11 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     public static final String SIGNATURE = "Mediaconnect-Signature";
 
-    public static Map<String, UUID> webhookIds = new ConcurrentHashMap<>();
+    public static final Map<String, UUID> WEBHOOK_IDS = new ConcurrentHashMap<>();
 
 
     public static void put(String channel, UUID webhookId) {
-        if (webhookIds.put(channel, webhookId) == null) {
+        if (WEBHOOK_IDS.put(channel, webhookId) == null) {
             log.info("Registered webook {} -> {}", channel, webhookId);
         }
     }
@@ -73,9 +73,9 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         String signature,
         byte[] payload,
         String channel) throws NoSuchAlgorithmException, InvalidKeyException {
-        UUID webhookId = webhookIds.get(channel);
+        UUID webhookId = WEBHOOK_IDS.get(channel);
         if (webhookId == null)  {
-            log.warn("no webhookId found for {} (Only known for {})", channel, webhookIds.keySet());
+            log.warn("no webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new SecurityException("Webhook id currently not registered for " + channel);
         }
          if (signature == null) {
