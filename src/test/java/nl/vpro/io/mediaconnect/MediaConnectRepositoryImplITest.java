@@ -48,15 +48,15 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedules() {
-        getSchedule(rad2);
-        //getSchedule(funx);
+        //getSchedule(rad2);
+        getSchedule(funx);
 
     }
 
 
 
     protected void getSchedule(MediaConnectRepository impl) {
-        LocalDate date = LocalDate.of(2018, 11, 26);
+        LocalDate date = LocalDate.of(2018, 12, 18);
         MCSchedule schedule = impl.getGuides().getSchedule(
           date);
         log.info("schedule: {}", schedule);

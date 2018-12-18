@@ -11,6 +11,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
@@ -32,6 +33,10 @@ public class MCTimeline extends MCContent {
 
     List<MCContent> publications;
 
+
+    public Range<LocalDateTime> asRange() {
+        return Range.closedOpen(from, until);
+    }
 
 
     /**
