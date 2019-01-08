@@ -87,8 +87,6 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Getter
     private Instant expiration;
 
-
-
     @Getter
     private List<Scope> scopes;
 
@@ -100,14 +98,16 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         @Nonnull String clientSecret,
         @Nullable String guideId,
         @Nullable String scopes,
-        @Named("mediaconnect.logascurl") boolean logAsCurl) {
+        @Named("mediaconnect.logascurl") Boolean logAsCurl) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
-        this.logAsCurl = logAsCurl;
+        if (logAsCurl != null) {
+            this.logAsCurl = logAsCurl;
+        }
         this.log = LoggerFactory.getLogger(MediaConnectRepositoryImpl.class.getName() + "." + channel);
     }
 
@@ -139,7 +139,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         if (paging.getAfter() != null) {
             log.warn("Not tested");
         }
-           if (paging.getBefore() != null) {
+        if (paging.getBefore() != null) {
             log.warn("Not tested");
         }
     }
@@ -248,8 +248,8 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         callCount++;
         request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
     }
-    protected synchronized  void getToken() throws  IOException {
 
+    protected synchronized  void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now())) {
 
             List<Scope> scopesToUse = scopes;

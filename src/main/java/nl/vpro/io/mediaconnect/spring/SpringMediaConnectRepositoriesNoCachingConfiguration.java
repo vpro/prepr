@@ -6,7 +6,7 @@ package nl.vpro.io.mediaconnect.spring;
  */
 public class SpringMediaConnectRepositoriesNoCachingConfiguration extends AbstractSpringMediaConnectRepositoriesConfiguration {
 
-    public SpringMediaConnectRepositoriesNoCachingConfiguration(String properties) {
+    public SpringMediaConnectRepositoriesNoCachingConfiguration(String... properties) {
         super(properties);
     }
 

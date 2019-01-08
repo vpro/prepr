@@ -206,6 +206,11 @@
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.2</version>
+    </dependency>
 
     <!-- spring dependency is optional, as long as you don't use the classes in nl.vpro.io.mediaconnect.spring -->
     <dependency>

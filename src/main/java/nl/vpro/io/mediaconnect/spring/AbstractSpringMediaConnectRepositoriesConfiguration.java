@@ -34,9 +34,9 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
     private final static String CPREF = "mediaconnectrepository";
     private final static String CLIENT_PREF = CPREF + ".client";
 
-    private final String properties;
+    private final String[] properties;
 
-    public AbstractSpringMediaConnectRepositoriesConfiguration(String properties) {
+    public AbstractSpringMediaConnectRepositoriesConfiguration(String... properties) {
         this.properties = properties;
     }
 
@@ -49,7 +49,9 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
     @SneakyThrows
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         Properties properties = new Properties();
-        properties.load(new ClassPathResource(this.properties).getInputStream());
+        for (String prop : this.properties) {
+            properties.load(new ClassPathResource(prop).getInputStream());
+        }
         String prefix = PREF + ".clientId.";
         List<String> channels = properties.entrySet().stream()
             .map(e -> new AbstractMap.SimpleEntry<>(e.getKey().toString(), e.getValue().toString()))

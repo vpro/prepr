@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
 public class SpringMediaConnectRepositoriesConfiguration extends AbstractSpringMediaConnectRepositoriesConfiguration {
 
 
-    public SpringMediaConnectRepositoriesConfiguration(String properties) {
+    public SpringMediaConnectRepositoriesConfiguration(String... properties) {
         super(properties);
     }
 

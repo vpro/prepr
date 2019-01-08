@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -45,8 +46,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     private final MediaConnectPersons persons;
 
     private final MediaConnectRepositoryClient client;
-
-
 
 
     @Inject
@@ -118,8 +117,8 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                 client.registerBean(jmxName);
             }
             String scopes = properties.get("mediaconnect.scopes");
-            if (scopes != null && scopes.length() > 0) {
-                if (client.getScopes() != null || client.getScopes().isEmpty()) {
+            if (StringUtils.isNotBlank(scopes)) {
+                if (CollectionUtils.isEmpty(client.getScopes())) {
                     client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
                 }
             }
