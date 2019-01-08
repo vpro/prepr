@@ -33,14 +33,14 @@ public class SignatureValidatorInterceptorTest {
 
 
     @Test
-    public void validate() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
+    public void validate() throws NoSuchAlgorithmException, InvalidKeyException {
         impl.validate(signature, example, "RAD5");
 
     }
 
 
     @Test(expected = SecurityException.class)
-    public void validateInvalid() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
+    public void validateInvalid() throws NoSuchAlgorithmException, InvalidKeyException {
         impl.validate("signature doesn't match", example, "RAD5");
 
     }
