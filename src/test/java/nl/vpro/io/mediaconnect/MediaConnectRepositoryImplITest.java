@@ -25,6 +25,8 @@ public class MediaConnectRepositoryImplITest {
 
     MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
     MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
+    MediaConnectRepositoryImpl funxam = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
+
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
         MCObjectMapper.configureInstance(false);
@@ -50,6 +52,8 @@ public class MediaConnectRepositoryImplITest {
     public void getSchedules() {
         //getSchedule(rad2);
         getSchedule(funx);
+
+        getSchedule(funxam);
 
     }
 
