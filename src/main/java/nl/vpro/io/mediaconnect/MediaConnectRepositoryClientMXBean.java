@@ -11,4 +11,8 @@ public interface MediaConnectRepositoryClientMXBean {
 
     Integer getAuthenticationCount();
     Integer getCallCount();
+
+    String getScopesAsString();
+
+    String getDescription();
 }

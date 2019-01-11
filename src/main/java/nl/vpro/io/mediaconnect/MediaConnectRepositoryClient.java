@@ -76,7 +76,6 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Setter
     private UUID guideId;
 
-
     @Getter
     @Setter
     private String channel;
@@ -90,14 +89,19 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Getter
     private List<Scope> scopes;
 
+    @Getter
+    private String  description;
+
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryClient(
+        // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
         @Nullable @Named("mediaconnect.api") String api,
         @Nonnull String channel,
         @Nonnull String clientId,
         @Nonnull String clientSecret,
         @Nullable String guideId,
-        @Nullable String scopes,
+        @Nullable @Named("mediaconnect.scopes") String scopes,
+        @Nullable String description,
         @Named("mediaconnect.logascurl") Boolean logAsCurl) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
@@ -109,6 +113,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
             this.logAsCurl = logAsCurl;
         }
         this.log = LoggerFactory.getLogger(MediaConnectRepositoryImpl.class.getName() + "." + channel);
+        this.description = description;
     }
 
     public void registerBean(String jmxName) {
@@ -282,6 +287,13 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         tokenResponse = null;
     }
 
+
+    @Override
+    public String getScopesAsString() {
+        return String.valueOf(this.scopes.toString());
+    }
+
+
     GenericUrl createUrl(Object ... path) {
         GenericUrl url = new GenericUrl(api);
         boolean append = false;
@@ -297,7 +309,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
     public static class Builder {
         Builder scope(Scope... scopes) {
-            return scopes(Arrays.stream(scopes).map(s -> s.name()).collect(Collectors.joining(",")));
+            return scopes(Arrays.stream(scopes).map(Enum::name).collect(Collectors.joining(",")));
         }
     }
 

@@ -45,6 +45,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
 
     private final MediaConnectPersons persons;
 
+    @Getter
     private final MediaConnectRepositoryClient client;
 
 
@@ -110,6 +111,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                 .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
                 .guideId(properties.get("mediaconnect.guideId" + postfix))
                 .scopes(properties.get("mediaconnect.scopes" + postfix))
+                .description(properties.get("mediaconnect.description" + postfix))
                 .logAsCurl(logAsCurl)
                 .build();
             String jmxName = properties.get("mediaconnect.jmxname");
@@ -141,16 +143,6 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     @Override
     public String getChannel() {
         return client.getChannel();
-    }
-
-    @Override
-    public boolean isLogAsCurl() {
-        return client.isLogAsCurl();
-    }
-
-    @Override
-    public void setLogAsCurl(boolean logAsCurl) {
-        client.setLogAsCurl(logAsCurl);
     }
 
     @Override

@@ -31,6 +31,23 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
         this.repositories.putAll(repositories);
     }
 
+
+    /**
+     * <p>Given a map of properties, created a an instant of {@link StandaloneMediaConnectRepositories}.
+     *</p>
+     * <p>
+     * It will use properties like
+     * </p>
+     * <code>{@literal
+     *     mediaconnect.clientId.<CHANNEL>
+     * }</code>
+     * <p>
+     * to determin which {@link MediaConnectRepository}s most be instantiated and configured with other properties like:
+     * </p>
+     *  <code>{@literal
+     *          mediaconnect.<property>.<CHANNEL>
+     * }</code>
+     */
     public static StandaloneMediaConnectRepositories fromMap(Map<String, String> configuration) {
         Builder builder = StandaloneMediaConnectRepositories.builder();
         String prefix = "mediaconnect.clientId.";

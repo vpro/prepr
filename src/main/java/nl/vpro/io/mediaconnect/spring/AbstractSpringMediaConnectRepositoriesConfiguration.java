@@ -3,15 +3,15 @@ package nl.vpro.io.mediaconnect.spring;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import javax.inject.Provider;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
@@ -34,10 +34,11 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
     private final static String CPREF = "mediaconnectrepository";
     private final static String CLIENT_PREF = CPREF + ".client";
 
-    private final String[] properties;
+    private final String[] propertiesResources;
+    private Provider<Map<String, String>> moreProperties = HashMap::new;
 
-    public AbstractSpringMediaConnectRepositoriesConfiguration(String... properties) {
-        this.properties = properties;
+    public AbstractSpringMediaConnectRepositoriesConfiguration(String... propertiesResources) {
+        this.propertiesResources = propertiesResources;
     }
 
 
@@ -45,13 +46,20 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
         this("mediaconnect.properties");
     }
 
+
+    public void setMoreProperties(Provider<Map<String, String>> m) {
+        this.moreProperties = m;
+    }
+
     @Override
     @SneakyThrows
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         Properties properties = new Properties();
-        for (String prop : this.properties) {
+        for (String prop : this.propertiesResources) {
             properties.load(new ClassPathResource(prop).getInputStream());
         }
+        properties.putAll(moreProperties.get());
+
         String prefix = PREF + ".clientId.";
         List<String> channels = properties.entrySet().stream()
             .map(e -> new AbstractMap.SimpleEntry<>(e.getKey().toString(), e.getValue().toString()))
@@ -67,17 +75,19 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
                 log.info("Skipped creating bean for {}, because no client secret configured", channel);
                 continue;
             }
+            AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder
+                .genericBeanDefinition(MediaConnectRepositoryClient.class)
+                .addConstructorArgValue(get(properties, "api"))
+                .addConstructorArgValue(channel)
+                .addConstructorArgValue(get(properties, "clientId", channel))
+                .addConstructorArgValue(get(properties, "clientSecret", channel))
+                .addConstructorArgValue(get(properties, "guideId", channel))
+                .addConstructorArgValue(getWithDefault(properties, "scopes", channel))
+                .addConstructorArgValue(get(properties, "description", channel))
+                .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
+                .getBeanDefinition();
             beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel,
-                BeanDefinitionBuilder
-                    .genericBeanDefinition(MediaConnectRepositoryClient.class)
-                    .addConstructorArgValue(properties.get(PREF + ".api"))
-                    .addConstructorArgValue(channel)
-                    .addConstructorArgValue(properties.get(PREF + ".clientId." + channel))
-                    .addConstructorArgValue(properties.get(PREF + ".clientSecret." + channel))
-                    .addConstructorArgValue(properties.get(PREF + ".guideId." + channel))
-                    .addConstructorArgValue(properties.get(PREF + ".scopes"))
-                    .addConstructorArgValue(properties.get(PREF + ".logascurl"))
-                    .getBeanDefinition());
+                beanDefinition);
 
             define(beanDefinitionRegistry, "prepr", MediaConnectPreprImpl.class, channel);
             define(beanDefinitionRegistry, "guides", MediaConnectGuidesImpl.class, channel);
@@ -111,6 +121,19 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
 
     }
 
+    protected String getWithDefault(Properties properties, String prop, String channel) {
+        return (String) properties.getOrDefault(PREF + "." + prop + "." + channel, properties.get(PREF + "." + prop));
+    }
+
+
+    protected String get(Properties properties, String prop) {
+        return (String) properties.get(PREF + "." + prop);
+    }
+    protected String get(Properties properties, String prop, String channel) {
+        return (String) properties.get(PREF + "." + prop + "." + channel);
+    }
+
+
     void define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel) {
         beanDefinitionRegistry
             .registerBeanDefinition(CPREF + "." + name + "." + channel,
@@ -124,7 +147,6 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-
 
     }
 }
