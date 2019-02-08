@@ -24,6 +24,7 @@ public class MCShow extends MCContent {
 
     String reference;
 
+    List<MCPerson> scheduled_users;
 
     @Override
     public String toString() {
