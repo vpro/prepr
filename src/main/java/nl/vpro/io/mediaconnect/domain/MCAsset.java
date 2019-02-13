@@ -26,8 +26,12 @@ public abstract class MCAsset extends MCAbstractObject {
 
     /**
      * Tim: nee, source_file moet je gewoon vergeten. Alleen kijken naar cdn_fules.
+     *
+     * //  "cdn_files": null
+     * --> Tim Hanssen [12:09 PM]
+     * Dan is er waarschijnlijk iets mis met die foto, wellicht is die al gemaakt voor de cdn_files uberhaupt bestonden.
+     * // Dan is is source_file toch maar nodig dus.
      */
-    @Deprecated
     MCSourceFile source_file;
 
     String rel_description;

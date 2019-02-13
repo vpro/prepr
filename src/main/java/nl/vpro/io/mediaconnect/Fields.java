@@ -32,7 +32,8 @@ public class Fields {
 
     static final Field COVER = Field.builder("cover")
         .field(SOURCEFILE_FIELD)
-        .field(CDN_FILES).build();
+        .field(CDN_FILES)
+        .build();
 
     static final Field ASSETS = Field.builder("assets").field(CDN_FILES).fs("custom", "media").build();
 
