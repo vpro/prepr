@@ -25,7 +25,9 @@ public class MediaConnectRepositoryImplITest {
 
     MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
     MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
-    MediaConnectRepositoryImpl funxam = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
+    MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
+    MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
+
 
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
@@ -53,7 +55,7 @@ public class MediaConnectRepositoryImplITest {
         //getSchedule(rad2);
         getSchedule(funx);
 
-        getSchedule(funxam);
+        getSchedule(fnxa);
 
     }
 
@@ -226,12 +228,12 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = rad2;
+        MediaConnectRepository repo = fnxar;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://api-itest")) {
+            if (webhook.getCallback_url().startsWith("https://api-dev")) {
                 log.info("Deleting {}", webhook);
                 repo.getWebhooks().delete(webhook.getUUID());
             }
