@@ -47,7 +47,7 @@ public class MCEvent {
 
 
     public Range<LocalDateTime> getRange(LocalDate day) {
-        return Range.openClosed(day.atTime(from), day.atTime(until));
+        return Range.closedOpen(day.atTime(from), day.atTime(until));
     }
 
 
