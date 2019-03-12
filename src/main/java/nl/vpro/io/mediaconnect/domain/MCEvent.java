@@ -2,6 +2,8 @@ package nl.vpro.io.mediaconnect.domain;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
@@ -41,6 +44,11 @@ public class MCEvent {
     MCUsers users;
 
     List<MCTimeline> timelines;
+
+
+    public Range<LocalDateTime> getRange(LocalDate day) {
+        return Range.openClosed(day.atTime(from), day.atTime(until));
+    }
 
 
     /**
