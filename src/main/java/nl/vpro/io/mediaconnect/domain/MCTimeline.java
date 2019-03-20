@@ -33,6 +33,11 @@ public class MCTimeline extends MCContent {
 
     List<MCContent> publications;
 
+    String show_id;
+
+    Long offset;
+
+    String timeline_hash;
 
     public Range<LocalDateTime> asRange() {
         return Range.closedOpen(from, until);
