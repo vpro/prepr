@@ -39,6 +39,11 @@ public class MCTimeline extends MCContent {
 
     String timeline_hash;
 
+    String prev_reference_id;
+
+    String prev_show_id;
+
+
     public Range<LocalDateTime> asRange() {
         return Range.closedOpen(from, until);
     }
