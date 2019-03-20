@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.LoggerFactory;
 import com.google.common.collect.Range;
 
 import nl.vpro.io.mediaconnect.domain.MCGuide;
@@ -34,10 +35,12 @@ public interface MediaConnectGuides {
             e.setValue(new ArrayList<>(e.getValue()));
             e.getValue().removeIf(event -> {
                 Range<LocalDateTime> erange = event.getRange(e.getKey());
-                boolean encloses = range.encloses(erange);
-                return ! encloses;
+                boolean startInRange = range.contains(erange.lowerEndpoint());
+                if (! startInRange) {
+                    LoggerFactory.getLogger(MediaConnectGuides.class).info("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);
+                }
+                return ! startInRange;
             });
-            System.out.println("");
         });
         return result;
     }
