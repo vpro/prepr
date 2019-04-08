@@ -39,4 +39,8 @@ public class MCPerson extends MCAbstractObject {
      */
     boolean exclude_until;
 
+    String job_title;
+
+    String company;
+
 }

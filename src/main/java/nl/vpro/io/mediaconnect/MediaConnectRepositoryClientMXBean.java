@@ -15,4 +15,10 @@ public interface MediaConnectRepositoryClientMXBean {
     String getScopesAsString();
 
     String getDescription();
+
+    String getConnectTimeoutForGetAsString();
+    void setConnectTimeoutForGetAsString(String connectTimeoutForGetAsString);
+
+    String getReadTimeoutForGetAsString();
+    void setReadTimeoutForGetAsString(String readTimeoutForGetAsString);
 }

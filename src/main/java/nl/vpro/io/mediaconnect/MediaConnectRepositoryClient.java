@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -46,6 +47,8 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
+
+    private final HttpRequestInitializer getInitializer;
 
     private final Logger log;
 
@@ -92,6 +95,13 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Getter
     private String  description;
 
+    @Getter
+    private Duration connectTimeoutForGet = Duration.ofMinutes(2);
+
+    @Getter
+    private Duration readTimeoutForGet = Duration.ofMinutes(2);
+
+
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryClient(
         // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
@@ -114,6 +124,10 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         }
         this.log = LoggerFactory.getLogger(MediaConnectRepositoryImpl.class.getName() + "." + channel);
         this.description = description;
+        this.getInitializer  = request -> {
+            request.setConnectTimeout((int) connectTimeoutForGet.toMillis());
+            request.setReadTimeout((int) readTimeoutForGet.toMillis());
+        };
     }
 
     public void registerBean(String jmxName) {
@@ -172,7 +186,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
     @SneakyThrows(IOException.class)
     protected HttpResponse get(GenericUrl url)  {
-        return execute(NET_HTTP_TRANSPORT.createRequestFactory()
+        return execute(NET_HTTP_TRANSPORT.createRequestFactory(getInitializer)
             .buildGetRequest(url));
     }
 
@@ -291,6 +305,29 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @Override
     public String getScopesAsString() {
         return String.valueOf(this.scopes.toString());
+    }
+
+    @Override
+    public String getConnectTimeoutForGetAsString() {
+        return connectTimeoutForGet.toString();
+    }
+
+    @Override
+    public void setConnectTimeoutForGetAsString(String connectTimeoutForGetAsString) {
+        this.connectTimeoutForGet = Duration.parse(connectTimeoutForGetAsString);
+
+    }
+
+    @Override
+    public String getReadTimeoutForGetAsString() {
+        return readTimeoutForGet.toString();
+
+    }
+
+    @Override
+    public void setReadTimeoutForGetAsString(String readTimeoutForGetAsString) {
+        this.readTimeoutForGet = Duration.parse(readTimeoutForGetAsString);
+
     }
 
 
