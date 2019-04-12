@@ -35,6 +35,8 @@ public class MCChannel extends MCContent {
 
     List<MCAsset> assets;
 
+    boolean messages;
+
 
 
 }

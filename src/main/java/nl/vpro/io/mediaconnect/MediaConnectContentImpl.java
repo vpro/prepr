@@ -20,7 +20,7 @@ import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
 public class MediaConnectContentImpl implements MediaConnectContent {
 
     public static Fields PUBLICATION_FIELDS = Fields.builder()
-        .fs("container", "tags", "custom")
+        .fs("container", "tags", "custom", "channel")
         //.field(ASSETS)
         .field(Field.builder("element")
             .f("custom")

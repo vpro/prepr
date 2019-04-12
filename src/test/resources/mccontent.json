@@ -1,0 +1,99 @@
+{
+  "id": "05e1fc4d-bee3-4665-abc2-c4de001cb007",
+  "created_on": "2019-04-12T11:03:25+00:00",
+  "changed_on": "2019-04-12T11:37:38+00:00",
+  "published_on": "2019-04-12T07:24:00+00:00",
+  "unpublish_on": null,
+  "label": "Post",
+  "status": "published",
+  "reference_id": null,
+  "slug": null,
+  "custom": null,
+  "container": {
+    "id": "8cc60114-2b93-4090-b83d-3bbaad824d7c",
+    "created_on": "2019-04-05T04:13:32+00:00",
+    "changed_on": "2019-04-12T11:37:38+00:00",
+    "published_on": "2019-04-12T07:00:00+00:00",
+    "unpublish_on": "2019-04-12T08:00:00+00:00",
+    "label": "Timeline",
+    "body": "Start met Fernando",
+    "show_id": "51bf9e0b-1fac-41d7-ba85-39610402932d",
+    "from": "2019-04-12 09:00:00",
+    "offset": 32400,
+    "reference_id": "PREPR_FUNX_15346256",
+    "timecode": "2019-04-12:32400",
+    "until": "2019-04-12 10:00:00",
+    "timeline_hash": "1555020000.51bf9e0b-1fac-41d7-ba85-39610402932d.32400.36000"
+  },
+  "element": [
+    {
+      "id": "c5f7742f-cf92-418c-bfe9-def2aef791ca",
+      "created_on": "2019-04-12T11:37:38+00:00",
+      "body": "test",
+      "label": "Heading"
+    },
+    {
+      "id": "10d6fded-249f-40a9-9be6-5875e2f68099",
+      "created_on": "2019-04-12T11:37:38+00:00",
+      "body": "asdfsdftest van michielasdfasdfasdfasdfasdfasdfasdfadsfsadfasdfasdfadsfasfsdfasdfasdfasdfasdfasdf",
+      "label": "Text"
+    },
+    {
+      "id": "1f87f1ff-622e-4627-bfb5-8a729fede0b8",
+      "label": "Media",
+      "created_on": "2019-04-12T11:37:38+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "5d4e4856-d5c9-4b64-a495-a7b9ad906a67",
+          "created_on": "2019-04-12T10:03:53+00:00",
+          "changed_on": "2019-04-12T10:03:53+00:00",
+          "label": "Photo",
+          "name": "angst-bw",
+          "body": null,
+          "reference_id": null,
+          "reference": null,
+          "author": null,
+          "status": null,
+          "custom": null,
+          "source_file": null,
+          "cdn_files": [
+            {
+              "id": "3a6d1d31-62a9-47e3-9630-28e6a9bb4549",
+              "created_on": "2019-04-12T10:03:55+00:00",
+              "changed_on": null,
+              "label": "CdnFile",
+              "cdn": "NPOICT",
+              "bucket": null,
+              "profile": "jpg",
+              "file": "e9d699ca-c55b-4def-8707-02dba8fbdc5b.jpg",
+              "url": "https:\/\/radio-images.npo.nl\/{format}\/52656111\/e9d699ca-c55b-4def-8707-02dba8fbdc5b.jpg",
+              "resized": {
+                "picture": "https:\/\/radio-images.npo.nl\/w_1920\/52656111\/e9d699ca-c55b-4def-8707-02dba8fbdc5b.jpg"
+              }
+            }
+          ],
+          "rel_description": null
+        }
+      ]
+    }
+  ],
+  "channel": {
+    "id": "56bed870-5399-45dd-a329-95bc458bc942",
+    "created_on": "2018-12-14T10:35:32+00:00",
+    "changed_on": "2019-03-19T10:41:33+00:00",
+    "label": "Channel",
+    "name": "FunX App",
+    "username": null,
+    "screen_name": null,
+    "profile_pic": null,
+    "picture": null,
+    "type": "site",
+    "share_construct_url": "",
+    "preview_construct_url": "",
+    "share_url": null,
+    "slug": "funx-app",
+    "messages": true
+  },
+  "tags": null
+}
