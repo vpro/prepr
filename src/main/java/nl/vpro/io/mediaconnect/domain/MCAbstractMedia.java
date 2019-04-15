@@ -23,6 +23,12 @@ public abstract class MCAbstractMedia extends MCAsset {
     Instant started_on;
     Instant ended_on;
 
+
+    public boolean isSegment() {
+        return getStarted_on() != null && getDuration() != null;
+
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +

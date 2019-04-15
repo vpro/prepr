@@ -14,6 +14,10 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedResource;
+
+
 import nl.vpro.io.mediaconnect.MediaConnectRepositories;
 import nl.vpro.io.mediaconnect.MediaConnectRepository;
 
@@ -25,6 +29,10 @@ import static nl.vpro.io.mediaconnect.Paging.limit;
  * @since 0.1
  */
 @Slf4j
+@ManagedResource(
+    description = "Makes sure the mediaconnect webhooks are recongied",
+    objectName = "nl.vpro.media:name=mediaConnect-webookids"
+)
 public class WebhookIdsRegister {
 
     public static final ScheduledExecutorService backgroundExecutor =
@@ -58,20 +66,23 @@ public class WebhookIdsRegister {
     }
 
 
-    protected void registerWebhooks()  {
-        try {
-            for (MediaConnectRepository repository : repositories) {
+    @ManagedOperation
+    public void registerWebhooks()  {
+        for (MediaConnectRepository repository : repositories) {
+            try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
-                    if (mc.getCallback_url().startsWith(baseUrl)) {
-                        URI uri = URI.create(mc.getCallback_url());
-                        String[] path = uri.getPath().split("/");
-                        SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID());
-                    }
+                        if (mc.getCallback_url().startsWith(baseUrl)) {
+                            URI uri = URI.create(mc.getCallback_url());
+                            String[] path = uri.getPath().split("/");
+                            SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID());
+                        } else {
+                            log.debug("Ignoring {}", mc);
+                        }
                     }
                 );
+            } catch (Exception e) {
+                log.error("For {}: {}", repository, e.getMessage(), e);
             }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
         }
     }
 

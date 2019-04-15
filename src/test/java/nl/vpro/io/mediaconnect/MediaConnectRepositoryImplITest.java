@@ -27,6 +27,9 @@ public class MediaConnectRepositoryImplITest {
     MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
     MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
     MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
+    MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
+    MediaConnectRepositoryImpl fnxre = MediaConnectRepositoryImpl.configuredInUserHome("FNXRE");
+
 
 
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
@@ -54,7 +57,7 @@ public class MediaConnectRepositoryImplITest {
     public void getSchedules() {
         //getSchedule(rad2);
         LocalDate date = LocalDate.of(2018, 12, 18);
-        getSchedule(funx, date);
+        getSchedule(fnxre, date);
 
         getSchedule(fnxa, date);
 
@@ -234,7 +237,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = fnxar;
+        MediaConnectRepository repo = fnxhh;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
