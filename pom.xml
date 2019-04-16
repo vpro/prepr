@@ -32,9 +32,6 @@
 
     </developer>
   </developers>
-  <prerequisites>
-    <maven>3.5</maven>
-  </prerequisites>
 
   <scm>
     <connection>scm:git:git://git@github.com/vpro/mediaconnect.git</connection>
