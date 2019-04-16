@@ -65,7 +65,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        getSchedule(funx, LocalDate.of(2019, 3, 20));
+        getSchedule(funx, LocalDate.of(2019, 4, 16));
     }
 
 
@@ -244,7 +244,7 @@ public class MediaConnectRepositoryImplITest {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://api-dev")) {
                 log.info("Deleting {}", webhook);
-                repo.getWebhooks().delete(webhook.getUUID());
+                //repo.getWebhooks().delete(webhook.getUUID());
             }
 
         }

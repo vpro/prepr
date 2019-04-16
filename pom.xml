@@ -4,9 +4,9 @@
   <groupId>nl.vpro</groupId>
   <artifactId>mediaconnect</artifactId>
   <name>vpro-mediaconnect</name>
-  <version>0.5-SNAPSHOT</version>
+  <version>0.6-SNAPSHOT</version>
   <inceptionYear>2018</inceptionYear>
-  <description>Java client for mediaconnect api</description>
+  <description>Java client for mediaconnect api https://docs.prepr.io/v5.0/</description>
   <url>https://github.com/vpro/mediaconnect</url>
 
   <licenses>

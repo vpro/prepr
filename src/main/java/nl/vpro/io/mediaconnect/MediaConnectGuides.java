@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
@@ -21,7 +22,7 @@ import nl.vpro.io.mediaconnect.domain.MCSchedule;
 public interface MediaConnectGuides {
 
 
-    MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions);
+    MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions, UUID showId);
 
     default MCSchedule getSchedule(@Nonnull  LocalDateTime from, @Nonnull  LocalDateTime until) {
         Range<LocalDateTime> range = Range.closedOpen(from, until);
@@ -30,7 +31,7 @@ public interface MediaConnectGuides {
         if (Duration.between(untilDate.atStartOfDay(), until).toMinutes() == 0) {
             untilDate = untilDate.minusDays(1);
         }
-        MCSchedule result = getSchedule(fromDate, untilDate, true);
+        MCSchedule result = getSchedule(fromDate, untilDate, true, null);
         result.forEach((e) -> {
             e.setValue(new ArrayList<>(e.getValue()));
             e.getValue().removeIf(event -> {
@@ -46,7 +47,7 @@ public interface MediaConnectGuides {
     }
 
     default MCSchedule getSchedule(LocalDate from, LocalDate until) {
-        return getSchedule(from, until, true);
+        return getSchedule(from, until, true, null);
     }
 
     default MCSchedule getSchedule(LocalDate from) {

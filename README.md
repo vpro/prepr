@@ -1,6 +1,8 @@
 # mediaconnect
 Domain classes and client for https://developers.mediaconnect.io/ ('prepr')
 
+https://prepr.io, https://docs.prepr.io/
+
 
 [![Build Status](https://travis-ci.org/vpro/mediaconnect.svg?)](https://travis-ci.org/vpro/mediaconnect)
 [![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/mediaconnect.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22mediaconnect%22)

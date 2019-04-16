@@ -1,6 +1,7 @@
 package nl.vpro.io.mediaconnect;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,7 +60,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
     }
 
     @Override
-    public MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions) {
+    public MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions, UUID showId) {
         if (impl.getGuideId() == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }
@@ -75,6 +76,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
         url.set("fields", SCHEDULE_FIELDS);
 
         url.set("exceptions", exceptions);
+
 
         return impl.get(url, MCSchedule.class);
     }
