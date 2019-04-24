@@ -29,6 +29,7 @@ public class MediaConnectRepositoryImplITest {
     MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
     MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
     MediaConnectRepositoryImpl fnxre = MediaConnectRepositoryImpl.configuredInUserHome("FNXRE");
+    MediaConnectRepositoryImpl fnxr = MediaConnectRepositoryImpl.configuredInUserHome("FNXR");
 
 
 
@@ -119,6 +120,15 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublication() {
+        MCContent publications = rad2.getContent().getPublication(
+            UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
+        );
+        log.info("publications : {}", publications);
+    }
+
+
+    @Test
+    public void getArchivedPublication() {
         MCContent publications = rad2.getContent().getPublication(
             UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
@@ -237,12 +247,12 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = fnxre;
+        MediaConnectRepository repo = fnxr;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
-            if (webhook.getCallback_url().startsWith("https://api-dev")) {
+            if (webhook.getCallback_url().startsWith("https://api-proxy")) {
                 log.info("Deleting {}", webhook);
                 //repo.getWebhooks().delete(webhook.getUUID());
             }
