@@ -1,14 +1,17 @@
 package nl.vpro.io.mediaconnect;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
+import javax.ws.rs.NotFoundException;
 
 import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
+import nl.vpro.io.mediaconnect.domain.MCStatus;
 
 import static nl.vpro.io.mediaconnect.Fields.CDN_FILES;
 import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
@@ -59,14 +62,22 @@ public class MediaConnectContentImpl implements MediaConnectContent {
 
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public  <T extends MCContent> T getPublication(
-        @Nonnull  UUID id) {
+        @Nonnull  UUID id,
+        MCStatus... mcStatuses) {
         GenericUrl url = impl.createUrl("publications", id.toString());
-        //url.set("label", "Post");
-        url.set("status", "published");
+        if (mcStatuses.length == 1) {
+            url.set("status", mcStatuses[0].name());
+        }
         url.set("fields", PUBLICATION_FIELDS);
-        return (T) impl.get(url, MCContent.class);
+        T result = (T) impl.get(url, MCContent.class);
+        if (mcStatuses.length == 0 || Arrays.asList(mcStatuses).contains(result.getStatus())) {
+            return result;
+        } else {
+            throw new NotFoundException();
+        }
     }
 
 
@@ -91,12 +102,21 @@ public class MediaConnectContentImpl implements MediaConnectContent {
     }
 
     @Override
-    public <T extends MCContent> T getContainer(UUID id) {
+    public <T extends MCContent> T getContainer(UUID id, MCStatus... mcStatuses) {
         GenericUrl url = impl.createUrl("containers", id.toString());
         //url.set("label", "Post");
-        url.set("status", "published");
+        if (mcStatuses.length == 1) {
+            url.set("status", mcStatuses[0].name());
+        }
         url.set("fields", PUBLICATION_FIELDS);
-        return (T) impl.get(url, MCContent.class);
+        T result = (T) impl.get(url, MCContent.class);
+
+        if (mcStatuses.length == 0 || Arrays.asList(mcStatuses).contains(result.getStatus())) {
+            return result;
+        } else {
+            throw new NotFoundException();
+        }
+
     }
 
 }

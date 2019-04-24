@@ -237,7 +237,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = fnxhh;
+        MediaConnectRepository repo = fnxre;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {

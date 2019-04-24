@@ -170,12 +170,29 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     }
 
 
-    @SneakyThrows(IOException.class)
-    protected <T> T get(GenericUrl url, Class<T> clazz) {
+    protected <T> T _get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
         return MCObjectMapper.INSTANCE.readerFor(clazz)
             .readValue(execute.getContent());
     }
+
+
+    @SneakyThrows(IOException.class)
+    protected <T> Optional<T> optionalGet(GenericUrl url, Class<T> clazz)  {
+        try {
+            T result = _get(url, clazz);
+            return Optional.of(result);
+        } catch (HttpResponseException re) {
+            if (re.getStatusCode() == 404) {
+                return Optional.empty();
+            }
+            throw re;
+        }
+    }
+    protected <T> T get(GenericUrl url, Class<T> clazz)  {
+        return optionalGet(url, clazz).orElse(null);
+    }
+
 
     protected void consumeGraphrlHeaders(HttpResponse response) {
         rateLimitReset  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_RESET));
@@ -184,8 +201,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     }
 
 
-    @SneakyThrows(IOException.class)
-    protected HttpResponse get(GenericUrl url)  {
+    protected HttpResponse get(GenericUrl url) throws IOException {
         return execute(NET_HTTP_TRANSPORT.createRequestFactory(getInitializer)
             .buildGetRequest(url));
     }
@@ -240,8 +256,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         return o == null ? "" : String.valueOf(o);
     }
 
-    @SneakyThrows(IOException.class)
-    protected HttpResponse execute(HttpRequest httpRequest)  {
+    protected HttpResponse execute(HttpRequest httpRequest) throws IOException {
         authenticate(httpRequest);
         if (logAsCurl) {
             HttpContent content = httpRequest.getContent();

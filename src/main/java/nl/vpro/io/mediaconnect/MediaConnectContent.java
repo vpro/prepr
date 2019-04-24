@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
+import nl.vpro.io.mediaconnect.domain.MCStatus;
 
 /**
  * @author Michiel Meeuwissen
@@ -21,7 +22,8 @@ public interface MediaConnectContent {
     );
 
     <T extends MCContent> T getPublication(
-        UUID id
+        UUID id,
+        MCStatus... status
     );
 
 
@@ -32,7 +34,8 @@ public interface MediaConnectContent {
 
 
     <T extends MCContent> T getContainer(
-        UUID id
+        UUID id,
+        MCStatus... status
     );
 
 
