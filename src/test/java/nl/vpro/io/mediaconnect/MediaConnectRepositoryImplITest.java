@@ -66,7 +66,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        getSchedule(funx, LocalDate.of(2019, 1, 2));
+        getSchedule(fnxa, LocalDate.of(2019, 4, 22));
     }
 
 
