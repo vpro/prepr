@@ -66,15 +66,14 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        getSchedule(fnxa, LocalDate.of(2019, 4, 22));
+        getSchedule(funx, LocalDate.of(2019, 1, 2));
     }
 
 
 
     protected void getSchedule(MediaConnectRepository impl,  LocalDate date) {
 
-        MCSchedule schedule = impl.getGuides().getSchedule(
-          date);
+        MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
         for (Map.Entry<LocalDate, List<MCEvent>> e : schedule) {
             log.info("{}", e.getKey());
