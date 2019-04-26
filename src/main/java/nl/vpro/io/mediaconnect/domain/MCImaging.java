@@ -3,6 +3,8 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -13,6 +15,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Imaging")
 public class MCImaging extends MCContent {
+
+    Duration duration;
+
+
+
 
 
 
