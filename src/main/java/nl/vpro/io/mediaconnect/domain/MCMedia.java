@@ -17,7 +17,7 @@ public class MCMedia extends MCAbstractObject {
 
     List<MCAsset> content;
 
-    public boolean hasSegments() {
+    public boolean hasSegmentsOrClips() {
         return ! getMedia().isEmpty();
     }
 
