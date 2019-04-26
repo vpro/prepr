@@ -25,6 +25,11 @@ public abstract class MCAbstractMedia extends MCAsset {
 
 
     public boolean isSegment() {
+        // TODO: Segmenten worden eigenlijk helemaal niet ondersteund in Prepr.
+        // Je kunt in de user interface allerlei filmpjes uploaden, het is in het geheel niet gezegd dat dat correspondeert met de uitzending.
+        // Misschien moeten we hier als extra check inbouwen dat we zeker weten dat dit oorspronkelijk een radiobox object was?
+        // Andere optie is om hier te retourneren: false. Het wordt niet ondersteund.
+
         return getStarted_on() != null && getDuration() != null;
 
     }

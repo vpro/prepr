@@ -66,7 +66,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        getSchedule(funx, LocalDate.of(2019, 4, 16));
+        getSchedule(funx, LocalDate.of(2019, 1, 2));
     }
 
 
@@ -120,8 +120,8 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        MCContent publications = rad2.getContent().getPublication(
-            UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
+        MCContent publications = funx.getContent().getPublication(
+            UUID.fromString("9a38cc38-8b23-48dc-80ae-b37ae6821988") // an post?
         );
         log.info("publications : {}", publications);
     }
