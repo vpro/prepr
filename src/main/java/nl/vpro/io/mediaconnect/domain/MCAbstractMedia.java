@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import java.time.Duration;
 import java.time.Instant;
 
+import javax.annotation.Nonnull;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.DurationSerializer;
 import com.google.common.collect.Range;
@@ -25,7 +27,7 @@ public abstract class MCAbstractMedia extends MCAsset {
     Instant ended_on;
 
 
-    public boolean isSegment(Range<Instant> schedule) {
+    public boolean isSegment(@Nonnull Range<Instant> schedule) {
         // TODO: Segmenten worden eigenlijk helemaal niet ondersteund in Prepr.
         // Je kunt in de user interface allerlei filmpjes uploaden, het is in het geheel niet gezegd dat dat correspondeert met de uitzending.
         // Misschien moeten we hier als extra check inbouwen dat we zeker weten dat dit oorspronkelijk een radiobox object was?
