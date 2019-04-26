@@ -187,6 +187,8 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
                 return Optional.empty();
             }
             throw re;
+        } catch(RuntimeException e) {
+            throw new RuntimeException("For " + url.toURI() + ":" + e.getMessage(), e);
         }
     }
     protected <T> T get(GenericUrl url, Class<T> clazz)  {
