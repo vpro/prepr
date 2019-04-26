@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -65,6 +66,10 @@ public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>>
                          result.days.put(LocalDate.parse(date), Arrays.asList(events));
                      } catch (JsonMappingException jma) {
                          log.error(jma.getMessage(), jma);
+                     } catch (DateTimeParseException pe) {
+                         log.error(pe.getMessage(), pe);
+
+
                      }
                  }
              }
