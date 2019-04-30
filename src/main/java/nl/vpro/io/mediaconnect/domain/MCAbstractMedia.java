@@ -28,10 +28,10 @@ public abstract class MCAbstractMedia extends MCAsset {
 
 
     public boolean isSegment(@Nonnull Range<Instant> schedule) {
-        // TODO: Segmenten worden eigenlijk helemaal niet ondersteund in Prepr.
+        // TODO: Segmenten worden eigenlijk niet goed ondersteund in Prepr?
         // Je kunt in de user interface allerlei filmpjes uploaden, het is in het geheel niet gezegd dat dat correspondeert met de uitzending.
-        // Misschien moeten we hier als extra check inbouwen dat we zeker weten dat dit oorspronkelijk een radiobox object was?
-        // Andere optie is om hier te retourneren: false. Het wordt niet ondersteund.
+        // Ze hebben echter wel een absolute 'started_on' tijd en 'duration' (of eventueel een ended_on?)
+        // We gaan er nu vanuit dat een filmpje een 'segment' is, als het 'enclosed' is in het uur waarmee het geassocieerd is
 
         if (getStarted_on() == null) {
             return false;
