@@ -2,7 +2,7 @@ package nl.vpro.io.mediaconnect.domain;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.6
  */
 public class MCEvents {
 
@@ -45,6 +45,26 @@ public class MCEvents {
     public static final String ASSET_DELETED = ASSET + DELETED;
 
     public static final String ASSET_UPLOADED = ASSET + ".uploaded";
+
+
+    static final String CONTAINER = "container";
+
+
+    public static final String CONTAINER_CREATED = CONTAINER + CREATED;
+
+    public static final String CONTAINER_CHANGED = CONTAINER + CHANGED;
+
+    public static final String CONTAINER_DELETED = CONTAINER + DELETED;
+
+    public static final String CONTAINER_PUBLISHED = CONTAINER + PUBLISHED;
+
+    public static final String CONTAINER_UNPUBLISHED = CONTAINER + UNPUBLISHED;
+
+    public static final String TIMELINES_CREATED = CONTAINER + UNPUBLISHED;
+
+
+
+
 
 
 

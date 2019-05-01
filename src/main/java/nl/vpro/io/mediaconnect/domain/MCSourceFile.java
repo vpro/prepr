@@ -46,6 +46,10 @@ public class MCSourceFile extends MCAbstractObject {
 
     String extension;
 
+    String aws_bucket;
+
+    String aws_file;
+
     public String getUrl() {
         if (resized != null && resized.has("picture")) {
             return resized.get("picture").textValue();
