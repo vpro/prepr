@@ -3,6 +3,7 @@ package nl.vpro.io.mediaconnect.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
@@ -39,5 +40,8 @@ public abstract class MCContent extends MCAbstractObject {
 
     @JsonProperty("element")
     List<MCAbstractObject> elements;
+
+    Duration duration;
+
 
 }

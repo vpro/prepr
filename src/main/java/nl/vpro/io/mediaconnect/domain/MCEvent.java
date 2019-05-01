@@ -45,6 +45,8 @@ public class MCEvent {
 
     List<MCTimeline> timelines;
 
+    MCEpisode episode;
+
 
     public Range<LocalDateTime> getRange(LocalDate day) {
         return Range.closedOpen(day.atTime(from), day.atTime(until));
