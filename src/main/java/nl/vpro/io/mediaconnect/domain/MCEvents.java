@@ -34,4 +34,20 @@ public class MCEvents {
 
     public static final String PUBLICATION_DELETED = PUBLICATION + DELETED;
 
+
+    static final String ASSET = "asset";
+
+
+    public static final String ASSET_CREATED = ASSET + CREATED;
+
+    public static final String ASSET_CHANGED = ASSET + CHANGED;
+
+    public static final String ASSET_DELETED = ASSET + DELETED;
+
+    public static final String ASSET_UPLOADED = ASSET + ".uploaded";
+
+
+
+
+
 }

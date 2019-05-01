@@ -15,4 +15,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @ToString(callSuper = true)
 @JsonTypeName("Commercial")
 public class MCCommercial extends MCContent {
+
+
 }
