@@ -44,6 +44,8 @@ public class MCSourceFile extends MCAbstractObject {
 
     JsonNode resized;
 
+    String extension;
+
     public String getUrl() {
         if (resized != null && resized.has("picture")) {
             return resized.get("picture").textValue();
