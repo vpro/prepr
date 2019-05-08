@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -66,12 +67,21 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        getSchedule(funx, LocalDate.of(2019, 1, 2));
+        LocalDate firstDate = LocalDate.of(2019, 4, 23);
+        MCSchedule schedule1 = getSchedule(funx, firstDate);
+        Optional<MCEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
+        MCSchedule schedule2 = getSchedule(funx, firstDate.plusDays(1));
+        Optional<MCEvent> firstEvent = schedule2.getDays().values().stream().reduce((a, b) -> a).map(l -> l.stream().reduce((a, b) -> a)).get();
+
+        log.info("last: {}", lastEvent);
+        log.info("first: {}", firstEvent);
+
+
     }
 
 
 
-    protected void getSchedule(MediaConnectRepository impl,  LocalDate date) {
+    protected MCSchedule getSchedule(MediaConnectRepository impl,  LocalDate date) {
 
         MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
@@ -81,6 +91,7 @@ public class MediaConnectRepositoryImplITest {
                 log.info("  {}", event);
             }
         }
+        return schedule;
     }
 
 
