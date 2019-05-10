@@ -97,6 +97,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
         }
         if ( matched == null) {
+            log.error("No webhook ids matched. We only see for channel " + uuids + " " + channel);
             throw new SecurityException("Signature didn't match");
         } else {
             MDC.put("webhookid", matched.toString());
@@ -107,8 +108,9 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
                     if (n.equals(matched)) {
                         break;
                     } else {
-                        log.info("Removed {}, because now {} is matching", n, matched);
-                        i.remove();
+
+                        //log.info("Removed {}, because now {} is matching", n, matched);
+                        //i.remove();
                     }
                 }
             }
