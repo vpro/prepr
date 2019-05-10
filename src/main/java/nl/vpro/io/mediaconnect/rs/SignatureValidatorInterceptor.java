@@ -75,7 +75,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         String channel) throws NoSuchAlgorithmException, InvalidKeyException {
         UUID webhookId = WEBHOOK_IDS.get(channel);
         if (webhookId == null)  {
-            log.warn("no webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
+            log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new SecurityException("Webhook id currently not registered for " + channel);
         }
          if (signature == null) {
@@ -84,6 +84,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         String sign = sign(webhookId, payload);
 
         if (! Objects.equals(sign, signature)) {
+            log.warn("Incoming signature {} didn't match {}", signature, sign);
             throw new SecurityException("Signature didn't match");
         } else {
             log.debug("Validated {}", signature);
