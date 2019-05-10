@@ -44,13 +44,15 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     public static final Map<String, List<UUID>> WEBHOOK_IDS = new ConcurrentHashMap<>();
 
 
-    public static void put(String channel, UUID webhookId) {
+    public static boolean put(String channel, UUID webhookId) {
         List<UUID> uuids = WEBHOOK_IDS.computeIfAbsent(channel, (i) -> Collections.synchronizedList(new ArrayList<>()));
         if (uuids.contains(webhookId)) {
             log.debug("webhook for {} was registered already {}", channel, webhookId);
+            return false;
         } else {
             uuids.add(webhookId);
             log.info("Registered webook {} -> {}", channel, webhookId);
+            return true;
         }
     }
 

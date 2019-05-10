@@ -68,13 +68,16 @@ public class WebhookIdsRegister {
 
     @ManagedOperation
     public void registerWebhooks()  {
+        int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         for (MediaConnectRepository repository : repositories) {
             try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
                     if (mc.getCallback_url().startsWith(baseUrl)) {
                         URI uri = URI.create(mc.getCallback_url());
                         String[] path = uri.getPath().split("/");
-                        SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID());
+                        if (SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID())) {
+                            log.info("Registered {}", mc);
+                        }
                     } else {
                         log.debug("Ignoring {}", mc);
                     }
@@ -83,6 +86,10 @@ public class WebhookIdsRegister {
             } catch (Exception e) {
                 log.error("For {}: {}", repository, e.getMessage(), e);
             }
+        }
+        int after =  SignatureValidatorInterceptor.WEBHOOK_IDS.size();
+        if (before != after) {
+            log.info("Registered {} webhooks", after - before);
         }
     }
 
