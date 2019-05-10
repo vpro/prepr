@@ -89,7 +89,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             String sign = sign(webhookId, payload);
 
             if (!Objects.equals(sign, signature)) {
-                log.warn("Incoming signature {} didn't match {}", signature, sign);
+                log.warn("Incoming signature {} didn't match {} (payload (signed with{}):\n{}", signature, sign, webhookId, new String(payload, StandardCharsets.UTF_8));
             } else {
                 log.debug("Validated {}", signature);
                 matched = webhookId;
