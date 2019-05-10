@@ -19,6 +19,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.MDC;
 
 
 /**
@@ -98,6 +99,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         if ( matched == null) {
             throw new SecurityException("Signature didn't match");
         } else {
+            MDC.put("webhookid", matched.toString());
             if (uuids.size() > 1) {
                 Iterator<UUID> i = uuids.iterator();
                 while (i.hasNext()) {
