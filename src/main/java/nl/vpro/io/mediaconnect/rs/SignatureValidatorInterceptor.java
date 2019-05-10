@@ -100,7 +100,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             log.error("No webhook ids matched. We only see for channel " + uuids + " " + channel);
             throw new SecurityException("Signature didn't match");
         } else {
-            MDC.put("webhookid", matched.toString());
+            MDC.put("userName", "webhook:" + matched.toString());
             if (uuids.size() > 1) {
                 Iterator<UUID> i = uuids.iterator();
                 while (i.hasNext()) {
