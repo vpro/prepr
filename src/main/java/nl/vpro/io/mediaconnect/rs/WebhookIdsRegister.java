@@ -30,7 +30,7 @@ import static nl.vpro.io.mediaconnect.Paging.limit;
  */
 @Slf4j
 @ManagedResource(
-    description = "Makes sure the mediaconnect webhooks are recongied",
+    description = "Makes sure the mediaconnect webhooks are recognized",
     objectName = "nl.vpro.media:name=mediaConnect-webookids"
 )
 public class WebhookIdsRegister {
@@ -71,13 +71,13 @@ public class WebhookIdsRegister {
         for (MediaConnectRepository repository : repositories) {
             try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
-                        if (mc.getCallback_url().startsWith(baseUrl)) {
-                            URI uri = URI.create(mc.getCallback_url());
-                            String[] path = uri.getPath().split("/");
-                            SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID());
-                        } else {
-                            log.debug("Ignoring {}", mc);
-                        }
+                    if (mc.getCallback_url().startsWith(baseUrl)) {
+                        URI uri = URI.create(mc.getCallback_url());
+                        String[] path = uri.getPath().split("/");
+                        SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID());
+                    } else {
+                        log.debug("Ignoring {}", mc);
+                    }
                     }
                 );
             } catch (Exception e) {
