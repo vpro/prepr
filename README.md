@@ -6,7 +6,6 @@ https://prepr.io, https://docs.prepr.io/
 
 [![Build Status](https://travis-ci.org/vpro/mediaconnect.svg?)](https://travis-ci.org/vpro/mediaconnect)
 [![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/mediaconnect.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22mediaconnect%22)
-
 [![snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/mediaconnect.svg)](https://oss.sonatype.org/content/repositories/staging/nl/vpro/mediaconnect)
 
 
