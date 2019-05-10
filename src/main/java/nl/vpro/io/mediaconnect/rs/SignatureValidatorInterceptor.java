@@ -46,8 +46,13 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
 
     public static void put(String channel, UUID webhookId) {
-        if (WEBHOOK_IDS.put(channel, webhookId) == null) {
+        UUID previous = WEBHOOK_IDS.put(channel, webhookId);
+        if (previous == null) {
             log.info("Registered webook {} -> {}", channel, webhookId);
+        } else if (! Objects.equals(previous, webhookId)) {
+            log.info("Updated webook {} -> {} (was {})", channel, webhookId, previous);
+        } else {
+            log.debug("webhook for {} was registered already {}", channel, webhookId);
         }
     }
 
