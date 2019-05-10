@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.crypto.Mac;
@@ -42,17 +40,16 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     public static final String SIGNATURE = "Mediaconnect-Signature";
 
-    public static final Map<String, UUID> WEBHOOK_IDS = new ConcurrentHashMap<>();
+    public static final Map<String, List<UUID>> WEBHOOK_IDS = new ConcurrentHashMap<>();
 
 
     public static void put(String channel, UUID webhookId) {
-        UUID previous = WEBHOOK_IDS.put(channel, webhookId);
-        if (previous == null) {
-            log.info("Registered webook {} -> {}", channel, webhookId);
-        } else if (! Objects.equals(previous, webhookId)) {
-            log.info("Updated webook {} -> {} (was {})", channel, webhookId, previous);
-        } else {
+        List<UUID> uuids = WEBHOOK_IDS.computeIfAbsent(channel, (i) -> Collections.synchronizedList(new ArrayList<>()));
+        if (uuids.contains(webhookId)) {
             log.debug("webhook for {} was registered already {}", channel, webhookId);
+        } else {
+            uuids.add(webhookId);
+            log.info("Registered webook {} -> {}", channel, webhookId);
         }
     }
 
@@ -78,21 +75,41 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         String signature,
         byte[] payload,
         String channel) throws NoSuchAlgorithmException, InvalidKeyException {
-        UUID webhookId = WEBHOOK_IDS.get(channel);
-        if (webhookId == null)  {
+        List<UUID> uuids = WEBHOOK_IDS.get(channel);
+        if (uuids== null)  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new SecurityException("Webhook id currently not registered for " + channel);
         }
-         if (signature == null) {
-             throw new SecurityException("No signature given");
-         }
-        String sign = sign(webhookId, payload);
+        if (signature == null) {
+            throw new SecurityException("No signature given");
+        }
+        UUID matched = null;
+        for (UUID webhookId : uuids) {
+            String sign = sign(webhookId, payload);
 
-        if (! Objects.equals(sign, signature)) {
-            log.warn("Incoming signature {} didn't match {}", signature, sign);
+            if (!Objects.equals(sign, signature)) {
+                log.warn("Incoming signature {} didn't match {}", signature, sign);
+            } else {
+                log.debug("Validated {}", signature);
+                matched = webhookId;
+                break;
+            }
+        }
+        if ( matched == null) {
             throw new SecurityException("Signature didn't match");
         } else {
-            log.debug("Validated {}", signature);
+            if (uuids.size() > 1) {
+                Iterator<UUID> i = uuids.iterator();
+                while (i.hasNext()) {
+                    UUID n = i.next();
+                    if (n.equals(matched)) {
+                        break;
+                    } else {
+                        log.info("Removed {}, because now {} is matching", n, matched);
+                        i.remove();
+                    }
+                }
+            }
         }
     }
 
