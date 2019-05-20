@@ -8,9 +8,11 @@ import java.time.Instant;
 
 import javax.annotation.Nonnull;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.DurationSerializer;
 import com.google.common.collect.Range;
+
+import nl.vpro.jackson2.DurationToJsonTimestamp;
 
 /**
  * @author Michiel Meeuwissen
@@ -20,7 +22,8 @@ import com.google.common.collect.Range;
 @Data
 public abstract class MCAbstractMedia extends MCAsset {
 
-    @JsonSerialize(using = DurationSerializer.class)
+    @JsonSerialize(using = DurationToJsonTimestamp.Serializer.class)
+    @JsonDeserialize(using = DurationToJsonTimestamp.Deserializer.class)
     Duration duration;
 
     Instant started_on;
