@@ -31,11 +31,9 @@ public class MCPost extends MCContent {
     String tease;
 
      /**
-     * What does this mean?
+     * We map the Timeline with a Broadcast (a Program of ProgramType.BROADCAST)
      */
     MCTimeline container;
-
-
 
     MCChannel channel;
 
