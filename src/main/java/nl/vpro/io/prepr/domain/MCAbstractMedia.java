@@ -26,6 +26,7 @@ public abstract class MCAbstractMedia extends MCAsset {
     @JsonDeserialize(using = DurationToJsonTimestamp.Deserializer.class)
     Duration duration;
 
+    //2019-0-16: Not yet documented on Prepr.
     Instant started_on;
     Instant ended_on;
 
