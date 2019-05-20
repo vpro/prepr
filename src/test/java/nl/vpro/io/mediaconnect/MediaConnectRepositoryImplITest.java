@@ -58,7 +58,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getSchedules() {
         //getSchedule(rad2);
-        LocalDate date = LocalDate.of(2018, 12, 18);
+        LocalDate date = LocalDate.of(2019, 12, 18);
         getSchedule(fnxre, date);
 
         getSchedule(fnxa, date);
@@ -67,7 +67,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getSchedule() {
-        LocalDate firstDate = LocalDate.of(2019, 4, 23);
+        LocalDate firstDate = LocalDate.of(2019, 5, 8);
         MCSchedule schedule1 = getSchedule(funx, firstDate);
         Optional<MCEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
         MCSchedule schedule2 = getSchedule(funx, firstDate.plusDays(1));

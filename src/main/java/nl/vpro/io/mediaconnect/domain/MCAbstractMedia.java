@@ -49,6 +49,7 @@ public abstract class MCAbstractMedia extends MCAsset {
 
     }
 
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +

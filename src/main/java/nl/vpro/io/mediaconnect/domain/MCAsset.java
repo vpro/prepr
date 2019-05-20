@@ -46,8 +46,23 @@ public abstract class MCAsset extends MCAbstractObject {
 
     MCStatus status;
 
-    public String getCridForReference() {
-        return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id;
+
+    public String getCridForReference(MCPost post) {
+        return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id + "/post/" + post.getId();
+    }
+
+
+    @Override
+    public String getCrid() {
+        throw new IllegalStateException("Please use #getCrid(MCPost)");
+    }
+
+    public String getCrid(MCPost post) {
+        if (post != null) {
+            return super.getCrid() + "/post/" + post.getId();
+        } else {
+            return super.getCrid();
+        }
     }
 
 

@@ -78,6 +78,7 @@ public class MCAbstractObject  {
         return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
     }
 
+
     public UUID getUUID() {
         return UUID.fromString(id);
     }
