@@ -13,7 +13,7 @@ public class MCEvents {
     private static final String UNPUBLISHED=  ".unpublished";
 
 
-    static final String SHOWSCHEDULE = "showschedule";
+    public static final String SHOWSCHEDULE = "showschedule";
 
     public static final String SHOWSCHEDULE_CREATED = SHOWSCHEDULE + CREATED;
 
@@ -22,7 +22,7 @@ public class MCEvents {
     public static final String SHOWSCHEDULE_DELETED = SHOWSCHEDULE + DELETED;
 
 
-    static final String PUBLICATION = "publication";
+    public static final String PUBLICATION = "publication";
 
     public static final String PUBLICATION_CREATED = PUBLICATION + CREATED;
 
@@ -35,7 +35,7 @@ public class MCEvents {
     public static final String PUBLICATION_DELETED = PUBLICATION + DELETED;
 
 
-    static final String ASSET = "asset";
+    public static final String ASSET = "asset";
 
 
     public static final String ASSET_CREATED = ASSET + CREATED;
@@ -47,7 +47,7 @@ public class MCEvents {
     public static final String ASSET_UPLOADED = ASSET + ".uploaded";
 
 
-    static final String CONTAINER = "container";
+    public static final String CONTAINER = "container";
 
 
     public static final String CONTAINER_CREATED = CONTAINER + CREATED;
