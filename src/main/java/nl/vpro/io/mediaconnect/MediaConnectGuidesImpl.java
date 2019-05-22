@@ -45,9 +45,9 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
         )
         .f("guide")
         .field(Field.builder("show")
-                .fs("slug", "name", "body", "tags", "status", "custom", "scheduled_users")
-                .field(COVER)
-                .build()
+            .fs("slug", "name", "body", "tags", "status", "custom", "scheduled_users")
+            .field(COVER)
+            .build()
         )
         .f("users")
         .build();
