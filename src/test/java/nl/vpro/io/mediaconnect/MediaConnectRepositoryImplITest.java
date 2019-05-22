@@ -26,11 +26,11 @@ public class MediaConnectRepositoryImplITest {
 
     MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
     MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
-    MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
-    MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
-    MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
-    MediaConnectRepositoryImpl fnxre = MediaConnectRepositoryImpl.configuredInUserHome("FNXRE");
-    MediaConnectRepositoryImpl fnxr = MediaConnectRepositoryImpl.configuredInUserHome("FNXR");
+    //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
+    //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
+    //MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
+    //MediaConnectRepositoryImpl fnxre = MediaConnectRepositoryImpl.configuredInUserHome("FNXRE");
+    //MediaConnectRepositoryImpl fnxr = MediaConnectRepositoryImpl.configuredInUserHome("FNXR");
 
 
 
@@ -59,9 +59,8 @@ public class MediaConnectRepositoryImplITest {
     public void getSchedules() {
         //getSchedule(rad2);
         LocalDate date = LocalDate.of(2019, 12, 18);
-        getSchedule(fnxre, date);
-
-        getSchedule(fnxa, date);
+        getSchedule(funx, date);
+        //getSchedule(fnxa, date);
 
     }
 
@@ -131,7 +130,7 @@ public class MediaConnectRepositoryImplITest {
     @Test
     public void getPublication() {
         MCContent publications = funx.getContent().getPublication(
-            UUID.fromString("9a38cc38-8b23-48dc-80ae-b37ae6821988") // an post?
+            UUID.fromString("0c83faf9-2524-4ebe-a26f-070be9ec4415") // an post?
         );
         log.info("publications : {}", publications);
     }
@@ -257,7 +256,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = fnxr;
+        MediaConnectRepository repo = funx;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {
