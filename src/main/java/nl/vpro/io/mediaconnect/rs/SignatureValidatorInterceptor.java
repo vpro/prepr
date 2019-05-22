@@ -21,6 +21,8 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.MDC;
 
+import static org.apache.http.HttpHeaders.USER_AGENT;
+
 
 /**
  * This can be used to verify webhook calls made by mediaconnect to your server
@@ -39,8 +41,7 @@ import org.slf4j.MDC;
 @Provider
 public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
-    public static final String SIGNATURE = "Mediaconnect-Signature";
-
+    public static final String[] SIGNATURES = {"Mediaconnect-Signature", "Prepr-Signature"};
     public static final Map<String, List<UUID>> WEBHOOK_IDS = new ConcurrentHashMap<>();
 
 
@@ -59,10 +60,22 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        ByteArrayOutputStream payload = new ByteArrayOutputStream();
-        String signature = requestContext.getHeaderString(SIGNATURE);
+
+        String userAgent = requestContext.getHeaderString(USER_AGENT);
+
+        // TODO maybe it's better to use the userAgent to check the actual prepr API version.
+
+        String signature = null;
+        for (String SIGNATURE : SIGNATURES) {
+            signature = requestContext.getHeaderString(SIGNATURE);
+            if (signature != null) {
+                break;
+            }
+        }
         String[] split = requestContext.getUriInfo().getPath().split("/");
         String channel = split[split.length - 1];
+
+        ByteArrayOutputStream payload = new ByteArrayOutputStream();
         IOUtils.copy(requestContext.getEntityStream(), payload);
         requestContext.setEntityStream(new ByteArrayInputStream(payload.toByteArray()));
         try {
