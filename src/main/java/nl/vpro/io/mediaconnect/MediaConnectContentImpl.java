@@ -10,8 +10,7 @@ import com.google.api.client.http.GenericUrl;
 import nl.vpro.io.mediaconnect.domain.MCContent;
 import nl.vpro.io.mediaconnect.domain.MCItems;
 
-import static nl.vpro.io.mediaconnect.Fields.CDN_FILES;
-import static nl.vpro.io.mediaconnect.Fields.SOURCEFILE_FIELD;
+import static nl.vpro.io.mediaconnect.Fields.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -21,14 +20,13 @@ public class MediaConnectContentImpl implements MediaConnectContent {
 
     public static Fields PUBLICATION_FIELDS = Fields.builder()
         .fs("container", "tags", "custom", "channel")
-        //.field(ASSETS)
         .field(Field.builder("element")
-            .f("custom")
+            .fs("custom", "tags")
             .field(
                 Field.builder("media")
                     .field(SOURCEFILE_FIELD)
                     .field(CDN_FILES)
-                    .fs("custom")
+                    .fs("custom", "tags")
                     .build()
             )
             .build()

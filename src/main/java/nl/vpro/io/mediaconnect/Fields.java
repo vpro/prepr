@@ -35,7 +35,11 @@ public class Fields {
         .field(CDN_FILES)
         .build();
 
-    static final Field ASSETS = Field.builder("assets").field(CDN_FILES).fs("custom", "media").build();
+    static final Field ASSETS = Field
+        .builder("assets")
+        .field(CDN_FILES)
+        .fs("custom", "tags", "media")
+        .build();
 
     @Getter
     private final List<Field> fields;
