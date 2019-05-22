@@ -46,6 +46,8 @@ public abstract class MCAsset extends MCAbstractObject {
 
     MCStatus status;
 
+    List<MCTag> tags;
+
 
     public String getCridForReference(MCPost post) {
         return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id + "/post/" + post.getId();
