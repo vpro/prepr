@@ -71,7 +71,8 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     public void filter(@Nonnull ContainerRequestContext requestContext) throws IOException {
 
         if (! ready) {
-            throw new ServerErrorException(HttpStatus.SC_SERVICE_UNAVAILABLE);
+            log.info("Received webhook while we are not yet ready and can't validate it yet");
+            throw new ServerErrorException( "Received webhook while we are not yet ready and can't validate it yet", HttpStatus.SC_SERVICE_UNAVAILABLE);
         }
         String userAgent = requestContext.getHeaderString(USER_AGENT);
 
