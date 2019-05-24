@@ -31,6 +31,7 @@ public class MCWebhook extends MCAbstractObject {
     @JsonDeserialize(using = LenientBooleanDeserializer.class)
     Boolean active;
 
+
     public MCWebhook() {
 
     }
