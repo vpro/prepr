@@ -22,6 +22,5 @@ public class MCWebhookEvent {
 
     String dc;
 
-
     JsonNode payload;
 }

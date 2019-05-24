@@ -91,6 +91,7 @@ public class WebhookIdsRegister {
         if (before != after) {
             log.info("Registered {} webhooks", after - before);
         }
+        SignatureValidatorInterceptor.readyForRequests();
     }
 
 
