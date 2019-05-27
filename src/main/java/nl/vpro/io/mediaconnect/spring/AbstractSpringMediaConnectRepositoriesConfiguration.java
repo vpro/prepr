@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
 import org.apache.commons.lang3.StringUtils;
@@ -53,7 +54,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
 
     @Override
     @SneakyThrows
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(@Nonnull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         Properties properties = new Properties();
         for (String prop : this.propertiesResources) {
             properties.load(new ClassPathResource(prop).getInputStream());
@@ -146,7 +147,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
     }
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@Nonnull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
 }

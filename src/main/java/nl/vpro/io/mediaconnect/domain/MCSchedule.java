@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+import javax.annotation.Nonnull;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -28,6 +30,7 @@ public class MCSchedule implements Iterable<Map.Entry<LocalDate, List<MCEvent>>>
 
     Map<LocalDate, List<MCEvent>> days;
 
+    @Nonnull
     @Override
     public Iterator<Map.Entry<LocalDate, List<MCEvent>>> iterator() {
         return days.entrySet().iterator();

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,7 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
 
     }
 
+    @Nonnull
     @Override
     public Iterator<MediaConnectRepository> iterator() {
         return repositories.values().iterator();
@@ -46,7 +48,7 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
 
 
