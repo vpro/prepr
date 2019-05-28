@@ -1,12 +1,12 @@
 # mediaconnect
-Domain classes and client for https://developers.mediaconnect.io/ ('prepr')
+Domain classes and client for https://developers.prepr.io/ ('prepr')
 
 https://prepr.io, https://docs.prepr.io/
 
 
-[![Build Status](https://travis-ci.org/vpro/mediaconnect.svg?)](https://travis-ci.org/vpro/mediaconnect)
-[![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/mediaconnect.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22mediaconnect%22)
-[![snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/mediaconnect.svg)](https://oss.sonatype.org/content/repositories/staging/nl/vpro/mediaconnect)
+[![Build Status](https://travis-ci.org/vpro/prepr.svg?)](https://travis-ci.org/vpro/prepr)
+[![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22prepr%22)
+[![snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg)](https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr)
 
 
 This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a future version of it) sychronizes data from mediaconnect for radio related data of the dutch public broadcasters
