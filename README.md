@@ -1,4 +1,4 @@
-# mediaconnect
+# prepr
 Domain classes and client for https://developers.prepr.io/ ('prepr')
 
 https://prepr.io, https://docs.prepr.io/
