@@ -32,7 +32,7 @@ Example code:
 ```
 It is also possible to instantiate a bunch of  repositories using spring
 ```xml
-  <bean class="nl.vpro.io.mediaconnect.spring.SpringMediaConnectRepositoriesConfiguration">
+  <bean class="nl.vpro.io.prepr.spring.SpringMediaConnectRepositoriesConfiguration">
     <constructor-arg value="media.properties" />
   </bean>
 ```
@@ -41,11 +41,11 @@ This will create MediaConnectRepositoryImpl beans ``mediaconnectrepository.<chan
 
 Something similar can also be accomplished without spring
 ```java
-nl.vpro.io.mediaconnect.StandaloneMediaConnectRepositories.fromMap()
+nl.vpro.io.prepr.StandaloneMediaConnectRepositories.fromMap()
 
 ```
 (note that ``@CacheResult`` is not working then.)
 
 ## Testing
 
-There are junit test in the normal spots. Some things are in '*ITest' classes. These are currently mainly used to try things out. They find credentials in `${USER.HOME}/conf/mediaconnect.properties`. We don't have proper integration tests yet.
+There are junit test in the normal spots. Some things are in '*ITest' classes. These are currently mainly used to try things out. They find credentials in `${USER.HOME}/conf/prepr.properties`. We don't have proper integration tests yet.
