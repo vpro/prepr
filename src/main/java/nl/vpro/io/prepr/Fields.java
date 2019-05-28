@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  */
 public class Fields {
 
-    static final String  PICTURE = "picture";
+    public static final String  PICTURE = "picture";
 
     static final Field RESIZED = Field.builder("resized").f(PICTURE + ".width(1920)").build();
     static final Field SOURCEFILE_FIELD =
