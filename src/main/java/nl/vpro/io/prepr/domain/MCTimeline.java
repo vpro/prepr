@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
 import com.google.common.collect.Range;
+import lombok.ToString;
 
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Timeline")
 @JsonDeserialize(converter= MCTimeline.Deserializer.class)
