@@ -19,7 +19,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import nl.vpro.io.mediaconnect.*;
 import nl.vpro.io.prepr.*;
 
 /**
