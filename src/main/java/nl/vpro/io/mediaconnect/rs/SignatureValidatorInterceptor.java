@@ -41,7 +41,10 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
 @Provider
 public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
-    public static final String[] SIGNATURES = {"Mediaconnect-Signature", "Prepr-Signature"};
+    public static final String[] SIGNATURES = {
+        "Mediaconnect-Signature",
+        "Prepr-Signature"
+    };
     public static final Map<String, List<UUID>> WEBHOOK_IDS = new ConcurrentHashMap<>();
 
 
