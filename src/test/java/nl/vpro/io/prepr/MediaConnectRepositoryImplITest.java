@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import nl.vpro.io.mediaconnect.domain.*;
 import nl.vpro.io.prepr.domain.*;
 
 import static nl.vpro.io.prepr.Paging.limit;
