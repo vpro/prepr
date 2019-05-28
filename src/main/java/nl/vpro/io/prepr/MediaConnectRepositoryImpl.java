@@ -92,7 +92,7 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
     public static MediaConnectRepositoryImpl configuredInUserHome(String channel) {
 
         Properties properties = new Properties();
-        properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "mediaconnect.properties"));
+        properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "prepr.properties"));
         return configured((Map) properties, channel);
     }
 
@@ -100,25 +100,25 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         Map<String, String> properties,
         String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
-        String clientId = properties.get("mediaconnect.clientId" + postfix);
+        String clientId = properties.get("prepr.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
-            boolean logAsCurl = Boolean.valueOf(properties.getOrDefault("mediaconnect.logascurl", "false"));
+            boolean logAsCurl = Boolean.valueOf(properties.getOrDefault("prepr.logascurl", "false"));
             MediaConnectRepositoryClient client = MediaConnectRepositoryClient
                 .builder()
                 .channel(channel)
-                .api(properties.get("mediaconnect.api"))
+                .api(properties.get("prepr.api"))
                 .clientId(clientId)
-                .clientSecret(properties.get("mediaconnect.clientSecret" + postfix))
-                .guideId(properties.get("mediaconnect.guideId" + postfix))
-                .scopes(properties.get("mediaconnect.scopes" + postfix))
-                .description(properties.get("mediaconnect.description" + postfix))
+                .clientSecret(properties.get("prepr.clientSecret" + postfix))
+                .guideId(properties.get("prepr.guideId" + postfix))
+                .scopes(properties.get("prepr.scopes" + postfix))
+                .description(properties.get("prepr.description" + postfix))
                 .logAsCurl(logAsCurl)
                 .build();
-            String jmxName = properties.get("mediaconnect.jmxname");
+            String jmxName = properties.get("prepr.jmxname");
             if (jmxName != null && jmxName.length() > 0) {
                 client.registerBean(jmxName);
             }
-            String scopes = properties.get("mediaconnect.scopes");
+            String scopes = properties.get("prepr.scopes");
             if (StringUtils.isNotBlank(scopes)) {
                 if (CollectionUtils.isEmpty(client.getScopes())) {
                     client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));

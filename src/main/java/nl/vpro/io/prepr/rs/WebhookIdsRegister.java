@@ -17,9 +17,7 @@ import javax.inject.Named;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
-
 import nl.vpro.io.prepr.MediaConnectRepositories;
-import nl.vpro.io.prepr.MediaConnectRepository;
 import nl.vpro.io.prepr.MediaConnectRepository;
 
 import static nl.vpro.io.prepr.Paging.limit;
@@ -32,7 +30,7 @@ import static nl.vpro.io.prepr.Paging.limit;
 @Slf4j
 @ManagedResource(
     description = "Makes sure the mediaconnect webhooks are recognized",
-    objectName = "nl.vpro.media:name=mediaConnect-webookids"
+    objectName = "nl.vpro.media:name=prepr-webookids"
 )
 public class WebhookIdsRegister {
 
@@ -47,7 +45,7 @@ public class WebhookIdsRegister {
     @Inject
     WebhookIdsRegister(
         MediaConnectRepositories repositories,
-        @Named("mediaconnect.webhook.baseUrl") String baseUrl
+        @Named("prepr.webhook.baseUrl") String baseUrl
         ) {
         this.repositories = repositories;
         this.baseUrl = baseUrl;

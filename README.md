@@ -36,7 +36,7 @@ It is also possible to instantiate a bunch of  repositories using spring
     <constructor-arg value="media.properties" />
   </bean>
 ```
-This will create MediaConnectRepositoryImpl beans ``mediaconnectrepository.<channel>``, and also one instance of ``MediaConnectRepositories``
+This will create MediaConnectRepositoryImpl beans ``prepr.<channel>``, and also one instance of ``MediaConnectRepositories``
 
 
 Something similar can also be accomplished without spring

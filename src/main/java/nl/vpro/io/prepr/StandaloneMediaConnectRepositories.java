@@ -50,7 +50,7 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
      */
     public static StandaloneMediaConnectRepositories fromMap(Map<String, String> configuration) {
         Builder builder = StandaloneMediaConnectRepositories.builder();
-        String prefix = "mediaconnect.clientId.";
+        String prefix = "prepr.clientId.";
         List<String> channels = configuration.entrySet().stream()
             .filter((e) -> StringUtils.isNotBlank(e.getValue()))
             .map(Map.Entry::getKey)
@@ -58,17 +58,17 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());
         for (String channel : channels) {
-            String secret = configuration.get("mediaconnect.clientSecret." + channel);
+            String secret = configuration.get("prepr.clientSecret." + channel);
             if (StringUtils.isNotEmpty(secret)) {
                 builder.repository(channel,
                     MediaConnectRepositoryImpl
                         .configured(configuration, channel)
                 );
             } else {
-                log.info("Ignored mediaconnect repository for {}  because no client secret configured", channel);
+                log.info("Ignored prepr repository for {}  because no client secret configured", channel);
             }
         }
-        String lenient = configuration.get("mediaconnect.lenientjson");
+        String lenient = configuration.get("prepr.lenientjson");
         MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         return builder.build();
     }

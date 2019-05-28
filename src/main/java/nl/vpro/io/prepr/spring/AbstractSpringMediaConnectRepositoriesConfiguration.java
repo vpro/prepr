@@ -31,8 +31,8 @@ import nl.vpro.io.prepr.*;
 @Configuration
 public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
 
-    private final static String PREF = "mediaconnect";
-    private final static String CPREF = "mediaconnectrepository";
+    private final static String PREF = "prepr";
+    private final static String CPREF = "preprrepository";
     private final static String CLIENT_PREF = CPREF + ".client";
 
     private final String[] propertiesResources;
@@ -44,7 +44,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
 
 
     public AbstractSpringMediaConnectRepositoriesConfiguration() {
-        this("mediaconnect.properties");
+        this("prepr.properties");
     }
 
 
@@ -117,7 +117,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
             );
 
         }
-        beanDefinitionRegistry.registerBeanDefinition("mediaconnectrepositories",
+        beanDefinitionRegistry.registerBeanDefinition("preprrepositories",
             BeanDefinitionBuilder.genericBeanDefinition(SpringMediaConnectRepositories.class).getBeanDefinition());
 
     }

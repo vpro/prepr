@@ -17,10 +17,6 @@ import nl.vpro.io.prepr.MediaConnectRepositories;
 import nl.vpro.io.prepr.MediaConnectRepository;
 import nl.vpro.io.prepr.Scope;
 import nl.vpro.io.prepr.domain.MCObjectMapper;
-import nl.vpro.io.prepr.MediaConnectRepositories;
-import nl.vpro.io.prepr.MediaConnectRepository;
-import nl.vpro.io.prepr.Scope;
-import nl.vpro.io.prepr.domain.MCObjectMapper;
 
 /**
  * @author Michiel Meeuwissen
@@ -59,12 +55,12 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
     }
     @PostConstruct
     public void fill() {
-        boolean foundLogAsCurl = applicationContext.containsBean("mediaconnect.logascurl");
-        boolean logAsCurl = foundLogAsCurl && Boolean.valueOf(applicationContext.getBean("mediaconnect.logascurl", String.class));
-        boolean foundScopes = applicationContext.containsBean("mediaconnect.scopes");
+        boolean foundLogAsCurl = applicationContext.containsBean("prepr.logascurl");
+        boolean logAsCurl = foundLogAsCurl && Boolean.valueOf(applicationContext.getBean("prepr.logascurl", String.class));
+        boolean foundScopes = applicationContext.containsBean("prepr.scopes");
         final String scopes;
         if (foundScopes) {
-             scopes = applicationContext.getBean("mediaconnect.scopes", String.class);
+             scopes = applicationContext.getBean("prepr.scopes", String.class);
         } else {
             scopes = "";
         }
@@ -77,8 +73,8 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
                 mc.getClient().setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
             }
         });
-        if (applicationContext.containsBean("mediaconnect.lenientjson")) {
-            String lenient = applicationContext.getBean("mediaconnect.lenientjson", String.class);
+        if (applicationContext.containsBean("prepr.lenientjson")) {
+            String lenient = applicationContext.getBean("prepr.lenientjson", String.class);
             MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         }
         log.info("{}", repositories.values());

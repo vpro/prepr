@@ -105,14 +105,14 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     @lombok.Builder(builderClassName = "Builder")
     MediaConnectRepositoryClient(
         // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
-        @Nullable @Named("mediaconnect.api") String api,
+        @Nullable @Named("prepr.api") String api,
         @Nonnull String channel,
         @Nonnull String clientId,
         @Nonnull String clientSecret,
         @Nullable String guideId,
-        @Nullable @Named("mediaconnect.scopes") String scopes,
+        @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
-        @Named("mediaconnect.logascurl") Boolean logAsCurl) {
+        @Named("prepr.logascurl") Boolean logAsCurl) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
         this.clientId = clientId;
@@ -131,11 +131,11 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
     }
 
     public void registerBean(String jmxName) {
-        String name = jmxName == null || jmxName.length() == 0  ? "mediaconnectRepository"  : jmxName;
+        String name = jmxName == null || jmxName.length() == 0  ? "preprRepository"  : jmxName;
 
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName objectName = new ObjectName("nl.vpro.io.mediaconnect:name=" + name + "-" + clientId);
+            ObjectName objectName = new ObjectName("nl.vpro.io.prepr:name=" + name + "-" + clientId);
             if (! mbs.isRegistered(objectName)) {
                 mbs.registerMBean(this, objectName);
                 log.info("Registered {}", objectName);
