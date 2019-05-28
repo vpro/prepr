@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>nl.vpro</groupId>
-  <artifactId>mediaconnect</artifactId>
-  <name>vpro-mediaconnect</name>
+  <artifactId>prepr</artifactId>
+  <name>vpro-prepr</name>
   <version>0.8-SNAPSHOT</version>
   <inceptionYear>2018</inceptionYear>
-  <description>Java client for mediaconnect api https://docs.prepr.io/v5.0/</description>
+  <description>Java client for prepr api https://docs.prepr.io/v5.0/</description>
   <url>https://github.com/vpro/mediaconnect</url>
 
   <licenses>
@@ -210,7 +210,7 @@
       <version>4.3</version>
     </dependency>
 
-    <!-- spring dependency is optional, as long as you don't use the classes in nl.vpro.io.mediaconnect.spring -->
+    <!-- spring dependency is optional, as long as you don't use the classes in nl.vpro.io.prepr.spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
