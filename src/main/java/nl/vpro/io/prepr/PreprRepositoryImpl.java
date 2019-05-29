@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
@@ -48,6 +49,9 @@ public class PreprRepositoryImpl implements PreprRepository {
     @Getter
     private final PreprRepositoryClient client;
 
+    @Getter
+    private final URI baseUrl;
+
 
     @Inject
     public PreprRepositoryImpl(
@@ -59,7 +63,8 @@ public class PreprRepositoryImpl implements PreprRepository {
         PreprContent content,
         PreprTags tags,
         PreprContainers containers,
-        PreprPersons persons
+        PreprPersons persons,
+        URI baseUrl
         ) {
         this.prepr = prepr;
         this.guides = guides;
@@ -70,10 +75,12 @@ public class PreprRepositoryImpl implements PreprRepository {
         this.containers = containers;
         this.persons = persons;
         this.client = client;
+        this.baseUrl = baseUrl;
     }
 
     public PreprRepositoryImpl(
-        PreprRepositoryClient client
+        PreprRepositoryClient client,
+        URI baseUrl
         ) {
         this.prepr = new PreprPreprImpl(client);
         this.guides = new PreprGuidesImpl(client);
@@ -84,6 +91,7 @@ public class PreprRepositoryImpl implements PreprRepository {
         this.containers = new PreprContainersImpl(client);
         this.persons = new PreprPersonsImpl(client);
         this.client = client;
+        this.baseUrl = baseUrl;
     }
 
 
@@ -124,6 +132,8 @@ public class PreprRepositoryImpl implements PreprRepository {
                     client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
                 }
             }
+            String baseUrl = properties.get("prepr.baseUrl" + postfix);
+
 
             return new PreprRepositoryImpl(client,
                 new PreprPreprImpl(client),
@@ -133,7 +143,8 @@ public class PreprRepositoryImpl implements PreprRepository {
                 new PreprContentImpl(client),
                 new PreprTagsImpl(client),
                 new PreprContainersImpl(client),
-                new PreprPersonsImpl(client)
+                new PreprPersonsImpl(client),
+                baseUrl == null ? null : URI.create(baseUrl)
             );
         } else {
             throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());

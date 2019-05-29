@@ -1,5 +1,5 @@
 /**
- * A java representation of the jsons used by the <a href="https://developers.prepr.io/">mediaconnect API</a>
+ * A java representation of the jsons used by the <a href="https://developers.prepr.io/">PREP API</a>
 
  * @author Michiel Meeuwissen
  * @since 0.1

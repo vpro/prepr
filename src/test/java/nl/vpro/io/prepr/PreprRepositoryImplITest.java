@@ -21,7 +21,7 @@ import static nl.vpro.io.prepr.Paging.limit;
  * @since 0.1
  */
 @Slf4j
-public class MediaConnectRepositoryImplITest {
+public class PreprRepositoryImplITest {
 
 
     PreprRepositoryImpl rad2 = PreprRepositoryImpl.configuredInUserHome("RAD2");
