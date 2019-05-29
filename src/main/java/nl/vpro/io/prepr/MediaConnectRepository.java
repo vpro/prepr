@@ -2,7 +2,7 @@ package nl.vpro.io.prepr;
 
 /**
  *
- * <p>A java representation of the rest services provided by the <a href="https://developers.mediaconnect.io/">mediaconnect API</a>
+ * <p>A java representation of the rest services provided by the <a href="https://developers.prepr.io/">mediaconnect API</a>
  * Currently this is in no way complete. It only is complete in so far as that was needed by <a href="https://poms.omroep.nl">POMS</a>, because
  * POMS syncs metadata from mediaconnect/prepr to its own database (as far as that concerns the dutch public broadcasters).</p>
  *

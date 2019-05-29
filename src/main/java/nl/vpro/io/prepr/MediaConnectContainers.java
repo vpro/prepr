@@ -5,7 +5,7 @@ import java.util.UUID;
 import nl.vpro.io.prepr.domain.MCTimeline;
 
 /**
- * https://developers.mediaconnect.io/docs/getting-started-timeline-assets
+ * https://developers.prepr.io/docs/getting-started-timeline-assets
  * @author Michiel Meeuwissen
  * @since 0.3
  */

@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 public abstract class MCAsset extends MCAbstractObject {
 
-    public static String REFERENCE_CRID_PREFIX =  "crid://mediaconnect.io/reference/";
+    public static String REFERENCE_CRID_PREFIX =  CRID_PREFIX + "reference/";
 
     String name;
 

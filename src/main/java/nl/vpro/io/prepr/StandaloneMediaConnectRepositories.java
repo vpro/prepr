@@ -39,7 +39,7 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
      * It will use properties like
      * </p>
      * <code>{@literal
-     *     mediaconnect.clientId.<CHANNEL>
+     *     prepr.clientId.<CHANNEL>
      * }</code>
      * <p>
      * to determin which {@link MediaConnectRepository}s most be instantiated and configured with other properties like:

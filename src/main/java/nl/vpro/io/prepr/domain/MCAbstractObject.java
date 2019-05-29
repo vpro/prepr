@@ -50,7 +50,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public class MCAbstractObject  {
 
-    public static String CRID_PREFIX =  "crid://mediaconnect.io/";
+    public static String CRID_PREFIX =  "crid://prepr.io/";
 
     /**
      * Ik dacht dat ids altijd UUID's waren?

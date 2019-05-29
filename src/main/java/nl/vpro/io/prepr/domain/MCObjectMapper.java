@@ -59,7 +59,7 @@ public class MCObjectMapper extends ObjectMapper {
         private static final long serialVersionUID = 1L;
 
         public MCModule() {
-            super(new Version(0, 3, 0, "", "nl.vpro", "mediaconnect"));
+            super(new Version(0, 3, 0, "", "nl.vpro", "prepr"));
 
             addDeserializer(Duration.class, DurationToJsonTimestamp.Deserializer.INSTANCE);
             addSerializer(Duration.class, DurationToJsonTimestamp.Serializer.INSTANCE);
