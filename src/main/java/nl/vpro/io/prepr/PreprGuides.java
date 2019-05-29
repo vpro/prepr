@@ -19,7 +19,7 @@ import nl.vpro.io.prepr.domain.MCSchedule;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectGuides {
+public interface PreprGuides {
 
 
     MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions, UUID showId);
@@ -38,7 +38,7 @@ public interface MediaConnectGuides {
                 Range<LocalDateTime> erange = event.getRange(e.getKey());
                 boolean startInRange = range.contains(erange.lowerEndpoint());
                 if (! startInRange) {
-                    LoggerFactory.getLogger(MediaConnectGuides.class).info("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);
+                    LoggerFactory.getLogger(PreprGuides.class).info("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);
                 }
                 return ! startInRange;
             });

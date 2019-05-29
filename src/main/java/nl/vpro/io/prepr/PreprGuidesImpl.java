@@ -12,16 +12,14 @@ import nl.vpro.io.prepr.domain.MCGuide;
 import nl.vpro.io.prepr.domain.MCItems;
 import nl.vpro.io.prepr.domain.MCSchedule;
 
-import static nl.vpro.io.prepr.Fields.*;
-
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Named
-public class MediaConnectGuidesImpl implements MediaConnectGuides {
+public class PreprGuidesImpl implements PreprGuides {
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
 
     private final Fields SCHEDULE_FIELDS = Fields.builder()
@@ -55,7 +53,7 @@ public class MediaConnectGuidesImpl implements MediaConnectGuides {
 
 
     @Inject
-    public MediaConnectGuidesImpl(MediaConnectRepositoryClient impl) {
+    public PreprGuidesImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 

@@ -12,7 +12,7 @@ import nl.vpro.io.prepr.domain.MCTagGroup;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectTags {
+public interface PreprTags {
 
 
     MCItems<MCTagGroup> getGroups(Paging paging, String q);

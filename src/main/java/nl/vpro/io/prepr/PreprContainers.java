@@ -9,7 +9,7 @@ import nl.vpro.io.prepr.domain.MCTimeline;
  * @author Michiel Meeuwissen
  * @since 0.3
  */
-public interface MediaConnectContainers {
+public interface PreprContainers {
 
 
     MCTimeline getTimeline(

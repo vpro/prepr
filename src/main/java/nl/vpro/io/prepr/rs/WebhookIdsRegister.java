@@ -17,8 +17,8 @@ import javax.inject.Named;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
-import nl.vpro.io.prepr.MediaConnectRepositories;
-import nl.vpro.io.prepr.MediaConnectRepository;
+import nl.vpro.io.prepr.PreprRepositories;
+import nl.vpro.io.prepr.PreprRepository;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -37,14 +37,14 @@ public class WebhookIdsRegister {
     public static final ScheduledExecutorService backgroundExecutor =
         Executors.newScheduledThreadPool(1);
 
-    private final MediaConnectRepositories repositories;
+    private final PreprRepositories repositories;
 
     private final String baseUrl;
 
 
     @Inject
     WebhookIdsRegister(
-        MediaConnectRepositories repositories,
+        PreprRepositories repositories,
         @Named("prepr.webhook.baseUrl") String baseUrl
         ) {
         this.repositories = repositories;
@@ -68,7 +68,7 @@ public class WebhookIdsRegister {
     @ManagedOperation
     public void registerWebhooks()  {
         int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
-        for (MediaConnectRepository repository : repositories) {
+        for (PreprRepository repository : repositories) {
             try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
                     if (mc.getCallback_url().startsWith(baseUrl)) {

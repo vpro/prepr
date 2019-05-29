@@ -13,8 +13,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import nl.vpro.io.prepr.MediaConnectRepositories;
-import nl.vpro.io.prepr.MediaConnectRepository;
+import nl.vpro.io.prepr.PreprRepositories;
+import nl.vpro.io.prepr.PreprRepository;
 import nl.vpro.io.prepr.Scope;
 import nl.vpro.io.prepr.domain.MCObjectMapper;
 
@@ -23,26 +23,26 @@ import nl.vpro.io.prepr.domain.MCObjectMapper;
  * @since 0.3
  */
 @Slf4j
-public class SpringMediaConnectRepositories  implements MediaConnectRepositories, ApplicationContextAware  {
+public class SpringPreprRepositories implements PreprRepositories, ApplicationContextAware  {
 
-    final Map<String, MediaConnectRepository> repositories = new HashMap<>();
+    final Map<String, PreprRepository> repositories = new HashMap<>();
     private ApplicationContext applicationContext;
 
     @Override
-    public Optional<MediaConnectRepository> get(String channel) {
+    public Optional<PreprRepository> get(String channel) {
         return Optional.ofNullable(repositories.get(channel));
 
     }
 
     @Override
-    public Map<String, MediaConnectRepository> getRepositories() {
+    public Map<String, PreprRepository> getRepositories() {
         return repositories;
 
     }
 
     @Nonnull
     @Override
-    public Iterator<MediaConnectRepository> iterator() {
+    public Iterator<PreprRepository> iterator() {
         return repositories.values().iterator();
 
     }
@@ -64,7 +64,7 @@ public class SpringMediaConnectRepositories  implements MediaConnectRepositories
         } else {
             scopes = "";
         }
-        applicationContext.getBeansOfType(MediaConnectRepository.class).values().forEach(mc -> {
+        applicationContext.getBeansOfType(PreprRepository.class).values().forEach(mc -> {
             repositories.put(mc.getChannel(), mc);
             if (foundLogAsCurl) {
                 mc.getClient().setLogAsCurl(logAsCurl);

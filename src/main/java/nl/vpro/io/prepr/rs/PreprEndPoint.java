@@ -13,11 +13,11 @@ import javax.ws.rs.NameBinding;
  *
  * E.g.:
  *<pre>{@code
-@literal @Path("/mediaconnect")
- public class MediaConnectWebhookEndpoint {
+@literal @Path("/prepr")
+ public class PreprWebhookEndpoint {
    @literal @POST
    @literal @Path("/{channel}")
-   @literal @MediaConnectEndPoint
+   @literal @PreprEndPoint
     public String post(
        @literal @PathParam("channel") Channel channel,
         JsonNode payload,
@@ -40,6 +40,6 @@ import javax.ws.rs.NameBinding;
 @NameBinding
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MediaConnectEndPoint {
+public @interface PreprEndPoint {
 
 }

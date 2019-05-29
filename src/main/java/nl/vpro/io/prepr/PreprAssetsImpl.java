@@ -13,12 +13,12 @@ import nl.vpro.io.prepr.domain.MCItems;
  * @since 0.1
  */
 @Named
-public class MediaConnectAssetsImpl implements MediaConnectAssets {
+public class PreprAssetsImpl implements PreprAssets {
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
     @Inject
-    public MediaConnectAssetsImpl(MediaConnectRepositoryClient impl) {
+    public PreprAssetsImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 

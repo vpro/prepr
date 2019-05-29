@@ -9,7 +9,7 @@ import nl.vpro.io.prepr.domain.MCPerson;
  * @author Michiel Meeuwissen
  * @since 0.3
  */
-public interface MediaConnectPersons {
+public interface PreprPersons {
 
 
     MCPerson get(UUID uuid);

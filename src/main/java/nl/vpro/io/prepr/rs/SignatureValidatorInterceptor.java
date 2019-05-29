@@ -40,7 +40,7 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
  * @since 0.1
  */
 @Slf4j
-@MediaConnectEndPoint
+@PreprEndPoint
 @Provider
 public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 

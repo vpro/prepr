@@ -22,12 +22,12 @@ import nl.vpro.io.prepr.domain.MCWebhook;
  * @since ...
  */
 @Named
-public class MediaConnectWebhooksImpl implements MediaConnectWebhooks {
+public class PreprWebhooksImpl implements PreprWebhooks {
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
     @Inject
-    public MediaConnectWebhooksImpl(MediaConnectRepositoryClient impl) {
+    public PreprWebhooksImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 

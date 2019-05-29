@@ -18,48 +18,48 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Provides the actual implementation of {@link MediaConnectRepository}. This is implemented by being a rest client, so it has to be configured
+ * Provides the actual implementation of {@link PreprRepository}. This is implemented by being a rest client, so it has to be configured
  *  with credentials.
  *  *
- *  This can be done by code (using {@link MediaConnectRepositoryClient#builder()}, using config file {@link MediaConnectRepositoryImpl#configuredInUserHome(String)}}
+ *  This can be done by code (using {@link PreprRepositoryClient#builder()}, using config file {@link PreprRepositoryImpl#configuredInUserHome(String)}}
  *  or using some IoC-framework (depending on the {@link Inject} and {@link Named} annotations on the constructor.
  * @author Michiel Meeuwissen
  * @since 0.3
  */
 @Getter
 @Named
-public class MediaConnectRepositoryImpl implements MediaConnectRepository {
-    private final MediaConnectPrepr prepr;
+public class PreprRepositoryImpl implements PreprRepository {
+    private final PreprPrepr prepr;
 
-    private final MediaConnectGuides guides;
+    private final PreprGuides guides;
 
-    private final MediaConnectWebhooks webhooks;
+    private final PreprWebhooks webhooks;
 
-    private final MediaConnectAssets assets;
+    private final PreprAssets assets;
 
-    private final MediaConnectContent content;
+    private final PreprContent content;
 
-    private final MediaConnectTags tags;
+    private final PreprTags tags;
 
-    private final MediaConnectContainers containers;
+    private final PreprContainers containers;
 
-    private final MediaConnectPersons persons;
+    private final PreprPersons persons;
 
     @Getter
-    private final MediaConnectRepositoryClient client;
+    private final PreprRepositoryClient client;
 
 
     @Inject
-    public MediaConnectRepositoryImpl(
-        MediaConnectRepositoryClient client,
-        MediaConnectPrepr prepr,
-        MediaConnectGuides guides,
-        MediaConnectWebhooks webhooks,
-        MediaConnectAssets assets,
-        MediaConnectContent content,
-        MediaConnectTags tags,
-        MediaConnectContainers containers,
-        MediaConnectPersons persons
+    public PreprRepositoryImpl(
+        PreprRepositoryClient client,
+        PreprPrepr prepr,
+        PreprGuides guides,
+        PreprWebhooks webhooks,
+        PreprAssets assets,
+        PreprContent content,
+        PreprTags tags,
+        PreprContainers containers,
+        PreprPersons persons
         ) {
         this.prepr = prepr;
         this.guides = guides;
@@ -72,38 +72,38 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
         this.client = client;
     }
 
-    public MediaConnectRepositoryImpl(
-        MediaConnectRepositoryClient client
+    public PreprRepositoryImpl(
+        PreprRepositoryClient client
         ) {
-        this.prepr = new MediaConnectPreprImpl(client);
-        this.guides = new MediaConnectGuidesImpl(client);
-        this.webhooks = new MediaConnectWebhooksImpl(client);
-        this.assets = new MediaConnectAssetsImpl(client);
-        this.content = new MediaConnectContentImpl(client);
-        this.tags = new MediaConnectTagsImpl(client);
-        this.containers = new MediaConnectContainersImpl(client);
-        this.persons = new MediaConnectPersonsImpl(client);
+        this.prepr = new PreprPreprImpl(client);
+        this.guides = new PreprGuidesImpl(client);
+        this.webhooks = new PreprWebhooksImpl(client);
+        this.assets = new PreprAssetsImpl(client);
+        this.content = new PreprContentImpl(client);
+        this.tags = new PreprTagsImpl(client);
+        this.containers = new PreprContainersImpl(client);
+        this.persons = new PreprPersonsImpl(client);
         this.client = client;
     }
 
 
     @SuppressWarnings("unchecked")
     @SneakyThrows(IOException.class)
-    public static MediaConnectRepositoryImpl configuredInUserHome(String channel) {
+    public static PreprRepositoryImpl configuredInUserHome(String channel) {
 
         Properties properties = new Properties();
         properties.load(new FileInputStream(System.getProperty("user.home") + File.separator + "conf" + File.separator + "prepr.properties"));
         return configured((Map) properties, channel);
     }
 
-    public static MediaConnectRepositoryImpl configured(
+    public static PreprRepositoryImpl configured(
         Map<String, String> properties,
         String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("prepr.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
             boolean logAsCurl = Boolean.valueOf(properties.getOrDefault("prepr.logascurl", "false"));
-            MediaConnectRepositoryClient client = MediaConnectRepositoryClient
+            PreprRepositoryClient client = PreprRepositoryClient
                 .builder()
                 .channel(channel)
                 .api(properties.get("prepr.api"))
@@ -125,15 +125,15 @@ public class MediaConnectRepositoryImpl implements MediaConnectRepository {
                 }
             }
 
-            return new MediaConnectRepositoryImpl(client,
-                new MediaConnectPreprImpl(client),
-                new MediaConnectGuidesImpl(client),
-                new MediaConnectWebhooksImpl(client),
-                new MediaConnectAssetsImpl(client),
-                new MediaConnectContentImpl(client),
-                new MediaConnectTagsImpl(client),
-                new MediaConnectContainersImpl(client),
-                new MediaConnectPersonsImpl(client)
+            return new PreprRepositoryImpl(client,
+                new PreprPreprImpl(client),
+                new PreprGuidesImpl(client),
+                new PreprWebhooksImpl(client),
+                new PreprAssetsImpl(client),
+                new PreprContentImpl(client),
+                new PreprTagsImpl(client),
+                new PreprContainersImpl(client),
+                new PreprPersonsImpl(client)
             );
         } else {
             throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());

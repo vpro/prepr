@@ -24,8 +24,8 @@ import static nl.vpro.io.prepr.Paging.limit;
 public class MediaConnectRepositoryImplITest {
 
 
-    MediaConnectRepositoryImpl rad2 = MediaConnectRepositoryImpl.configuredInUserHome("RAD2");
-    MediaConnectRepositoryImpl funx = MediaConnectRepositoryImpl.configuredInUserHome("FUNX");
+    PreprRepositoryImpl rad2 = PreprRepositoryImpl.configuredInUserHome("RAD2");
+    PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
     //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
     //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
     //MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
@@ -80,7 +80,7 @@ public class MediaConnectRepositoryImplITest {
 
 
 
-    protected MCSchedule getSchedule(MediaConnectRepository impl,  LocalDate date) {
+    protected MCSchedule getSchedule(PreprRepository impl, LocalDate date) {
 
         MCSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
@@ -256,7 +256,7 @@ public class MediaConnectRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        MediaConnectRepository repo = funx;
+        PreprRepository repo = funx;
         MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (MCWebhook webhook : webhooks) {

@@ -14,26 +14,26 @@ import org.apache.commons.lang3.StringUtils;
 import nl.vpro.io.prepr.domain.MCObjectMapper;
 
 /**
- * Maintains a map of {@link MediaConnectRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
+ * Maintains a map of {@link PreprRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
  *
  * @author Michiel Meeuwissen
  * @since 0.3
  */
 @Slf4j
-public class StandaloneMediaConnectRepositories implements MediaConnectRepositories {
+public class StandalonePreprRepositories implements PreprRepositories {
 
     @Getter
-    private final Map<String, MediaConnectRepository> repositories = new TreeMap<>();
+    private final Map<String, PreprRepository> repositories = new TreeMap<>();
 
     @lombok.Builder(builderClassName = "Builder")
-    public StandaloneMediaConnectRepositories(
-        @Singular Map<String, MediaConnectRepository> repositories) {
+    public StandalonePreprRepositories(
+        @Singular Map<String, PreprRepository> repositories) {
         this.repositories.putAll(repositories);
     }
 
 
     /**
-     * <p>Given a map of properties, created a an instant of {@link StandaloneMediaConnectRepositories}.
+     * <p>Given a map of properties, created a an instant of {@link StandalonePreprRepositories}.
      *</p>
      * <p>
      * It will use properties like
@@ -42,14 +42,14 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
      *     prepr.clientId.<CHANNEL>
      * }</code>
      * <p>
-     * to determin which {@link MediaConnectRepository}s most be instantiated and configured with other properties like:
+     * to determin which {@link PreprRepository}s most be instantiated and configured with other properties like:
      * </p>
      *  <code>{@literal
      *          mediaconnect.<property>.<CHANNEL>
      * }</code>
      */
-    public static StandaloneMediaConnectRepositories fromMap(Map<String, String> configuration) {
-        Builder builder = StandaloneMediaConnectRepositories.builder();
+    public static StandalonePreprRepositories fromMap(Map<String, String> configuration) {
+        Builder builder = StandalonePreprRepositories.builder();
         String prefix = "prepr.clientId.";
         List<String> channels = configuration.entrySet().stream()
             .filter((e) -> StringUtils.isNotBlank(e.getValue()))
@@ -61,7 +61,7 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
             String secret = configuration.get("prepr.clientSecret." + channel);
             if (StringUtils.isNotEmpty(secret)) {
                 builder.repository(channel,
-                    MediaConnectRepositoryImpl
+                    PreprRepositoryImpl
                         .configured(configuration, channel)
                 );
             } else {
@@ -75,12 +75,12 @@ public class StandaloneMediaConnectRepositories implements MediaConnectRepositor
 
     @Override
     @Nonnull
-    public Iterator<MediaConnectRepository> iterator() {
+    public Iterator<PreprRepository> iterator() {
         return repositories.values().iterator();
     }
 
     @Override
-    public Optional<MediaConnectRepository> get(String channel) {
+    public Optional<PreprRepository> get(String channel) {
         return Optional.ofNullable(repositories.get(channel));
     }
     @Override

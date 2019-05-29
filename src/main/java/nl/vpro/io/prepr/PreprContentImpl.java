@@ -10,13 +10,11 @@ import com.google.api.client.http.GenericUrl;
 import nl.vpro.io.prepr.domain.MCContent;
 import nl.vpro.io.prepr.domain.MCItems;
 
-import static nl.vpro.io.prepr.Fields.*;
-
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public class MediaConnectContentImpl implements MediaConnectContent {
+public class PreprContentImpl implements PreprContent {
 
     public static Fields PUBLICATION_FIELDS = Fields.builder()
         .fs("container", "tags", "custom", "channel")
@@ -33,9 +31,9 @@ public class MediaConnectContentImpl implements MediaConnectContent {
         )
     .build();
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
-    public MediaConnectContentImpl(MediaConnectRepositoryClient impl) {
+    public PreprContentImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 

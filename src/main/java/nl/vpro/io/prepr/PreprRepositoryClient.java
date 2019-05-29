@@ -39,7 +39,7 @@ import nl.vpro.io.prepr.domain.MCObjectMapper;
  * @since 0.1
  */
 @Named
-public class MediaConnectRepositoryClient implements MediaConnectRepositoryClientMXBean {
+public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     private static String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
@@ -103,7 +103,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
 
 
     @lombok.Builder(builderClassName = "Builder")
-    MediaConnectRepositoryClient(
+    PreprRepositoryClient(
         // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
         @Nullable @Named("prepr.api") String api,
         @Nonnull String channel,
@@ -122,7 +122,7 @@ public class MediaConnectRepositoryClient implements MediaConnectRepositoryClien
         if (logAsCurl != null) {
             this.logAsCurl = logAsCurl;
         }
-        this.log = LoggerFactory.getLogger(MediaConnectRepositoryImpl.class.getName() + "." + channel);
+        this.log = LoggerFactory.getLogger(PreprRepositoryImpl.class.getName() + "." + channel);
         this.description = description;
         this.getInitializer  = request -> {
             request.setConnectTimeout((int) connectTimeoutForGet.toMillis());

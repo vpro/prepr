@@ -7,7 +7,7 @@ import nl.vpro.io.prepr.domain.MCItems;
  * @author Michiel Meeuwissen
  * @since ...
  */
-public interface MediaConnectAssets {
+public interface PreprAssets {
 
 
     MCItems<MCAsset> get(Paging paging);

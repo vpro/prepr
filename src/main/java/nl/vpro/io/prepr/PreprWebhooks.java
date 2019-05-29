@@ -9,7 +9,7 @@ import nl.vpro.io.prepr.domain.MCWebhook;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectWebhooks {
+public interface PreprWebhooks {
 
     MCItems<MCWebhook> get(Paging paging);
 

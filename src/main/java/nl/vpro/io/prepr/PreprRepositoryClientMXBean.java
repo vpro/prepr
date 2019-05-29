@@ -4,7 +4,7 @@ package nl.vpro.io.prepr;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectRepositoryClientMXBean {
+public interface PreprRepositoryClientMXBean {
     Integer getRateLimitReset();
     Integer getRateLimitHourRemaining();
     Integer getRateLimitHourLimit();

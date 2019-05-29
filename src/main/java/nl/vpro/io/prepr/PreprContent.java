@@ -10,7 +10,7 @@ import nl.vpro.io.prepr.domain.MCItems;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectContent {
+public interface PreprContent {
 
 
     MCItems<?> getPublicationsForChannel(

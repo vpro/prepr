@@ -12,18 +12,18 @@ package nl.vpro.io.prepr;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectRepository {
+public interface PreprRepository {
 
-    MediaConnectPrepr     getPrepr();
-    MediaConnectGuides    getGuides();
-    MediaConnectWebhooks  getWebhooks();
-    MediaConnectAssets    getAssets();
-    MediaConnectContent   getContent();
-    MediaConnectTags      getTags();
-    MediaConnectContainers getContainers();
-    MediaConnectPersons getPersons();
+    PreprPrepr getPrepr();
+    PreprGuides getGuides();
+    PreprWebhooks getWebhooks();
+    PreprAssets getAssets();
+    PreprContent getContent();
+    PreprTags getTags();
+    PreprContainers getContainers();
+    PreprPersons getPersons();
 
-    MediaConnectRepositoryClient getClient();
+    PreprRepositoryClient getClient();
 
     String getChannel();
 

@@ -29,7 +29,7 @@ import nl.vpro.io.prepr.*;
  */
 @Slf4j
 @Configuration
-public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
+public abstract class AbstractSpringPreprRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
 
     private final static String PREF = "prepr";
     private final static String CPREF = "preprrepository";
@@ -38,12 +38,12 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
     private final String[] propertiesResources;
     private Provider<Map<String, String>> moreProperties = HashMap::new;
 
-    public AbstractSpringMediaConnectRepositoriesConfiguration(String... propertiesResources) {
+    public AbstractSpringPreprRepositoriesConfiguration(String... propertiesResources) {
         this.propertiesResources = propertiesResources;
     }
 
 
-    public AbstractSpringMediaConnectRepositoriesConfiguration() {
+    public AbstractSpringPreprRepositoriesConfiguration() {
         this("prepr.properties");
     }
 
@@ -77,7 +77,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
                 continue;
             }
             AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder
-                .genericBeanDefinition(MediaConnectRepositoryClient.class)
+                .genericBeanDefinition(PreprRepositoryClient.class)
                 .addConstructorArgValue(get(properties, "api"))
                 .addConstructorArgValue(channel)
                 .addConstructorArgValue(get(properties, "clientId", channel))
@@ -90,20 +90,20 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
             beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel,
                 beanDefinition);
 
-            define(beanDefinitionRegistry, "prepr", MediaConnectPreprImpl.class, channel);
-            define(beanDefinitionRegistry, "guides", MediaConnectGuidesImpl.class, channel);
-            define(beanDefinitionRegistry, "webhooks", MediaConnectWebhooksImpl.class, channel);
-            define(beanDefinitionRegistry, "assets", MediaConnectAssetsImpl.class, channel);
-            define(beanDefinitionRegistry, "content", MediaConnectContentImpl.class, channel);
-            define(beanDefinitionRegistry, "tags", MediaConnectTagsImpl.class, channel);
-            define(beanDefinitionRegistry, "containers", MediaConnectContainersImpl.class, channel);
-            define(beanDefinitionRegistry, "persons", MediaConnectPersonsImpl.class, channel);
+            define(beanDefinitionRegistry, "prepr", PreprPreprImpl.class, channel);
+            define(beanDefinitionRegistry, "guides", PreprGuidesImpl.class, channel);
+            define(beanDefinitionRegistry, "webhooks", PreprWebhooksImpl.class, channel);
+            define(beanDefinitionRegistry, "assets", PreprAssetsImpl.class, channel);
+            define(beanDefinitionRegistry, "content", PreprContentImpl.class, channel);
+            define(beanDefinitionRegistry, "tags", PreprTagsImpl.class, channel);
+            define(beanDefinitionRegistry, "containers", PreprContainersImpl.class, channel);
+            define(beanDefinitionRegistry, "persons", PreprPersonsImpl.class, channel);
 
 
 
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
                 BeanDefinitionBuilder
-                    .genericBeanDefinition(MediaConnectRepositoryImpl.class)
+                    .genericBeanDefinition(PreprRepositoryImpl.class)
                     .addConstructorArgReference(CLIENT_PREF + "." + channel)
                     .addConstructorArgReference(CPREF + ".prepr." + channel)
                     .addConstructorArgReference(CPREF + ".guides." + channel)
@@ -118,7 +118,7 @@ public abstract class AbstractSpringMediaConnectRepositoriesConfiguration implem
 
         }
         beanDefinitionRegistry.registerBeanDefinition("preprrepositories",
-            BeanDefinitionBuilder.genericBeanDefinition(SpringMediaConnectRepositories.class).getBeanDefinition());
+            BeanDefinitionBuilder.genericBeanDefinition(SpringPreprRepositories.class).getBeanDefinition());
 
     }
 

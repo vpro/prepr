@@ -9,7 +9,7 @@ import nl.vpro.io.prepr.domain.MCSchedule;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface MediaConnectPrepr {
+public interface PreprPrepr {
 
     @Deprecated
     MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);

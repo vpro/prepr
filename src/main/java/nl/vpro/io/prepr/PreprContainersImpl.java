@@ -14,17 +14,17 @@ import nl.vpro.io.prepr.domain.MCTimeline;
  * @since 0.3
  */
 @Named
-public class MediaConnectContainersImpl implements MediaConnectContainers {
+public class PreprContainersImpl implements PreprContainers {
 
     public static Fields TIMELINE_FIELDS = Fields.builder()
         .f("publications")
         .field(Fields.ASSETS)
         .build();
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
     @Inject
-    public MediaConnectContainersImpl(MediaConnectRepositoryClient impl) {
+    public PreprContainersImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 

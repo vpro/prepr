@@ -10,25 +10,23 @@ import com.google.api.client.http.GenericUrl;
 
 import nl.vpro.io.prepr.domain.MCSchedule;
 
-import static nl.vpro.io.prepr.Fields.SOURCEFILE_FIELD;
-
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Named
-public class MediaConnectPreprImpl implements MediaConnectPrepr {
+public class PreprPreprImpl implements PreprPrepr {
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
     @Inject
-    public MediaConnectPreprImpl(MediaConnectRepositoryClient impl) {
+    public PreprPreprImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 
 
     /**
-     * @deprecated Use {@link MediaConnectGuides#getSchedule(UUID, LocalDate, LocalDate)})
+     * @deprecated Use {@link PreprGuides#getSchedule(UUID, LocalDate, LocalDate)})
      */
     @Override
     @Deprecated

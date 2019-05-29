@@ -15,9 +15,9 @@ import nl.vpro.io.prepr.domain.MCPerson;
  * @since 0.3
  */
 @Named
-public class MediaConnectPersonsImpl implements MediaConnectPersons {
+public class PreprPersonsImpl implements PreprPersons {
 
-    private  final MediaConnectRepositoryClient impl;
+    private  final PreprRepositoryClient impl;
 
 
     private final Fields PERSON_FIELDS = Fields.builder()
@@ -34,7 +34,7 @@ public class MediaConnectPersonsImpl implements MediaConnectPersons {
 
 
     @Inject
-    public MediaConnectPersonsImpl(MediaConnectRepositoryClient impl) {
+    public PreprPersonsImpl(PreprRepositoryClient impl) {
         this.impl = impl;
     }
 
