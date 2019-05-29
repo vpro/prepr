@@ -1,6 +1,7 @@
 package nl.vpro.io.prepr.domain;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -41,16 +42,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = MCWeatherTalk.class, name = "WeatherTalk"),
     @JsonSubTypes.Type(value = MCCommercial.class, name = "Commercial"),
     @JsonSubTypes.Type(value = MCNewsBulletin.class, name = "NewsBulletin")
-
-
-
-
-
-
 })
+@Slf4j
 public class MCAbstractObject  {
 
-    public static String CRID_PREFIX =  "crid://prepr.io/";
+    public static final String CRID_PREFIX =  "crid://prepr.io/";
 
     /**
      * Ik dacht dat ids altijd UUID's waren?
@@ -75,6 +71,9 @@ public class MCAbstractObject  {
 
     public String getCrid() {
         String label = getLabel();
+        if (label == null) {
+            log.warn("No label for {}", this);
+        }
         return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
     }
 

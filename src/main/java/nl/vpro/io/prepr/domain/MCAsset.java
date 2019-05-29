@@ -2,9 +2,13 @@ package nl.vpro.io.prepr.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Michiel Meeuwissen
@@ -12,6 +16,7 @@ import java.util.Map;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Slf4j
 public abstract class MCAsset extends MCAbstractObject {
 
     public static String REFERENCE_CRID_PREFIX =  CRID_PREFIX + "reference/";
@@ -49,8 +54,11 @@ public abstract class MCAsset extends MCAbstractObject {
     List<MCTag> tags;
 
 
-    public String getCridForReference(MCPost post) {
-        return reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id + "/post/" + post.getId();
+    public Optional<String> getCridForReference(@Nonnull MCPost post) {
+        if (reference_id == null) {
+            log.info("Asset {} has no reference_id", this);
+        }
+        return Optional.ofNullable(reference_id == null ? null : REFERENCE_CRID_PREFIX + reference_id + "/post/" + post.getId());
     }
 
 
