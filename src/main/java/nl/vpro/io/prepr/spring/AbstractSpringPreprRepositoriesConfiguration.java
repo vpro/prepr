@@ -3,6 +3,7 @@ package nl.vpro.io.prepr.spring;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,6 +101,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
             define(beanDefinitionRegistry, "persons", PreprPersonsImpl.class, channel);
 
 
+            String baseUrl = get(properties, "baseUrl", channel);
 
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
                 BeanDefinitionBuilder
@@ -113,6 +115,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                     .addConstructorArgReference(CPREF + ".tags." + channel)
                     .addConstructorArgReference(CPREF + ".containers." + channel)
                     .addConstructorArgReference(CPREF + ".persons." + channel)
+                    .addConstructorArgValue(baseUrl == null ? null : URI.create(baseUrl))
                     .getBeanDefinition()
             );
 

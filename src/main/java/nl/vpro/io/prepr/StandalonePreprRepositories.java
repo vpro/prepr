@@ -45,7 +45,7 @@ public class StandalonePreprRepositories implements PreprRepositories {
      * to determin which {@link PreprRepository}s most be instantiated and configured with other properties like:
      * </p>
      *  <code>{@literal
-     *          mediaconnect.<property>.<CHANNEL>
+     *          prepr.<property>.<CHANNEL>
      * }</code>
      */
     public static StandalonePreprRepositories fromMap(Map<String, String> configuration) {
