@@ -14,8 +14,8 @@ This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a f
 
 Example code:
 ```java
-   MediaConnectRepositoryImpl impl = new MediaConnectRepositoryImpl(
-       MediaConnectRepository.
+   PreprRepositoryImpl impl = new PreprRepositoryImpl(
+       Prepr.
         .builder()
         .clientId("<your client id>")
         .clientSecret("<your client secret>")
@@ -32,16 +32,16 @@ Example code:
 ```
 It is also possible to instantiate a bunch of  repositories using spring
 ```xml
-  <bean class="nl.vpro.io.prepr.spring.SpringMediaConnectRepositoriesConfiguration">
+  <bean class="nl.vpro.io.prepr.spring.SpringPreprRepositoriesConfiguration">
     <constructor-arg value="media.properties" />
   </bean>
 ```
-This will create MediaConnectRepositoryImpl beans ``prepr.<channel>``, and also one instance of ``MediaConnectRepositories``
+This will create ``PreprRepositoryImpl`` beans ``prepr.<channel>``, and also one instance of ``PreprRepositories``
 
 
 Something similar can also be accomplished without spring
 ```java
-nl.vpro.io.prepr.StandaloneMediaConnectRepositories.fromMap()
+nl.vpro.io.prepr.StandalonePreprRepositories.fromMap()
 
 ```
 (note that ``@CacheResult`` is not working then.)
