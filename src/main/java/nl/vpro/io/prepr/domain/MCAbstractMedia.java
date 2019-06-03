@@ -2,6 +2,7 @@ package nl.vpro.io.prepr.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -20,6 +21,7 @@ import nl.vpro.jackson2.DurationToJsonTimestamp;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Slf4j
 public abstract class MCAbstractMedia extends MCAsset {
 
     @JsonSerialize(using = DurationToJsonTimestamp.Serializer.class)
@@ -38,6 +40,7 @@ public abstract class MCAbstractMedia extends MCAsset {
         // We gaan er nu vanuit dat een filmpje een 'segment' is, als het 'enclosed' is in het uur waarmee het geassocieerd is
 
         if (getStarted_on() == null) {
+            log.debug("Asset {} is not a segment because it has not started_on", this);
             return false;
         }
         Range<Instant> range;
