@@ -3,7 +3,7 @@ package nl.vpro.io.prepr;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCSchedule;
+import nl.vpro.io.prepr.domain.PreprSchedule;
 
 /**
  * @author Michiel Meeuwissen
@@ -12,10 +12,10 @@ import nl.vpro.io.prepr.domain.MCSchedule;
 public interface PreprPrepr {
 
     @Deprecated
-    MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
+    PreprSchedule getSchedule(UUID channel, LocalDate from, LocalDate until);
 
     @Deprecated
-    default MCSchedule getSchedule(UUID channel, LocalDate from) {
+    default PreprSchedule getSchedule(UUID channel, LocalDate from) {
         return getSchedule(channel, from, from);
     }
 

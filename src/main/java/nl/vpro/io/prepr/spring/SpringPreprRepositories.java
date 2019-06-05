@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContextAware;
 import nl.vpro.io.prepr.PreprRepositories;
 import nl.vpro.io.prepr.PreprRepository;
 import nl.vpro.io.prepr.Scope;
-import nl.vpro.io.prepr.domain.MCObjectMapper;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 /**
  * @author Michiel Meeuwissen
@@ -75,7 +75,7 @@ public class SpringPreprRepositories implements PreprRepositories, ApplicationCo
         });
         if (applicationContext.containsBean("prepr.lenientjson")) {
             String lenient = applicationContext.getBean("prepr.lenientjson", String.class);
-            MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
+            PreprObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         }
         log.info("{}", repositories.values());
     }

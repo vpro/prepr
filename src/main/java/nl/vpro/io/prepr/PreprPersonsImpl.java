@@ -7,8 +7,8 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCPerson;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprPerson;
 
 /**
  * @author Michiel Meeuwissen
@@ -39,18 +39,18 @@ public class PreprPersonsImpl implements PreprPersons {
     }
 
     @Override
-    public MCPerson get(UUID uuid) {
+    public PreprPerson get(UUID uuid) {
         GenericUrl url = impl.createUrl("persons", uuid.toString());
-        return impl.get(url, MCPerson.class);
+        return impl.get(url, PreprPerson.class);
     }
 
     @Override
-    public MCItems<MCPerson> list(String q) {
+    public PreprItems<PreprPerson> list(String q) {
 
         GenericUrl url = impl.createUrl("persons");
         url.set("q", q);
         url.set("fields", PERSON_FIELDS);
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
 
     }

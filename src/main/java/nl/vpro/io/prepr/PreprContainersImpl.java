@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCTimeline;
+import nl.vpro.io.prepr.domain.PreprTimeline;
 
 /**
  * @author Michiel Meeuwissen
@@ -29,9 +29,9 @@ public class PreprContainersImpl implements PreprContainers {
     }
 
     @Override
-    public MCTimeline getTimeline(UUID id) {
+    public PreprTimeline getTimeline(UUID id) {
         GenericUrl url = impl.createUrl("containers", id);
         url.set("fields", TIMELINE_FIELDS);
-        return impl.get(url, MCTimeline.class);
+        return impl.get(url, PreprTimeline.class);
     }
 }

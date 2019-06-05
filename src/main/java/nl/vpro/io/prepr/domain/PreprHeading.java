@@ -1,0 +1,16 @@
+package nl.vpro.io.prepr.domain;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author Michiel Meeuwissen
+ * @since 0.1
+ */
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@Data
+public class PreprHeading extends PreprAbstractObject {
+
+}

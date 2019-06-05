@@ -2,8 +2,8 @@ package nl.vpro.io.prepr;
 
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCWebhook;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprWebhook;
 
 /**
  * @author Michiel Meeuwissen
@@ -11,13 +11,13 @@ import nl.vpro.io.prepr.domain.MCWebhook;
  */
 public interface PreprWebhooks {
 
-    MCItems<MCWebhook> get(Paging paging);
+    PreprItems<PreprWebhook> get(Paging paging);
 
-    default MCItems<MCWebhook> get() {
+    default PreprItems<PreprWebhook> get() {
         return get(Paging.builder().build());
     }
 
-    MCWebhook create(String url, String... events);
+    PreprWebhook create(String url, String... events);
 
     void delete(UUID webhook);
 }

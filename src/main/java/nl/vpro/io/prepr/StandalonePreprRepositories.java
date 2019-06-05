@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 
 import org.apache.commons.lang3.StringUtils;
 
-import nl.vpro.io.prepr.domain.MCObjectMapper;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 /**
  * Maintains a map of {@link PreprRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
@@ -69,7 +69,7 @@ public class StandalonePreprRepositories implements PreprRepositories {
             }
         }
         String lenient = configuration.get("prepr.lenientjson");
-        MCObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
+        PreprObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         return builder.build();
     }
 

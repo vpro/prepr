@@ -13,6 +13,7 @@ import java.util.UUID;
 import org.junit.Test;
 
 import nl.vpro.io.prepr.domain.*;
+import nl.vpro.io.prepr.domain.PreprContent;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -36,7 +37,7 @@ public class PreprRepositoryImplITest {
 
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     {
-        MCObjectMapper.configureInstance(false);
+        PreprObjectMapper.configureInstance(false);
     }
 /*
 
@@ -67,10 +68,10 @@ public class PreprRepositoryImplITest {
     @Test
     public void getSchedule() {
         LocalDate firstDate = LocalDate.of(2019, 6, 8);
-        MCSchedule schedule1 = getSchedule(funx, firstDate);
-        Optional<MCEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
-        MCSchedule schedule2 = getSchedule(funx, firstDate.plusDays(1));
-        Optional<MCEvent> firstEvent = schedule2.getDays().values().stream().reduce((a, b) -> a).map(l -> l.stream().reduce((a, b) -> a)).get();
+        PreprSchedule schedule1 = getSchedule(funx, firstDate);
+        Optional<PreprEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
+        PreprSchedule schedule2 = getSchedule(funx, firstDate.plusDays(1));
+        Optional<PreprEvent> firstEvent = schedule2.getDays().values().stream().reduce((a, b) -> a).map(l -> l.stream().reduce((a, b) -> a)).get();
 
         log.info("last: {}", lastEvent);
         log.info("first: {}", firstEvent);
@@ -80,13 +81,13 @@ public class PreprRepositoryImplITest {
 
 
 
-    protected MCSchedule getSchedule(PreprRepository impl, LocalDate date) {
+    protected PreprSchedule getSchedule(PreprRepository impl, LocalDate date) {
 
-        MCSchedule schedule = impl.getGuides().getSchedule(date);
+        PreprSchedule schedule = impl.getGuides().getSchedule(date);
         log.info("schedule: {}", schedule);
-        for (Map.Entry<LocalDate, List<MCEvent>> e : schedule) {
+        for (Map.Entry<LocalDate, List<PreprEvent>> e : schedule) {
             log.info("{}", e.getKey());
-            for (MCEvent event : e.getValue()) {
+            for (PreprEvent event : e.getValue()) {
                 log.info("  {}", event);
             }
         }
@@ -98,8 +99,8 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getGuides() {
-        MCItems<MCGuide> result = rad2.getGuides().getGuides(null);
-        for (MCGuide guide : result) {
+        PreprItems<PreprGuide> result = rad2.getGuides().getGuides(null);
+        for (PreprGuide guide : result) {
             log.info("guide: {}", guide);
         }
     }
@@ -109,8 +110,8 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getGuidesFunx() {
-        MCItems<MCGuide> result = funx.getGuides().getGuides(null);
-        for (MCGuide guide : result) {
+        PreprItems<PreprGuide> result = funx.getGuides().getGuides(null);
+        for (PreprGuide guide : result) {
             log.info("guide: {}", guide);
         }
     }
@@ -119,7 +120,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getPublicationsForChannel() {
-        MCItems<?> publications = rad2.getContent().getPublicationsForChannel(Paging.builder().build(),
+        PreprItems<?> publications = rad2.getContent().getPublicationsForChannel(Paging.builder().build(),
             UUID.fromString("8efcb3c7-8b23-4520-9d59-0c076d89ff01"),  // Channel.RAD5)
                 null, null);
         log.info("publications : {}", publications);
@@ -129,7 +130,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        MCContent publications = funx.getContent().getPublication(
+        PreprContent publications = funx.getContent().getPublication(
             UUID.fromString("0c83faf9-2524-4ebe-a26f-070be9ec4415") // an post?
         );
         log.info("publications : {}", publications);
@@ -138,7 +139,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getArchivedPublication() {
-        MCContent publications = rad2.getContent().getPublication(
+        PreprContent publications = rad2.getContent().getPublication(
             UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
         log.info("publications : {}", publications);
@@ -221,7 +222,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getChannels() {
-        MCItems<?> publications = funx.getContent()
+        PreprItems<?> publications = funx.getContent()
             .getChannels(Paging.builder().build());
         log.info("channels : {}", publications);
     }
@@ -231,7 +232,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getContainers() {
-        MCItems<?> publications = rad2.getContent()
+        PreprItems<?> publications = rad2.getContent()
             .getContainers(Paging.builder().build());
         log.info("channels : {}", publications);
     }
@@ -257,9 +258,9 @@ public class PreprRepositoryImplITest {
     @Test
     public void getWebhooksAndDelete() {
         PreprRepository repo = funx;
-        MCItems<MCWebhook> webhooks = repo.getWebhooks().get(limit(100L));
+        PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
-        for (MCWebhook webhook : webhooks) {
+        for (PreprWebhook webhook : webhooks) {
             log.info("Found webook {}", webhook);
             if (webhook.getCallback_url().startsWith("https://api-proxy")) {
                 log.info("Deleting {}", webhook);
@@ -282,7 +283,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getAsssets() {
-        MCItems<MCAsset> assets  = rad2.getAssets().get(limit(100L));
+        PreprItems<PreprAsset> assets  = rad2.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
 
 
@@ -290,7 +291,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        MCTimeline timeline = rad2.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
+        PreprTimeline timeline = rad2.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
         log.info("timeline: {}", timeline);
 
 
@@ -299,7 +300,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getPerson() {
-        MCPerson person = funx.getPersons().get(UUID.fromString("6ab9b623-6815-4696-b276-de43cde4d06f"));
+        PreprPerson person = funx.getPersons().get(UUID.fromString("6ab9b623-6815-4696-b276-de43cde4d06f"));
         log.info("psers: {}", person);
 
 

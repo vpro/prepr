@@ -17,13 +17,13 @@ import nl.vpro.io.prepr.domain.*;
 public interface PreprGuides {
 
 
-    MCSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId);
+    PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId);
 
     /**
-     * Performs {@link #getSchedule(LocalDateTime, LocalDateTime)}, and wraps the result into a list of {@link MCEventWithDay}
+     * Performs {@link #getSchedule(LocalDateTime, LocalDateTime)}, and wraps the result into a list of {@link PreprEventWithDay}
      */
 
-    default List<MCEventWithDay> getSchedule(@Nonnull  LocalDateTime from, @Nonnull  LocalDateTime until) {
+    default List<PreprEventWithDay> getSchedule(@Nonnull  LocalDateTime from, @Nonnull  LocalDateTime until) {
 
         // broadcasts may span 0 o'clock, so we need the day before and after too, to make sure that we get only _complete_ broadcasts
         LocalDate fromDate = from.toLocalDate().minusDays(1);
@@ -32,19 +32,19 @@ public interface PreprGuides {
             // Well if the until day is exactly at the start of day, so actually belonging to the next day, we don't need any data for it.
             untilDate = untilDate.minusDays(1);
         }
-        MCSchedule unfilteredResult = getSchedule(fromDate, untilDate, true, null);
-        return MCEventWithDay.fromSchedule(unfilteredResult, from, until);
+        PreprSchedule unfilteredResult = getSchedule(fromDate, untilDate, true, null);
+        return PreprEventWithDay.fromSchedule(unfilteredResult, from, until);
     }
 
-    default MCSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until) {
+    default PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until) {
         return getSchedule(from, until, true, null);
     }
 
-    default MCSchedule getSchedule(@Nonnull LocalDate from) {
+    default PreprSchedule getSchedule(@Nonnull LocalDate from) {
         return getSchedule(from, from);
     }
 
-     MCItems<MCGuide> getGuides(@Nonnull String q);
+     PreprItems<PreprGuide> getGuides(@Nonnull String q);
 
 
 }

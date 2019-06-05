@@ -3,8 +3,7 @@ package nl.vpro.io.prepr;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCContent;
-import nl.vpro.io.prepr.domain.MCItems;
+import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
  * @author Michiel Meeuwissen
@@ -13,25 +12,25 @@ import nl.vpro.io.prepr.domain.MCItems;
 public interface PreprContent {
 
 
-    MCItems<?> getPublicationsForChannel(
+    PreprItems<?> getPublicationsForChannel(
         Paging paging,
         UUID channel,
         LocalDateTime event_from,
         LocalDateTime event_utils
     );
 
-    <T extends MCContent> T getPublication(
+    <T extends nl.vpro.io.prepr.domain.PreprContent> T getPublication(
         UUID id
     );
 
 
-    MCItems<?> getChannels(Paging paging);
+    PreprItems<?> getChannels(Paging paging);
 
 
-    MCItems<?> getContainers(Paging paging);
+    PreprItems<?> getContainers(Paging paging);
 
 
-    <T extends MCContent> T getContainer(
+    <T extends nl.vpro.io.prepr.domain.PreprContent> T getContainer(
         UUID id
     );
 

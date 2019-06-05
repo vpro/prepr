@@ -29,7 +29,7 @@ import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import nl.vpro.io.prepr.domain.MCObjectMapper;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 
 /**
@@ -172,7 +172,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     protected <T> T _get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
-        return MCObjectMapper.INSTANCE.readerFor(clazz)
+        return PreprObjectMapper.INSTANCE.readerFor(clazz)
             .readValue(execute.getContent());
     }
 
@@ -217,7 +217,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @SneakyThrows(IOException.class)
     protected HttpResponse put(GenericUrl url, Object o)  {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        MCObjectMapper.INSTANCE.writeValue(outputStream, o);
+        PreprObjectMapper.INSTANCE.writeValue(outputStream, o);
         return execute(NET_HTTP_TRANSPORT.createRequestFactory()
             .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray())));
     }
@@ -250,7 +250,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @SneakyThrows(IOException.class)
     protected <T> T post(GenericUrl url, Map<String, Object> map, Class<T> clazz) {
         HttpResponse execute = post(url, map);
-        return MCObjectMapper.INSTANCE.readerFor(clazz)
+        return PreprObjectMapper.INSTANCE.readerFor(clazz)
             .readValue(execute.getContent());
     }
 

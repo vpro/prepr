@@ -2,8 +2,8 @@ package nl.vpro.io.prepr;
 
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCPerson;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprPerson;
 
 /**
  * @author Michiel Meeuwissen
@@ -12,7 +12,7 @@ import nl.vpro.io.prepr.domain.MCPerson;
 public interface PreprPersons {
 
 
-    MCPerson get(UUID uuid);
+    PreprPerson get(UUID uuid);
 
-    MCItems<MCPerson> list(String q);
+    PreprItems<PreprPerson> list(String q);
 }

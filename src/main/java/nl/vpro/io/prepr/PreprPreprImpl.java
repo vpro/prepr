@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCSchedule;
+import nl.vpro.io.prepr.domain.PreprSchedule;
 
 /**
  * @author Michiel Meeuwissen
@@ -30,7 +30,7 @@ public class PreprPreprImpl implements PreprPrepr {
      */
     @Override
     @Deprecated
-    public MCSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
+    public PreprSchedule getSchedule(UUID channel, LocalDate from, LocalDate until) {
         GenericUrl url = impl.createUrl("prepr", "schedules", channel,  "guide");
         if (from != null) {
             url.set("from", from.toString());
@@ -41,7 +41,7 @@ public class PreprPreprImpl implements PreprPrepr {
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
 
-        return impl.get(url, MCSchedule.class);
+        return impl.get(url, PreprSchedule.class);
     }
 
 

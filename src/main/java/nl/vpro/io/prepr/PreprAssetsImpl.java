@@ -5,8 +5,8 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCAsset;
-import nl.vpro.io.prepr.domain.MCItems;
+import nl.vpro.io.prepr.domain.PreprAsset;
+import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
  * @author Michiel Meeuwissen
@@ -26,11 +26,11 @@ public class PreprAssetsImpl implements PreprAssets {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCAsset> get(Paging paging) {
+    public PreprItems<PreprAsset> get(Paging paging) {
         GenericUrl url = impl.createUrl("assets");
         impl.addListParameters(url, paging);
         url.set("fields", "name,body,reference,source_file,duration");
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
     }
 }

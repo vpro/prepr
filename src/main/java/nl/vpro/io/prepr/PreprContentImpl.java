@@ -7,14 +7,14 @@ import javax.annotation.Nonnull;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCContent;
-import nl.vpro.io.prepr.domain.MCItems;
+import nl.vpro.io.prepr.domain.PreprContent;
+import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public class PreprContentImpl implements PreprContent {
+public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
 
     public static Fields PUBLICATION_FIELDS = Fields.builder()
         .fs("container", "tags", "custom", "channel")
@@ -38,7 +38,7 @@ public class PreprContentImpl implements PreprContent {
     }
 
     @Override
-    public MCItems<?> getPublicationsForChannel(
+    public PreprItems<?> getPublicationsForChannel(
         Paging paging, @Nonnull UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
         GenericUrl url = impl.createUrl("publications");
         impl.addListParameters(url, paging);
@@ -50,19 +50,19 @@ public class PreprContentImpl implements PreprContent {
         if (event_until != null) {
             url.set("event_until", event_until);
         }
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
     }
 
 
 
     @SuppressWarnings("unchecked")
     @Override
-    public  <T extends MCContent> T getPublication(
+    public  <T extends PreprContent> T getPublication(
         @Nonnull  UUID id) {
         GenericUrl url = impl.createUrl("publications", id.toString());
 
         url.set("fields", PUBLICATION_FIELDS);
-        T result = (T) impl.get(url, MCContent.class);
+        T result = (T) impl.get(url, PreprContent.class);
         return result;
     }
 
@@ -70,30 +70,30 @@ public class PreprContentImpl implements PreprContent {
 
 
     @Override
-    public MCItems<?> getChannels(Paging paging) {
+    public PreprItems<?> getChannels(Paging paging) {
         GenericUrl url = impl.createUrl("channels");
         impl.addListParameters(url, paging);
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
 
     }
 
     @Override
-    public MCItems<?> getContainers(Paging paging) {
+    public PreprItems<?> getContainers(Paging paging) {
         GenericUrl url = impl.createUrl("containers");
         impl.addListParameters(url, paging);
         url.set("fields", PUBLICATION_FIELDS);
 
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
     }
 
     @Override
-    public <T extends MCContent> T getContainer(UUID id) {
+    public <T extends PreprContent> T getContainer(UUID id) {
         GenericUrl url = impl.createUrl("containers", id.toString());
         //url.set("label", "Post");
 
         url.set("fields", PUBLICATION_FIELDS);
-        T result = (T) impl.get(url, MCContent.class);
+        T result = (T) impl.get(url, PreprContent.class);
         return result;
 
     }

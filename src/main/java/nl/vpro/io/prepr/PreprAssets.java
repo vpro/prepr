@@ -1,7 +1,7 @@
 package nl.vpro.io.prepr;
 
-import nl.vpro.io.prepr.domain.MCAsset;
-import nl.vpro.io.prepr.domain.MCItems;
+import nl.vpro.io.prepr.domain.PreprAsset;
+import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
  * @author Michiel Meeuwissen
@@ -10,9 +10,9 @@ import nl.vpro.io.prepr.domain.MCItems;
 public interface PreprAssets {
 
 
-    MCItems<MCAsset> get(Paging paging);
+    PreprItems<PreprAsset> get(Paging paging);
 
-    default MCItems<MCAsset> get() {
+    default PreprItems<PreprAsset> get() {
         return get(Paging.builder().build());
     }
 

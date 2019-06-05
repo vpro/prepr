@@ -13,9 +13,9 @@ import javax.inject.Named;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpResponse;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCObjectMapper;
-import nl.vpro.io.prepr.domain.MCWebhook;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import nl.vpro.io.prepr.domain.PreprWebhook;
 
 /**
  * @author Michiel Meeuwissen
@@ -33,15 +33,15 @@ public class PreprWebhooksImpl implements PreprWebhooks {
 
     @SuppressWarnings("unchecked")
     @Override
-    public MCItems<MCWebhook> get(Paging paging) {
+    public PreprItems<PreprWebhook> get(Paging paging) {
         GenericUrl url = impl.createUrl("webhooks");
         impl.addListParameters(url, paging);
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
     }
 
     @Override
     @SneakyThrows(IOException.class)
-    public MCWebhook create(String callback_url, String... events)  {
+    public PreprWebhook create(String callback_url, String... events)  {
         GenericUrl url = impl.createUrl("webhooks");
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
@@ -51,7 +51,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
 
 
         HttpResponse response = impl.post(url, post);
-        return MCObjectMapper.INSTANCE.readerFor(MCWebhook.class)
+        return PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)
             .readValue(response.getContent());
     }
 

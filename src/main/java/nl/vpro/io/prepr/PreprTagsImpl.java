@@ -10,9 +10,9 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCTag;
-import nl.vpro.io.prepr.domain.MCTagGroup;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprTag;
+import nl.vpro.io.prepr.domain.PreprTagGroup;
 
 /**
  * TODO Cacheable annotations need to be implemented by proxy. That does not really work togehter with {@link StandalonePreprRepositories} we now use to implement a bunch of these.
@@ -31,37 +31,37 @@ public class PreprTagsImpl implements PreprTags {
     }
 
 
-    public MCItems<MCTagGroup> createGroup(Paging paging, String name) {
+    public PreprItems<PreprTagGroup> createGroup(Paging paging, String name) {
         GenericUrl url = impl.createUrl("taggroups");
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("visible", true);
 
-        return impl.post(url, map, MCItems.class);
+        return impl.post(url, map, PreprItems.class);
 
 
     }
 
 
     @Override
-    public MCItems<MCTagGroup> getGroups(Paging paging, String q) {
+    public PreprItems<PreprTagGroup> getGroups(Paging paging, String q) {
         GenericUrl url = impl.createUrl("taggroups");
         if (q != null) {
             url.set("q", q);
         }
         url.set("fields", "tags");
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
 
     }
 
     @Override
     @CacheResult(cacheName = "PreprTagsImpl.getTags")
-    public MCItems<MCTag> getTags(UUID tagGroup) {
+    public PreprItems<PreprTag> getTags(UUID tagGroup) {
         GenericUrl url = impl.createUrl("taggroups", tagGroup.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "tags");
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
 
     }
@@ -69,11 +69,11 @@ public class PreprTagsImpl implements PreprTags {
 
     @Override
     @CacheResult(cacheName = "PreprTagsImpl.getTag")
-    public MCTag getTag(UUID tag) {
+    public PreprTag getTag(UUID tag) {
         GenericUrl url = impl.createUrl("tags", tag.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", "tag_groups,tag_types");
-        return impl.get(url, MCTag.class);
+        return impl.get(url, PreprTag.class);
 
 
     }

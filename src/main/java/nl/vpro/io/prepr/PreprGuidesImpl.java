@@ -15,9 +15,9 @@ import javax.inject.Named;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.MCGuide;
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCSchedule;
+import nl.vpro.io.prepr.domain.PreprGuide;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprSchedule;
 
 /**
  * @author Michiel Meeuwissen
@@ -69,8 +69,8 @@ public class PreprGuidesImpl implements PreprGuides {
     }
 
     @Override
-    public MCSchedule getSchedule(@Nonnull  LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
-        List<MCSchedule> results = new ArrayList<>();
+    public PreprSchedule getSchedule(@Nonnull  LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
+        List<PreprSchedule> results = new ArrayList<>();
 
         // page the result. Too big results may give bad requests.
         for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(maxDays)) {
@@ -83,9 +83,9 @@ public class PreprGuidesImpl implements PreprGuides {
         if (results.size() == 1) {
             return results.get(0);
         } else {
-            MCSchedule result = new MCSchedule();
+            PreprSchedule result = new PreprSchedule();
             result.setDays(new HashMap<>());
-            for (MCSchedule r : results) {
+            for (PreprSchedule r : results) {
                 result.getDays().putAll(r.getDays());
             }
             return result;
@@ -96,7 +96,7 @@ public class PreprGuidesImpl implements PreprGuides {
 
 
 
-    private MCSchedule _getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
+    private PreprSchedule _getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
         if (impl.getGuideId() == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }
@@ -109,18 +109,18 @@ public class PreprGuidesImpl implements PreprGuides {
         url.set("exceptions", exceptions);
 
 
-        return impl.get(url, MCSchedule.class);
+        return impl.get(url, PreprSchedule.class);
     }
 
     @Override
-    public MCItems<MCGuide> getGuides(String q) {
+    public PreprItems<PreprGuide> getGuides(String q) {
          GenericUrl url = impl.createUrl("guides");
         if (q!= null) {
             url.set("q", q);
         }
         url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
 
-        return impl.get(url, MCItems.class);
+        return impl.get(url, PreprItems.class);
 
 
     }

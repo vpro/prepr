@@ -2,7 +2,7 @@ package nl.vpro.io.prepr;
 
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCTimeline;
+import nl.vpro.io.prepr.domain.PreprTimeline;
 
 /**
  * https://developers.prepr.io/docs/getting-started-timeline-assets
@@ -12,7 +12,7 @@ import nl.vpro.io.prepr.domain.MCTimeline;
 public interface PreprContainers {
 
 
-    MCTimeline getTimeline(
+    PreprTimeline getTimeline(
         UUID id
     );
 

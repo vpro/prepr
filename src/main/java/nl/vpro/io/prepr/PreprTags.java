@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import nl.vpro.io.prepr.domain.MCItems;
-import nl.vpro.io.prepr.domain.MCTag;
-import nl.vpro.io.prepr.domain.MCTagGroup;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprTag;
+import nl.vpro.io.prepr.domain.PreprTagGroup;
 
 /**
  * @author Michiel Meeuwissen
@@ -15,19 +15,19 @@ import nl.vpro.io.prepr.domain.MCTagGroup;
 public interface PreprTags {
 
 
-    MCItems<MCTagGroup> getGroups(Paging paging, String q);
+    PreprItems<PreprTagGroup> getGroups(Paging paging, String q);
 
-    default MCItems<MCTagGroup> getGroups(Paging paging) {
+    default PreprItems<PreprTagGroup> getGroups(Paging paging) {
         return getGroups(paging, null);
     }
 
-    default Optional<List<MCTag>> getTagsInGroup(String name) {
-        return getGroups(Paging.one(), name).getItems().stream().map(MCTagGroup::getTags).findFirst();
+    default Optional<List<PreprTag>> getTagsInGroup(String name) {
+        return getGroups(Paging.one(), name).getItems().stream().map(PreprTagGroup::getTags).findFirst();
     }
 
-    MCItems<MCTag> getTags(UUID tagGroup);
+    PreprItems<PreprTag> getTags(UUID tagGroup);
 
-    MCTag getTag(UUID tag);
+    PreprTag getTag(UUID tag);
 
 
 
