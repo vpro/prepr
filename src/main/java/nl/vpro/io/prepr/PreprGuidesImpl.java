@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,6 +84,7 @@ public class PreprGuidesImpl implements PreprGuides {
             return results.get(0);
         } else {
             MCSchedule result = new MCSchedule();
+            result.setDays(new HashMap<>());
             for (MCSchedule r : results) {
                 result.getDays().putAll(r.getDays());
             }
