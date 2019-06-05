@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.Range;
+
+import nl.vpro.util.BindingUtils;
 
 /**
  * The guides call returns data in format which is often unsuitable for processing. It will group by day, but broadcasts may span days.
@@ -42,6 +45,13 @@ public class MCEventWithDay {
     MCEventWithDay(LocalDate day, MCEvent mcEvent) {
         this.day = day;
         this.mcEvent = mcEvent;
+    }
+
+    public Instant getFrom() {
+        return asRange().lowerEndpoint().atZone(BindingUtils.DEFAULT_ZONE).toInstant();
+    }
+    public Instant getUntil() {
+        return asRange().upperEndpoint().atZone(BindingUtils.DEFAULT_ZONE).toInstant();
     }
 
     public Range<LocalDateTime> asRange() {
