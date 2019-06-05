@@ -9,7 +9,7 @@ https://prepr.io, https://docs.prepr.io/
 [![snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg)](https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr)
 
 
-This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a future version of it) sychronizes data from mediaconnect for radio related data of the dutch public broadcasters
+This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a future version of it) sychronizes data from prepr for radio related data of the dutch public broadcasters
 
 
 Example code:
