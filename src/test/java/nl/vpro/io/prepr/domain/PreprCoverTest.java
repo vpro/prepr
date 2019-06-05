@@ -20,7 +20,7 @@ public class PreprCoverTest {
     @Test
     public void unmarshal() throws IOException {
         PreprCover cover = PreprObjectMapper.INSTANCE.readerFor(PreprCover.class)
-             .readValue(getClass().getResourceAsStream("/mccover.json"));
+             .readValue(getClass().getResourceAsStream("/cover.json"));
         log.info("{}", cover);
 
 

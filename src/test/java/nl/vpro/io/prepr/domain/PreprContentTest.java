@@ -19,7 +19,7 @@ public class PreprContentTest {
     @Test
     public void unmarshal() throws IOException {
         PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprContent.class)
-             .readValue(getClass().getResourceAsStream("/mccontent.json"));
+             .readValue(getClass().getResourceAsStream("/content.json"));
         log.info("{}", post);
 
 

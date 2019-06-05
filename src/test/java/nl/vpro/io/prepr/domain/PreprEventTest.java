@@ -21,7 +21,7 @@ public class PreprEventTest {
 
     @Test
     public void unmarshal() throws IOException {
-        PreprEvent event  = PreprObjectMapper.INSTANCE.readerFor(PreprEvent.class).readValue(getClass().getResourceAsStream("/mcevent.json"));
+        PreprEvent event  = PreprObjectMapper.INSTANCE.readerFor(PreprEvent.class).readValue(getClass().getResourceAsStream("/event.json"));
 
 
         assertThat(event.getTimelines()).hasSize(2);

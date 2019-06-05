@@ -31,7 +31,7 @@ public class PreprScheduleTest {
     @Test
     public void unmarshal() throws IOException {
         PreprSchedule schedule  = PreprObjectMapper.INSTANCE.readerFor(PreprSchedule.class)
-            .readValue(getClass().getResourceAsStream("/mcschedule.json"));
+            .readValue(getClass().getResourceAsStream("/schedule.json"));
 
         PreprEvent next = schedule.getDays().get(LocalDate.of(2018, 9, 3)).iterator().next();
         assertThat(next.getFrom()).isEqualTo(LocalTime.of(0, 0));

@@ -19,7 +19,7 @@ public class PreprPostTest {
     @Test
     public void unmarshal() throws IOException {
         PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprPost.class)
-             .readValue(getClass().getResourceAsStream("/mcpost.json"));
+             .readValue(getClass().getResourceAsStream("/post.json"));
         log.info("{}", post);
 
 
@@ -30,7 +30,7 @@ public class PreprPostTest {
     @Test
     public void unmarshal2() throws IOException {
         PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprPost.class)
-             .readValue(getClass().getResourceAsStream("/mcpost2.json"));
+             .readValue(getClass().getResourceAsStream("/post2.json"));
         log.info("{}", post);
 
 
@@ -41,7 +41,7 @@ public class PreprPostTest {
     @Test
     public void unmarshal3() throws IOException {
         PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprPost.class)
-             .readValue(getClass().getResourceAsStream("/mcpost3.json"));
+             .readValue(getClass().getResourceAsStream("/post3.json"));
         log.info("{}", post);
         PreprAudio audio = (PreprAudio) ((PreprMedia) post.getElements().get(2)).getContent().get(0);
         assertThat(audio.getDuration()).isEqualTo(Duration.ofMinutes(1));

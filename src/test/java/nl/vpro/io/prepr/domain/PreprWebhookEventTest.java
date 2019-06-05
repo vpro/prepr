@@ -46,7 +46,7 @@ public class PreprWebhookEventTest {
 
 
         PreprWebhookEvent webhook = PreprObjectMapper.INSTANCE.readerFor(PreprWebhookEvent.class)
-            .readValue(getClass().getResourceAsStream("/mcwebhookevent.json"));
+            .readValue(getClass().getResourceAsStream("/webhookevent.json"));
 
         assertThat(webhook.getPayload().get("label").textValue()).isEqualTo("TrackPlay");
 
