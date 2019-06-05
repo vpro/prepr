@@ -1,8 +1,11 @@
 package nl.vpro.io.prepr;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -58,18 +61,37 @@ public class PreprGuidesImpl implements PreprGuides {
     }
 
     @Override
-    public MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions, UUID showId) {
+    public MCSchedule getSchedule(@Nonnull  LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
+        List<MCSchedule> results = new ArrayList<>();
+        for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(2)) {
+            LocalDate u = f.plusDays(2);
+            if (u.compareTo(until) > 0) {
+                u = until;
+            }
+            results.add(_getSchedule(f, u, exceptions, showId));
+        }
+        if (results.size() == 1) {
+            return results.get(0);
+        } else {
+            MCSchedule result = new MCSchedule();
+            for (MCSchedule r : results) {
+                result.getDays().putAll(r.getDays());
+            }
+            return result;
+        }
+
+    }
+
+
+
+
+    private MCSchedule _getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
         if (impl.getGuideId() == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }
         GenericUrl url = impl.createUrl("guides", impl.getGuideId());
-        //GenericUrl url = impl.createUrl("prepr", "schedules", channel,  "guide");
-        if (from != null) {
-            url.set("from", from.toString());
-        }
-        if (until != null) {
-            url.set("until", until.toString());
-        }
+        url.set("from", from.toString());
+        url.set("until", until.toString());
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", SCHEDULE_FIELDS);
 

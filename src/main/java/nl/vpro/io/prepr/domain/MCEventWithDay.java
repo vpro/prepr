@@ -18,6 +18,8 @@ import com.google.common.collect.Range;
  * The guides call returns data in format which is often unsuitable for processing. It will group by day, but broadcasts may span days.
  * Also, the contained event objects are not self contained, and need the day to calculate the actual time.
  *
+ * I don't know yet how it works with time zones.
+ *
  * This class wraps the {@link MCEvent} with {@link LocalDate} object to get a complete small bundle of information which can be used as an entry in lists which represent a schedule.
  *
  * The utility {@link #asRange()} returns the actual range the event is representing.
@@ -61,7 +63,11 @@ public class MCEventWithDay {
     }
 
     public String showId() {
-        return mcEvent.getTimelines().stream().map(MCContent::getReference_id).findFirst().orElse(null);
+        if (mcEvent.getTimelines() != null) {
+            return mcEvent.getTimelines().stream().map(MCContent::getReference_id).findFirst().orElse(null);
+        } else {
+            return null;
+        }
     }
 
 
@@ -75,7 +81,7 @@ public class MCEventWithDay {
                 if (result.size() > 0) {
                     MCEventWithDay previous = result.get(result.size() - 1);
                     String previousShowId = previous.showId();
-                    if (Objects.equals(showId, previousShowId)) {
+                    if (showId != null && Objects.equals(showId, previousShowId)) {
                         log.debug("Appending {} to {}", withDay, previous);
                         previous.append(withDay);
                         continue;
