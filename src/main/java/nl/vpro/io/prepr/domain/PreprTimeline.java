@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
 import com.google.common.collect.Range;
-import lombok.ToString;
 
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Data
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("Timeline")
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
@@ -50,6 +48,25 @@ public class PreprTimeline extends PreprContent {
         return Range.closedOpen(from, until);
     }
 
+    @Override
+    public String toString() {
+        return "PreprTimeline{" +
+            "timecode='" + timecode + '\'' +
+            ", from=" + from +
+            ", until=" + until +
+            ", show_id='" + show_id + '\'' +
+            ", offset=" + offset +
+            ", timeline_hash='" + timeline_hash + '\'' +
+            ", reference_id='" + reference_id + '\'' +
+            ", status=" + status +
+            ", duration=" + duration +
+            ", id='" + id + '\'' +
+            ", created_on=" + created_on +
+            ", changed_on=" + changed_on +
+            ", body='" + body + '\'' +
+            ", description='" + description + '\'' +
+            '}';
+    }
 
     /**
      * We want the publication to be in a logical order. That is, the first one first.
@@ -78,4 +95,5 @@ public class PreprTimeline extends PreprContent {
             return mcTimeline;
         }
     }
+
 }
