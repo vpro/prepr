@@ -17,7 +17,7 @@ import nl.vpro.io.prepr.domain.*;
 public interface PreprGuides {
 
 
-    MCSchedule getSchedule(LocalDate from, LocalDate until, boolean exceptions, UUID showId);
+    MCSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId);
 
     /**
      * Performs {@link #getSchedule(LocalDateTime, LocalDateTime)}, and wraps the result into a list of {@link MCEventWithDay}
@@ -36,15 +36,15 @@ public interface PreprGuides {
         return MCEventWithDay.fromSchedule(unfilteredResult, from, until);
     }
 
-    default MCSchedule getSchedule(LocalDate from, LocalDate until) {
+    default MCSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until) {
         return getSchedule(from, until, true, null);
     }
 
-    default MCSchedule getSchedule(LocalDate from) {
+    default MCSchedule getSchedule(@Nonnull LocalDate from) {
         return getSchedule(from, from);
     }
 
-     MCItems<MCGuide> getGuides(String q);
+     MCItems<MCGuide> getGuides(@Nonnull String q);
 
 
 }

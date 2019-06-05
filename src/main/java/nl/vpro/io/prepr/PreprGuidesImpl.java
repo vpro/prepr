@@ -1,5 +1,8 @@
 package nl.vpro.io.prepr;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,10 @@ import nl.vpro.io.prepr.domain.MCSchedule;
 public class PreprGuidesImpl implements PreprGuides {
 
     private  final PreprRepositoryClient impl;
+
+    @Getter
+    @Setter
+    private int maxDays = 1;
 
 
     private final Fields SCHEDULE_FIELDS = Fields.builder()
@@ -63,8 +70,10 @@ public class PreprGuidesImpl implements PreprGuides {
     @Override
     public MCSchedule getSchedule(@Nonnull  LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
         List<MCSchedule> results = new ArrayList<>();
-        for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(2)) {
-            LocalDate u = f.plusDays(2);
+
+        // page the result. Too big results may give bad requests.
+        for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(maxDays)) {
+            LocalDate u = f.plusDays(maxDays);
             if (u.compareTo(until) > 0) {
                 u = until;
             }
