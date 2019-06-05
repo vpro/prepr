@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,10 @@ public class PreprGuidesImpl implements PreprGuides {
     @Getter
     @Setter
     private int maxDays = 1;
+
+    @Getter
+    @Setter
+    private ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
 
     private final Fields SCHEDULE_FIELDS = Fields.builder()

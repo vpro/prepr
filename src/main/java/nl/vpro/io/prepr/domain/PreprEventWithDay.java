@@ -7,15 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.Range;
 
-import nl.vpro.util.BindingUtils;
+import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
 
 /**
  * The guides call returns data in format which is often unsuitable for processing. It will group by day, but broadcasts may span days.
@@ -37,26 +39,59 @@ import nl.vpro.util.BindingUtils;
 @Slf4j
 public class PreprEventWithDay {
     private final LocalDate day;
-    private final PreprEvent mcEvent;
+    private final ZoneId zoneId;
+    private final PreprEvent event;
 
     PreprEventWithDay next = null;
 
-
-    PreprEventWithDay(LocalDate day, PreprEvent mcEvent) {
+    PreprEventWithDay(LocalDate day, ZoneId zoneId, PreprEvent event) {
         this.day = day;
-        this.mcEvent = mcEvent;
+        this.event = event;
+        this.zoneId = zoneId;
     }
 
     public Instant getFrom() {
-        return asRange().lowerEndpoint().atZone(BindingUtils.DEFAULT_ZONE).toInstant();
+        return asRange().lowerEndpoint().atZone(zoneId).toInstant();
     }
     public Instant getUntil() {
-        return asRange().upperEndpoint().atZone(BindingUtils.DEFAULT_ZONE).toInstant();
+        return asRange().upperEndpoint().atZone(zoneId).toInstant();
     }
 
-    public Range<LocalDateTime> asRange() {
+    public List<PreprTimeline> getTimelines() {
+        List<PreprTimeline> result = new ArrayList<>();
+        PreprEventWithDay c = this;
+        while(c != null) {
+            result.addAll(emptyIfNull(c.getEvent().getTimelines()));
+            c = c.getNext();
+        }
+        return result;
+    }
+    public PreprShow getShow() {
+        return event.getShow();
+    }
+    public Optional<PreprTimeline> getFirstTimeline() {
+        if (event == null) {
+            return Optional.empty();
+        }
+        if (event.getTimelines() == null) {
+            return Optional.empty();
+        }
+        return event
+            .getTimelines()
+            .stream()
+            .findFirst()
+            ;
 
-        Range<LocalDateTime> range = mcEvent.getRange(day);
+    }
+
+    public PreprUsers getUsers() {
+        return event.getUsers();
+    }
+
+    public Range<Instant> asRange() {
+        Range<Instant> range = Range.closedOpen(
+            event.getFrom().atDate(day).atZone(zoneId).toInstant(),
+            event.getUntil().atDate(day).atZone(zoneId).toInstant());
         if (next != null) {
             return range.span(next.asRange());
         } else {
@@ -73,20 +108,20 @@ public class PreprEventWithDay {
     }
 
     public String showId() {
-        if (mcEvent.getTimelines() != null) {
-            return mcEvent.getTimelines().stream().map(PreprContent::getReference_id).findFirst().orElse(null);
+        if (event.getTimelines() != null) {
+            return event.getTimelines().stream().map(PreprContent::getReference_id).findFirst().orElse(null);
         } else {
             return null;
         }
     }
 
 
-    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult) {
+    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult, ZoneId zoneId) {
         List<PreprEventWithDay> result = new ArrayList<>();
 
         unfilteredResult.forEach((e) -> {
             for (PreprEvent mcEvent : e.getValue()) {
-                PreprEventWithDay withDay = new PreprEventWithDay(e.getKey(), mcEvent);
+                PreprEventWithDay withDay = new PreprEventWithDay(e.getKey(), zoneId, mcEvent);
                 String showId = withDay.showId();
                 if (result.size() > 0) {
                     PreprEventWithDay previous = result.get(result.size() - 1);
@@ -103,12 +138,12 @@ public class PreprEventWithDay {
         return result;
     }
 
-    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult, @Nonnull LocalDateTime from, @Nonnull LocalDateTime until) {
-        Range<LocalDateTime> range = Range.closedOpen(from, until);
-        List<PreprEventWithDay> result = fromSchedule(unfilteredResult);
+    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult, @Nonnull ZoneId zoneId, @Nonnull LocalDateTime from, @Nonnull LocalDateTime until) {
+        Range<Instant> range = Range.closedOpen(from.atZone(zoneId).toInstant(), until.atZone(zoneId).toInstant());
+        List<PreprEventWithDay> result = fromSchedule(unfilteredResult, zoneId);
 
         result.removeIf(event -> {
-            Range<LocalDateTime> erange = event.asRange();
+            Range<Instant> erange = event.asRange();
             boolean startInRange = range.contains(erange.lowerEndpoint());
             if (!startInRange) {
                 log.debug("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);

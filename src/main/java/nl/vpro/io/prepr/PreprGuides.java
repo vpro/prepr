@@ -3,12 +3,16 @@ package nl.vpro.io.prepr;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import nl.vpro.io.prepr.domain.*;
+import nl.vpro.io.prepr.domain.PreprEventWithDay;
+import nl.vpro.io.prepr.domain.PreprGuide;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprSchedule;
 
 /**
  * @author Michiel Meeuwissen
@@ -16,6 +20,8 @@ import nl.vpro.io.prepr.domain.*;
  */
 public interface PreprGuides {
 
+
+    ZoneId getZone();
 
     PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId);
 
@@ -33,7 +39,7 @@ public interface PreprGuides {
             untilDate = untilDate.minusDays(1);
         }
         PreprSchedule unfilteredResult = getSchedule(fromDate, untilDate, true, null);
-        return PreprEventWithDay.fromSchedule(unfilteredResult, from, until);
+        return PreprEventWithDay.fromSchedule(unfilteredResult, getZone(), from, until);
     }
 
     default PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until) {

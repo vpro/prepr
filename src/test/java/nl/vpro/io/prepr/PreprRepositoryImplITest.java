@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import nl.vpro.io.prepr.domain.*;
 import nl.vpro.io.prepr.domain.PreprContent;
+import nl.vpro.io.prepr.domain.*;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -302,7 +302,6 @@ public class PreprRepositoryImplITest {
     public void getPerson() {
         PreprPerson person = funx.getPersons().get(UUID.fromString("6ab9b623-6815-4696-b276-de43cde4d06f"));
         log.info("psers: {}", person);
-
 
     }
 }
