@@ -43,4 +43,6 @@ public class PreprPerson extends PreprAbstractObject {
 
     String company;
 
+    Instant blocked_on;
+
 }
