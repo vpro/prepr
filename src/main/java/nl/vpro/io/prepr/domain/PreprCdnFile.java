@@ -12,8 +12,10 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@JsonTypeName("CdnFile")
+@JsonTypeName(PreprCdnFile.LABEL)
 public class PreprCdnFile extends PreprAbstractObject {
+    public static final String LABEL = "CdnFile";
+
 
     String cdn;
     String bucket;
