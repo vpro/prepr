@@ -16,9 +16,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
-@JsonTypeName("MediaFile")
+@JsonTypeName(PreprMediaFile.LABEL)
 
 public class PreprMediaFile extends PreprAbstractObject {
+
+    public static final String LABEL = "MediaFile";
 
     String profile;
 

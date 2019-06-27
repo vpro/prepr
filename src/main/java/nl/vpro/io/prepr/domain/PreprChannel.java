@@ -6,13 +6,18 @@ import lombok.EqualsAndHashCode;
 import java.net.URI;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName(PreprChannel.LABEL)
 public class PreprChannel extends PreprContent {
+    public static final String LABEL = "Channel";
+
 
 
     String name;

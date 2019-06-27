@@ -13,8 +13,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("Person")
+@JsonTypeName(PreprPerson.LABEL)
 public class PreprPerson extends PreprAbstractObject {
+    public static final String LABEL = "Person";
+
+
 
     Instant last_seen;
 

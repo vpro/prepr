@@ -16,10 +16,12 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("SourceFile")
+@JsonTypeName(PreprSourceFile.LABEL)
 @JsonIgnoreProperties({"url", "url_msg"})   // deprecated
 @Slf4j
 public class PreprSourceFile extends PreprAbstractObject {
+    public static final String LABEL = "SourceFile";
+
 
     String original_name;
 

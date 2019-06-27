@@ -19,9 +19,10 @@ import com.google.common.collect.Range;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("Timeline")
+@JsonTypeName(PreprTimeline.LABEL)
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
 public class PreprTimeline extends PreprContent {
+    public static final String LABEL = "Timeline";
 
     String timecode;
 

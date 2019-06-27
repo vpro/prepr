@@ -7,13 +7,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@JsonTypeName(PreprMedia.LABEL)
 public class PreprMedia extends PreprAbstractObject {
+    public static final String LABEL = "Media";
+
 
     List<PreprAsset> content;
 

@@ -13,8 +13,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeName("TagGroup")
+@JsonTypeName(PreprTagGroup.LABEL)
 public class PreprTagGroup extends PreprAbstractObject {
+    public static final String LABEL = "TagGroup";
+
 
 
     boolean visible;

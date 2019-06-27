@@ -20,8 +20,9 @@ import nl.vpro.jackson2.LenientBooleanDeserializer;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @lombok.Builder
-@JsonTypeName("Webhook")
+@JsonTypeName(PreprWebhook.LABEL)
 public class PreprWebhook extends PreprAbstractObject {
+    public static final String LABEL = "Webhook";
 
     String callback_url;
 
