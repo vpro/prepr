@@ -32,7 +32,7 @@ public class PreprEvent {
 
     Integer limit;
 
-    PreprRule rules;
+    PreprShowSchedule rules;
 
     PreprGuide guide;
 
@@ -46,6 +46,8 @@ public class PreprEvent {
     List<PreprTimeline> timelines;
 
     PreprEpisode episode;
+
+
 
 
     public Range<LocalDateTime> getRange(LocalDate day) {

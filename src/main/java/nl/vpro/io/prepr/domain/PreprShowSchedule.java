@@ -6,13 +6,18 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PreprRule extends PreprAbstractObject {
+@JsonTypeName(PreprShowSchedule.LABEL)
+public class PreprShowSchedule extends PreprAbstractObject {
+
+    public static final String LABEL = "ShowSchedule";
 
     Integer offset;
 
