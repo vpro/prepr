@@ -7,6 +7,7 @@ https://prepr.io, https://docs.prepr.io/
 [![Build Status](https://travis-ci.org/vpro/prepr.svg?)](https://travis-ci.org/vpro/prepr)
 [![Maven Central](https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22prepr%22)
 [![snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg)](https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr)
+[![javadoc](http://www.javadoc.io/badge/nl.vpro/prepr.svg?color=blue)](http://www.javadoc.io/doc/nl.vpro/prepr)
 
 
 This was created because [POMS](https://rs.poms.omroep.nl/v1) (at the moment a future version of it) sychronizes data from prepr for radio related data of the dutch public broadcasters
