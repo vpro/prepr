@@ -47,7 +47,7 @@
     <jackson2.version>2.9.9</jackson2.version>
     <slf4j.version>1.7.25</slf4j.version>
     <vpro.shared.version>2.8-SNAPSHOT</vpro.shared.version>
-    <spring.version>5.1.7.RELEASE</spring.version> <!-- spring dependency is optional -->
+    <spring.version>5.1.9.RELEASE</spring.version> <!-- spring dependency is optional -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -180,7 +180,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.12.2</version>
+      <version>3.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -207,7 +207,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
-      <version>4.3</version>
+      <version>4.4</version>
     </dependency>
 
     <!-- spring dependency is optional, as long as you don't use the classes in nl.vpro.io.prepr.spring -->
