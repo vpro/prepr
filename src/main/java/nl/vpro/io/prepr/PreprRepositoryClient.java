@@ -333,6 +333,19 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     }
 
     @Override
+    public String getExpirationAsString() {
+        return expiration.toString();
+
+
+    }
+
+    @Override
+    public String getRefreshesAfterAsString() {
+        return expiration.minus(mininumExpiration).toString();
+
+    }
+
+    @Override
     public String getConnectTimeoutForGetAsString() {
         return connectTimeoutForGet.toString();
     }

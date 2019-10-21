@@ -16,6 +16,10 @@ public interface PreprRepositoryClientMXBean {
 
     String getDescription();
 
+    String getExpirationAsString();
+
+    String getRefreshesAfterAsString();
+
     String getConnectTimeoutForGetAsString();
     void setConnectTimeoutForGetAsString(String connectTimeoutForGetAsString);
 
