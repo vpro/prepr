@@ -101,6 +101,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Getter
     private Duration readTimeoutForGet = Duration.ofMinutes(2);
 
+    @Getter
+    private Duration mininumExpiration = Duration.ofSeconds(20);
+
 
     @lombok.Builder(builderClassName = "Builder")
     PreprRepositoryClient(
@@ -286,7 +289,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     }
 
     protected synchronized  void getToken() throws  IOException {
-        if (tokenResponse == null || expiration.isBefore(Instant.now())) {
+        if (tokenResponse == null || expiration.isBefore(Instant.now().plus(mininumExpiration))) {
 
             List<Scope> scopesToUse = scopes;
             if (scopesToUse == null || scopesToUse.isEmpty()) {
@@ -308,7 +311,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                     .set("scope", scopesToUse.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
-            log.debug("Authenticated {}@{} -> Token  {}", clientId, api, tokenResponse.getAccessToken());
+            log.debug("Authenticated {}@{} -> Token  {} (will expire at {} - {} = {})", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, expiration.minus(mininumExpiration));
             authenticationCount++;
         }
     }
