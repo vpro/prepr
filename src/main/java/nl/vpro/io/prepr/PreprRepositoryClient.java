@@ -311,7 +311,12 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                     .set("scope", scopesToUse.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
-            log.debug("Authenticated {}@{} -> Token  {} (will expire at {} - {} = {})", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, expiration.minus(mininumExpiration));
+            Instant refreshToken = expiration.minus(mininumExpiration);
+            if (refreshToken.isBefore(Instant.now())) {
+                log.info("Authenticated {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+            } else {
+                log.debug("Authenticated {}@{} -> Token  {} (will be refreshed at {} - {} = {})", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+            }
             authenticationCount++;
         }
     }
