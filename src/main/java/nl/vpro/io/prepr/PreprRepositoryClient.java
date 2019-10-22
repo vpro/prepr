@@ -1,9 +1,24 @@
 package nl.vpro.io.prepr;
 
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Named;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.ws.rs.core.MediaType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -12,24 +27,6 @@ import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Named;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.ws.rs.core.MediaType;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
-import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 
 /**
@@ -301,6 +298,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             if (StringUtils.isBlank(clientSecret)) {
                 throw new IllegalStateException("No client secret defined for " + clientId);
             }
+            boolean refresh = tokenResponse != null;
             tokenResponse =
                 new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
                     new GenericUrl(api + "oauth/access_token"), "authorization_code")
@@ -312,10 +310,12 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
             Instant refreshToken = expiration.minus(mininumExpiration);
+
+            String prefix = refresh ? "Refreshed authentication" : "Authenticated";
             if (refreshToken.isBefore(Instant.now())) {
-                log.info("Authenticated {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
             } else {
-                log.debug("Authenticated {}@{} -> Token  {} (will be refreshed at {} - {} = {})", clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {})", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
             }
             authenticationCount++;
         }
