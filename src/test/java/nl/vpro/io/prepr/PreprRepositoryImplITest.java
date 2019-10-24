@@ -1,6 +1,9 @@
 package nl.vpro.io.prepr;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.vpro.io.prepr.domain.PreprContent;
+import nl.vpro.io.prepr.domain.*;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,12 +13,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.Test;
-
-import nl.vpro.io.prepr.domain.PreprContent;
-import nl.vpro.io.prepr.domain.*;
-
 import static nl.vpro.io.prepr.Paging.limit;
+
 
 /**
  * @author Michiel Meeuwissen
@@ -49,7 +48,7 @@ public class PreprRepositoryImplITest {
 */
 
     @Test
-    public void localdatetime() {
+    void localdatetime() {
         DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         log.info("{}", LocalDateTime.parse("2007-04-05T24:00", FORMATTER));
@@ -57,7 +56,7 @@ public class PreprRepositoryImplITest {
     }
 
     @Test
-    public void getSchedules() {
+    void getSchedules() {
         //getSchedule(rad2);
         LocalDate date = LocalDate.of(2019, 6, 4);
         getSchedule(funx, date);
@@ -66,7 +65,7 @@ public class PreprRepositoryImplITest {
     }
 
     @Test
-    public void getSchedule() {
+    void getSchedule() {
         LocalDate firstDate = LocalDate.of(2019, 6, 8);
         PreprSchedule schedule1 = getSchedule(funx, firstDate);
         Optional<PreprEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
@@ -98,7 +97,7 @@ public class PreprRepositoryImplITest {
 
 
     @Test
-    public void getGuides() {
+    void getGuides() {
         PreprItems<PreprGuide> result = rad2.getGuides().getGuides(null);
         for (PreprGuide guide : result) {
             log.info("guide: {}", guide);

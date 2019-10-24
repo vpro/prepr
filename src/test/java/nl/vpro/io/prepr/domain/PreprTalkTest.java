@@ -1,11 +1,10 @@
 package nl.vpro.io.prepr.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * @author Michiel Meeuwissen
@@ -14,7 +13,7 @@ import org.junit.Test;
 @Slf4j
 public class PreprTalkTest {
 
-    @Before
+    @BeforeEach
     public void setup() {
         PreprObjectMapper.configureInstance(false);
     }

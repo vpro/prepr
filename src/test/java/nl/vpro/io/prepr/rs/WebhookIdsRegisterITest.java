@@ -1,6 +1,6 @@
 package nl.vpro.io.prepr.rs;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import nl.vpro.io.prepr.PreprRepositoryImpl;
 import nl.vpro.io.prepr.StandalonePreprRepositories;

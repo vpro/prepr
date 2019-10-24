@@ -1,22 +1,19 @@
 package nl.vpro.io.prepr.spring;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-
 import nl.vpro.io.prepr.PreprRepositories;
 import nl.vpro.io.prepr.PreprRepository;
 import nl.vpro.io.prepr.Scope;
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.lang.NonNull;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Michiel Meeuwissen
@@ -40,7 +37,7 @@ public class SpringPreprRepositories implements PreprRepositories, ApplicationCo
 
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Iterator<PreprRepository> iterator() {
         return repositories.values().iterator();
@@ -48,7 +45,7 @@ public class SpringPreprRepositories implements PreprRepositories, ApplicationCo
     }
 
     @Override
-    public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
 
 

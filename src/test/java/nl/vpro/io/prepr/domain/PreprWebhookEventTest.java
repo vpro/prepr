@@ -1,9 +1,9 @@
 package nl.vpro.io.prepr.domain;
 
-import java.io.IOException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PreprWebhookEventTest {
 
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         PreprObjectMapper.configureInstance(false);
     }

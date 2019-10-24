@@ -1,13 +1,12 @@
 package nl.vpro.io.prepr.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +21,7 @@ public class PreprScheduleTest {
 
 
 
-    @Before
+    @BeforeEach
     public void init() {
         PreprObjectMapper.configureInstance(false);
 

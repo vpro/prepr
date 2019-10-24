@@ -1,13 +1,13 @@
 package nl.vpro.io.prepr.rs;
 
-import java.io.IOException;
+import org.junit.jupiter.api.Test;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Michiel Meeuwissen
@@ -39,9 +39,11 @@ public class SignatureValidatorInterceptorTest {
     }
 
 
-    @Test(expected = SecurityException.class)
-    public void validateInvalid() throws NoSuchAlgorithmException, InvalidKeyException {
-        impl.validate("signature doesn't match", example, "RAD5");
+    @Test
+    public void validateInvalid() throws InvalidKeyException {
+        assertThrows(SecurityException.class, () -> {
+            impl.validate("signature doesn't match", example, "RAD5");
+        });
 
     }
 }
