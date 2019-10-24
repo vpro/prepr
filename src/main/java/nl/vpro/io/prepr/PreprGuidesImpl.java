@@ -5,20 +5,16 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.checkerframework.checker.nullness.qual.NonNull;;
+
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.PreprGuide;
-import nl.vpro.io.prepr.domain.PreprItems;
-import nl.vpro.io.prepr.domain.PreprSchedule;
+import nl.vpro.io.prepr.domain.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -74,7 +70,7 @@ public class PreprGuidesImpl implements PreprGuides {
     }
 
     @Override
-    public PreprSchedule getSchedule(@Nonnull  LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
+    public PreprSchedule getSchedule(@NonNull LocalDate from, @NonNull LocalDate until, boolean exceptions, UUID showId) {
         List<PreprSchedule> results = new ArrayList<>();
 
         // page the result. Too big results may give bad requests.
@@ -101,7 +97,7 @@ public class PreprGuidesImpl implements PreprGuides {
 
 
 
-    private PreprSchedule _getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId) {
+    private PreprSchedule _getSchedule(@NonNull LocalDate from, @NonNull LocalDate until, boolean exceptions, UUID showId) {
         if (impl.getGuideId() == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }

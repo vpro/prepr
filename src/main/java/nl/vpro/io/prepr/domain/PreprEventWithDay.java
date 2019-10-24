@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.google.common.collect.Range;
 
@@ -116,7 +116,7 @@ public class PreprEventWithDay {
     }
 
 
-    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult, ZoneId zoneId) {
+    public static List<PreprEventWithDay> fromSchedule(@NonNull PreprSchedule unfilteredResult, ZoneId zoneId) {
         List<PreprEventWithDay> result = new ArrayList<>();
 
         unfilteredResult.forEach((e) -> {
@@ -138,7 +138,7 @@ public class PreprEventWithDay {
         return result;
     }
 
-    public static List<PreprEventWithDay> fromSchedule(@Nonnull PreprSchedule unfilteredResult, @Nonnull ZoneId zoneId, @Nonnull LocalDateTime from, @Nonnull LocalDateTime until) {
+    public static List<PreprEventWithDay> fromSchedule(@NonNull PreprSchedule unfilteredResult, @NonNull ZoneId zoneId, @NonNull LocalDateTime from, @NonNull LocalDateTime until) {
         Range<Instant> range = Range.closedOpen(from.atZone(zoneId).toInstant(), until.atZone(zoneId).toInstant());
         List<PreprEventWithDay> result = fromSchedule(unfilteredResult, zoneId);
 

@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -74,7 +74,7 @@ public class StandalonePreprRepositories implements PreprRepositories {
     }
 
     @Override
-    @Nonnull
+    @NonNull
     public Iterator<PreprRepository> iterator() {
         return repositories.values().iterator();
     }

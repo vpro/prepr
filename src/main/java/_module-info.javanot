@@ -1,0 +1,37 @@
+/**
+ * @author Michiel Meeuwissen
+ * @since 1.0
+ */
+module nl.vpro.io.prepr {
+
+
+	requires static lombok;
+	requires  org.checkerframework.checker.qual;
+
+	requires com.google.api.client;
+	requires com.fasterxml.jackson.annotation;
+	requires slf4j.api;
+	requires vpro.shared.jackson2;
+	requires com.fasterxml.jackson.databind;
+	requires com.google.common;
+	requires java.ws.rs;
+	requires org.apache.commons.codec;
+	requires org.apache.commons.io;
+	requires spring.context;
+	requires spring.beans;
+	requires javax.inject;
+	requires org.apache.commons.lang3;
+	requires spring.core;
+	requires jsr250.api;
+	requires java.management;
+	requires com.google.api.client.auth;
+	requires com.google.api.client.json.jackson2;
+	requires org.apache.commons.collections4;
+	requires org.apache.httpcomponents.httpcore;
+	requires cache.api;
+
+	exports nl.vpro.io.prepr;
+
+
+
+}

@@ -7,16 +7,13 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.beans.factory.support.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
@@ -55,7 +52,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
 
     @Override
     @SneakyThrows
-    public void postProcessBeanDefinitionRegistry(@Nonnull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         Properties properties = new Properties();
         for (String prop : this.propertiesResources) {
             properties.load(new ClassPathResource(prop).getInputStream());
@@ -150,7 +147,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
     }
 
     @Override
-    public void postProcessBeanFactory(@Nonnull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
     }
 }

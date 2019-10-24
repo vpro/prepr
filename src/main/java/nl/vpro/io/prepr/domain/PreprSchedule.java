@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -30,7 +30,7 @@ public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEv
 
     Map<LocalDate, List<PreprEvent>> days;
 
-    @Nonnull
+    @NonNull
     @Override
     public Iterator<Map.Entry<LocalDate, List<PreprEvent>>> iterator() {
         return days.entrySet().iterator();

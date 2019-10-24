@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * @author Michiel Meeuwissen
@@ -45,7 +45,7 @@ public class Fields {
     private final List<Field> fields;
 
     @lombok.Builder(builderClassName = "Builder")
-    public Fields(@Singular  @Nonnull  List<Field> fields) {
+    public Fields(@Singular  @NonNull  List<Field> fields) {
         this.fields = fields;
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * @author Michiel Meeuwissen
@@ -54,7 +54,7 @@ public abstract class PreprAsset extends PreprAbstractObject {
     List<PreprTag> tags;
 
 
-    public Optional<String> getCridForReference(@Nonnull PreprPost post) {
+    public Optional<String> getCridForReference(@NonNull PreprPost post) {
         if (reference_id == null) {
             log.info("Asset {} has no reference_id", this);
         }

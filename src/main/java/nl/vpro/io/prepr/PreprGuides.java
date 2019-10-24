@@ -1,18 +1,12 @@
 package nl.vpro.io.prepr;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;;
 
-import nl.vpro.io.prepr.domain.PreprEventWithDay;
-import nl.vpro.io.prepr.domain.PreprGuide;
-import nl.vpro.io.prepr.domain.PreprItems;
-import nl.vpro.io.prepr.domain.PreprSchedule;
+import nl.vpro.io.prepr.domain.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -23,13 +17,13 @@ public interface PreprGuides {
 
     ZoneId getZone();
 
-    PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until, boolean exceptions, UUID showId);
+    PreprSchedule getSchedule(@NonNull LocalDate from, @NonNull LocalDate until, boolean exceptions, UUID showId);
 
     /**
      * Performs {@link #getSchedule(LocalDateTime, LocalDateTime)}, and wraps the result into a list of {@link PreprEventWithDay}
      */
 
-    default List<PreprEventWithDay> getSchedule(@Nonnull  LocalDateTime from, @Nonnull  LocalDateTime until) {
+    default List<PreprEventWithDay> getSchedule(@NonNull  LocalDateTime from, @NonNull  LocalDateTime until) {
 
         // broadcasts may span 0 o'clock, so we need the day before and after too, to make sure that we get only _complete_ broadcasts
         LocalDate fromDate = from.toLocalDate().minusDays(1);
@@ -42,15 +36,15 @@ public interface PreprGuides {
         return PreprEventWithDay.fromSchedule(unfilteredResult, getZone(), from, until);
     }
 
-    default PreprSchedule getSchedule(@Nonnull LocalDate from, @Nonnull LocalDate until) {
+    default PreprSchedule getSchedule(@NonNull LocalDate from, @NonNull LocalDate until) {
         return getSchedule(from, until, true, null);
     }
 
-    default PreprSchedule getSchedule(@Nonnull LocalDate from) {
+    default PreprSchedule getSchedule(@NonNull LocalDate from) {
         return getSchedule(from, from);
     }
 
-     PreprItems<PreprGuide> getGuides(@Nonnull String q);
+     PreprItems<PreprGuide> getGuides(@NonNull String q);
 
 
 }

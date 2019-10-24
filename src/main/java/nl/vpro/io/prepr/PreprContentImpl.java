@@ -3,7 +3,7 @@ package nl.vpro.io.prepr;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -39,7 +39,7 @@ public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
 
     @Override
     public PreprItems<?> getPublicationsForChannel(
-        Paging paging, @Nonnull UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
+        Paging paging, @NonNull UUID channel, LocalDateTime event_from, LocalDateTime event_until) {
         GenericUrl url = impl.createUrl("publications");
         impl.addListParameters(url, paging);
         url.set("channel_id", channel);
@@ -58,7 +58,7 @@ public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
     @SuppressWarnings("unchecked")
     @Override
     public  <T extends PreprContent> T getPublication(
-        @Nonnull  UUID id) {
+        @NonNull  UUID id) {
         GenericUrl url = impl.createUrl("publications", id.toString());
 
         url.set("fields", PUBLICATION_FIELDS);

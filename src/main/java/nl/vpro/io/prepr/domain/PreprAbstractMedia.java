@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 import java.time.Instant;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -33,7 +33,7 @@ public abstract class PreprAbstractMedia extends PreprAsset {
     Instant ended_on;
 
 
-    public boolean isSegment(@Nonnull Range<Instant> schedule) {
+    public boolean isSegment(@NonNull  Range<Instant> schedule) {
         // TODO: Segmenten worden eigenlijk niet goed ondersteund in Prepr?
         // Je kunt in de user interface allerlei filmpjes uploaden, het is in het geheel niet gezegd dat dat correspondeert met de uitzending.
         // Ze hebben echter wel een absolute 'started_on' tijd en 'duration' (of eventueel een ended_on?)

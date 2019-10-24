@@ -11,14 +11,14 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.inject.Named;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,9 +108,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     PreprRepositoryClient(
         // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
         @Nullable @Named("prepr.api") String api,
-        @Nonnull String channel,
-        @Nonnull String clientId,
-        @Nonnull String clientSecret,
+        @NonNull String channel,
+        @NonNull String clientId,
+        @NonNull String clientSecret,
         @Nullable String guideId,
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,

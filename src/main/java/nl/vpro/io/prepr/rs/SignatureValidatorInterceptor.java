@@ -1,17 +1,15 @@
 package nl.vpro.io.prepr.rs;
 
+
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.ServerErrorException;
@@ -22,6 +20,7 @@ import javax.ws.rs.ext.Provider;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpStatus;
+import org.checkerframework.checker.nullness.qual.NonNull;;
 import org.slf4j.MDC;
 
 import static org.apache.http.HttpHeaders.USER_AGENT;
@@ -50,7 +49,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     private static boolean ready = false;
 
-    public static boolean put(@Nonnull String channel, @Nonnull UUID webhookId) {
+    public static boolean put(@NonNull String channel, @NonNull UUID webhookId) {
         List<UUID> uuids = WEBHOOK_IDS.computeIfAbsent(channel, (i) -> Collections.synchronizedList(new ArrayList<>()));
         if (uuids.contains(webhookId)) {
             log.debug("webhook for {} was registered already {}", channel, webhookId);
@@ -68,7 +67,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
 
     @Override
-    public void filter(@Nonnull ContainerRequestContext requestContext) throws IOException {
+    public void filter(@NonNull ContainerRequestContext requestContext) throws IOException {
 
         if (! ready) {
             log.info("Received webhook while we are not yet ready and can't validate it yet");
@@ -104,9 +103,9 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
 
     protected void validate(
-        @Nonnull String signature,
-        @Nonnull byte[] payload,
-        @Nonnull String channel) throws NoSuchAlgorithmException, InvalidKeyException {
+        @NonNull String signature,
+        @NonNull byte[] payload,
+        @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException {
         List<UUID> uuids = WEBHOOK_IDS.get(channel);
         if (uuids== null)  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
