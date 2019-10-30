@@ -172,6 +172,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+       <dependency>
+         <groupId>nl.vpro.shared</groupId>
+         <artifactId>vpro-shared-bom</artifactId>
+         <version>${vpro.shared.version}</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -264,7 +271,6 @@
     <dependency>
       <groupId>nl.vpro.shared</groupId>
       <artifactId>vpro-shared-jackson2</artifactId>
-      <version>${vpro.shared.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
