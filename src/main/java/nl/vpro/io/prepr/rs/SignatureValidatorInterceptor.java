@@ -56,7 +56,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             return false;
         } else {
             uuids.add(webhookId);
-            log.info("Registered webook {} -> {}", channel, webhookId);
+            log.info("Registered webhook {} -> {}", channel, webhookId);
             return true;
         }
     }
