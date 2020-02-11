@@ -17,6 +17,7 @@ import javax.inject.Named;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Provides the actual implementation of {@link PreprRepository}. This is implemented by being a rest client, so it has to be configured
@@ -106,11 +107,11 @@ public class PreprRepositoryImpl implements PreprRepository {
 
     public static PreprRepositoryImpl configured(
         Map<String, String> properties,
-        String channel) {
+        @NonNull String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("prepr.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
-            boolean logAsCurl = Boolean.valueOf(properties.getOrDefault("prepr.logascurl", "false"));
+            boolean logAsCurl = Boolean.parseBoolean(properties.getOrDefault("prepr.logascurl", "false"));
             PreprRepositoryClient client = PreprRepositoryClient
                 .builder()
                 .channel(channel)

@@ -19,7 +19,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 @Slf4j
 public abstract class PreprAsset extends PreprAbstractObject {
 
-    public static String REFERENCE_CRID_PREFIX =  CRID_PREFIX + "reference/";
+    public static final String REFERENCE_CRID_PREFIX =  CRID_PREFIX + "reference/";
 
     String name;
 

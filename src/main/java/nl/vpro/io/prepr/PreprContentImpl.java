@@ -16,7 +16,7 @@ import nl.vpro.io.prepr.domain.PreprItems;
  */
 public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
 
-    public static Fields PUBLICATION_FIELDS = Fields.builder()
+    public static final Fields PUBLICATION_FIELDS = Fields.builder()
         .fs("container", "tags", "custom", "channel")
         .field(Field.builder("element")
             .fs("custom", "tags")

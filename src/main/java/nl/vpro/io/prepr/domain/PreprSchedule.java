@@ -68,7 +68,7 @@ public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEv
                          PreprEvent[] events = ctxt.getParser().readValueAs(PreprEvent[].class);
                          result.days.put(LocalDate.parse(date), Arrays.asList(events));
                      } catch (JsonMappingException jma) {
-                         log.error(jma.getMessage(), jma);
+                         log.error("{}: {}", jma.getClass().getSimpleName(), jma.getMessage(), jma);
                      } catch (DateTimeParseException pe) {
                          log.error(pe.getMessage(), pe);
 

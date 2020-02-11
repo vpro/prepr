@@ -16,7 +16,7 @@ import nl.vpro.io.prepr.domain.PreprTimeline;
 @Named
 public class PreprContainersImpl implements PreprContainers {
 
-    public static Fields TIMELINE_FIELDS = Fields.builder()
+    public static final Fields TIMELINE_FIELDS = Fields.builder()
         .f("publications")
         .field(Fields.ASSETS)
         .build();
