@@ -10,7 +10,7 @@ import java.util.*;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.checkerframework.checker.nullness.qual.NonNull;;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -34,7 +34,7 @@ public class PreprGuidesImpl implements PreprGuides {
     private ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
 
-    private final Fields SCHEDULE_FIELDS = Fields.builder()
+    private static final Fields SCHEDULE_FIELDS = Fields.builder()
         .field(
             Field.builder("timelines")
                 .field(Fields.ASSETS)

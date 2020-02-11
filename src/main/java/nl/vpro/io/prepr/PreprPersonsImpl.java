@@ -17,10 +17,10 @@ import nl.vpro.io.prepr.domain.PreprPerson;
 @Named
 public class PreprPersonsImpl implements PreprPersons {
 
-    private  final PreprRepositoryClient impl;
+    private final PreprRepositoryClient impl;
 
 
-    private final Fields PERSON_FIELDS = Fields.builder()
+    private static final Fields PERSON_FIELDS = Fields.builder()
         .f("description")
         .f("biography")
         .f("age")

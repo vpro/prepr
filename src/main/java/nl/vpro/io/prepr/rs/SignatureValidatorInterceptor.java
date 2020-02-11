@@ -20,7 +20,7 @@ import javax.ws.rs.ext.Provider;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpStatus;
-import org.checkerframework.checker.nullness.qual.NonNull;;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.MDC;
 
 import static org.apache.http.HttpHeaders.USER_AGENT;

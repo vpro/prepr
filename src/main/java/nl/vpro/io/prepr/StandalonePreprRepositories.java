@@ -52,7 +52,7 @@ public class StandalonePreprRepositories implements PreprRepositories {
         Builder builder = StandalonePreprRepositories.builder();
         String prefix = "prepr.clientId.";
         List<String> channels = configuration.entrySet().stream()
-            .filter((e) -> StringUtils.isNotBlank(e.getValue()))
+            .filter(e -> StringUtils.isNotBlank(e.getValue()))
             .map(Map.Entry::getKey)
             .filter((k) -> k.startsWith(prefix))
             .map((k) -> k.substring(prefix.length()))

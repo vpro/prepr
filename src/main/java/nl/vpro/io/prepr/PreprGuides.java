@@ -4,7 +4,7 @@ import java.time.*;
 import java.util.List;
 import java.util.UUID;
 
-import org.checkerframework.checker.nullness.qual.NonNull;;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import nl.vpro.io.prepr.domain.*;
 

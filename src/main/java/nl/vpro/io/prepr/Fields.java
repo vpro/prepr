@@ -17,16 +17,18 @@ public class Fields {
 
     public static final String  PICTURE = "picture";
 
+    public static final String  CUSTOM = "custom";
+
     static final Field RESIZED = Field.builder("resized").f(PICTURE + ".width(1920)").build();
     static final Field SOURCEFILE_FIELD =
         Field.builder("source_file")
-            .f("custom")
+            .f(CUSTOM)
             .field(RESIZED)
             .build();
 
     static final Field CDN_FILES =
         Field.builder("cdn_files")
-            .f("custom")
+            .f(CUSTOM)
             .field(RESIZED)
             .build();
 
@@ -38,7 +40,7 @@ public class Fields {
     static final Field ASSETS = Field
         .builder("assets")
         .field(CDN_FILES)
-        .fs("custom", "tags", "media")
+        .fs(CUSTOM, "tags", "media")
         .build();
 
     @Getter

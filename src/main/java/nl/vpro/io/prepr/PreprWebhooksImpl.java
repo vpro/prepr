@@ -24,6 +24,8 @@ import nl.vpro.io.prepr.domain.PreprWebhook;
 @Named
 public class PreprWebhooksImpl implements PreprWebhooks {
 
+    private static final String WEBHOOKS = "webhooks";
+
     private  final PreprRepositoryClient impl;
 
     @Inject
@@ -34,7 +36,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @SuppressWarnings("unchecked")
     @Override
     public PreprItems<PreprWebhook> get(Paging paging) {
-        GenericUrl url = impl.createUrl("webhooks");
+        GenericUrl url = impl.createUrl(WEBHOOKS);
         impl.addListParameters(url, paging);
         return impl.get(url, PreprItems.class);
     }
@@ -42,7 +44,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @Override
     @SneakyThrows(IOException.class)
     public PreprWebhook create(String callback_url, String... events)  {
-        GenericUrl url = impl.createUrl("webhooks");
+        GenericUrl url = impl.createUrl(WEBHOOKS);
         Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
         post.put("events", events);
@@ -57,7 +59,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
 
     @Override
     public void delete(UUID webhook) {
-        GenericUrl url = impl.createUrl("webhooks", webhook);
+        GenericUrl url = impl.createUrl(WEBHOOKS, webhook);
         impl.delete(url);
     }
 }

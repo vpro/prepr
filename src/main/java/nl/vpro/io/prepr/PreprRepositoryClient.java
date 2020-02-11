@@ -40,9 +40,9 @@ import nl.vpro.io.prepr.domain.PreprObjectMapper;
 @Named
 public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
-    private static String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
-    private static String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
-    private static String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
+    private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
+    private static final String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
+    private static final String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
