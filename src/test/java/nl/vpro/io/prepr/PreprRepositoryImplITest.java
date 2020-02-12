@@ -1,7 +1,7 @@
 package nl.vpro.io.prepr;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.vpro.io.prepr.domain.PreprContent;
+import nl.vpro.io.prepr.domain.AbstractPreprContent;
 import nl.vpro.io.prepr.domain.*;
 import org.junit.jupiter.api.Test;
 
@@ -129,7 +129,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        PreprContent publications = funx.getContent().getPublication(
+        AbstractPreprContent publications = funx.getContent().getPublication(
             UUID.fromString("0c83faf9-2524-4ebe-a26f-070be9ec4415") // an post?
         );
         log.info("publications : {}", publications);
@@ -138,7 +138,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getArchivedPublication() {
-        PreprContent publications = rad2.getContent().getPublication(
+        AbstractPreprContent publications = rad2.getContent().getPublication(
             UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
         log.info("publications : {}", publications);
