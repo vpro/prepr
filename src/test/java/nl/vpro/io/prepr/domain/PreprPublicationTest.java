@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class PreprPublicationTest {
 
-
+	{
+		PreprObjectMapper.configureInstance(false);
+	}
 	@Test
     public void unmarshal() throws IOException {
         PreprPublication post = PreprObjectMapper.INSTANCE.readerFor(PreprPublication.class)

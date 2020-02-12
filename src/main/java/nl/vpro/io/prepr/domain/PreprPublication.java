@@ -1,6 +1,7 @@
 package nl.vpro.io.prepr.domain;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +16,6 @@ public  class PreprPublication extends PreprAbstractObject {
 
     public static final String LABEL = "Publication";
 
-    // slug
-
-    // publish_on
+    private JsonNode slug;
+    private JsonNode publish_on;
 }
