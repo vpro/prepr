@@ -23,6 +23,7 @@ import java.util.UUID;
         @JsonSubTypes.Type(value = PreprShow.class,        name = PreprShow.LABEL),
         @JsonSubTypes.Type(value = PreprShowDetail.class,  name = PreprShowDetail.LABEL),
         @JsonSubTypes.Type(value = PreprPhoto.class,       name = PreprPhoto.LABEL),
+        @JsonSubTypes.Type(value = PreprProfilePhoto.class,name = PreprProfilePhoto.LABEL),
         @JsonSubTypes.Type(value = PreprVideo.class,       name = PreprVideo.LABEL),
         @JsonSubTypes.Type(value = PreprAudio.class,       name = PreprAudio.LABEL),
         @JsonSubTypes.Type(value = PreprCover.class,       name = PreprCover.LABEL),
