@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTrackPlay.LABEL)
-public class PreprTrackPlay extends PreprContent {
+public class PreprTrackPlay extends AbstractPreprContent {
     public static final String LABEL = "TrackPlay";
 
 

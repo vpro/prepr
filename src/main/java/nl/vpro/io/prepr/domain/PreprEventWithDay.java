@@ -109,7 +109,7 @@ public class PreprEventWithDay {
 
     public String showId() {
         if (event.getTimelines() != null) {
-            return event.getTimelines().stream().map(PreprContent::getReference_id).findFirst().orElse(null);
+            return event.getTimelines().stream().map(AbstractPreprContent::getReference_id).findFirst().orElse(null);
         } else {
             return null;
         }

@@ -1,5 +1,8 @@
 package nl.vpro.io.prepr.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.collect.Range;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,10 +11,6 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
-import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
@@ -48,12 +47,9 @@ public class PreprEvent {
     PreprEpisode episode;
 
 
-
-
     public Range<LocalDateTime> getRange(LocalDate day) {
         return Range.closedOpen(day.atTime(from), day.atTime(until));
     }
-
 
     /**
      * We want the timelines to be in a logical order. That is, the first one first.

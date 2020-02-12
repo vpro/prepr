@@ -3,6 +3,7 @@ package nl.vpro.io.prepr;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import nl.vpro.io.prepr.domain.AbstractPreprContent;
 import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
@@ -19,7 +20,7 @@ public interface PreprContent {
         LocalDateTime event_utils
     );
 
-    <T extends nl.vpro.io.prepr.domain.PreprContent> T getPublication(
+    <T extends AbstractPreprContent> T getPublication(
         UUID id
     );
 
@@ -30,7 +31,7 @@ public interface PreprContent {
     PreprItems<?> getContainers(Paging paging);
 
 
-    <T extends nl.vpro.io.prepr.domain.PreprContent> T getContainer(
+    <T extends AbstractPreprContent> T getContainer(
         UUID id
     );
 

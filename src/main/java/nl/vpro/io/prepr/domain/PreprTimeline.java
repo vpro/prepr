@@ -21,7 +21,7 @@ import com.google.common.collect.Range;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTimeline.LABEL)
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
-public class PreprTimeline extends PreprContent {
+public class PreprTimeline extends AbstractPreprContent {
     public static final String LABEL = "Timeline";
 
     String timecode;
@@ -32,7 +32,7 @@ public class PreprTimeline extends PreprContent {
 
     List<PreprAbstractMedia> assets;
 
-    List<PreprContent> publications;
+    List<AbstractPreprContent> publications;
 
     String show_id;
 

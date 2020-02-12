@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprImaging.LABEL)
-public class PreprImaging extends PreprContent {
+public class PreprImaging extends AbstractPreprContent {
     public static final String LABEL = "Imaging";
 
 

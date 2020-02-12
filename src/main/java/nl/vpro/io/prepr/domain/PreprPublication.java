@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprPublication.LABEL)
-public  class PreprPublication extends PreprContent {
+public  class PreprPublication extends AbstractPreprContent {
 
     public static final String LABEL = "Publication";
 }

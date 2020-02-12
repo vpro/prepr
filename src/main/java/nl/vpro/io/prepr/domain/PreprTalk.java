@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @JsonTypeName(PreprTalk.LABEL)
-public class PreprTalk extends PreprContent {
+public class PreprTalk extends AbstractPreprContent {
 
     public static final String LABEL = "Talk";
 

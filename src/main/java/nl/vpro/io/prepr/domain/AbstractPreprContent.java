@@ -1,5 +1,7 @@
 package nl.vpro.io.prepr.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,16 +9,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
-
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class PreprContent extends PreprAbstractObject {
+public abstract class AbstractPreprContent extends PreprAbstractObject {
 
     Instant published_on;
 

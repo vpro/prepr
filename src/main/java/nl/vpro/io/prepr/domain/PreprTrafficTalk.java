@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @JsonTypeName(PreprTrafficTalk.LABEL)
-public class PreprTrafficTalk extends PreprContent {
+public class PreprTrafficTalk extends AbstractPreprContent {
 
     public static final String LABEL = "TrafficTalk";
 

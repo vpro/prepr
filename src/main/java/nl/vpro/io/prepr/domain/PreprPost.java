@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @JsonTypeName(PreprPost.LABEL)
-public class PreprPost extends PreprContent {
+public class PreprPost extends AbstractPreprContent {
 
     public static final String LABEL = "Post";
 

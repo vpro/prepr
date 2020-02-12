@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprChannel.LABEL)
-public class PreprChannel extends PreprContent {
+public class PreprChannel extends AbstractPreprContent {
     public static final String LABEL = "Channel";
 
 
