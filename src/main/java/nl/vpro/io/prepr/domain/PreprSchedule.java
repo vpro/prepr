@@ -1,21 +1,19 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.*;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -64,15 +62,21 @@ public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEv
 
                      String date = p.getCurrentName();
                      p.nextToken();
+                     List<PreprEvent> events = new ArrayList<>();
+                     result.days.put(LocalDate.parse(date), events);
                      try {
-                         PreprEvent[] events = ctxt.getParser().readValueAs(PreprEvent[].class);
-                         result.days.put(LocalDate.parse(date), Arrays.asList(events));
+                         JsonNode[] jsonNodes = ctxt.getParser().readValueAs(JsonNode[].class);
+                         for (JsonNode jsonNode : jsonNodes) {
+                             try {
+                                 events.add(p.getCodec().treeToValue(jsonNode, PreprEvent.class));
+                             } catch (JsonMappingException jma) {
+                                 log.error("{} -> {}: {}, {}", jsonNode, jma.getClass().getSimpleName(), jma.getMessage(), jma);
+                             }
+                         }
                      } catch (JsonMappingException jma) {
                          log.error("{}: {}", jma.getClass().getSimpleName(), jma.getMessage(), jma);
                      } catch (DateTimeParseException pe) {
                          log.error(pe.getMessage(), pe);
-
-
                      }
                  }
              }
