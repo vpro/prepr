@@ -1,16 +1,13 @@
 package nl.vpro.io.prepr.domain;
 
+import lombok.Data;
+
+import java.time.*;
+import java.util.*;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
 import com.google.common.collect.Range;
-import lombok.Data;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Michiel Meeuwissen
@@ -20,7 +17,7 @@ import java.util.Objects;
 @JsonDeserialize(converter= PreprEvent.Deserializer.class)
 public class PreprEvent {
 
-    //String id; // no idea
+    String id; // no idea
 
     LocalTime from;
 

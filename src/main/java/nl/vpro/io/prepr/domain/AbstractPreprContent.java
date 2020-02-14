@@ -43,4 +43,6 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
     Duration duration;
 
 
+    String name;
+
 }

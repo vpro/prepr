@@ -2,6 +2,7 @@ package nl.vpro.io.prepr.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -21,6 +22,7 @@ import com.google.common.collect.Range;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTimeline.LABEL)
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
+@Slf4j
 public class PreprTimeline extends AbstractPreprContent {
     public static final String LABEL = "Timeline";
 
@@ -79,7 +81,11 @@ public class PreprTimeline extends AbstractPreprContent {
         public PreprTimeline convert(PreprTimeline mcTimeline) {
             if (mcTimeline != null) {
                 if (mcTimeline.publications != null) {
-                    mcTimeline.publications.sort((t1, t2) -> Objects.compare(t1.getPublished_on(), t2.getPublished_on(), Comparator.naturalOrder()));
+                    try {
+                        mcTimeline.publications.sort(Comparator.nullsLast(Comparator.comparing(AbstractPreprContent::getPublished_on, Comparator.nullsLast(Comparator.naturalOrder()))));
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
                 }
                 if (mcTimeline.assets != null) {
                     mcTimeline.assets.sort((t1, t2) -> {

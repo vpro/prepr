@@ -1,34 +1,33 @@
 package nl.vpro.io.prepr;
 
-import lombok.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-import javax.inject.Named;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.ws.rs.core.MediaType;
-
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
-import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import javax.inject.Named;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.ws.rs.core.MediaType;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.management.ManagementFactory;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 
 /**
@@ -174,8 +173,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     protected <T> T _get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
+        InputStream content = execute.getContent();
         return PreprObjectMapper.INSTANCE.readerFor(clazz)
-            .readValue(execute.getContent());
+                .readValue(content);
     }
 
 
