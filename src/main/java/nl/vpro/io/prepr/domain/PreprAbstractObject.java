@@ -1,13 +1,12 @@
 package nl.vpro.io.prepr.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * @author Michiel Meeuwissen
@@ -15,9 +14,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 @Data
 @JsonTypeInfo(
-    visible = true,
-    include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
-    use = JsonTypeInfo.Id.NAME, property="label")
+        visible = true,
+        include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
+        use = JsonTypeInfo.Id.NAME, property="label",
+        defaultImpl = Void.class
+
+)
 @JsonSubTypes({
     @JsonSubTypes.Type(value = PreprWebhook.class,     name = PreprWebhook.LABEL),
     @JsonSubTypes.Type(value = PreprTimeline.class,    name = PreprTimeline.LABEL),

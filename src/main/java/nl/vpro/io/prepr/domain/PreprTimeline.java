@@ -1,5 +1,9 @@
 package nl.vpro.io.prepr.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.collect.Range;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,11 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
-import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
@@ -79,6 +78,7 @@ public class PreprTimeline extends PreprContent {
         public PreprTimeline convert(PreprTimeline mcTimeline) {
             if (mcTimeline != null) {
                 if (mcTimeline.publications != null) {
+                    mcTimeline.publications.removeIf(Objects::isNull);
                     mcTimeline.publications.sort((t1, t2) -> Objects.compare(t1.getPublished_on(), t2.getPublished_on(), Comparator.naturalOrder()));
                 }
                 if (mcTimeline.assets != null) {

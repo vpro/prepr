@@ -1,13 +1,13 @@
 package nl.vpro.io.prepr.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import org.junit.Before;
-import org.junit.Test;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +24,7 @@ public class PreprScheduleTest {
 
     @Before
     public void init() {
-        PreprObjectMapper.configureInstance(false);
+        PreprObjectMapper.configureInstance(true);
 
     }
 
@@ -42,6 +42,25 @@ public class PreprScheduleTest {
         log.info("{}", schedule);
 
     }
+
+
+
+    @Test
+    public void unmarshal2() throws IOException {
+        PreprSchedule schedule  = PreprObjectMapper.INSTANCE.readerFor(PreprSchedule.class)
+            .readValue(getClass().getResourceAsStream("/guides.json"));
+
+        PreprEvent next = schedule.getDays().get(LocalDate.of(2020, 2, 7)).iterator().next();
+        assertThat(next.getFrom()).isEqualTo(LocalTime.of(0, 0));
+        assertThat(next.getShow().getName()).isEqualTo("Kevin");
+        List<PreprContent> publications = next.getTimelines().get(0).getPublications();
+
+        assertThat(publications).hasSize(13); // actually 15, but there is two 'Publication_NLUNKNOWN" that could not be read.
+
+        log.info("{}", schedule);
+
+    }
+
 
 
 }
