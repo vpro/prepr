@@ -6,12 +6,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -69,9 +67,10 @@ public class PreprObjectMapper extends ObjectMapper {
         }
     }
 
-    public static <T> Optional<T> unmap(JsonNode payload, Class<T> clazz) {
+    @NonNull
+    public static <T> Optional<T> unmap(@NonNull JsonNode payload, @NonNull Class<T> clazz) {
         try {
-            return Optional.of(INSTANCE.treeToValue(payload, clazz));
+            return Optional.ofNullable(INSTANCE.treeToValue(payload, clazz));
         } catch (JsonProcessingException e) {
             if (log.isDebugEnabled()) {
                 log.warn("Could not unmap \n{}\n to {}: {}", payload, clazz, e.getMessage(), e);
