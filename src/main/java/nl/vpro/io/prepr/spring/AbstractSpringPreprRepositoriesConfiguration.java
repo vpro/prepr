@@ -2,22 +2,22 @@ package nl.vpro.io.prepr.spring;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
-import java.net.URI;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.inject.Provider;
-
+import nl.vpro.io.prepr.*;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.*;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import nl.vpro.io.prepr.*;
+import javax.inject.Provider;
+import java.net.URI;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This is used to instantiate all classes by spring. The advantage is that spring than also will proxy them (e.g. for the @CacheResult annotation)
@@ -75,18 +75,19 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                 continue;
             }
             AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder
-                .genericBeanDefinition(PreprRepositoryClient.class)
-                .addConstructorArgValue(get(properties, "api"))
-                .addConstructorArgValue(channel)
-                .addConstructorArgValue(get(properties, "clientId", channel))
-                .addConstructorArgValue(get(properties, "clientSecret", channel))
-                .addConstructorArgValue(get(properties, "guideId", channel))
-                .addConstructorArgValue(getWithDefault(properties, "scopes", channel))
-                .addConstructorArgValue(get(properties, "description", channel))
-                .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
-                .getBeanDefinition();
+                    .genericBeanDefinition(PreprRepositoryClient.class)
+                    .addConstructorArgValue(get(properties, "api"))
+                    .addConstructorArgValue(channel)
+                    .addConstructorArgValue(get(properties, "clientId", channel))
+                    .addConstructorArgValue(get(properties, "clientSecret", channel))
+                    .addConstructorArgValue(get(properties, "guideId", channel))
+                    .addConstructorArgValue(getWithDefault(properties, "scopes", channel))
+                    .addConstructorArgValue(get(properties, "description", channel))
+                    .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
+                    .addConstructorArgValue(null)
+                    .getBeanDefinition();
             beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel,
-                beanDefinition);
+                    beanDefinition);
 
             define(beanDefinitionRegistry, "prepr", PreprPreprImpl.class, channel);
             define(beanDefinitionRegistry, "guides", PreprGuidesImpl.class, channel);
