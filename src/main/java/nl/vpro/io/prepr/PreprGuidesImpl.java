@@ -71,14 +71,17 @@ public class PreprGuidesImpl implements PreprGuides {
         List<PreprSchedule> results = new ArrayList<>();
 
         // page the result. Too big results may give bad requests.
-        int maxDays = impl.getGuideCallsMaxDays();
-        for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(maxDays)) {
+
+        for (LocalDate f = from; f.compareTo(until) < 0;) {
+            int maxDays = impl.getGuideCallsMaxDays();
             LocalDate u = f.plusDays(maxDays);
             if (u.compareTo(until) > 0) {
                 u = until;
             }
             results.add(_getSchedule(f, u, exceptions, showId));
+            f = u;
         }
+
         if (results.size() == 1) {
             return results.get(0);
         } else {
