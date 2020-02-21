@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Named;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
+import javax.validation.constraints.Size;
 import javax.ws.rs.core.MediaType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +38,8 @@ import java.util.stream.Collectors;
  * @since 0.1
  */
 @Named
-public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
+public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
+
 
     private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static final String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
@@ -102,6 +104,11 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Getter
     private Duration mininumExpiration = Duration.ofSeconds(20);
 
+    @Getter
+    @Setter
+    @Size(min = 1)
+    private int guideCallsMaxDays = 1;
+
 
     @lombok.Builder(builderClassName = "Builder")
     PreprRepositoryClient(
@@ -113,7 +120,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable String guideId,
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
-        @Named("prepr.logascurl") Boolean logAsCurl) {
+        @Named("prepr.logascurl") Boolean logAsCurl,
+        @Nullable Integer guideCallsMaxDays
+        ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
         this.clientId = clientId;
@@ -129,6 +138,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             request.setConnectTimeout((int) connectTimeoutForGet.toMillis());
             request.setReadTimeout((int) readTimeoutForGet.toMillis());
         };
+        if (guideCallsMaxDays != null) {
+            this.guideCallsMaxDays = guideCallsMaxDays;
+        }
     }
 
     public void registerBean(String jmxName) {
@@ -137,6 +149,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName objectName = new ObjectName("nl.vpro.io.prepr:name=" + name + "-" + clientId);
+
             if (! mbs.isRegistered(objectName)) {
                 mbs.registerMBean(this, objectName);
                 log.info("Registered {}", objectName);
@@ -369,6 +382,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         this.readTimeoutForGet = Duration.parse(readTimeoutForGetAsString);
 
     }
+
 
 
     GenericUrl createUrl(Object ... path) {

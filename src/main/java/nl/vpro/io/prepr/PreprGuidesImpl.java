@@ -1,20 +1,21 @@
 package nl.vpro.io.prepr;
 
+import com.google.api.client.http.GenericUrl;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
+import nl.vpro.io.prepr.domain.PreprGuide;
+import nl.vpro.io.prepr.domain.PreprItems;
+import nl.vpro.io.prepr.domain.PreprSchedule;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
-
-import com.google.api.client.http.GenericUrl;
-
-import nl.vpro.io.prepr.domain.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Michiel Meeuwissen
@@ -24,10 +25,6 @@ import nl.vpro.io.prepr.domain.*;
 public class PreprGuidesImpl implements PreprGuides {
 
     private  final PreprRepositoryClient impl;
-
-    @Getter
-    @Setter
-    private int maxDays = 1;
 
     @Getter
     @Setter
@@ -74,6 +71,7 @@ public class PreprGuidesImpl implements PreprGuides {
         List<PreprSchedule> results = new ArrayList<>();
 
         // page the result. Too big results may give bad requests.
+        int maxDays = impl.getGuideCallsMaxDays();
         for (LocalDate f = from; f.compareTo(until) < 0; f = f.plusDays(maxDays)) {
             LocalDate u = f.plusDays(maxDays);
             if (u.compareTo(until) > 0) {
