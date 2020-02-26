@@ -4,7 +4,7 @@
   <groupId>nl.vpro</groupId>
   <artifactId>prepr</artifactId>
   <name>vpro-prepr</name>
-  <version>0.13-SNAPSHOT</version>
+  <version>0.13.0</version>
   <inceptionYear>2018</inceptionYear>
   <description>Java client for prepr api https://docs.prepr.io/v5.0/</description>
   <url>https://github.com/vpro/mediaconnect</url>
@@ -37,7 +37,7 @@
     <connection>scm:git:git://git@github.com/vpro/mediaconnect.git</connection>
     <developerConnection>scm:git:git@github.com:vpro/mediaconnect.git</developerConnection>
     <url>https://github.com/vpro/mediaconnect</url>
-    <tag>0.13-SNAPSHOT</tag>
+    <tag>0.13.0</tag>
   </scm>
 
   <properties>
