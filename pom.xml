@@ -37,6 +37,7 @@
     <connection>scm:git:git://git@github.com/vpro/mediaconnect.git</connection>
     <developerConnection>scm:git:git@github.com:vpro/mediaconnect.git</developerConnection>
     <url>https://github.com/vpro/mediaconnect</url>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
