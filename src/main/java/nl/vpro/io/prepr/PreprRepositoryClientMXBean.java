@@ -1,10 +1,13 @@
 package nl.vpro.io.prepr;
 
+import javax.validation.constraints.Size;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-public interface PreprRepositoryClientMXBean {
+
+public interface PreprRepositoryClientMXBean  {
     Integer getRateLimitReset();
     Integer getRateLimitHourRemaining();
     Integer getRateLimitHourLimit();
@@ -25,4 +28,8 @@ public interface PreprRepositoryClientMXBean {
 
     String getReadTimeoutForGetAsString();
     void setReadTimeoutForGetAsString(String readTimeoutForGetAsString);
+
+
+    int getGuideCallsMaxDays();
+    void setGuideCallsMaxDays(@Size(min=1) int guideCallsMaxDays);
 }

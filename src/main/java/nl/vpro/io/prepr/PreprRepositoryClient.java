@@ -1,33 +1,34 @@
 package nl.vpro.io.prepr;
 
-import lombok.*;
-
-import java.io.*;
-import java.lang.management.ManagementFactory;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-import javax.inject.Named;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.ws.rs.core.MediaType;
-
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
-import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import javax.inject.Named;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.validation.constraints.Size;
+import javax.ws.rs.core.MediaType;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.management.ManagementFactory;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 
 /**
@@ -37,7 +38,8 @@ import nl.vpro.io.prepr.domain.PreprObjectMapper;
  * @since 0.1
  */
 @Named
-public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
+public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
+
 
     private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static final String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
@@ -103,7 +105,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private Duration mininumExpiration = Duration.ofSeconds(20);
 
     @Getter
-    private Duration delayAfterToken = Duration.ofMillis(200);
+    @Setter
+    @Size(min = 1)
+    private int guideCallsMaxDays = 1;
 
 
     @lombok.Builder(builderClassName = "Builder")
@@ -116,7 +120,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable String guideId,
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
-        @Named("prepr.logascurl") Boolean logAsCurl) {
+        @Named("prepr.logascurl") Boolean logAsCurl,
+        @Nullable Integer guideCallsMaxDays
+        ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
         this.clientId = clientId;
@@ -132,6 +138,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             request.setConnectTimeout((int) connectTimeoutForGet.toMillis());
             request.setReadTimeout((int) readTimeoutForGet.toMillis());
         };
+        if (guideCallsMaxDays != null) {
+            this.guideCallsMaxDays = guideCallsMaxDays;
+        }
     }
 
     public void registerBean(String jmxName) {
@@ -140,6 +149,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         try {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName objectName = new ObjectName("nl.vpro.io.prepr:name=" + name + "-" + clientId);
+
             if (! mbs.isRegistered(objectName)) {
                 mbs.registerMBean(this, objectName);
                 log.info("Registered {}", objectName);
@@ -323,16 +333,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken, duration);
             }
             authenticationCount++;
-            long delay = delayAfterToken.toMillis();
-            if (delay > 0) {
-                log.info("Sleeping {} ms to avoid occasional 401 errors", delay);
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.error(e.getMessage(), e);
-                }
-            }
         }
     }
 
@@ -382,6 +382,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         this.readTimeoutForGet = Duration.parse(readTimeoutForGetAsString);
 
     }
+
 
 
     GenericUrl createUrl(Object ... path) {
