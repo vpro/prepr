@@ -27,5 +27,7 @@ public class PreprShowDetail extends AbstractPreprContent {
 
     List<PreprTag> tags;
 
+    PreprChannel channel;
+
 
 }
