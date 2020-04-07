@@ -1,17 +1,15 @@
 package nl.vpro.io.prepr;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.vpro.io.prepr.domain.AbstractPreprContent;
-import nl.vpro.io.prepr.domain.*;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
+import org.junit.jupiter.api.Test;
+
+import nl.vpro.io.prepr.domain.*;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -25,6 +23,8 @@ public class PreprRepositoryImplITest {
 
 
     PreprRepositoryImpl rad2 = PreprRepositoryImpl.configuredInUserHome("RAD2");
+    PreprRepositoryImpl rad3 = PreprRepositoryImpl.configuredInUserHome("RAD3");
+
     PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
     //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
     //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
@@ -174,7 +174,7 @@ public class PreprRepositoryImplITest {
     @Test
     public void getShow() {
         log.info("{}",
-            funx.getContent().getPublication(UUID.fromString("a30ebc44-6832-4e68-91c7-3a7e668375db")));
+            rad3.getContent().getPublication(UUID.fromString("5ca9fb3b-9fcb-4666-8f5f-6673acabd11f")));
 
     }
 
@@ -281,7 +281,7 @@ public class PreprRepositoryImplITest {
 
 
     @Test
-    public void getAsssets() {
+    public void getAssets() {
         PreprItems<PreprAsset> assets  = rad2.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
 
@@ -290,7 +290,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        PreprTimeline timeline = rad2.getContainers().getTimeline(UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801"));
+        PreprTimeline timeline = rad3.getContainers().getTimeline(UUID.fromString("7c94ebfe-3555-4ea7-a4e1-69c6db06c415"));
         log.info("timeline: {}", timeline);
 
 
