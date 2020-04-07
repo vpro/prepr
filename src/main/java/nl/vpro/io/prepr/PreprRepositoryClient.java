@@ -1,34 +1,34 @@
 package nl.vpro.io.prepr;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
-import nl.vpro.io.prepr.domain.PreprObjectMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.*;
 
-import javax.inject.Named;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.validation.constraints.Size;
-import javax.ws.rs.core.MediaType;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import javax.inject.Named;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.validation.constraints.Size;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 
 /**
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @since 0.1
  */
 @Named
-public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
+public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
@@ -108,6 +108,10 @@ public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
     @Setter
     @Size(min = 1)
     private int guideCallsMaxDays = 1;
+
+    @Getter
+    @Setter
+    private Duration delayAfterToken = Duration.ofMillis(200);
 
 
     @lombok.Builder(builderClassName = "Builder")
@@ -333,6 +337,16 @@ public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
                 log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken, duration);
             }
             authenticationCount++;
+            long delayInMillis = delayAfterToken.toMillis();
+            if (delayInMillis > 0) {
+                try {
+                    log.info("Delaying {} after token to avoid occasional 401 with token", delayAfterToken);
+                    Thread.sleep(delayInMillis);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error(e.getMessage(), e);
+                }
+            }
         }
     }
 
@@ -380,9 +394,17 @@ public class PreprRepositoryClient   implements PreprRepositoryClientMXBean{
     @Override
     public void setReadTimeoutForGetAsString(String readTimeoutForGetAsString) {
         this.readTimeoutForGet = Duration.parse(readTimeoutForGetAsString);
-
     }
 
+    @Override
+    public String getDelayAfterTokenAsString() {
+        return delayAfterToken.toString();
+    }
+
+    @Override
+    public void setDelayAfterTokenAsString(String string) {
+        this.delayAfterToken = Duration.parse(string);
+    }
 
 
     GenericUrl createUrl(Object ... path) {

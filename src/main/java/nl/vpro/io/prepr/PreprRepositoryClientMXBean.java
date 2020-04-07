@@ -30,6 +30,10 @@ public interface PreprRepositoryClientMXBean  {
     void setReadTimeoutForGetAsString(String readTimeoutForGetAsString);
 
 
+    String getDelayAfterTokenAsString();
+    void setDelayAfterTokenAsString(String string);
+
+
     int getGuideCallsMaxDays();
     void setGuideCallsMaxDays(@Size(min=1) int guideCallsMaxDays);
 }
