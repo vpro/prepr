@@ -29,6 +29,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import nl.vpro.util.TimeUtils;
 
 
 /**
@@ -125,7 +126,8 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
         @Named("prepr.logascurl") Boolean logAsCurl,
-        @Nullable Integer guideCallsMaxDays
+        @Nullable Integer guideCallsMaxDays,
+        @Named("prepr.delayAfterToken") String delayAfterToken
         ) {
         this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
         this.channel = channel;
@@ -144,6 +146,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         };
         if (guideCallsMaxDays != null) {
             this.guideCallsMaxDays = guideCallsMaxDays;
+        }
+        if (delayAfterToken != null) {
+            this.delayAfterToken = TimeUtils.parseDuration(delayAfterToken).orElseThrow(() -> new IllegalArgumentException(delayAfterToken));
         }
     }
 
