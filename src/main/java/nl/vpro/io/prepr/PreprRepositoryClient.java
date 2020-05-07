@@ -94,7 +94,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private List<Scope> scopes;
 
     @Getter
-    private String  description;
+    private final String  description;
 
     @Getter
     private Duration connectTimeoutForGet = Duration.ofMinutes(2);
