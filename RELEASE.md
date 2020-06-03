@@ -9,3 +9,7 @@ to get it in vpro nexus quicker:
 ```bash
 mvn -Pnexus -DaltReleaseDeploymentRepository=nexusvpro::default::http://nexus.vpro.nl/content/repositories/releases  deploy
 ```
+and snapshots:
+```bash
+mvn -Pnexus -DaltSnapshotDeploymentRepository=nexusvpro::default::http://nexus.vpro.nl/content/repositories/snapshots  deploy
+```
