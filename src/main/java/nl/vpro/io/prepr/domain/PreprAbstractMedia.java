@@ -34,6 +34,11 @@ public abstract class PreprAbstractMedia extends PreprAsset {
 
 
     public boolean isSegment(@NonNull  Range<Instant> schedule) {
+        return isSegment(schedule, Duration.ofMinutes(5));
+    }
+
+
+    public boolean isSegment(@NonNull  Range<Instant> schedule, @NonNull Duration slack) {
         // TODO: Segmenten worden eigenlijk niet goed ondersteund in Prepr?
         // Je kunt in de user interface allerlei filmpjes uploaden, het is in het geheel niet gezegd dat dat correspondeert met de uitzending.
         // Ze hebben echter wel een absolute 'started_on' tijd en 'duration' (of eventueel een ended_on?)
@@ -51,8 +56,9 @@ public abstract class PreprAbstractMedia extends PreprAsset {
         } else {
             return false;
         }
+        Range<Instant> extendedRange = Range.closedOpen(schedule.lowerEndpoint().minus(slack), schedule.upperEndpoint().plus(slack));
 
-        return schedule.encloses(range);
+        return extendedRange.encloses(range);
 
     }
 
