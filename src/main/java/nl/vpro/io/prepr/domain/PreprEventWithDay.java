@@ -140,14 +140,19 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         Range<Instant> range = Range.closedOpen(from.atZone(zoneId).toInstant(), until.atZone(zoneId).toInstant());
         List<PreprEventWithDay> result = fromSchedule(unfilteredResult, zoneId);
 
-        result.removeIf(event -> {
+        // episodes spanning day limits may have multliple events, keep them complete
+        Set<String> episodes = new HashSet<>();
+        result.forEach(event -> {
             Range<Instant> erange = event.asRange();
             boolean startInRange = range.contains(erange.lowerEndpoint());
             if (!startInRange) {
                 log.debug("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);
             }
-            return !startInRange;
+            if (startInRange) {
+                episodes.add(event.getEvent().getEpisode().getId());
+            }
         });
+        result.removeIf(event -> !episodes.contains(event.getEvent().getEpisode().getId()));
         return result;
 
     }
