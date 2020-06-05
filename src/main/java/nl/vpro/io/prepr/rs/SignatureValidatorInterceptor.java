@@ -82,6 +82,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             for (String s : SIGNATURES) {
                 signature = requestContext.getHeaderString(s);
                 if (signature != null) {
+                    log.debug("Found signature at {}", s);
                     break;
                 }
             }
@@ -129,8 +130,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
         }
         if ( matched == null) {
-            log.error("No webhook ids matched. We only see for channel " + uuids + " " + channel);
-            throw new SecurityException("Signature didn't match");
+            throw new SecurityException("No webhook ids matched. We only see for channel " + uuids + " " + channel);
         } else {
             MDC.put("userName", "webhook:" + matched.toString());
             if (uuids.size() > 1) {
