@@ -73,32 +73,37 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             log.info("Received webhook while we are not yet ready and can't validate it yet");
             throw new ServerErrorException( "Received webhook while we are not yet ready and can't validate it yet", HttpStatus.SC_SERVICE_UNAVAILABLE);
         }
-        String userAgent = requestContext.getHeaderString(USER_AGENT);
-
-        // TODO maybe it's better to use the userAgent to check the actual prepr API version.
-
-        String signature = null;
-        for (String SIGNATURE : SIGNATURES) {
-            signature = requestContext.getHeaderString(SIGNATURE);
-            if (signature != null) {
-                break;
-            }
-        }
-        if (signature == null) {
-            throw new SecurityException("No signature found");
-        }
-        String[] split = requestContext.getUriInfo().getPath().split("/");
-        String channel = split[split.length - 1];
-
-        ByteArrayOutputStream payload = new ByteArrayOutputStream();
-        IOUtils.copy(requestContext.getEntityStream(), payload);
-        requestContext.setEntityStream(new ByteArrayInputStream(payload.toByteArray()));
         try {
-            validate(signature, payload.toByteArray(), channel);
-        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            log.error(e.getMessage(), e);
-        }
+            String userAgent = requestContext.getHeaderString(USER_AGENT);
+            MDC.put("userAgent", userAgent);
+            // TODO maybe it's better to use the userAgent to check the actual prepr API version.
 
+            String signature = null;
+            for (String s : SIGNATURES) {
+                signature = requestContext.getHeaderString(s);
+                if (signature != null) {
+                    break;
+                }
+            }
+            if (signature == null) {
+                log.warn("No signature found {} in ({})", SIGNATURES, requestContext.getHeaders().keySet());
+                throw new SecurityException("No signature found");
+            }
+            String[] split = requestContext.getUriInfo().getPath().split("/");
+            String channel = split[split.length - 1];
+
+            ByteArrayOutputStream payload = new ByteArrayOutputStream();
+            IOUtils.copy(requestContext.getEntityStream(), payload);
+            requestContext.setEntityStream(new ByteArrayInputStream(payload.toByteArray()));
+            try {
+                validate(signature, payload.toByteArray(), channel);
+            } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+                log.error(e.getMessage(), e);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        }
     }
 
 

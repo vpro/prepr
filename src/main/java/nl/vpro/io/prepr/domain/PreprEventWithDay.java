@@ -145,14 +145,18 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         result.forEach(event -> {
             Range<Instant> erange = event.asRange();
             boolean startInRange = range.contains(erange.lowerEndpoint());
-            if (!startInRange) {
-                log.debug("{} not in {}: Removing {})", erange.lowerEndpoint(), range, event);
-            }
+
             if (startInRange) {
                 episodes.add(event.getEvent().getEpisode().getId());
             }
         });
-        result.removeIf(event -> !episodes.contains(event.getEvent().getEpisode().getId()));
+        result.removeIf(event -> {
+            boolean episodeInRange = episodes.contains(event.getEvent().getEpisode().getId());
+            if (!episodeInRange) {
+                log.debug("The episode {} of {} is not in the range, removing", event.getEvent().getEpisode(), event);
+            }
+            return !episodeInRange;
+        });
         return result;
 
     }
