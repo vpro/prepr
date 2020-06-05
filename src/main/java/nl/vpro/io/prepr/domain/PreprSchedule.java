@@ -1,19 +1,19 @@
 package nl.vpro.io.prepr.domain;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * @author Michiel Meeuwissen
@@ -26,7 +26,7 @@ import java.util.*;
 public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEvent>>> {
 
 
-    Map<LocalDate, List<PreprEvent>> days;
+    SortedMap<LocalDate, List<PreprEvent>> days;
 
     @NonNull
     @Override
@@ -50,7 +50,7 @@ public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEv
          @Override
          public PreprSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
              PreprSchedule result = new PreprSchedule();
-             result.days = new LinkedHashMap<>();
+             result.days = new TreeMap<>();
              JsonToken t = p.getCurrentToken();
 
              if (t.isStructStart()) {

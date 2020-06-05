@@ -15,7 +15,7 @@ import com.google.common.collect.Range;
  */
 @Data
 @JsonDeserialize(converter= PreprEvent.Deserializer.class)
-public class PreprEvent {
+public class PreprEvent implements Comparable<PreprEvent> {
 
     String id; // no idea
 
@@ -46,6 +46,13 @@ public class PreprEvent {
 
     public Range<LocalDateTime> getRange(LocalDate day) {
         return Range.closedOpen(day.atTime(from), day.atTime(until));
+    }
+
+    @Override
+    public int compareTo(PreprEvent o) {
+        return Comparator.comparing(PreprEvent::getFrom)
+            .compare(this, o);
+
     }
 
     /**
