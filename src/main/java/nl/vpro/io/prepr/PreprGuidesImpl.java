@@ -1,21 +1,20 @@
 package nl.vpro.io.prepr;
 
-import com.google.api.client.http.GenericUrl;
 import lombok.Getter;
 import lombok.Setter;
-import nl.vpro.io.prepr.domain.PreprGuide;
-import nl.vpro.io.prepr.domain.PreprItems;
-import nl.vpro.io.prepr.domain.PreprSchedule;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import com.google.api.client.http.GenericUrl;
+
+import nl.vpro.io.prepr.domain.*;
 
 /**
  * @author Michiel Meeuwissen
@@ -86,7 +85,7 @@ public class PreprGuidesImpl implements PreprGuides {
             return results.get(0);
         } else {
             PreprSchedule result = new PreprSchedule();
-            result.setDays(new HashMap<>());
+            result.setDays(new TreeMap<>());
             for (PreprSchedule r : results) {
                 result.getDays().putAll(r.getDays());
             }
