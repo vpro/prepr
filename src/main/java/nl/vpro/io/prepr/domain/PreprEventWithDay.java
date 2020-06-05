@@ -8,10 +8,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -37,7 +34,7 @@ import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
 @Getter
 @ToString
 @Slf4j
-public class PreprEventWithDay {
+public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
     private final LocalDate day;
     private final ZoneId zoneId;
     private final PreprEvent event;
@@ -135,6 +132,7 @@ public class PreprEventWithDay {
                 result.add(withDay);
             }
         });
+        Collections.sort(result);
         return result;
     }
 
@@ -154,4 +152,12 @@ public class PreprEventWithDay {
 
     }
 
+    @Override
+    public int compareTo(PreprEventWithDay in) {
+        return Comparator.nullsLast(
+            Comparator.comparing(PreprEventWithDay::getDay)
+                .thenComparing(PreprEventWithDay::getEvent)
+        ).compare(this, in);
+
+    }
 }
