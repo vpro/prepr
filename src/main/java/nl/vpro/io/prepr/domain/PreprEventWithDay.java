@@ -1,17 +1,15 @@
 package nl.vpro.io.prepr.domain;
 
 import lombok.Getter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.*;
+import java.util.function.Function;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 
 import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
@@ -32,7 +30,6 @@ import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
  * @since 0.9
  */
 @Getter
-@ToString
 @Slf4j
 public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
     private final LocalDate day;
@@ -112,18 +109,31 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         }
     }
 
+    public String episodeId() {
+        if (event.getEpisode() != null) {
+            return event.getEpisode().getId();
+        } else {
+            return null;
+        }
+    }
+
 
     public static List<PreprEventWithDay> fromSchedule(@NonNull PreprSchedule unfilteredResult, ZoneId zoneId) {
         List<PreprEventWithDay> result = new ArrayList<>();
 
+        Function<PreprEventWithDay, String> matcher = PreprEventWithDay::episodeId;
+
+        // use to be this
+        //Function<PreprEventWithDay, String> matcher = PreprEventWithDay::showId;
+
         unfilteredResult.forEach((e) -> {
             for (PreprEvent mcEvent : e.getValue()) {
                 PreprEventWithDay withDay = new PreprEventWithDay(e.getKey(), zoneId, mcEvent);
-                String showId = withDay.showId();
+                String episodeId= matcher.apply(withDay);
                 if (result.size() > 0) {
                     PreprEventWithDay previous = result.get(result.size() - 1);
-                    String previousShowId = previous.showId();
-                    if (showId != null && Objects.equals(showId, previousShowId)) {
+                    String previousEpisodeId = matcher.apply(previous);
+                    if (episodeId != null && Objects.equals(episodeId, previousEpisodeId)) {
                         log.debug("Appending {} to {}", withDay, previous);
                         previous.append(withDay);
                         continue;
@@ -167,6 +177,14 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
             Comparator.comparing(PreprEventWithDay::getDay)
                 .thenComparing(PreprEventWithDay::getEvent)
         ).compare(this, in);
+    }
 
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+            .add("day", day)
+            .add("episode", episodeId())
+            .add("range", asRange())
+            .toString();
     }
 }
