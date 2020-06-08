@@ -36,6 +36,11 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
     private final ZoneId zoneId;
     private final PreprEvent event;
 
+    /**
+     * When multiple {@link #event}s are actually part of one episode, then this points to the next event.
+     * This is used in the calculation of {@link #asRange()}.
+     *
+     */
     PreprEventWithDay next = null;
 
     PreprEventWithDay(LocalDate day, ZoneId zoneId, PreprEvent event) {
