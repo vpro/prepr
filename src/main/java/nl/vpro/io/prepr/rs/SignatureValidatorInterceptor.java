@@ -112,13 +112,13 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         @NonNull String signature,
         @NonNull byte[] payload,
         @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException {
-        List<UUID> uuids = WEBHOOK_IDS.get(channel);
-        if (uuids== null)  {
+        List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
+        if (webhookuuids== null)  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new SecurityException("Webhook id currently not registered for " + channel);
         }
         UUID matched = null;
-        for (UUID webhookId : uuids) {
+        for (UUID webhookId : webhookuuids) {
             String sign = sign(webhookId, payload);
 
             if (!Objects.equals(sign, signature)) {
@@ -130,11 +130,15 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
         }
         if ( matched == null) {
-            throw new SecurityException("No webhook ids matched. We only see for channel " + uuids + " " + channel);
+            if (webhookuuids.size() == 1) {
+                throw new SecurityException("Validation for failed for " + channel + " webhook id: " + webhookuuids);
+            } else {
+                throw new SecurityException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids);
+            }
         } else {
             MDC.put("userName", "webhook:" + matched.toString());
-            if (uuids.size() > 1) {
-                Iterator<UUID> i = uuids.iterator();
+            if (webhookuuids.size() > 1) {
+                Iterator<UUID> i = webhookuuids.iterator();
                 while (i.hasNext()) {
                     UUID n = i.next();
                     if (n.equals(matched)) {
