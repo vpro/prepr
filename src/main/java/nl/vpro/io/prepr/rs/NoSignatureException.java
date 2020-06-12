@@ -6,6 +6,6 @@ package nl.vpro.io.prepr.rs;
  */
 public class NoSignatureException extends SignatureException {
     public NoSignatureException(String s, byte[] payload) {
-        super(s, payload, false);
+        super(null, s, payload, false);
     }
 }

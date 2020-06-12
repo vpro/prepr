@@ -112,8 +112,8 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         @NonNull String signature,
         @NonNull byte[] payload,
         @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException {
-        List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
-        if (webhookuuids== null)  {
+        final List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
+        if (webhookuuids== null || webhookuuids.isEmpty())  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new NotRegisteredSignatureException("Webhook id currently not registered for " + channel,  payload);
         }
@@ -133,9 +133,9 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         if ( matched == null) {
             warns.forEach(Runnable::run);
             if (webhookuuids.size() == 1) {
-                throw new SignatureMatchException("Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
+                throw new SignatureMatchException(webhookuuids.get(0), "Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
             } else {
-                throw new SignatureMatchException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
+                throw new SignatureMatchException(webhookuuids.get(0), "No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
             }
         } else {
             MDC.put("userName", "webhook:" + matched.toString());

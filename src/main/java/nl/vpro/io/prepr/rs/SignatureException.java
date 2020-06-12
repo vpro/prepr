@@ -2,6 +2,8 @@ package nl.vpro.io.prepr.rs;
 
 import lombok.Getter;
 
+import java.util.UUID;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.15
@@ -12,8 +14,11 @@ public abstract class SignatureException extends SecurityException {
 
     private final boolean temporary;
 
-    protected SignatureException(String s, byte[] payload, boolean temporary) {
+    private final UUID webhookId;
+
+    protected SignatureException(UUID webhookId, String s, byte[] payload, boolean temporary) {
         super(s);
+        this.webhookId = webhookId;
         this.payload = payload;
         this.temporary = temporary;
     }
