@@ -45,8 +45,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @Override
     @SneakyThrows
     public PreprWebhook put(PreprWebhook webhook) {
-        GenericUrl url = impl.createUrl(WEBHOOKS);
-        url.appendRawPath(webhook.getId());
+        GenericUrl url = impl.createUrl(WEBHOOKS, webhook.getId());
         HttpResponse put = impl.put(url, webhook);
         try {
             return  PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)

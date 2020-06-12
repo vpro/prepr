@@ -261,8 +261,10 @@ public class PreprRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
             log.info("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api-proxy")) {
+            if (webhook.getCallback_url().startsWith("https://api-dev.poms.omroep.nl")) {
                 log.info("Deleting {}", webhook);
+                webhook.setActive(true);
+                log.info("{}", repo.getWebhooks().put(webhook));
                 //repo.getWebhooks().delete(webhook.getUUID());
             }
 

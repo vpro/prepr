@@ -16,6 +16,7 @@ import javax.management.ObjectName;
 import javax.validation.constraints.Size;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -323,9 +324,15 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             HttpContent content = httpRequest.getContent();
             String data = "";
             if (content != null) {
-                UrlEncodedContent urlEncoded = (UrlEncodedContent) content;
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-                urlEncoded.writeTo(out);
+                if (content instanceof UrlEncodedContent) {
+                    UrlEncodedContent urlEncoded = (UrlEncodedContent) content;
+                    urlEncoded.writeTo(out);
+                } else if (content instanceof ByteArrayContent) {
+                    IOUtils.copy(((ByteArrayContent) content).getInputStream(), out);
+                } else {
+                    log.warn("Didn't recognized {}", content);
+                }
                 data = " -d '" + out.toString() + "'";
             }
             log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);

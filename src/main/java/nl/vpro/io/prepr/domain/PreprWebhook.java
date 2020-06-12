@@ -43,6 +43,7 @@ public class PreprWebhook extends PreprAbstractObject {
             .add("callback_url", callback_url)
             .add("id", id)
             .add("created_on", created_on)
+            .add("active", active != null ? (active ? null : active) : null)
             .toString();
     }
 }
