@@ -88,7 +88,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
             if (signature == null) {
                 log.warn("No signature found {} in ({})", SIGNATURES, requestContext.getHeaders().keySet());
-                throw new SecurityException("No signature found");
+                throw new NoSignatureException("No signature found", null);
             }
             String[] split = requestContext.getUriInfo().getPath().split("/");
             String channel = split[split.length - 1];
@@ -115,7 +115,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
         if (webhookuuids== null)  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
-            throw new NoSignatureException("Webhook id currently not registered for " + channel,  payload);
+            throw new NotRegisteredSignatureException("Webhook id currently not registered for " + channel,  payload);
         }
         UUID matched = null;
         List<Runnable> warns = new ArrayList<>();
