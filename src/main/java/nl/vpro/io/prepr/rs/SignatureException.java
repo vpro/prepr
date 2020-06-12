@@ -8,10 +8,13 @@ import lombok.Getter;
  */
 @Getter
 public abstract class SignatureException extends SecurityException {
-    byte[] payload;
+    private final byte[] payload;
 
-    public SignatureException(String s, byte[] payload) {
+    private final boolean temporary;
+
+    protected SignatureException(String s, byte[] payload, boolean temporary) {
         super(s);
         this.payload = payload;
+        this.temporary = temporary;
     }
 }

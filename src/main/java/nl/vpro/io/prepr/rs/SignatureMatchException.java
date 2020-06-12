@@ -6,6 +6,6 @@ package nl.vpro.io.prepr.rs;
  */
 public class SignatureMatchException extends SignatureException {
     public SignatureMatchException(String s, byte[] payload) {
-        super(s, payload);
+        super(s, payload, false);
     }
 }
