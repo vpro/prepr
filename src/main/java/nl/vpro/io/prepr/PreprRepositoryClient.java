@@ -150,7 +150,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         ) {
         this.log = LoggerFactory.getLogger(PreprRepositoryImpl.class.getName() + "." + channel);
         this.api = getApiUrl(api, this.log);
-        this.version = version;
+        this.version = version == null ? Version.v5 : version;
         this.channel = channel;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
