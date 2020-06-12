@@ -6,8 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import nl.vpro.io.prepr.domain.*;
 
@@ -22,10 +25,12 @@ import static nl.vpro.io.prepr.Paging.limit;
 public class PreprRepositoryImplITest {
 
 
-    PreprRepositoryImpl rad2 = PreprRepositoryImpl.configuredInUserHome("RAD2");
-    PreprRepositoryImpl rad3 = PreprRepositoryImpl.configuredInUserHome("RAD3");
-
-    PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
+    static PreprRepositoryImpl rad1 = PreprRepositoryImpl.configuredInUserHome("RAD1");
+    static PreprRepositoryImpl rad2 = PreprRepositoryImpl.configuredInUserHome("RAD2");
+    static PreprRepositoryImpl rad3 = PreprRepositoryImpl.configuredInUserHome("RAD3");
+    static PreprRepositoryImpl rad4 = PreprRepositoryImpl.configuredInUserHome("RAD4");
+    static PreprRepositoryImpl rad5 = PreprRepositoryImpl.configuredInUserHome("RAD5");
+    static PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
     //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
     //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
     //MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
@@ -35,7 +40,7 @@ public class PreprRepositoryImplITest {
 
 
     //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
-    {
+    static {
         PreprObjectMapper.configureInstance(false);
     }
 /*
@@ -253,18 +258,21 @@ public class PreprRepositoryImplITest {
     }
 
 
+    public static Stream<PreprRepository> getRepos() {
+        return Stream.of(rad1, rad2, rad3, rad4, rad5, funx);
+    }
 
-    @Test
-    public void getWebhooksAndDelete() {
-        PreprRepository repo = rad3;
+    @ParameterizedTest
+    @MethodSource("getRepos")
+    public void getWebhooksAndDelete(PreprRepository repo) {
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
-            log.info("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api-dev.poms.omroep.nl")) {
-                log.info("Deleting {}", webhook);
-                webhook.setActive(true);
-                log.info("{}", repo.getWebhooks().put(webhook));
+            log.trace("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
+            if (webhook.getCallback_url().startsWith("https://api-dev")) {
+                log.info("{}", webhook);
+                //webhook.setActive(true);
+                //log.info("{}", repo.getWebhooks().put(webhook));
                 //repo.getWebhooks().delete(webhook.getUUID());
             }
 
