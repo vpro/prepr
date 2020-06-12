@@ -1,12 +1,13 @@
 package nl.vpro.io.prepr.domain;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * @author Michiel Meeuwissen
@@ -34,6 +35,8 @@ import java.util.UUID;
     @JsonSubTypes.Type(value = PreprText.class,        name = PreprText.LABEL),
     @JsonSubTypes.Type(value = PreprMedia.class,       name = PreprMedia.LABEL),
     @JsonSubTypes.Type(value = PreprTrackPlay.class,   name = PreprTrackPlay.LABEL),
+    @JsonSubTypes.Type(value = PreprTrack.class,        name = PreprTrack.LABEL),
+
     @JsonSubTypes.Type(value = PreprChannel.class,     name = PreprChannel.LABEL),
     @JsonSubTypes.Type(value = PreprNewsCast.class,    name = PreprNewsCast.LABEL),
     @JsonSubTypes.Type(value = PreprTag.class,         name = PreprTag.LABEL),
