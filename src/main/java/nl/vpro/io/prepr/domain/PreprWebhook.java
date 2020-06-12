@@ -25,6 +25,7 @@ public class PreprWebhook extends PreprAbstractObject {
     String callback_url;
 
     @Singular
+    @Setter
     List<String> events;
 
     @JsonDeserialize(using = LenientBooleanDeserializer.class)
