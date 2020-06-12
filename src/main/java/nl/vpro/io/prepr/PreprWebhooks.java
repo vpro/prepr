@@ -19,5 +19,7 @@ public interface PreprWebhooks {
 
     PreprWebhook create(String url, String... events);
 
+    PreprWebhook put(PreprWebhook wh);
+
     void delete(UUID webhook);
 }

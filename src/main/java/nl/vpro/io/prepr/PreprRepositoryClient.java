@@ -226,9 +226,13 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     protected <T> T _get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
-        InputStream content = execute.getContent();
-        return PreprObjectMapper.INSTANCE.readerFor(clazz)
+        try {
+            InputStream content = execute.getContent();
+            return PreprObjectMapper.INSTANCE.readerFor(clazz)
                 .readValue(content);
+        } finally {
+            execute.disconnect();
+        }
     }
 
 
