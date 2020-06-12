@@ -256,11 +256,11 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getWebhooksAndDelete() {
-        PreprRepository repo = funx;
+        PreprRepository repo = rad3;
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
         log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
-            log.info("Found webook {}", webhook);
+            log.info("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
             if (webhook.getCallback_url().startsWith("https://api-proxy")) {
                 log.info("Deleting {}", webhook);
                 //repo.getWebhooks().delete(webhook.getUUID());
