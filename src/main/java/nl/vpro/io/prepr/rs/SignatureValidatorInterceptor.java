@@ -162,4 +162,11 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         return new String(Hex.encodeHex(sha256_HMAC.doFinal(json)));
     }
 
+    public static Optional<UUID> getWebhookIdForChannel(String channel) {
+        return Optional.ofNullable(WEBHOOK_IDS.get(channel)).map(e -> e.get(0));
+    }
+    public static PreprWebhookAnswer createAnser(String channel, String message) {
+        return new PreprWebhookAnswer(message, getWebhookIdForChannel(channel).orElse(null), channel);
+    }
+
 }
