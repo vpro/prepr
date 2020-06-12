@@ -118,11 +118,12 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             throw new SecurityException("Webhook id currently not registered for " + channel);
         }
         UUID matched = null;
+        List<Runnable> warns = new ArrayList<>();
         for (UUID webhookId : webhookuuids) {
             String sign = sign(webhookId, payload);
 
             if (!Objects.equals(sign, signature)) {
-                log.warn("Incoming signature {} didn't match {} (payload (signed with{}):\n{}", signature, sign, webhookId, new String(payload, StandardCharsets.UTF_8));
+                warns.add(() -> log.warn("Incoming signature {} didn't match {} (payload (signed with{}):\n{}", signature, sign, webhookId, new String(payload, StandardCharsets.UTF_8)));
             } else {
                 log.debug("Validated {}", signature);
                 matched = webhookId;
@@ -130,10 +131,11 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
         }
         if ( matched == null) {
+            warns.forEach(Runnable::run);
             if (webhookuuids.size() == 1) {
-                throw new SecurityException("Validation for failed for " + channel + " webhook id: " + webhookuuids);
+                throw new SignatureMatchException("Validation for failed for " + channel + " webhook id: " + webhookuuids);
             } else {
-                throw new SecurityException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids);
+                throw new SignatureMatchException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids);
             }
         } else {
             MDC.put("userName", "webhook:" + matched.toString());
