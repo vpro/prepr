@@ -25,7 +25,13 @@ public interface PreprRepository {
     PreprContainers getContainers();
     PreprPersons getPersons();
 
-    PreprRepositoryClient getClient();
+    PreprRepositoryClient getV5Client();
+
+    PreprRepositoryClient getV6Client();
+
+    default PreprRepositoryClient getClient() {
+        return getV5Client();
+    }
 
     String getChannel();
     URI getBaseUrl();

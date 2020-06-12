@@ -3,13 +3,9 @@ package nl.vpro.io.prepr;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -18,6 +14,8 @@ import javax.inject.Named;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
 
 /**
  * Provides the actual implementation of {@link PreprRepository}. This is implemented by being a rest client, so it has to be configured
@@ -48,7 +46,10 @@ public class PreprRepositoryImpl implements PreprRepository {
     private final PreprPersons persons;
 
     @Getter
-    private final PreprRepositoryClient client;
+    private final PreprRepositoryClient v5Client;
+
+    @Getter
+    private final PreprRepositoryClient v6Client;
 
     @Getter
     private final URI baseUrl;
@@ -56,7 +57,8 @@ public class PreprRepositoryImpl implements PreprRepository {
 
     @Inject
     public PreprRepositoryImpl(
-        PreprRepositoryClient client,
+        PreprRepositoryClient v5Client,
+        PreprRepositoryClient v6Client,
         PreprPrepr prepr,
         PreprGuides guides,
         PreprWebhooks webhooks,
@@ -75,23 +77,26 @@ public class PreprRepositoryImpl implements PreprRepository {
         this.tags = tags;
         this.containers = containers;
         this.persons = persons;
-        this.client = client;
+        this.v5Client = v5Client;
+        this.v6Client = v6Client;
         this.baseUrl = baseUrl;
     }
 
     public PreprRepositoryImpl(
-        PreprRepositoryClient client,
+        PreprRepositoryClient v5Client,
+        PreprRepositoryClient v6Client,
         URI baseUrl
         ) {
-        this.prepr = new PreprPreprImpl(client);
-        this.guides = new PreprGuidesImpl(client);
-        this.webhooks = new PreprWebhooksImpl(client);
-        this.assets = new PreprAssetsImpl(client);
-        this.content = new PreprContentImpl(client);
-        this.tags = new PreprTagsImpl(client);
-        this.containers = new PreprContainersImpl(client);
-        this.persons = new PreprPersonsImpl(client);
-        this.client = client;
+        this.prepr = new PreprPreprImpl(v5Client);
+        this.guides = new PreprGuidesImpl(v5Client);
+        this.webhooks = new PreprWebhooksImpl(v5Client);
+        this.assets = new PreprAssetsImpl(v5Client);
+        this.content = new PreprContentImpl(v5Client);
+        this.tags = new PreprTagsImpl(v5Client);
+        this.containers = new PreprContainersImpl(v5Client);
+        this.persons = new PreprPersonsImpl(v5Client);
+        this.v5Client = v5Client;
+        this.v6Client = v6Client;
         this.baseUrl = baseUrl;
     }
 
@@ -111,9 +116,36 @@ public class PreprRepositoryImpl implements PreprRepository {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("prepr.clientId" + postfix);
         if (StringUtils.isNotBlank(clientId)) {
-            boolean logAsCurl = Boolean.parseBoolean(properties.getOrDefault("prepr.logascurl", "false"));
-            PreprRepositoryClient client = PreprRepositoryClient
-                .builder()
+            PreprRepositoryClient v5Client = createClient(v5, properties, channel);
+            PreprRepositoryClient v6Client = null; // not yet used
+            String baseUrl = properties.get("prepr.baseUrl" + postfix);
+
+            return new PreprRepositoryImpl(
+                v5Client,
+                v6Client,
+                new PreprPreprImpl(v5Client),
+                new PreprGuidesImpl(v5Client),
+                new PreprWebhooksImpl(v5Client),
+                new PreprAssetsImpl(v5Client),
+                new PreprContentImpl(v5Client),
+                new PreprTagsImpl(v5Client),
+                new PreprContainersImpl(v5Client),
+                new PreprPersonsImpl(v5Client),
+                baseUrl == null ? null : URI.create(baseUrl)
+            );
+        } else {
+            throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());
+        }
+    }
+
+    private static PreprRepositoryClient createClient(
+        PreprRepositoryClient.Version version,
+        Map<String, String> properties,
+        @NonNull String channel) {
+        String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
+        String clientId = properties.get("prepr.clientId" + postfix);
+        boolean logAsCurl = Boolean.parseBoolean(properties.getOrDefault("prepr.logascurl", "false"));
+        PreprRepositoryClient client = PreprRepositoryClient.builder()
                 .channel(channel)
                 .api(properties.get("prepr.api"))
                 .clientId(clientId)
@@ -122,43 +154,28 @@ public class PreprRepositoryImpl implements PreprRepository {
                 .scopes(properties.get("prepr.scopes" + postfix))
                 .description(properties.get("prepr.description" + postfix))
                 .logAsCurl(logAsCurl)
+                .version(version)
                 .build();
-            String jmxName = properties.get("prepr.jmxname");
-            if (jmxName != null && jmxName.length() > 0) {
-                client.registerBean(jmxName);
-            }
-            String scopes = properties.get("prepr.scopes");
-            if (StringUtils.isNotBlank(scopes)) {
-                if (CollectionUtils.isEmpty(client.getScopes())) {
-                    client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
-                }
-            }
-            String baseUrl = properties.get("prepr.baseUrl" + postfix);
-
-
-            return new PreprRepositoryImpl(client,
-                new PreprPreprImpl(client),
-                new PreprGuidesImpl(client),
-                new PreprWebhooksImpl(client),
-                new PreprAssetsImpl(client),
-                new PreprContentImpl(client),
-                new PreprTagsImpl(client),
-                new PreprContainersImpl(client),
-                new PreprPersonsImpl(client),
-                baseUrl == null ? null : URI.create(baseUrl)
-            );
-        } else {
-            throw new IllegalArgumentException("No client id found for " + channel + " in " + properties.keySet());
+         String jmxName = properties.get("prepr.jmxname");
+        if (jmxName != null && jmxName.length() > 0) {
+            client.registerBean(jmxName);
         }
+        String scopes = properties.get("prepr.scopes");
+        if (StringUtils.isNotBlank(scopes)) {
+            if (CollectionUtils.isEmpty(client.getScopes())) {
+                client.setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
+            }
+        }
+        return client;
     }
 
     @Override
     public String getChannel() {
-        return client.getChannel();
+        return getClient().getChannel();
     }
 
     @Override
     public String toString() {
-        return client.toString();
+        return getClient().toString();
     }
 }

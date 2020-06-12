@@ -39,8 +39,20 @@ import nl.vpro.util.TimeUtils;
  * @since 0.1
  */
 @Named
+
 public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
+
+    public enum Version {
+        v5("v5/"),
+        v6("");
+        @Getter
+        private final String path;
+
+        Version(String path) {
+            this.path = path;
+        }
+    }
 
     private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static final String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
@@ -114,6 +126,10 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Setter
     private Duration delayAfterToken = Duration.ofMillis(200);
 
+    @Getter
+    @Setter
+    private Version version;
+
 
     @lombok.Builder(builderClassName = "Builder")
     PreprRepositoryClient(
@@ -127,9 +143,13 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable String description,
         @Named("prepr.logascurl") Boolean logAsCurl,
         @Nullable Integer guideCallsMaxDays,
-        @Named("prepr.delayAfterToken") String delayAfterToken
+        @Named("prepr.delayAfterToken") String delayAfterToken,
+        Version version
+
         ) {
-        this.api = api == null ? "https://api.eu1.graphlr.io/v5/" : api;
+        this.log = LoggerFactory.getLogger(PreprRepositoryImpl.class.getName() + "." + channel);
+        this.api = getApiUrl(api, this.log);
+        this.version = version;
         this.channel = channel;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -138,7 +158,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         if (logAsCurl != null) {
             this.logAsCurl = logAsCurl;
         }
-        this.log = LoggerFactory.getLogger(PreprRepositoryImpl.class.getName() + "." + channel);
         this.description = description;
         this.getInitializer  = request -> {
             request.setConnectTimeout((int) connectTimeoutForGet.toMillis());
@@ -149,6 +168,18 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         }
         if (delayAfterToken != null) {
             this.delayAfterToken = TimeUtils.parseDuration(delayAfterToken).orElseThrow(() -> new IllegalArgumentException(delayAfterToken));
+        }
+    }
+
+    private static String getApiUrl(String setting, Logger log) {
+        if (setting == null) {
+            return "https://api.eu1.prepr.io/";
+        } else {
+            if (setting.endsWith("/v5/")) {
+                log.warn("Api base url seems to contains the version ({}). This should not happen any more. Stripping it of now.", setting);
+                setting = setting.substring(0, setting.length() - 3);
+            }
+            return setting;
         }
     }
 
@@ -189,7 +220,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     @Override
     public String toString() {
-        return channel + "=" + clientId + "@" + api;
+        return channel + "=" + clientId + "@" + getBaseUrl();
     }
 
 
@@ -318,14 +349,14 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 log.info("No scopes configured, using {}", scopesToUse);
 
             }
-            log.debug("Authenticating {}@{} with scopes {}", clientId, api, scopesToUse);
+            log.debug("Authenticating {}@{} with scopes {}", clientId, getBaseUrl(), scopesToUse);
             if (StringUtils.isBlank(clientSecret)) {
                 throw new IllegalStateException("No client secret defined for " + clientId);
             }
             boolean refresh = tokenResponse != null;
             tokenResponse =
                 new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
-                    new GenericUrl(api + "oauth/access_token"), "authorization_code")
+                    new GenericUrl(getBaseUrl() + "oauth/access_token"), "authorization_code")
                     //.setRedirectUri("https://localhost")
                     .set("client_id", clientId)
                     .set("client_secret", clientSecret)
@@ -337,9 +368,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             Duration duration = Duration.between(Instant.now(), refreshToken);
             String prefix = refresh ? "Refreshed authentication" : "Authenticated";
             if (duration.isNegative()) {
-                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
             } else {
-                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, api, tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken, duration);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken, duration);
             }
             authenticationCount++;
             long delayInMillis = delayAfterToken.toMillis();
@@ -413,7 +444,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     GenericUrl createUrl(Object ... path) {
-        GenericUrl url = new GenericUrl(api);
+        GenericUrl url = new GenericUrl(getBaseUrl());
         boolean append = false;
         for (Object p : path) {
             if (append) {
@@ -423,6 +454,10 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             append = true;
         }
         return url;
+    }
+
+    protected String getBaseUrl() {
+        return api + version.getPath();
     }
 
     public static class Builder {
