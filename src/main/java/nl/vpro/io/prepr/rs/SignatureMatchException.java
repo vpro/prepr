@@ -1,11 +1,17 @@
 package nl.vpro.io.prepr.rs;
 
+import lombok.Getter;
+
 /**
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 0.15
  */
+@Getter
 public class SignatureMatchException extends SecurityException {
-    public SignatureMatchException(String s) {
+    byte[] payload;
+
+    public SignatureMatchException(String s, byte[] payload) {
         super(s);
+        this.payload = payload;
     }
 }

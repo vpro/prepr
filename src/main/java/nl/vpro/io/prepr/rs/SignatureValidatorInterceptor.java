@@ -133,9 +133,9 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         if ( matched == null) {
             warns.forEach(Runnable::run);
             if (webhookuuids.size() == 1) {
-                throw new SignatureMatchException("Validation for failed for " + channel + " webhook id: " + webhookuuids);
+                throw new SignatureMatchException("Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
             } else {
-                throw new SignatureMatchException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids);
+                throw new SignatureMatchException("No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
             }
         } else {
             MDC.put("userName", "webhook:" + matched.toString());
