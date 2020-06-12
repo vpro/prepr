@@ -105,7 +105,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(PreprRepositoryImpl.class)
-                    .addConstructorArgReference(CLIENT_PREF + "." + channel + ".v6") // v5
+                    .addConstructorArgReference(CLIENT_PREF + "." + channel + ".v5") // v5
                     .addConstructorArgValue(null) // v6
                     .addConstructorArgReference(CPREF + ".prepr." + channel)
                     .addConstructorArgReference(CPREF + ".guides." + channel)
