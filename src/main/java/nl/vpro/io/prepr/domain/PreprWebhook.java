@@ -28,6 +28,7 @@ public class PreprWebhook extends PreprAbstractObject {
     List<String> events;
 
     @JsonDeserialize(using = LenientBooleanDeserializer.class)
+    @Setter
     Boolean active;
 
 
