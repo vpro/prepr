@@ -174,7 +174,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     private static String getApiUrl(String setting, Logger log) {
         if (setting == null) {
-            return "https://api.eu1.prepr.io/";
+            return "https://api.eu1.graphlr.io/";
         } else {
             if (setting.endsWith("/v5/")) {
                 log.warn("Api base url seems to contains the version ({}). This should not happen any more. Stripping it of now.", setting);
