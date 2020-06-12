@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import nl.vpro.io.prepr.*;
+import nl.vpro.util.TimeUtils;
 
 /**
  * This is used to instantiate all classes by spring. The advantage is that spring than also will proxy them (e.g. for the @CacheResult annotation)
@@ -85,6 +86,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                 .addConstructorArgValue(get(properties, "description", channel))
                 .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
                 .addConstructorArgValue(null)
+                .addConstructorArgValue(TimeUtils.parseDuration(get(properties, "delayAfterToken", channel)).orElse(null))
                 .addConstructorArgValue(PreprRepositoryClient.Version.v5)
                 .getBeanDefinition();
             beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel + ".v5",
