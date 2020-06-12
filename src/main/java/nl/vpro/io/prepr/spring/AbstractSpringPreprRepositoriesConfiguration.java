@@ -20,6 +20,8 @@ import org.springframework.core.io.ClassPathResource;
 import nl.vpro.io.prepr.*;
 import nl.vpro.util.TimeUtils;
 
+import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
+
 /**
  * This is used to instantiate all classes by spring. The advantage is that spring than also will proxy them (e.g. for the @CacheResult annotation)
  *
@@ -87,19 +89,20 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                 .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
                 .addConstructorArgValue(null)
                 .addConstructorArgValue(TimeUtils.parseDuration(get(properties, "delayAfterToken", channel)).orElse(null))
-                .addConstructorArgValue(PreprRepositoryClient.Version.v5)
+                .addConstructorArgValue(v5)
                 .getBeanDefinition();
-            beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel + ".v5",
+
+            beanDefinitionRegistry.registerBeanDefinition(CLIENT_PREF + "." + channel + "." + v5.name(),
                 clientV5Definition);
 
-            define(beanDefinitionRegistry, "prepr", PreprPreprImpl.class, channel);
-            define(beanDefinitionRegistry, "guides", PreprGuidesImpl.class, channel);
-            define(beanDefinitionRegistry, "webhooks", PreprWebhooksImpl.class, channel);
-            define(beanDefinitionRegistry, "assets", PreprAssetsImpl.class, channel);
-            define(beanDefinitionRegistry, "content", PreprContentImpl.class, channel);
-            define(beanDefinitionRegistry, "tags", PreprTagsImpl.class, channel);
-            define(beanDefinitionRegistry, "containers", PreprContainersImpl.class, channel);
-            define(beanDefinitionRegistry, "persons", PreprPersonsImpl.class, channel);
+            define(beanDefinitionRegistry, "prepr", PreprPreprImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "guides", PreprGuidesImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "webhooks", PreprWebhooksImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "assets", PreprAssetsImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "content", PreprContentImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "tags", PreprTagsImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "containers", PreprContainersImpl.class, channel, v5);
+            define(beanDefinitionRegistry, "persons", PreprPersonsImpl.class, channel, v5);
 
 
             String baseUrl = get(properties, "baseUrl", channel);
@@ -107,7 +110,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
             beanDefinitionRegistry.registerBeanDefinition(CPREF + "." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(PreprRepositoryImpl.class)
-                    .addConstructorArgReference(CLIENT_PREF + "." + channel + ".v5") // v5
+                    .addConstructorArgReference(CLIENT_PREF + "." + channel + "." + v5.name()) // v5
                     .addConstructorArgValue(null) // v6
                     .addConstructorArgReference(CPREF + ".prepr." + channel)
                     .addConstructorArgReference(CPREF + ".guides." + channel)
@@ -140,13 +143,13 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
     }
 
 
-    void define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel) {
+    void define(BeanDefinitionRegistry beanDefinitionRegistry, String name, Class<?> clazz, String channel, PreprRepositoryClient.Version version) {
         beanDefinitionRegistry
             .registerBeanDefinition(CPREF + "." + name + "." + channel,
                 BeanDefinitionBuilder
                     .genericBeanDefinition(clazz)
                     .setLazyInit(true)
-                    .addConstructorArgReference(CLIENT_PREF + "." + channel)
+                    .addConstructorArgReference(CLIENT_PREF + "." + channel + "." + version.name())
                     .getBeanDefinition()
             );
     }
