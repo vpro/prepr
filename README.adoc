@@ -9,7 +9,7 @@ image:https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Cen
 image:https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg[snapshots,link=https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr]
 image:http://www.javadoc.io/badge/nl.vpro/prepr.svg?color=blue[javadoc,link=http://www.javadoc.io/doc/nl.vpro/prepr]
 
-This was created because https://rs.poms.omroep.nl/v1[POMS] (at the moment a future version of it) sychronizes data from prepr for radio related data of the dutch public broadcasters
+This was created because https://rs.poms.omroep.nl/v1[POMS]  sychronizes data from prepr for radio related data of the dutch public broadcasters
 
 Example code:
 
