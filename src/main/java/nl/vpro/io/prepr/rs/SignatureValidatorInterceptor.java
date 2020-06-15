@@ -75,8 +75,10 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         }
         try {
             String userAgent = requestContext.getHeaderString(USER_AGENT);
-            MDC.put("userAgent", userAgent);
-            // TODO maybe it's better to use the userAgent to check the actual prepr API version.
+            if (userAgent != null) {
+                MDC.put("userAgent", userAgent);
+                // TODO maybe it's better to use the userAgent to check the actual prepr API version.
+            }
 
             String signature = null;
             for (String s : SIGNATURES) {
