@@ -2,7 +2,7 @@ package nl.vpro.io.prepr.rs;
 
 /**
  * @author Michiel Meeuwissen
- * @since 0.15
+ * @since 1.0
  */
 public class NoSignatureException extends SignatureException {
     public NoSignatureException(String s, byte[] payload) {

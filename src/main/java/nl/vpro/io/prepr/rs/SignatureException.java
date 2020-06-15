@@ -6,7 +6,7 @@ import java.util.UUID;
 
 /**
  * @author Michiel Meeuwissen
- * @since 0.15
+ * @since 1.0
  */
 @Getter
 public abstract class SignatureException extends SecurityException {

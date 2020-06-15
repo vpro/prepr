@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * @author Michiel Meeuwissen
- * @since 0.15
+ * @since 1.0
  */
 public class SignatureMatchException extends SignatureException {
     public SignatureMatchException(UUID webhookId, String s, byte[] payload) {

@@ -6,8 +6,12 @@ import lombok.Data;
 import java.util.UUID;
 
 /**
+ * When implementing a webhook as definied by prepr APIs we use this as a return object for (successfull) responses (i.e. its
+ * json binding)
+ *
+ * It is afaik not defined
  * @author Michiel Meeuwissen
- * @since ...
+ * @since 1.0
  */
 @Data
 @AllArgsConstructor
@@ -16,6 +20,4 @@ public class PreprWebhookAnswer {
     String message;
     UUID webhookid;
     String channel;
-
-
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Seems to exist too. * @author Michiel Meeuwissen
- * @since 0.15
+ * @since 1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
