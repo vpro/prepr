@@ -1,0 +1,937 @@
+Ok, nog wat explciieter. We beginnen met een call als dit:
+[bash]
+----
+curl -XGET -H 'Authorization: Bearer <hidden>' 'https://api.eu1.graphlr.io/v5/guides/604befa6-1d9a-48c1-b8c8-af3bbb7efa94?from=2020-06-06&until=2020-06-07&fields=timelines%7Bassets%7Bcdn_files%7Bcustom,resized%7Bpicture.width(1920)%7D%7D,custom,tags,media%7D,custom,publications%7D,guide,show%7Bslug,name,body,tags,status,custom,scheduled_users,cover%7Bsource_file%7Bcustom,resized%7Bpicture.width(1920)%7D%7D,cdn_files%7Bcustom,resized%7Bpicture.width(1920)%7D%7D%7D%7D,users&exceptions=true'
+----
+
+(bearer zal verlopen, dit werkt over een uur niet meer).
+
+Daar komt een hele dag uit, maar het stukje van OVT is dit:
+[json]
+----
+ {
+      "from": "10:00:00",
+      "until": "12:00:00",
+      "offset": 36000,
+      "limit": 7200,
+      "rules": {
+        "id": "3bdd874b-858f-4c60-9279-031411fa7e95",
+        "created_on": "2020-04-08T11:13:45+00:00",
+        "changed_on": "2020-05-07T12:36:05+00:00",
+        "label": "ShowSchedule",
+        "offset": 36000,
+        "limit": 7200,
+        "valid_from": "2020-03-22",
+        "valid_until": null,
+        "exception": false,
+        "days": [
+          "7"
+        ]
+      },
+      "show": {
+        "id": "50ec09af-aada-4c86-a492-a3889412b2d1",
+        "created_on": "2020-03-26T14:29:52+00:00",
+        "changed_on": "2020-06-01T10:19:47+00:00",
+        "published_on": "2020-03-30T11:41:00+00:00",
+        "unpublish_on": null,
+        "label": "Show",
+        "status": "published",
+        "reference_id": "RBX_S_VPRO_553890",
+        "slug": null,
+        "custom": {
+          "startmarkers": "",
+          "facebook": "",
+          "twitter": "https://twitter.com/OVTradio1",
+          "email": "ovt@vpro.nl",
+          "recording": "Yes",
+          "url": "http://www.vpro.nl/ovt",
+          "instagram": ""
+        },
+        "name": "OVT",
+        "body": "OVT is een geschiedenisprogramma over de onvoltooid verleden tijd. Met actueel nieuws over geschiedenis, columns en historische documentaires in Het Spoor Terug. OVT hoor je wekelijks op zondag tussen 10.00 en 12.00 uur. Presentatie: Jos Palm, Paul van der Gaag, Laura Stek en Julie Blussé.",
+        "scheduled_users": [
+          {
+            "id": "152272b0-5e96-4603-8d49-20a60b38199e",
+            "created_on": "2020-03-26T14:10:12+00:00",
+            "changed_on": "2020-03-26T14:14:13+00:00",
+            "last_seen": "2020-03-26T14:10:12+00:00",
+            "blocked_on": null,
+            "label": "Person",
+            "preposition": "",
+            "initials": "",
+            "firstname": "Jos",
+            "prefix_lastname": "",
+            "lastname": "Palm",
+            "company": null,
+            "job_title": null,
+            "nickname": null,
+            "tracking": true,
+            "exclude_until": null
+          }
+        ],
+        "tags": [
+          {
+            "id": "36b7ae54-e072-489f-9666-3a81a2c640ee",
+            "created_on": "2018-08-09T12:55:46+00:00",
+            "changed_on": null,
+            "label": "Tag",
+            "name": "VPRO",
+            "slug": "vpro",
+            "color": null
+          }
+        ],
+        "cover": {
+          "id": "20e9d957-f571-4f6f-a0bc-5a9ee7095a16",
+          "created_on": "2020-03-26T14:29:51+00:00",
+          "changed_on": "2020-03-26T14:29:51+00:00",
+          "label": "Photo",
+          "name": "OVT 16-9.png",
+          "body": null,
+          "reference_id": "405272",
+          "reference": null,
+          "author": null,
+          "status": null,
+          "source_file": null,
+          "cdn_files": [
+            {
+              "id": "291374a7-a596-4f1a-ac23-719d1845f450",
+              "created_on": "2020-03-27T09:29:46+00:00",
+              "changed_on": null,
+              "label": "CdnFile",
+              "cdn": "NPOICT",
+              "bucket": null,
+              "profile": "jpg",
+              "file": "96d46e98-7b31-4340-a233-334e64473a3b.jpg",
+              "url": "https://radio-images.npo.nl/{format}/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/96d46e98-7b31-4340-a233-334e64473a3b.jpg",
+              "resized": {
+                "picture": "https://radio-images.npo.nl/w_1920/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/96d46e98-7b31-4340-a233-334e64473a3b.jpg"
+              }
+            }
+          ]
+        }
+      },
+      "users": {
+        "56e67448-73ee-4a5a-adbf-f3c773651661": [
+          {
+            "id": "152272b0-5e96-4603-8d49-20a60b38199e",
+            "created_on": "2020-03-26T14:10:12+00:00",
+            "changed_on": "2020-03-26T14:14:13+00:00",
+            "last_seen": "2020-03-26T14:10:12+00:00",
+            "blocked_on": null,
+            "label": "Person",
+            "preposition": "",
+            "initials": "",
+            "firstname": "Jos",
+            "prefix_lastname": "",
+            "lastname": "Palm",
+            "company": null,
+            "job_title": null,
+            "nickname": null,
+            "tracking": true,
+            "exclude_until": null
+          }
+        ]
+      },
+      "timelines": [
+        {
+          "id": "9b71b197-a211-4e21-8d1e-c347868a2a88",
+          "created_on": "2020-05-27T12:01:21+00:00",
+          "changed_on": "2020-06-07T11:28:31+00:00",
+          "published_on": "2020-06-07T08:00:00+00:00",
+          "unpublish_on": "2020-06-07T09:00:00+00:00",
+          "label": "Timeline",
+          "body": "OVT",
+          "custom": {
+            "importedshow": "1",
+            "importedhour": "1",
+            "nibgexported": "1"
+          },
+          "rule_id": "3bdd874b-858f-4c60-9279-031411fa7e95",
+          "prev_reference_id": "PREPR_VPRO_16167845",
+          "show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+          "from": "2020-06-07 10:00:00",
+          "offset": 36000,
+          "timeline_constraint_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.36000.39600",
+          "reference_id": "PREPR_VPRO_16167845",
+          "timecode": "2020-06-07:36000",
+          "prev_show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+          "clock_id": "59789084-9f81-4f73-83bc-e89aa590e0df",
+          "until": "2020-06-07 11:00:00",
+          "timeline_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.36000.39600.59789084-9f81-4f73-83bc-e89aa590e0df.2020-05-27T11:45:00+00:00",
+          "publications": [
+            {
+              "id": "a3c615bc-0b46-4abf-9c2d-541f38f979ab",
+              "created_on": "2020-06-05T13:08:58+00:00",
+              "changed_on": "2020-06-07T08:45:50+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185468",
+              "slug": null,
+              "name": "De column van John Jansen van Galen",
+              "body": ""
+            },
+            {
+              "id": "c66fbc79-8a7a-4b92-9576-fcb21c57e44f",
+              "created_on": "2020-06-05T13:05:47+00:00",
+              "changed_on": "2020-06-07T11:05:41+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185466",
+              "slug": null,
+              "name": "Politiegeweld, Lance Armstrong en Trianon, 07-06-2020, 1e uur",
+              "private": "0",
+              "body": ""
+            },
+            {
+              "id": "a4b33f4a-4718-4971-98d6-f8ac7e7814aa",
+              "created_on": "2020-06-05T12:44:29+00:00",
+              "changed_on": "2020-06-07T09:09:13+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185461",
+              "slug": null,
+              "name": "Het sprookje van Lance Armstrong",
+              "body": ""
+            },
+            {
+              "id": "3f4f504b-dc86-4b1a-97a3-58aae1fda8e1",
+              "created_on": "2020-06-05T12:32:34+00:00",
+              "changed_on": "2020-06-07T09:07:04+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185459",
+              "slug": null,
+              "name": "De Hongaarse 'schande' van het Verdrag van Trianon",
+              "body": ""
+            },
+            {
+              "id": "f90db746-307c-46c2-9dc2-d1ee4b2a8d93",
+              "created_on": "2020-06-05T12:30:40+00:00",
+              "changed_on": "2020-06-07T08:41:59+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185458",
+              "slug": null,
+              "name": "Wim Daniëls over zijn nieuwe boek 'De zomer van 1945'",
+              "body": ""
+            },
+            {
+              "id": "91ab51f3-459a-488f-b39c-4eefd0b1d974",
+              "created_on": "2020-06-05T12:22:34+00:00",
+              "changed_on": "2020-06-07T11:28:31+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185452",
+              "slug": null,
+              "name": "Waarom is het zo moeilijk de Amerikaanse politie te hervormen?",
+              "private": "0",
+              "body": ""
+            },
+            {
+              "id": "a319a927-3f07-4f69-9665-e9f134cf9cf8",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-06-05T12:15:07+00:00",
+              "published_on": "2020-06-07T08:05:15+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "private": "0",
+              "duration": "35000",
+              "tease": "",
+              "body": "Ivo van de Wijdeven over het Verdrag van Trianon ",
+              "name": "Talk"
+            },
+            {
+              "id": "2337d902-d49a-4948-9857-8610871973d6",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-06-05T12:14:39+00:00",
+              "published_on": "2020-06-07T08:04:40+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "private": "0",
+              "duration": "35000",
+              "tease": "",
+              "body": "Arthur van den Boogaard over het sprookje van Lance Armstrong",
+              "name": "Talk"
+            },
+            {
+              "id": "f2179a9c-6305-4e68-b069-04cc0f2a9a75",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-06-05T12:15:53+00:00",
+              "published_on": "2020-06-07T08:04:05+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "private": "0",
+              "duration": "35000",
+              "body": "Jaap Timmer over Amerikaans politiegeweld",
+              "tease": "",
+              "name": "Talk"
+            },
+            {
+              "id": "e0382fd5-fe1b-4e00-9038-f02e3a566aa1",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-05-27T12:01:21+00:00",
+              "published_on": "2020-06-07T08:00:35+00:00",
+              "unpublish_on": null,
+              "label": "TrackPlay",
+              "status": "draft",
+              "reference_id": null,
+              "slug": null,
+              "duration": "210000",
+              "body": "Track"
+            },
+            {
+              "id": "820e05ef-3157-450d-b06d-c5b082b59604",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-06-05T12:14:03+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "private": "0",
+              "duration": "35000",
+              "tease": "",
+              "body": "Wim Daniëls over zijn nieuwe boek 'De zomer van 1945' ",
+              "name": "Talk"
+            }
+          ],
+          "assets": [
+            {
+              "id": "d0d65283-d9f5-4a9d-a64a-82b0fe580125",
+              "created_on": "2020-06-07T10:10:06+00:00",
+              "changed_on": "2020-06-07T10:10:13+00:00",
+              "label": "Audio",
+              "name": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "body": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "reference_id": "PREPR_VPRO_16188113",
+              "reference": null,
+              "author": null,
+              "status": null,
+              "duration": 7200000,
+              "started_on": "2020-06-07T08:00:00+00:00",
+              "ended_on": "2020-06-07T10:00:00+00:00",
+              "custom": {
+                "type": "show"
+              },
+              "cdn_files": [
+                {
+                  "id": "05870043-e26a-4364-8789-b731acbd8d76",
+                  "created_on": "2020-06-07T10:18:24+00:00",
+                  "changed_on": null,
+                  "label": "CdnFile",
+                  "cdn": "NPOICT",
+                  "bucket": null,
+                  "profile": "mp3",
+                  "file": "nporadio1-20200607-101006-000nja.mp3",
+                  "url": "https://content.omroep.nl/arla/p/npo/audio/nporadio1/2020/6/7/nporadio1-20200607-101006-000nja.mp3",
+                  "resized": null
+                }
+              ],
+              "media": null,
+              "tags": [
+                {
+                  "id": "36b7ae54-e072-489f-9666-3a81a2c640ee",
+                  "created_on": "2018-08-09T12:55:46+00:00",
+                  "changed_on": null,
+                  "label": "Tag",
+                  "name": "VPRO",
+                  "slug": "vpro",
+                  "color": null
+                }
+              ]
+            },
+            {
+              "id": "b6c90b34-1075-40e0-a966-b504e854581c",
+              "created_on": "2020-06-07T09:12:03+00:00",
+              "changed_on": "2020-06-07T09:12:05+00:00",
+              "label": "Audio",
+              "name": "OVT - 07 Jun 2020, 10:00 - 11:00",
+              "body": "OVT - 07 Jun 2020, 10:00 - 11:00",
+              "reference_id": "PREPR_VPRO_16188065",
+              "reference": null,
+              "author": null,
+              "status": null,
+              "duration": 3600000,
+              "started_on": "2020-06-07T08:00:00+00:00",
+              "ended_on": "2020-06-07T09:00:00+00:00",
+              "custom": {
+                "type": "hourly"
+              },
+              "cdn_files": [
+                {
+                  "id": "8cf4b6f4-3345-4b37-8010-cbe0caf811a6",
+                  "created_on": "2020-06-07T09:16:09+00:00",
+                  "changed_on": null,
+                  "label": "CdnFile",
+                  "cdn": "NPOICT",
+                  "bucket": null,
+                  "profile": "mp3",
+                  "file": "nporadio1-20200607-091204-000nj4.mp3",
+                  "url": "https://content.omroep.nl/arla/p/npo/audio/nporadio1/2020/6/7/nporadio1-20200607-091204-000nj4.mp3",
+                  "resized": null
+                }
+              ],
+              "media": null,
+              "tags": [
+                {
+                  "id": "36b7ae54-e072-489f-9666-3a81a2c640ee",
+                  "created_on": "2018-08-09T12:55:46+00:00",
+                  "changed_on": null,
+                  "label": "Tag",
+                  "name": "VPRO",
+                  "slug": "vpro",
+                  "color": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3062bfd9-bad0-44ef-b7e8-55c3fcc71f6f",
+          "created_on": "2020-05-27T12:01:21+00:00",
+          "changed_on": "2020-06-07T11:04:59+00:00",
+          "published_on": "2020-06-07T09:00:00+00:00",
+          "unpublish_on": "2020-06-07T10:00:00+00:00",
+          "label": "Timeline",
+          "body": "OVT",
+          "custom": {
+            "importedshow": "1",
+            "importedhour": "1",
+            "nibgexported": "1"
+          },
+          "rule_id": "3bdd874b-858f-4c60-9279-031411fa7e95",
+          "prev_reference_id": "PREPR_VPRO_16167845",
+          "show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+          "from": "2020-06-07 11:00:00",
+          "offset": 39600,
+          "timeline_constraint_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.39600.43200",
+          "reference_id": "PREPR_VPRO_16167845",
+          "timecode": "2020-06-07:39600",
+          "prev_show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+          "clock_id": "c9f1235e-7db4-46b4-aea8-5a74e6588d55",
+          "until": "2020-06-07 12:00:00",
+          "timeline_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.39600.43200.c9f1235e-7db4-46b4-aea8-5a74e6588d55.2020-05-27T11:45:28+00:00",
+          "publications": [
+            {
+              "id": "676b6088-a42e-484d-8910-7c1ec37ceff6",
+              "created_on": "2020-06-05T13:18:31+00:00",
+              "changed_on": "2020-06-07T11:04:58+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185513",
+              "slug": null,
+              "name": "Martin Luther King en de plantage van onze voorouders deel 2, 07-06-2020, 2e uur",
+              "body": ""
+            },
+            {
+              "id": "31961837-f296-4c6d-a547-123c8e7a7c69",
+              "created_on": "2020-06-05T13:12:17+00:00",
+              "changed_on": "2020-06-07T11:04:02+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185470",
+              "slug": null,
+              "name": "Het Spoor Terug: De plantage van onze voorouders - deel 2",
+              "body": ""
+            },
+            {
+              "id": "8a9f2eef-140a-4854-a3a1-1ddaf9bd94de",
+              "created_on": "2020-06-05T13:09:59+00:00",
+              "changed_on": "2020-06-07T09:27:50+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185469",
+              "slug": null,
+              "name": "'A riot is the language of the unheard' - Martin Luther King Jr.",
+              "body": ""
+            },
+            {
+              "id": "767c6576-6d4f-48e8-9ddf-bfefc721ac06",
+              "created_on": "2020-05-27T12:01:22+00:00",
+              "changed_on": "2020-05-27T12:01:22+00:00",
+              "published_on": "2020-06-07T09:05:50+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "duration": "35000",
+              "body": "",
+              "name": "Talk"
+            },
+            {
+              "id": "fcac1a9b-c177-4922-a8c5-437dd8a503bf",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-05-27T12:01:21+00:00",
+              "published_on": "2020-06-07T09:05:15+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "duration": "35000",
+              "body": "",
+              "name": "Talk"
+            },
+            {
+              "id": "c7ddc694-3bd6-4f85-8d08-1d5ff1877855",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-05-27T12:01:21+00:00",
+              "published_on": "2020-06-07T09:04:40+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "duration": "35000",
+              "body": "",
+              "name": "Talk"
+            },
+            {
+              "id": "110ffdcc-e823-4cd4-b79e-2005936df6d2",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-05-27T12:01:21+00:00",
+              "published_on": "2020-06-07T09:04:05+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "duration": "35000",
+              "body": "",
+              "name": "Talk"
+            },
+            {
+              "id": "77399f96-e37c-4180-ae8e-09e17168d754",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-05-27T12:01:21+00:00",
+              "published_on": "2020-06-07T09:00:35+00:00",
+              "unpublish_on": null,
+              "label": "TrackPlay",
+              "status": "draft",
+              "reference_id": null,
+              "slug": null,
+              "duration": "210000",
+              "body": "Track"
+            },
+            {
+              "id": "42b7142a-d233-469a-9690-68e73e1871eb",
+              "created_on": "2020-05-27T12:01:21+00:00",
+              "changed_on": "2020-06-05T12:19:25+00:00",
+              "published_on": "2020-06-07T09:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Talk",
+              "status": "published",
+              "reference_id": null,
+              "slug": null,
+              "note": "",
+              "private": "0",
+              "duration": "35000",
+              "body": "Markha Valenta over Martin Lurther King en zijn quote \"Riots are the language of the unheard\" ",
+              "tease": "",
+              "name": "Talk"
+            }
+          ],
+          "assets": [
+            {
+              "id": "814d5c24-0049-431b-b6e7-9dfcfb69ce0b",
+              "created_on": "2020-06-07T10:12:03+00:00",
+              "changed_on": "2020-06-07T10:12:05+00:00",
+              "label": "Audio",
+              "name": "OVT - 07 Jun 2020, 11:00 - 12:00",
+              "body": "OVT - 07 Jun 2020, 11:00 - 12:00",
+              "reference_id": "PREPR_VPRO_16188116",
+              "reference": null,
+              "author": null,
+              "status": null,
+              "duration": 3600000,
+              "started_on": "2020-06-07T09:00:00+00:00",
+              "ended_on": "2020-06-07T10:00:00+00:00",
+              "custom": {
+                "type": "hourly"
+              },
+              "cdn_files": [
+                {
+                  "id": "b743d295-2628-4037-82a9-308369c87fd8",
+                  "created_on": "2020-06-07T10:22:37+00:00",
+                  "changed_on": null,
+                  "label": "CdnFile",
+                  "cdn": "NPOICT",
+                  "bucket": null,
+                  "profile": "mp3",
+                  "file": "nporadio1-20200607-101203-000nje.mp3",
+                  "url": "https://content.omroep.nl/arla/p/npo/audio/nporadio1/2020/6/7/nporadio1-20200607-101203-000nje.mp3",
+                  "resized": null
+                }
+              ],
+              "media": null,
+              "tags": [
+                {
+                  "id": "36b7ae54-e072-489f-9666-3a81a2c640ee",
+                  "created_on": "2018-08-09T12:55:46+00:00",
+                  "changed_on": null,
+                  "label": "Tag",
+                  "name": "VPRO",
+                  "slug": "vpro",
+                  "color": null
+                }
+              ]
+            },
+            {
+              "id": "d0d65283-d9f5-4a9d-a64a-82b0fe580125",
+              "created_on": "2020-06-07T10:10:06+00:00",
+              "changed_on": "2020-06-07T10:10:13+00:00",
+              "label": "Audio",
+              "name": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "body": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "reference_id": "PREPR_VPRO_16188113",
+              "reference": null,
+              "author": null,
+              "status": null,
+              "duration": 7200000,
+              "started_on": "2020-06-07T08:00:00+00:00",
+              "ended_on": "2020-06-07T10:00:00+00:00",
+              "custom": {
+                "type": "show"
+              },
+              "cdn_files": [
+                {
+                  "id": "05870043-e26a-4364-8789-b731acbd8d76",
+                  "created_on": "2020-06-07T10:18:24+00:00",
+                  "changed_on": null,
+                  "label": "CdnFile",
+                  "cdn": "NPOICT",
+                  "bucket": null,
+                  "profile": "mp3",
+                  "file": "nporadio1-20200607-101006-000nja.mp3",
+                  "url": "https://content.omroep.nl/arla/p/npo/audio/nporadio1/2020/6/7/nporadio1-20200607-101006-000nja.mp3",
+                  "resized": null
+                }
+              ],
+              "media": null,
+              "tags": [
+                {
+                  "id": "36b7ae54-e072-489f-9666-3a81a2c640ee",
+                  "created_on": "2018-08-09T12:55:46+00:00",
+                  "changed_on": null,
+                  "label": "Tag",
+                  "name": "VPRO",
+                  "slug": "vpro",
+                  "color": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "episode": {
+        "id": "PREPR_VPRO_16167845"
+      }
+    },
+----
+we zien daar veel metadata, maar ook een mp3 van de hele uitzending. Die heeft ook een started_on:
+
+[json]
+----
+  {
+              "id": "d0d65283-d9f5-4a9d-a64a-82b0fe580125",
+              "created_on": "2020-06-07T10:10:06+00:00",
+              "changed_on": "2020-06-07T10:10:13+00:00",
+              "label": "Audio",
+              "name": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "body": "OVT - 07 Jun 2020, 10:00 - 12:00",
+              "reference_id": "PREPR_VPRO_16188113",
+              "reference": null,
+              "author": null,
+              "status": null,
+              "duration": 7200000,
+              "started_on": "2020-06-07T08:00:00+00:00",
+              "ended_on": "2020-06-07T10:00:00+00:00",
+              "custom": {
+                "type": "show"
+              },
+              "cdn_files": [
+                {
+                  "id": "05870043-e26a-4364-8789-b731acbd8d76",
+                  "created_on": "2020-06-07T10:18:24+00:00",
+                  "changed_on": null,
+                  "label": "CdnFile",
+                  "cdn": "NPOICT",
+                  "bucket": null,
+                  "profile": "mp3",
+                  "file": "nporadio1-20200607-101006-000nja.mp3",
+                  "url": "https://content.omroep.nl/arla/p/npo/audio/nporadio1/2020/6/7/nporadio1-20200607-101006-000nja.mp3",
+                  "resized": null
+                }
+              ],
+----
+De uitzending is precies 2 uur, en exact om 8:00 UTC begonnen (i.e. 10:00 CET).
+
+Het item van dit issue over de amerikaanse politie zie je hier:
+
+[json]
+----
+
+ {
+              "id": "91ab51f3-459a-488f-b39c-4eefd0b1d974",
+              "created_on": "2020-06-05T12:22:34+00:00",
+              "changed_on": "2020-06-07T11:28:31+00:00",
+              "published_on": "2020-06-07T08:00:00+00:00",
+              "unpublish_on": null,
+              "label": "Post",
+              "status": "published",
+              "reference_id": "PREPR_VPRO_16185452",
+              "slug": null,
+              "name": "Waarom is het zo moeilijk de Amerikaanse politie te hervormen?",
+              "private": "0",
+              "body": ""
+            },
+----
+Dit is niet voldoende informatie dus we doen een nieuwe call om het hele publicatie object te krijgen:
+
+
+[bash]
+----
+ curl -XGET -H 'Authorization: Bearer <hidden>' 'https://api.eu1.graphlr.io/v5/publications/91ab51f3-459a-488f-b39c-4eefd0b1d974?fields=container,tags,custom,channel,element%7Bcustom,tags,media%7Bsource_file%7Bcustom,resized%7Bpicture.width(1920)%7D%7D,cdn_files%7Bcustom,resized%7Bpicture.width(1920)%7D%7D,custom,tags%7D%7D'
+----
+met als resultaat
+[json]
+----
+{
+  "id": "91ab51f3-459a-488f-b39c-4eefd0b1d974",
+  "created_on": "2020-06-05T12:22:34+00:00",
+  "changed_on": "2020-06-07T11:28:31+00:00",
+  "published_on": "2020-06-07T08:00:00+00:00",
+  "unpublish_on": null,
+  "label": "Post",
+  "status": "published",
+  "reference_id": "PREPR_VPRO_16185452",
+  "slug": null,
+  "custom": {
+    "startmarkers": "",
+    "facebook": "",
+    "twitter": "",
+    "email": "",
+    "recording": "",
+    "url": "",
+    "instagram": ""
+  },
+  "name": "Waarom is het zo moeilijk de Amerikaanse politie te hervormen?",
+  "private": "0",
+  "body": "",
+  "container": {
+    "id": "9b71b197-a211-4e21-8d1e-c347868a2a88",
+    "created_on": "2020-05-27T12:01:21+00:00",
+    "changed_on": "2020-06-07T11:28:31+00:00",
+    "published_on": "2020-06-07T08:00:00+00:00",
+    "unpublish_on": "2020-06-07T09:00:00+00:00",
+    "label": "Timeline",
+    "body": "OVT",
+    "rule_id": "3bdd874b-858f-4c60-9279-031411fa7e95",
+    "prev_reference_id": "PREPR_VPRO_16167845",
+    "show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+    "from": "2020-06-07 10:00:00",
+    "offset": 36000,
+    "timeline_constraint_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.36000.39600",
+    "reference_id": "PREPR_VPRO_16167845",
+    "timecode": "2020-06-07:36000",
+    "prev_show_id": "fda7fa27-cb96-45a6-8a49-f29ec4d45037",
+    "clock_id": "59789084-9f81-4f73-83bc-e89aa590e0df",
+    "until": "2020-06-07 11:00:00",
+    "timeline_hash": "1591480800.fda7fa27-cb96-45a6-8a49-f29ec4d45037.36000.39600.59789084-9f81-4f73-83bc-e89aa590e0df.2020-05-27T11:45:00+00:00"
+  },
+  "element": [
+    {
+      "id": "c61b6118-26fe-425c-8a5c-a4a384379580",
+      "created_on": "2020-06-07T11:28:31+00:00",
+      "body": "Waarom is het zo moeilijk de Amerikaanse politie te hervormen?",
+      "label": "Heading"
+    },
+    {
+      "id": "cf2ac14d-18a9-45d5-93f1-b2f522843e91",
+      "created_on": "2020-06-07T11:28:31+00:00",
+      "body": "Al decennia wordt er in Amerika hevig geprotesteerd tegen politiegeweld tegen zwarte Amerikanen. Toch blijft ingrijpende hervorming van de Amerikaanse politie uit – en wij vroegen ons af waarom. Volgens socioloog en politiewetenschapper Jaap Timmer van de Vrije Universiteit vormt het bestaan van het Tweede Amendement, oftewel het recht op wapenbezit, één belangrijke en meestal onderbelichte factor in dit vraagstuk. Timmer is gast.",
+      "label": "Text"
+    },
+    {
+      "id": "ea36240f-287b-4b6a-883b-a400c6c1cbaf",
+      "label": "Media",
+      "created_on": "2020-06-07T11:28:31+00:00",
+      "body": null,
+      "content": [
+        {
+          "id": "56886e84-0756-4b2e-acbe-821efbec61ad",
+          "created_on": "2020-06-07T08:24:06+00:00",
+          "changed_on": "2020-06-07T08:25:21+00:00",
+          "label": "Audio",
+          "name": "Jaap Timmer OVT",
+          "body": null,
+          "reference_id": "5edca426fc92c23bec976c39",
+          "reference": null,
+          "author": null,
+          "status": null,
+          "duration": 851030,
+          "started_on": "2020-06-07T08:05:24+00:00",
+          "ended_on": "2020-06-07T08:19:29+00:00",
+          "custom": null,
+          "source_file": null,
+          "cdn_files": [
+            {
+              "id": "15d3c5d3-22c1-434e-b714-ff08818f8245",
+              "created_on": "2020-06-07T08:25:23+00:00",
+              "changed_on": null,
+              "label": "CdnFile",
+              "cdn": "NPOICT",
+              "bucket": null,
+              "profile": "mp3",
+              "file": "56886e84-0756-4b2e-acbe-821efbec61ad.mp3",
+              "url": "https://content.omroep.nl/nporadio/audio/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/56886e84-0756-4b2e-acbe-821efbec61ad.mp3",
+              "resized": null
+            }
+          ],
+          "tags": [
+            {
+              "id": "e7660565-d047-413f-9e69-1cdc78c9b5d5",
+              "created_on": "2020-04-21T12:47:20+00:00",
+              "changed_on": null,
+              "label": "Tag",
+              "name": "source:liveclip.getprepr.com",
+              "slug": "sourceliveclipgetpreprcom",
+              "color": null
+            }
+          ],
+          "rel_description": null
+        },
+        {
+          "id": "0e773d8a-c66d-47d6-803e-3e738713082d",
+          "created_on": "2020-06-05T12:20:37+00:00",
+          "changed_on": "2020-06-05T12:20:37+00:00",
+          "label": "Photo",
+          "name": "0706 politie - ANP Foto - Chandan Khanna",
+          "body": null,
+          "reference_id": null,
+          "reference": null,
+          "author": null,
+          "status": null,
+          "custom": null,
+          "source_file": null,
+          "cdn_files": [
+            {
+              "id": "bde279e6-d394-4eba-8fe4-aca7a1399f99",
+              "created_on": "2020-06-05T12:20:38+00:00",
+              "changed_on": null,
+              "label": "CdnFile",
+              "cdn": "NPOICT",
+              "bucket": null,
+              "profile": "jpg",
+              "file": "cafd2aa6-f61f-4cfd-80b6-92698a0b4cee.jpg",
+              "url": "https://radio-images.npo.nl/{format}/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/cafd2aa6-f61f-4cfd-80b6-92698a0b4cee.jpg",
+              "resized": {
+                "picture": "https://radio-images.npo.nl/w_1920/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/cafd2aa6-f61f-4cfd-80b6-92698a0b4cee.jpg"
+              }
+            }
+          ],
+          "tags": null,
+          "rel_description": null
+        }
+      ]
+    }
+  ],
+  "channel": {
+    "id": "b9f1f936-8f8a-4439-a990-493ab93d83b1",
+    "created_on": "2018-06-06T07:10:47+00:00",
+    "changed_on": "2020-03-26T13:29:40+00:00",
+    "label": "Channel",
+    "name": "Site & App",
+    "username": null,
+    "screen_name": null,
+    "profile_pic": null,
+    "picture": null,
+    "type": "site",
+    "share_construct_url": "",
+    "preview_construct_url": "",
+    "share_url": null,
+    "slug": "site-app",
+    "messages": false
+  },
+  "tags": null
+}
+----
+
+Daarin vinden we het benodigde asset:
+
+[json]
+-----
+   {
+          "id": "56886e84-0756-4b2e-acbe-821efbec61ad",
+          "created_on": "2020-06-07T08:24:06+00:00",
+          "changed_on": "2020-06-07T08:25:21+00:00",
+          "label": "Audio",
+          "name": "Jaap Timmer OVT",
+          "body": null,
+          "reference_id": "5edca426fc92c23bec976c39",
+          "reference": null,
+          "author": null,
+          "status": null,
+          "duration": 851030,
+          "started_on": "2020-06-07T08:05:24+00:00",
+          "ended_on": "2020-06-07T08:19:29+00:00",
+          "custom": null,
+          "source_file": null,
+          "cdn_files": [
+            {
+              "id": "15d3c5d3-22c1-434e-b714-ff08818f8245",
+              "created_on": "2020-06-07T08:25:23+00:00",
+              "changed_on": null,
+              "label": "CdnFile",
+              "cdn": "NPOICT",
+              "bucket": null,
+              "profile": "mp3",
+              "file": "56886e84-0756-4b2e-acbe-821efbec61ad.mp3",
+              "url": "https://content.omroep.nl/nporadio/audio/34a076b3-08b3-4c0c-ae2e-33b5a04faf68/56886e84-0756-4b2e-acbe-821efbec61ad.mp3",
+              "resized": null
+            }
+          ],
+-----
+
+Daar staat  `"started_on": "2020-06-07T08:05:24+00:00",`
+
+en we concluderen dus dat dit mp3 precies 5:24 vanaf het begin van de uitzending is geknipt.
+
+Maar als je luister in de mp3, dan is dat niet zo.
