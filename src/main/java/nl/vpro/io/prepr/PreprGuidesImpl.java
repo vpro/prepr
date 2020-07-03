@@ -30,6 +30,11 @@ public class PreprGuidesImpl implements PreprGuides {
     private ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
 
+    @Getter
+    @Setter
+    private int limit = 1000;
+
+
     private static final Fields SCHEDULE_FIELDS = Fields.builder()
         .field(
             Field.builder("timelines")
@@ -104,6 +109,7 @@ public class PreprGuidesImpl implements PreprGuides {
         GenericUrl url = impl.createUrl("guides", impl.getGuideId());
         url.set("from", from.toString());
         url.set("until", until.toString());
+        url.set("limit", limit);
         //uri.addParameter("environment_id", "45ed5691-8bc1-4018-9d67-242150cff944");
         url.set("fields", SCHEDULE_FIELDS);
 
