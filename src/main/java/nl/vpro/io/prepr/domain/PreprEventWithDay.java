@@ -166,7 +166,21 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
             }
         });
         result.removeIf(event -> {
-            boolean episodeInRange = episodes.contains(event.getEvent().getEpisode().getId());
+            PreprEvent eventsEvent = event.getEvent();
+            if (eventsEvent == null) {
+                log.warn("{} has no event! Ignoring",  event);
+                return true;
+            }
+            PreprEpisode episode = eventsEvent.getEpisode();
+            if (episode == null) {
+                log.warn("{} has no episode! Ignoring", event);
+                return true;
+            }
+            if (episode.getId() == null) {
+                log.warn("Episode {} of {} has no id! Ignoring", episode, event);
+                return true;
+            }
+            boolean episodeInRange = episodes.contains(episode.getId());
             if (!episodeInRange) {
                 log.debug("The episode {} of {} is not in the range, removing", event.getEvent().getEpisode(), event);
             }
