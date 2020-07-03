@@ -200,6 +200,7 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+            .omitNullValues()
             .add("day", day)
             .add("episode", episodeId())
             .add("range", asRange())
