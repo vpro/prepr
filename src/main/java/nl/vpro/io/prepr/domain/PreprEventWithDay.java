@@ -121,11 +121,11 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
           }
         PreprEpisode episode = event.getEpisode();
         if (episode == null) {
-            log.warn("{} has no episode! Ignoring", event);
+            log.warn("{} {} has no episode! Ignoring", day, event);
             return Optional.empty();
         }
         if (episode.getId() == null) {
-            log.warn("Episode {} of {} has no id! Ignoring", episode, event);
+            log.warn("Episode {} of {} {} has no id! Ignoring", episode, day, event);
             return Optional.empty();
         }
         return Optional.of(episode.getId());
