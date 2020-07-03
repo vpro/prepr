@@ -114,19 +114,28 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         }
     }
 
-    public String episodeId() {
-        if (event.getEpisode() != null) {
-            return event.getEpisode().getId();
-        } else {
-            return null;
+    public Optional<String> episodeId() {
+          if (event == null) {
+              log.warn("{} has no event", this);
+              return Optional.empty();
+          }
+        PreprEpisode episode = event.getEpisode();
+        if (episode == null) {
+            log.warn("{} has no episode! Ignoring", event);
+            return Optional.empty();
         }
+        if (episode.getId() == null) {
+            log.warn("Episode {} of {} has no id! Ignoring", episode, event);
+            return Optional.empty();
+        }
+        return Optional.of(episode.getId());
     }
 
 
     public static List<PreprEventWithDay> fromSchedule(@NonNull PreprSchedule unfilteredResult, ZoneId zoneId) {
         List<PreprEventWithDay> result = new ArrayList<>();
 
-        Function<PreprEventWithDay, String> matcher = PreprEventWithDay::episodeId;
+        Function<PreprEventWithDay, Optional<String>> matcher = PreprEventWithDay::episodeId;
 
         // use to be this
         //Function<PreprEventWithDay, String> matcher = PreprEventWithDay::showId;
@@ -134,10 +143,10 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         unfilteredResult.forEach((e) -> {
             for (PreprEvent mcEvent : e.getValue()) {
                 PreprEventWithDay withDay = new PreprEventWithDay(e.getKey(), zoneId, mcEvent);
-                String episodeId= matcher.apply(withDay);
+                String episodeId= matcher.apply(withDay).orElse(null);
                 if (result.size() > 0) {
                     PreprEventWithDay previous = result.get(result.size() - 1);
-                    String previousEpisodeId = matcher.apply(previous);
+                    String previousEpisodeId = matcher.apply(previous).orElse(null);
                     if (episodeId != null && Objects.equals(episodeId, previousEpisodeId)) {
                         log.debug("Appending {} to {}", withDay, previous);
                         previous.append(withDay);
@@ -162,25 +171,15 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
             boolean startInRange = range.contains(erange.lowerEndpoint());
 
             if (startInRange) {
-                episodes.add(event.getEvent().getEpisode().getId());
+                event.episodeId().ifPresent(episodes::add);
             }
         });
         result.removeIf(event -> {
-            PreprEvent eventsEvent = event.getEvent();
-            if (eventsEvent == null) {
-                log.warn("{} has no event! Ignoring",  event);
+            Optional<String> epId = event.episodeId();
+            if (! epId.isPresent()) {
                 return true;
             }
-            PreprEpisode episode = eventsEvent.getEpisode();
-            if (episode == null) {
-                log.warn("{} has no episode! Ignoring", event);
-                return true;
-            }
-            if (episode.getId() == null) {
-                log.warn("Episode {} of {} has no id! Ignoring", episode, event);
-                return true;
-            }
-            boolean episodeInRange = episodes.contains(episode.getId());
+            boolean episodeInRange = episodes.contains(epId.get());
             if (!episodeInRange) {
                 log.debug("The episode {} of {} is not in the range, removing", event.getEvent().getEpisode(), event);
             }
