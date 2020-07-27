@@ -291,6 +291,12 @@
       <groupId>nl.vpro.shared</groupId>
       <artifactId>vpro-shared-jackson2</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>nl.vpro.shared</groupId>
+      <artifactId>vpro-shared-configuration</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>javax.persistence-api</artifactId>
@@ -314,6 +320,12 @@
       <artifactId>spring-context</artifactId>
       <version>${spring.version}</version>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>

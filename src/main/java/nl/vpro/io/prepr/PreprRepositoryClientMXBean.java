@@ -36,4 +36,8 @@ public interface PreprRepositoryClientMXBean  {
 
     int getGuideCallsMaxDays();
     void setGuideCallsMaxDays(@Size(min=1) int guideCallsMaxDays);
+
+
+    boolean isLogAsCurl();
+    void setLogAsCurl(boolean logAsCurl);
 }

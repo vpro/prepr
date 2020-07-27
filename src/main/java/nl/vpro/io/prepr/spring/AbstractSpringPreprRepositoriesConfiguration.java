@@ -4,22 +4,22 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
-import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.inject.Provider;
+import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import nl.vpro.io.prepr.*;
-import nl.vpro.util.TimeUtils;
 
 import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
 
@@ -31,14 +31,20 @@ import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
  */
 @Slf4j
 @Configuration
-public abstract class AbstractSpringPreprRepositoriesConfiguration implements BeanDefinitionRegistryPostProcessor {
+public abstract class AbstractSpringPreprRepositoriesConfiguration implements InitializingBean, BeanDefinitionRegistryPostProcessor  {
 
     private final static String PREF = "prepr";
     private final static String CPREF = "preprrepository";
     private final static String CLIENT_PREF = CPREF + ".client";
 
     private final String[] propertiesResources;
-    private Provider<Map<String, String>> moreProperties = HashMap::new;
+    private Map<String, String> moreProperties;
+
+
+    @Autowired
+    @Named("properties")
+    Map<String, String> properties;
+
 
     public AbstractSpringPreprRepositoriesConfiguration(String... propertiesResources) {
         this.propertiesResources = propertiesResources;
@@ -49,19 +55,29 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
         this("prepr.properties");
     }
 
-
-    public void setMoreProperties(Provider<Map<String, String>> m) {
-        this.moreProperties = m;
+    @Override
+    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+        registerBeans(beanDefinitionRegistry);;
     }
 
     @Override
+    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+        log.info("{}", configurableListableBeanFactory);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("--");
+
+    }
+
     @SneakyThrows
-    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+    protected void registerBeans(BeanDefinitionRegistry beanDefinitionRegistry) {
         Properties properties = new Properties();
         for (String prop : this.propertiesResources) {
             properties.load(new ClassPathResource(prop).getInputStream());
         }
-        properties.putAll(moreProperties.get());
+
 
         String prefix = PREF + ".clientId.";
         List<String> channels = properties.entrySet().stream()
@@ -75,11 +91,6 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
 
 
         for (String channel : channels) {
-            String delayAfterTokenString = get(properties, "delayAfterToken", channel);
-            Duration delayAfterToken = TimeUtils.parseDuration(delayAfterTokenString).orElseGet(() -> {
-                log.warn("Could not parse {}", delayAfterTokenString);
-                return null;
-            });
             String secret = (String) properties.get(PREF + ".clientSecret." + channel);
             if (secret == null) {
                 log.info("Skipped creating bean for {}, because no client secret configured", channel);
@@ -96,7 +107,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                 .addConstructorArgValue(get(properties, "description", channel))
                 .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
                 .addConstructorArgValue(null)
-                .addConstructorArgValue(delayAfterToken)
+                .addConstructorArgValue(null)
                 .addConstructorArgValue(v5)
                 .getBeanDefinition();
 
@@ -162,8 +173,5 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
             );
     }
 
-    @Override
-    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
-    }
 }

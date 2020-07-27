@@ -1,19 +1,21 @@
 package nl.vpro.io.prepr.spring;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.vpro.io.prepr.PreprRepositories;
-import nl.vpro.io.prepr.PreprRepository;
-import nl.vpro.io.prepr.Scope;
-import nl.vpro.io.prepr.domain.PreprObjectMapper;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
-import java.util.stream.Collectors;
+import nl.vpro.io.prepr.*;
+import nl.vpro.io.prepr.domain.PreprObjectMapper;
+import nl.vpro.util.TimeUtils;
 
 /**
  * @author Michiel Meeuwissen
@@ -21,6 +23,14 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class SpringPreprRepositories implements PreprRepositories, ApplicationContextAware  {
+
+    public static final String PREF = "prepr.";
+
+    public static final String LOG_AS_CURL = PREF + "logascurl";
+    public static final String SCOPES = PREF + "scopes";
+    public static final String DELAY_AFTER_TOKEN = PREF + "delayAfterToken";
+    public static final String LENIENT_JSON = PREF + "lenientjson";
+
 
     final Map<String, PreprRepository> repositories = new HashMap<>();
     private ApplicationContext applicationContext;
@@ -52,26 +62,18 @@ public class SpringPreprRepositories implements PreprRepositories, ApplicationCo
     }
     @PostConstruct
     public void fill() {
-        boolean foundLogAsCurl = applicationContext.containsBean("prepr.logascurl");
-        boolean logAsCurl = foundLogAsCurl && Boolean.valueOf(applicationContext.getBean("prepr.logascurl", String.class));
-        boolean foundScopes = applicationContext.containsBean("prepr.scopes");
-        final String scopes;
-        if (foundScopes) {
-             scopes = applicationContext.getBean("prepr.scopes", String.class);
-        } else {
-            scopes = "";
-        }
         applicationContext.getBeansOfType(PreprRepository.class).values().forEach(mc -> {
             repositories.put(mc.getChannel(), mc);
-            if (foundLogAsCurl) {
-                mc.getClient().setLogAsCurl(logAsCurl);
-            }
-            if (foundScopes) {
-                mc.getClient().setScopes(Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()));
-            }
+            getSetting(LOG_AS_CURL, mc.getChannel()).ifPresent(s -> mc.getClient().setLogAsCurl(Boolean.parseBoolean(s)));
+            getSetting(SCOPES, mc.getChannel()).ifPresent(s ->
+                mc.getClient().setScopes(Arrays.stream(s.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList()))
+            );
+            getSetting(DELAY_AFTER_TOKEN, mc.getChannel()).ifPresent(s ->
+                mc.getClient().setDelayAfterToken(TimeUtils.parseDuration(s).orElse(null))
+            );
         });
-        if (applicationContext.containsBean("prepr.lenientjson")) {
-            String lenient = applicationContext.getBean("prepr.lenientjson", String.class);
+        if (applicationContext.containsBean(LENIENT_JSON)) {
+            String lenient = applicationContext.getBean(LENIENT_JSON, String.class);
             PreprObjectMapper.configureInstance(StringUtils.isBlank(lenient) || Boolean.parseBoolean(lenient));
         }
         log.info("{}", repositories.values());
@@ -80,6 +82,18 @@ public class SpringPreprRepositories implements PreprRepositories, ApplicationCo
     @Override
     public String toString() {
         return getClass().getSimpleName() + " for " + repositories.keySet();
+    }
+
+    protected Optional<String> getSetting(String key, String channel) {
+        boolean containsKey = applicationContext.containsBean(key + "." + channel);
+        if (containsKey) {
+            return Optional.of((String) applicationContext.getBean(key + "." + channel));
+        }
+        containsKey = applicationContext.containsBean(key);
+        if (containsKey) {
+            return Optional.of(String.valueOf(applicationContext.getBean(key)));
+        }
+        return Optional.empty();
     }
 
 }
