@@ -30,7 +30,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
-import nl.vpro.util.TimeUtils;
 
 
 /**
@@ -144,7 +143,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable String description,
         @Named("prepr.logascurl") Boolean logAsCurl,
         @Nullable Integer guideCallsMaxDays,
-        @Named("prepr.delayAfterToken") String delayAfterToken,
+        @Named("prepr.delayAfterToken") Duration delayAfterToken,
         Version version
 
         ) {
@@ -168,7 +167,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             this.guideCallsMaxDays = guideCallsMaxDays;
         }
         if (delayAfterToken != null) {
-            this.delayAfterToken = TimeUtils.parseDuration(delayAfterToken).orElseThrow(() -> new IllegalArgumentException(delayAfterToken));
+            this.delayAfterToken = delayAfterToken;
         }
     }
 

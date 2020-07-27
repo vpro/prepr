@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,7 +72,14 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
             .map((k) -> k.substring(prefix.length()))
             .collect(Collectors.toList());
 
+
+
         for (String channel : channels) {
+            String delayAfterTokenString = get(properties, "delayAfterToken", channel);
+            Duration delayAfterToken = TimeUtils.parseDuration(delayAfterTokenString).orElseGet(() -> {
+                log.warn("Could not parse {}", delayAfterTokenString);
+                return null;
+            });
             String secret = (String) properties.get(PREF + ".clientSecret." + channel);
             if (secret == null) {
                 log.info("Skipped creating bean for {}, because no client secret configured", channel);
@@ -88,7 +96,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements Be
                 .addConstructorArgValue(get(properties, "description", channel))
                 .addConstructorArgValue(getWithDefault(properties, "logascurl", channel))
                 .addConstructorArgValue(null)
-                .addConstructorArgValue(TimeUtils.parseDuration(get(properties, "delayAfterToken", channel)).orElse(null))
+                .addConstructorArgValue(delayAfterToken)
                 .addConstructorArgValue(v5)
                 .getBeanDefinition();
 
