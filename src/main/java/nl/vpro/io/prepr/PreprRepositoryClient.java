@@ -71,6 +71,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     private final String clientSecret;
 
+    private final String clientToken;
+
+
     @Getter
     private Integer rateLimitReset = null;
     @Getter
@@ -138,6 +141,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @NonNull String channel,
         @NonNull String clientId,
         @NonNull String clientSecret,
+        @NonNull String clientToken,
         @Nullable String guideId,
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
@@ -153,6 +157,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         this.channel = channel;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.clientToken = clientToken;
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         if (logAsCurl != null) {
@@ -334,7 +339,11 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 }
                 data = " -d '" + out.toString() + "'";
             }
-            log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
+            if (lifetimeToken()) {
+                log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl(), data);
+            } else {
+                log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
+            }
         } else {
             log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }
@@ -345,12 +354,24 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     protected void authenticate(HttpRequest request) throws IOException {
-        getToken();
         callCount++;
-        request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " + tokenResponse.getAccessToken());
+        if (lifetimeToken()) {
+            request.getHeaders().setAuthorization("Bearer " + clientToken);
+        } else {
+            getToken();
+            request.getHeaders().setAuthorization(tokenResponse.getTokenType() + " " +  tokenResponse.getAccessToken());
+
+        }
+    }
+
+    protected boolean lifetimeToken() {
+        return StringUtils.isNotBlank(clientToken) && StringUtils.isBlank(clientSecret);
     }
 
     protected synchronized  void getToken() throws  IOException {
+        if (lifetimeToken()) {
+            return;
+        }
         if (tokenResponse == null || expiration.isBefore(Instant.now().plus(mininumExpiration))) {
 
             List<Scope> scopesToUse = scopes;

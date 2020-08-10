@@ -31,6 +31,8 @@ public class PreprRepositoryImplITest {
     static PreprRepositoryImpl rad4 = PreprRepositoryImpl.configuredInUserHome("RAD4");
     static PreprRepositoryImpl rad5 = PreprRepositoryImpl.configuredInUserHome("RAD5");
     static PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
+    static PreprRepositoryImpl test = PreprRepositoryImpl.configuredInUserHome("XXXX");
+
     //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
     //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
     //MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
@@ -64,7 +66,7 @@ public class PreprRepositoryImplITest {
     void getSchedules() {
         //getSchedule(rad2);
         LocalDate date = LocalDate.of(2019, 6, 4);
-        getSchedule(funx, date);
+        getSchedule(test, date);
         //getSchedule(fnxa, date);
 
     }
@@ -103,7 +105,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     void getGuides() {
-        PreprItems<PreprGuide> result = rad2.getGuides().getGuides(null);
+        PreprItems<PreprGuide> result = test.getGuides().getGuides(null);
         for (PreprGuide guide : result) {
             log.info("guide: {}", guide);
         }

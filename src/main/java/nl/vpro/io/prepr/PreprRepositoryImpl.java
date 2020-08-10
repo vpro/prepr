@@ -115,6 +115,7 @@ public class PreprRepositoryImpl implements PreprRepository {
         @NonNull String channel) {
         String postfix = channel == null || channel.length() == 0 ? "" : "." + channel;
         String clientId = properties.get("prepr.clientId" + postfix);
+
         if (StringUtils.isNotBlank(clientId)) {
             PreprRepositoryClient v5Client = createClient(v5, properties, channel);
             PreprRepositoryClient v6Client = null; // not yet used
@@ -146,17 +147,18 @@ public class PreprRepositoryImpl implements PreprRepository {
         String clientId = properties.get("prepr.clientId" + postfix);
         boolean logAsCurl = Boolean.parseBoolean(properties.getOrDefault("prepr.logascurl", "false"));
         PreprRepositoryClient client = PreprRepositoryClient.builder()
-                .channel(channel)
-                .api(properties.get("prepr.api"))
-                .clientId(clientId)
-                .clientSecret(properties.get("prepr.clientSecret" + postfix))
-                .guideId(properties.get("prepr.guideId" + postfix))
-                .scopes(properties.get("prepr.scopes" + postfix))
-                .description(properties.get("prepr.description" + postfix))
-                .logAsCurl(logAsCurl)
-                .version(version)
-                .build();
-         String jmxName = properties.get("prepr.jmxname");
+            .channel(channel)
+            .api(properties.get("prepr.api"))
+            .clientId(clientId)
+            .clientSecret(properties.get("prepr.clientSecret" + postfix))
+            .clientToken(properties.get("prepr.clientToken" + postfix))
+            .guideId(properties.get("prepr.guideId" + postfix))
+            .scopes(properties.get("prepr.scopes" + postfix))
+            .description(properties.get("prepr.description" + postfix))
+            .logAsCurl(logAsCurl)
+            .version(version)
+            .build();
+        String jmxName = properties.get("prepr.jmxname");
         if (jmxName != null && jmxName.length() > 0) {
             client.registerBean(jmxName);
         }
