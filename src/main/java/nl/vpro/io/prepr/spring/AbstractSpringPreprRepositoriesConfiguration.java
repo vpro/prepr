@@ -67,7 +67,6 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("--");
 
     }
 
@@ -102,6 +101,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
                 .addConstructorArgValue(channel)
                 .addConstructorArgValue(get(properties, "clientId", channel))
                 .addConstructorArgValue(get(properties, "clientSecret", channel))
+                .addConstructorArgValue(get(properties, "clientToken", channel))
                 .addConstructorArgValue(get(properties, "guideId", channel))
                 .addConstructorArgValue(getWithDefault(properties, "scopes", channel))
                 .addConstructorArgValue(get(properties, "description", channel))
