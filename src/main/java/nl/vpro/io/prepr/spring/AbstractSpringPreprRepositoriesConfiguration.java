@@ -91,8 +91,9 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
 
         for (String channel : channels) {
             String secret = (String) properties.get(PREF + ".clientSecret." + channel);
-            if (secret == null) {
-                log.info("Skipped creating bean for {}, because no client secret configured", channel);
+            String token = (String) properties.get(PREF + ".clientToken." + channel);
+            if (secret == null && token == null) {
+                log.info("Skipped creating bean for {}, because no client secret or token configured", channel);
                 continue;
             }
             AbstractBeanDefinition clientV5Definition = BeanDefinitionBuilder

@@ -140,8 +140,8 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable @Named("prepr.api") String api,
         @NonNull String channel,
         @NonNull String clientId,
-        @NonNull String clientSecret,
-        @NonNull String clientToken,
+        @Nullable String clientSecret,
+        @Nullable String clientToken,
         @Nullable String guideId,
         @Nullable @Named("prepr.scopes") String scopes,
         @Nullable String description,
@@ -158,6 +158,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.clientToken = clientToken;
+        if (this.clientSecret == null && this.clientToken == null) {
+            throw new IllegalArgumentException("Either a client token, or a client secret must be configured for " + clientId + "@" + channel);
+        }
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         if (logAsCurl != null) {
