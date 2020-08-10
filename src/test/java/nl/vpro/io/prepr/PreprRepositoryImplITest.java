@@ -107,7 +107,7 @@ public class PreprRepositoryImplITest {
     void getGuides() {
         PreprItems<PreprGuide> result = test.getGuides().getGuides(null);
         for (PreprGuide guide : result) {
-            log.info("guide: {}", guide);
+            log.info("guide: {}, {}", guide, guide.getUUID());
         }
     }
 

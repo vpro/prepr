@@ -2,6 +2,7 @@ package nl.vpro.io.prepr;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -21,6 +22,7 @@ import nl.vpro.io.prepr.domain.*;
  * @since 0.1
  */
 @Named
+@Slf4j
 public class PreprGuidesImpl implements PreprGuides {
 
     private  final PreprRepositoryClient impl;
@@ -29,10 +31,11 @@ public class PreprGuidesImpl implements PreprGuides {
     @Setter
     private ZoneId zone = ZoneId.of("Europe/Amsterdam");
 
-
     @Getter
     @Setter
     private int limit = 1000;
+
+    private UUID guideId;
 
 
     private static final Fields SCHEDULE_FIELDS = Fields.builder()
@@ -96,17 +99,17 @@ public class PreprGuidesImpl implements PreprGuides {
             }
             return result;
         }
-
     }
 
 
 
 
     private PreprSchedule _getSchedule(@NonNull LocalDate from, @NonNull LocalDate until, boolean exceptions, UUID showId) {
-        if (impl.getGuideId() == null) {
+        UUID guideId = getGuideId();
+        if (guideId == null) {
             throw new IllegalStateException("No guide id defined for " + impl);
         }
-        GenericUrl url = impl.createUrl("guides", impl.getGuideId());
+        GenericUrl url = impl.createUrl(PATH, guideId);
         url.set("from", from.toString());
         url.set("until", until.toString());
         url.set("limit", limit);
@@ -121,16 +124,30 @@ public class PreprGuidesImpl implements PreprGuides {
 
     @Override
     public PreprItems<PreprGuide> getGuides(String q) {
-         GenericUrl url = impl.createUrl("guides");
+         GenericUrl url = impl.createUrl(PATH);
         if (q!= null) {
             url.set("q", q);
         }
         url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
 
         return impl.get(url, PreprItems.class);
-
-
     }
 
-
+    protected UUID getGuideId() {
+        UUID result = impl.getGuideId();
+        if (result != null) {
+            return  result;
+        }
+        if (guideId == null) {
+            for (PreprGuide item : getGuides(null).getItems()) {
+                if (item.getBody() != null && item.getBody().toLowerCase().contains("Program")) {
+                    guideId = item.getUUID();
+                    break;
+                }
+                guideId = item.getUUID();
+            }
+            log.info("Guessed guide id {}", guideId);
+        }
+        return guideId;
+    }
 }

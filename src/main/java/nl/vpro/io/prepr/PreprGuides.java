@@ -14,6 +14,8 @@ import nl.vpro.io.prepr.domain.*;
  */
 public interface PreprGuides {
 
+    String PATH = "guides";
+
 
     ZoneId getZone();
 
