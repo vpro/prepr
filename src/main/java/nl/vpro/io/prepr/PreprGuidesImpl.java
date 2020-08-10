@@ -140,7 +140,7 @@ public class PreprGuidesImpl implements PreprGuides {
         }
         if (guideId == null) {
             for (PreprGuide item : getGuides(null).getItems()) {
-                if (item.getBody() != null && item.getBody().toLowerCase().contains("Program")) {
+                if (item.getBody() != null && item.getBody().toLowerCase().contains("program")) {
                     guideId = item.getUUID();
                     break;
                 }
