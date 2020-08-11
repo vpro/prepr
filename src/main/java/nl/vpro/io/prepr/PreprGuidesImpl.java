@@ -124,7 +124,7 @@ public class PreprGuidesImpl implements PreprGuides {
 
     @Override
     public PreprItems<PreprGuide> getGuides(String q) {
-         GenericUrl url = impl.createUrl(PATH);
+        GenericUrl url = impl.createUrl(PATH);
         if (q!= null) {
             url.set("q", q);
         }
