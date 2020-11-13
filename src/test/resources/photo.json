@@ -1,0 +1,33 @@
+{
+      "id" : "32f7b10d-6792-4447-b9a8-52a28e44d5b2",
+      "created_on" : "2020-10-21T12:01:35+00:00",
+      "changed_on" : "2020-10-21T12:01:35+00:00",
+      "label" : "Photo",
+      "name" : "thuis-5",
+      "body" : null,
+      "reference_id" : null,
+      "reference" : null,
+      "author" : null,
+      "status" : null,
+      "extension" : "png",
+      "height" : 928,
+      "original_name" : "thuis-5",
+      "width" : 1256,
+      "mime_type" : "image/png",
+      "source_file" : null,
+      "cdn_files" : [ {
+        "id" : "067261e4-2837-42c3-b4a5-c5d62be7b493",
+        "created_on" : "2020-10-21T12:02:26+00:00",
+        "changed_on" : null,
+        "label" : "CdnFile",
+        "cdn" : "NPOICT",
+        "bucket" : null,
+        "profile" : "jpg",
+        "file" : "02207fe6-db81-45bb-85de-6fc885de0285.png",
+        "url" : "https://radio-images.npo.nl/{format}/45ed5691-8bc1-4018-9d67-242150cff944/02207fe6-db81-45bb-85de-6fc885de0285.png",
+        "resized" : {
+          "picture" : "https://radio-images.npo.nl/w_1920/45ed5691-8bc1-4018-9d67-242150cff944/02207fe6-db81-45bb-85de-6fc885de0285.png"
+        }
+      } ]
+    }
+  }

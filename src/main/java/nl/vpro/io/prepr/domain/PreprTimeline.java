@@ -28,7 +28,11 @@ public class PreprTimeline extends AbstractPreprContent {
 
     LocalDateTime from;
 
+    LocalDateTime prev_from;
+
     LocalDateTime until;
+
+    LocalDateTime prev_until;
 
     List<PreprAbstractMedia> assets;
 

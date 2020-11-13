@@ -23,6 +23,8 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
     String name;
 
+    String original_name;
+
     String reference;
 
     String reference_id;
