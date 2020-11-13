@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import nl.vpro.io.prepr.domain.*;
 
@@ -43,10 +44,12 @@ public interface PreprGuides {
     }
 
     default PreprSchedule getSchedule(@NonNull LocalDate from) {
-        return getSchedule(from, from);
+        return getSchedule(from, from.plusDays(1));
     }
 
-     PreprItems<PreprGuide> getGuides(@NonNull String q);
+    PreprItems<PreprGuide> getGuides(@Nullable String q);
+
+
 
 
 }
