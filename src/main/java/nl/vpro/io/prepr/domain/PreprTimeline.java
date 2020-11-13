@@ -1,17 +1,16 @@
 package nl.vpro.io.prepr.domain;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
-import com.google.common.collect.Range;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
@@ -44,6 +43,14 @@ public class PreprTimeline extends AbstractPreprContent {
     String prev_reference_id;
 
     String prev_show_id;
+
+    String rule_id;
+
+    String timeline_constraint_hash;
+
+    String clock_id;
+
+    PreprPhoto cover;
 
 
     public Range<LocalDateTime> asRange() {

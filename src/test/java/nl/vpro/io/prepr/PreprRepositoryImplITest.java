@@ -73,10 +73,10 @@ public class PreprRepositoryImplITest {
 
     @Test
     void getSchedule() {
-        LocalDate firstDate = LocalDate.of(2019, 6, 8);
-        PreprSchedule schedule1 = getSchedule(funx, firstDate);
+        LocalDate firstDate = LocalDate.of(2020, 11, 13);
+        PreprSchedule schedule1 = getSchedule(test, firstDate);
         Optional<PreprEvent> lastEvent = schedule1.getDays().values().stream().reduce((a, b) -> b).map(l -> l.stream().reduce((a, b) -> b)).get();
-        PreprSchedule schedule2 = getSchedule(funx, firstDate.plusDays(1));
+        PreprSchedule schedule2 = getSchedule(test, firstDate.plusDays(1));
         Optional<PreprEvent> firstEvent = schedule2.getDays().values().stream().reduce((a, b) -> a).map(l -> l.stream().reduce((a, b) -> a)).get();
 
         log.info("last: {}", lastEvent);
@@ -302,7 +302,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getTimeline() {
-        PreprTimeline timeline = rad3.getContainers().getTimeline(UUID.fromString("7c94ebfe-3555-4ea7-a4e1-69c6db06c415"));
+        PreprTimeline timeline = test.getContainers().getTimeline(UUID.fromString("7c94ebfe-3555-4ea7-a4e1-69c6db06c415"));
         log.info("timeline: {}", timeline);
 
 

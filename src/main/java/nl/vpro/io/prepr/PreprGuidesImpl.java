@@ -43,6 +43,7 @@ public class PreprGuidesImpl implements PreprGuides {
             Field.builder("timelines")
                 .field(Fields.ASSETS)
                 .f("custom")
+                .field(Fields.COVER)
                 .field(Field.builder("publications")
                     /* .fs("tags")
                 .field(ASSETS)
@@ -119,7 +120,7 @@ public class PreprGuidesImpl implements PreprGuides {
         url.set("exceptions", exceptions);
 
 
-        return impl.get(url, PreprSchedule.class);
+        return impl.optionalGet(url, PreprSchedule.class).orElseThrow(() -> new IllegalArgumentException("Couldn't get " + url));
     }
 
     @Override

@@ -258,6 +258,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             throw new RuntimeException("For " + url.toURI() + ":" + e.getMessage(), e);
         }
     }
+
     protected <T> T get(GenericUrl url, Class<T> clazz)  {
         return optionalGet(url, clazz).orElse(null);
     }

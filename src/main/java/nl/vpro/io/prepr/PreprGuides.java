@@ -43,7 +43,7 @@ public interface PreprGuides {
     }
 
     default PreprSchedule getSchedule(@NonNull LocalDate from) {
-        return getSchedule(from, from);
+        return getSchedule(from, from.plusDays(1));
     }
 
      PreprItems<PreprGuide> getGuides(@NonNull String q);
