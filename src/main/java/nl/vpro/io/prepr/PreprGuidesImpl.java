@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -124,9 +125,9 @@ public class PreprGuidesImpl implements PreprGuides {
     }
 
     @Override
-    public PreprItems<PreprGuide> getGuides(String q) {
+    public PreprItems<PreprGuide> getGuides(@Nullable String q) {
         GenericUrl url = impl.createUrl(PATH);
-        if (q!= null) {
+        if (q != null) {
             url.set("q", q);
         }
         url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
