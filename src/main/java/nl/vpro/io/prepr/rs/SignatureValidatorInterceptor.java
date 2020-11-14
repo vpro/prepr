@@ -27,7 +27,7 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
 
 
 /**
- * This can be used to verify webhook calls made by mediaconnect to your server
+ * This can be used to verify webhook calls made by prepr to your server
  *
  * See
  * https://developers.mediaconnect.io/docs/webhooks
@@ -142,9 +142,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
         } else {
             MDC.put("userName", "webhook:" + matched.toString());
             if (webhookuuids.size() > 1) {
-                Iterator<UUID> i = webhookuuids.iterator();
-                while (i.hasNext()) {
-                    UUID n = i.next();
+                for (UUID n : webhookuuids) {
                     if (n.equals(matched)) {
                         break;
                     } else {
@@ -167,7 +165,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     public static Optional<UUID> getWebhookIdForChannel(String channel) {
         return Optional.ofNullable(WEBHOOK_IDS.get(channel)).map(e -> e.get(0));
     }
-    public static PreprWebhookAnswer createAnser(String channel, String message) {
+    public static PreprWebhookAnswer createAnswer(String channel, String message) {
         return new PreprWebhookAnswer(message, getWebhookIdForChannel(channel).orElse(null), channel);
     }
 
