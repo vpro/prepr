@@ -1,12 +1,11 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Duration;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -35,4 +34,7 @@ public class PreprTalk extends AbstractPreprContent {
     private PreprChannel channel;
 
     private List<PreprTag> tags;
+
+
+
 }

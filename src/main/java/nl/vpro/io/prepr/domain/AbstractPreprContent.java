@@ -1,13 +1,13 @@
 package nl.vpro.io.prepr.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author Michiel Meeuwissen
@@ -44,5 +44,19 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
 
 
     String name;
+
+
+    @JsonProperty("private")
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private String private_;
+
+    public String getPrivate() {
+        return private_;
+    }
+
+    public void setPrivate(String private_) {
+        this.private_ = private_;
+    }
 
 }
