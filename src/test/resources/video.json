@@ -1,0 +1,48 @@
+{
+  "id": "3931236d-37b9-4e5d-b0be-09227c1337d7",
+  "created_on": "2020-10-24T15:00:53+00:00",
+  "changed_on": "2020-10-24T15:01:46+00:00",
+  "label": "Video",
+  "name": "Lisa over haar boek 'Laat Je Horen'",
+  "body": null,
+  "reference_id": "PREPR_3FM_16330297",
+  "reference": null,
+  "author": null,
+  "status": null,
+  "duration": 405040,
+  "started_on": "2020-10-24T14:40:21+00:00",
+  "ended_on": "2020-10-24T14:47:05+00:00",
+  "custom": null,
+  "original_name": "1603551679",
+  "mime_type": "video/mp4",
+  "extension": "mp4",
+  "height": 576,
+  "width": 1024,
+  "source_file": null,
+  "cdn_files": [
+    {
+      "id": "0cec765b-6217-463a-aa1d-67d290e5bbf9",
+      "created_on": "2020-10-24T15:01:50+00:00",
+      "changed_on": null,
+      "label": "CdnFile",
+      "cdn": "NPOICT",
+      "bucket": null,
+      "profile": "mp4",
+      "file": "3931236d-37b9-4e5d-b0be-09227c1337d7.mp4",
+      "url": "https://content.omroep.nl/nporadio/video/16890f1a-7efb-4acd-a0cc-0ef971c4ed00/3931236d-37b9-4e5d-b0be-09227c1337d7.mp4",
+      "resized": null
+    }
+          ],
+  "tags": [
+    {
+      "id": "f3416913-f49e-47f3-ae55-87ba4ba987af",
+      "created_on": "2020-01-02T13:57:49+00:00",
+      "changed_on": null,
+      "label": "Tag",
+      "name": "source:liveclip.getprepr.com",
+      "slug": "sourceliveclipgetpreprcom",
+      "color": null
+    }
+  ],
+  "rel_description": null
+}

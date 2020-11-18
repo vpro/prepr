@@ -55,6 +55,10 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
     List<PreprTag> tags;
 
+    String extension;
+
+    String mime_type;
+
 
     public Optional<String> getCridForReference(@NonNull PreprPost post) {
         if (reference_id == null) {
