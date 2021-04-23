@@ -1,6 +1,6 @@
 = prepr
 
-Domain classes and client for [Prepr.io](https://prepr.io/)  ('prepr')
+Domain classes and client for https://prepr.io[Prepr.io] ('prepr')
 
 image:https://travis-ci.com/vpro/prepr.svg?[Build Status,link=https://travis-ci.com/vpro/prepr]
 image:https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Central[Maven Central,link=https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22prepr%22]
