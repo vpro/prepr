@@ -1,15 +1,15 @@
 = prepr
 
-Domain classes and client for https://developers.prepr.io/ ('prepr')
+Domain classes and client for https://prepr.io[Prepr.io] ('prepr')
 
-https://prepr.io, https://docs.prepr.io/
+https://prepr.dev[API Documentation for Prepr]
 
 image:https://travis-ci.com/vpro/prepr.svg?[Build Status,link=https://travis-ci.com/vpro/prepr]
 image:https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Central[Maven Central,link=https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22prepr%22]
 image:https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg[snapshots,link=https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr]
 image:http://www.javadoc.io/badge/nl.vpro/prepr.svg?color=blue[javadoc,link=http://www.javadoc.io/doc/nl.vpro/prepr]
 
-This was created because https://rs.poms.omroep.nl/v1[POMS]  sychronizes data from prepr for radio related data of the dutch public broadcasters
+This was created because https://rs.poms.omroep.nl/v1[POMS] sychronizes data from Prepr for radio related data of the dutch public broadcasters
 
 Example code:
 
