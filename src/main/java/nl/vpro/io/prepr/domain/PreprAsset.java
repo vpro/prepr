@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -10,12 +9,15 @@ import java.util.Optional;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Slf4j
 public abstract class PreprAsset extends PreprAbstractObject {
 
@@ -83,14 +85,13 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
 
     @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-            "name='" + name + '\'' +
-            ", body='" + body + '\'' +
-            ", reference='" + reference + '\'' +
-            ", author='" + author + '\'' +
-            ", cdn_files=" + cdn_files +
-            ", id=" + id +
-            '}';
+    MoreObjects.ToStringHelper toStringHelper() {
+        return super.toStringHelper()
+            .add("name", name)
+            .add("reference", reference)
+            .add("author", author)
+            .add("cdn_file", cdn_files)
+            .add("source_file", source_file)
+            .add("reference_id", reference_id);
     }
 }

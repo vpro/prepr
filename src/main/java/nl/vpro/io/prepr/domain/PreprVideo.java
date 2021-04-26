@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@ToString(callSuper = true)
 public class PreprVideo extends PreprAbstractMedia {
+
     public static final String LABEL = "Video";
 
     int height;

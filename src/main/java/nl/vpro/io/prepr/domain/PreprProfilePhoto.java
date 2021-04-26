@@ -1,7 +1,8 @@
 package nl.vpro.io.prepr.domain;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.EqualsAndHashCode;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * @author Michiel Meeuwissen
@@ -10,10 +11,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprProfilePhoto.LABEL)
 public class PreprProfilePhoto extends PreprAsset {
+
     public static final String LABEL = "ProfilePhoto";
-
-
-
-
 
 }

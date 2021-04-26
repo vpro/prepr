@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -10,18 +9,21 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTimeline.LABEL)
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
 @Slf4j
 public class PreprTimeline extends AbstractPreprContent {
+
     public static final String LABEL = "Timeline";
 
     String timecode;
@@ -62,23 +64,20 @@ public class PreprTimeline extends AbstractPreprContent {
     }
 
     @Override
-    public String toString() {
-        return "PreprTimeline{" +
-            "timecode='" + timecode + '\'' +
-            ", from=" + from +
-            ", until=" + until +
-            ", show_id='" + show_id + '\'' +
-            ", offset=" + offset +
-            ", timeline_hash='" + timeline_hash + '\'' +
-            ", reference_id='" + reference_id + '\'' +
-            ", status=" + status +
-            ", duration=" + duration +
-            ", id='" + id + '\'' +
-            ", created_on=" + created_on +
-            ", changed_on=" + changed_on +
-            ", body='" + body + '\'' +
-            ", description='" + description + '\'' +
-            '}';
+    MoreObjects.ToStringHelper toStringHelper() {
+        return super.toStringHelper()
+            .add("timecode", timecode)
+            .add("from", from)
+            .add("until", until)
+            .add("show_id", show_id)
+            .add("offset",  offset)
+            .add("timeline_hash", timeline_hash)
+            .add("reference_id", reference_id)
+            .add("status", status)
+            .add("duration", duration)
+            .add("created_on", created_on)
+            .add("changed_on", changed_on)
+            .add("description", description);
     }
 
     /**

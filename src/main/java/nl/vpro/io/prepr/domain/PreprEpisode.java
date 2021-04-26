@@ -7,9 +7,7 @@ import lombok.Data;
  * @since 0.7
  */
 @Data
-
 public class PreprEpisode {
-
 
     String id;
 }

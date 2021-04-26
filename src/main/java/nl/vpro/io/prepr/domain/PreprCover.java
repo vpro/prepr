@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonTypeName(PreprCover.LABEL)
 public class PreprCover extends PreprAsset {
-    public static final String LABEL = "Cover";
 
+    public static final String LABEL = "Cover";
 
 
 }

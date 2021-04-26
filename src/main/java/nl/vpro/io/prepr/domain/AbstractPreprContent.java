@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractPreprContent extends PreprAbstractObject {
 

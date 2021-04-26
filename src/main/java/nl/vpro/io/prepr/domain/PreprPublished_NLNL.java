@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,7 +20,8 @@ import com.google.common.annotations.Beta;
  * @since 0.13
  */
 @Beta
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprPublished_NLNL.LABEL)
 public  class PreprPublished_NLNL extends AbstractPreprContent {

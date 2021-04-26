@@ -20,6 +20,7 @@ import nl.vpro.jackson2.LenientBooleanDeserializer;
 @lombok.Builder
 @JsonTypeName(PreprWebhook.LABEL)
 public class PreprWebhook extends PreprAbstractObject {
+
     public static final String LABEL = "Webhook";
 
     String callback_url;
@@ -38,13 +39,10 @@ public class PreprWebhook extends PreprAbstractObject {
     }
 
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .omitNullValues()
+    MoreObjects.ToStringHelper toStringHelper() {
+        return super.toStringHelper()
             .add("callback_url", callback_url)
-            .add("id", id)
             .add("created_on", created_on)
-            .add("active", active != null ? (active ? null : active) : null)
-            .toString();
+            .add("active", active != null ? (active ? null : active) : null);
     }
 }

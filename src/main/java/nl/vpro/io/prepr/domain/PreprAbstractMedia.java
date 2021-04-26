@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
@@ -11,6 +10,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 
 import nl.vpro.jackson2.DurationToJsonTimestamp;
@@ -20,7 +20,8 @@ import nl.vpro.jackson2.DurationToJsonTimestamp;
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Slf4j
 public abstract class PreprAbstractMedia extends PreprAsset {
 
@@ -64,14 +65,9 @@ public abstract class PreprAbstractMedia extends PreprAsset {
 
 
     @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-            "duration='" + duration + '\'' +
-            ", name='" + name + '\'' +
-            ", body='" + body + '\'' +
-            ", source_file=" + source_file +
-            ", reference_id=" + reference_id +
-            ", id=" + id +
-            '}';
+    public MoreObjects.ToStringHelper toStringHelper() {
+        return super.toStringHelper()
+            .add("duration", duration)
+            .add("name", name);
     }
 }

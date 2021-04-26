@@ -5,7 +5,6 @@ import lombok.*;
 import java.time.Duration;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -15,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @author Michiel Meeuwissen
  * @since 0.3
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @JsonTypeName(PreprTalk.LABEL)
 public class PreprTalk extends AbstractPreprContent {
 

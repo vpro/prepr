@@ -1,8 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,14 +10,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @JsonTypeName(PreprPost.LABEL)
 public class PreprPost extends AbstractPreprContent {
 
     public static final String LABEL = "Post";
-
 
      /**
      * What does this mean?

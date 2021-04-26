@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,11 +10,12 @@ import com.fasterxml.jackson.databind.JsonNode;
  * @since 0.3
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @JsonTypeName(PreprCdnFile.LABEL)
 public class PreprCdnFile extends PreprAbstractObject {
-    public static final String LABEL = "CdnFile";
 
+    public static final String LABEL = "CdnFile";
 
     String cdn;
     String bucket;

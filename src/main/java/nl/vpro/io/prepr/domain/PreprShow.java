@@ -1,20 +1,22 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.common.base.MoreObjects;
 
 /**
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprShow.LABEL)
 public class PreprShow extends AbstractPreprContent {
+
     public static final String LABEL = "Show";
 
     String name;
@@ -28,15 +30,14 @@ public class PreprShow extends AbstractPreprContent {
     List<PreprPerson> scheduled_users;
 
     @Override
-    public String toString() {
-        return stringBuilder()
-            .append("slug", slug)
-            .append("name", name)
-            .append("body", body)
-            .append("tags", tags)
-            .append("status", status)
-            .append("crid", getCrid())
-            .append("label", label)
-            .toString();
+    MoreObjects.ToStringHelper toStringHelper() {
+        return super.toStringHelper()
+            .add("slug", slug)
+            .add("name", name)
+            .add("body", body)
+            .add("tags", tags)
+            .add("status", status)
+            .add("crid", getCrid())
+            .add("label", label);
     }
 }

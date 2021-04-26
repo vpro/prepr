@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
@@ -14,14 +13,15 @@ import com.fasterxml.jackson.databind.JsonNode;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprSourceFile.LABEL)
 @JsonIgnoreProperties({"url", "url_msg"})   // deprecated
 @Slf4j
 public class PreprSourceFile extends PreprAbstractObject {
-    public static final String LABEL = "SourceFile";
 
+    public static final String LABEL = "SourceFile";
 
     String original_name;
 

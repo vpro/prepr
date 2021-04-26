@@ -9,8 +9,8 @@ class PreprShowTest {
     @Test
     void testToString() {
         PreprShow show = new PreprShow();
-        assertThat(show.toString()).isEqualTo("PreprShow[slug=<null>,name=<null>,body=<null>,tags=<null>,status=<null>,crid=<null>,label=<null>]");
+        assertThat(show.toString()).isEqualTo("PreprShow{}");
         show.setSlug("foo");
-        assertThat(show.toString()).isEqualTo("PreprShow[slug=foo,name=<null>,body=<null>,tags=<null>,status=<null>,crid=<null>,label=<null>]");
+        assertThat(show.toString()).isEqualTo("PreprShow{slug=foo}");
     }
 }

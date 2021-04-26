@@ -11,14 +11,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@ToString(callSuper = true)
 @JsonTypeName(PreprPhoto.LABEL)
 public class PreprPhoto extends PreprAsset {
+
     public static final String LABEL = "Photo";
 
     int height;
 
     int width;
-
 
 }

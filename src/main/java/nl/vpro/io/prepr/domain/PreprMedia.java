@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,11 +13,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @JsonTypeName(PreprMedia.LABEL)
 public class PreprMedia extends PreprAbstractObject {
-    public static final String LABEL = "Media";
 
+    public static final String LABEL = "Media";
 
     List<PreprAsset> content;
 

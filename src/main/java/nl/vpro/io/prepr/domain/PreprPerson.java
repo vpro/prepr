@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.Instant;
 
@@ -11,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprPerson.LABEL)
 public class PreprPerson extends PreprAbstractObject {
+
     public static final String LABEL = "Person";
-
-
 
     Instant last_seen;
 

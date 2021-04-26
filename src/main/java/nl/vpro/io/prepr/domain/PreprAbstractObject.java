@@ -6,11 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Instant;
 import java.util.UUID;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.google.common.base.MoreObjects;
 
 /**
  * @author Michiel Meeuwissen
@@ -97,12 +95,18 @@ public class PreprAbstractObject {
     }
 
     @Override
-    public String toString() {
-        return getCrid();
+    public final String toString() {
+        return toStringHelper().toString();
     }
 
 
-    ToStringBuilder stringBuilder() {
-        return  new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    MoreObjects.ToStringHelper toStringHelper() {
+         return MoreObjects.toStringHelper(this)
+             .omitNullValues()
+             .add("id", id)
+             .add("crid", getCrid())
+             .add("body", body);
     }
+
+
 }

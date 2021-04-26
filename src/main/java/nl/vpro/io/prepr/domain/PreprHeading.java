@@ -1,8 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -12,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @JsonTypeName(PreprHeading.LABEL)
 public class PreprHeading extends PreprAbstractObject {
 

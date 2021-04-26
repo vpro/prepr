@@ -1,8 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.net.URI;
 import java.time.Duration;
@@ -15,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @JsonTypeName(PreprMediaFile.LABEL)
 
 public class PreprMediaFile extends PreprAbstractObject {

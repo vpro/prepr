@@ -1,7 +1,6 @@
 package nl.vpro.io.prepr.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.Duration;
 
@@ -11,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * @author Michiel Meeuwissen
  * @since 0.1
  */
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTrackPlay.LABEL)
 public class PreprTrackPlay extends AbstractPreprContent {
-    public static final String LABEL = "TrackPlay";
 
+    public static final String LABEL = "TrackPlay";
 
     private String artist;
 
@@ -27,7 +27,5 @@ public class PreprTrackPlay extends AbstractPreprContent {
     private String note;
 
     private Duration duration;
-
-
 
 }
