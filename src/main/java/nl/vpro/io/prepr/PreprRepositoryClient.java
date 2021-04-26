@@ -27,7 +27,7 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
@@ -39,7 +39,6 @@ import nl.vpro.io.prepr.domain.PreprObjectMapper;
  * @since 0.1
  */
 @Named
-
 public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
@@ -162,7 +161,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             throw new IllegalArgumentException("Either a client token, or a client secret must be configured for " + clientId + "@" + channel);
         }
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
-        this.scopes = scopes == null ? Arrays.asList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
+        this.scopes = scopes == null ? Collections.emptyList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         if (logAsCurl != null) {
             this.logAsCurl = logAsCurl;
         }
@@ -390,7 +389,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             }
             boolean refresh = tokenResponse != null;
             tokenResponse =
-                new AuthorizationCodeTokenRequest(new NetHttpTransport(), new JacksonFactory(),
+                new AuthorizationCodeTokenRequest(new NetHttpTransport(), GsonFactory.getDefaultInstance(),
                     new GenericUrl(getBaseUrl() + "oauth/access_token"), "authorization_code")
                     //.setRedirectUri("https://localhost")
                     .set("client_id", clientId)

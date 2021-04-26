@@ -70,7 +70,7 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
     @Override
     public String getCrid() {
-        throw new IllegalStateException("Please use #getCrid(MCPost)");
+        throw new IllegalStateException("Please use #getCrid(PreprPost)");
     }
 
     public String getCrid(PreprPost post) {

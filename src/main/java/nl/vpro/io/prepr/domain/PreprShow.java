@@ -29,15 +29,14 @@ public class PreprShow extends AbstractPreprContent {
 
     @Override
     public String toString() {
-        return "MCShow{" +
-            "slug='" + slug + '\'' +
-            ", name='" + name + '\'' +
-            ", body='" + body + '\'' +
-            ", tags=" + tags +
-            ", cover=" + cover +
-            ", status=" + status +
-            ", crid=" + getCrid() +
-            ", label='" + label + '\'' +
-            '}';
+        return stringBuilder()
+            .append("slug", slug)
+            .append("name", name)
+            .append("body", body)
+            .append("tags", tags)
+            .append("status", status)
+            .append("crid", getCrid())
+            .append("label", label)
+            .toString();
     }
 }

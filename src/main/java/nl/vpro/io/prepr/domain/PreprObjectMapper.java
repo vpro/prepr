@@ -31,7 +31,7 @@ public class PreprObjectMapper extends ObjectMapper {
 
     static {
         INSTANCE.registerModule(new JavaTimeModule());
-        INSTANCE.registerModule(new MCModule());
+        INSTANCE.registerModule(new PreprModule());
         configureInstance(true);
     }
 
@@ -52,11 +52,11 @@ public class PreprObjectMapper extends ObjectMapper {
 
     }
 
-    public static class MCModule extends SimpleModule {
+    public static class PreprModule extends SimpleModule {
 
         private static final long serialVersionUID = 1L;
 
-        public MCModule() {
+        public PreprModule() {
             super(new Version(0, 3, 0, "", "nl.vpro", "prepr"));
 
             addDeserializer(Duration.class, DurationToJsonTimestamp.Deserializer.INSTANCE);

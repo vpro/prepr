@@ -25,7 +25,7 @@ import javax.ws.rs.NameBinding;
     ) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        MCObjectMapper.INSTANCE.writeValue(output, payload);
+        PreprObjectMapper.INSTANCE.writeValue(output, payload);
 
         jms.convertAndSend(jmsQueue, output.toByteArray(), new MessagePostProcessor() {
         return "Accepted to queue " + jmsQueue;

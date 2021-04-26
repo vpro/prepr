@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Instant;
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -83,7 +86,7 @@ public class PreprAbstractObject {
     public String getCrid() {
         String label = getLabel();
         if (label == null) {
-            log.warn("No label for {}", this);
+            log.debug("No label");
         }
         return label == null ? null : CRID_PREFIX + getLabel().toLowerCase() + "/" + getId();
     }
@@ -96,5 +99,10 @@ public class PreprAbstractObject {
     @Override
     public String toString() {
         return getCrid();
+    }
+
+
+    ToStringBuilder stringBuilder() {
+        return  new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
