@@ -17,7 +17,7 @@ import nl.vpro.jackson2.DurationToJsonTimestamp;
 import nl.vpro.jackson2.LocalDateTimeToJsonDateWithSpace;
 
 /**
- * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the acutally provided json by MediaConnect.
+ * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the acutally provided json by Prepr.
  *
  * Use {@link #INSTANCE}
  *

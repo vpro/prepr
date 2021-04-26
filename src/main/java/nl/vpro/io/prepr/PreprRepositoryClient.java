@@ -135,7 +135,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     @lombok.Builder(builderClassName = "Builder")
     PreprRepositoryClient(
-        // Look out with adding parameters.  This method is also used in nl.vpro.io.mediaconnect.spring.AbstractSpringMediaConnectRepositoriesConfiguration.postProcessBeanDefinitionRegistry
+        // Look out with adding parameters.  This method is also used in nl.vpro.io.prepr.spring.AbstractSpringPreprRepositoriesConfiguration.postProcessBeanDefinitionRegistry
         @Nullable @Named("prepr.api") String api,
         @NonNull String channel,
         @NonNull String clientId,

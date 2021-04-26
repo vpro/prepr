@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 /**
- * Maintains a map of {@link PreprRepository}. A MediaConnectRepository connects to precisely one channel. If you need to sync with more than one, this may come in handy.
+ * Maintains a map of {@link PreprRepository}. A {@link PreprRepository} connects to precisely one channel. If you need to sync with more than one, this may come in handy.
  *
  * @author Michiel Meeuwissen
  * @since 0.3

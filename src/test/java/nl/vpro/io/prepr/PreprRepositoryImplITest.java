@@ -33,15 +33,12 @@ public class PreprRepositoryImplITest {
     static PreprRepositoryImpl funx = PreprRepositoryImpl.configuredInUserHome("FUNX");
     static PreprRepositoryImpl test = PreprRepositoryImpl.configuredInUserHome("XXXX");
 
-    //MediaConnectRepositoryImpl fnxa = MediaConnectRepositoryImpl.configuredInUserHome("FNXA");
-    //MediaConnectRepositoryImpl fnxar = MediaConnectRepositoryImpl.configuredInUserHome("FNXAR");
-    //MediaConnectRepositoryImpl fnxhh = MediaConnectRepositoryImpl.configuredInUserHome("FNXHH");
-    //MediaConnectRepositoryImpl fnxre = MediaConnectRepositoryImpl.configuredInUserHome("FNXRE");
-    //MediaConnectRepositoryImpl fnxr = MediaConnectRepositoryImpl.configuredInUserHome("FNXR");
+    //PreprRepositoryImpl fnxa = PreprRepositoryImpl.configuredInUserHome("FNXA");
+    //PreprRepositoryImpl fnxar = PreprRepositoryImpl.configuredInUserHome("FNXAR");
+    //PreprRepositoryImpl fnxhh = PreprRepositoryImpl.configuredInUserHome("FNXHH");
+    //PreprRepositoryImpl fnxre = PreprRepositoryImpl.configuredInUserHome("FNXRE");
+    //PreprRepositoryImpl fnxr = PreprRepositoryImpl.configuredInUserHome("FNXR");
 
-
-
-    //MediaConnectRepositoryImpl rad5 = MediaConnectRepositoryImpl.configuredInUserHome("RAD5");
     static {
         PreprObjectMapper.configureInstance(false);
     }
