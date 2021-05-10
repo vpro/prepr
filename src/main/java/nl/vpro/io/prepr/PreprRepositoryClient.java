@@ -499,8 +499,17 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     }
 
     public static class Builder {
-        Builder scope(Scope... scopes) {
+        public Builder scope(Scope... scopes) {
             return scopes(Arrays.stream(scopes).map(Enum::name).collect(Collectors.joining(",")));
+        }
+
+        /**
+         * @deprecated Use life time token {@link #clientToken(String)}
+         */
+        @Deprecated
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = clientSecret;
+            return this;
         }
     }
 
