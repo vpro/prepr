@@ -204,12 +204,7 @@ public class PreprRepositoryImplITest {
         log.info("{}",
             rad2.getTags().getGroups(Paging.builder().build())
         );
-
-
-
     }
-
-
 
 
 
@@ -252,7 +247,7 @@ public class PreprRepositoryImplITest {
     public void getContainer2() {
 
           log.info("{}",
-            rad2.getContent().getContainer(UUID.fromString("5d3e2d15-7bfa-4ab2-96d8-20a4f86847cf"))
+              rad2.getContent().getContainer(UUID.fromString("5d3e2d15-7bfa-4ab2-96d8-20a4f86847cf"))
         );
     }
 
@@ -268,7 +263,7 @@ public class PreprRepositoryImplITest {
         log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
             log.trace("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api-dev")) {
+            if (webhook.getCallback_url().startsWith("https://api")) {
                 log.info("{}", webhook);
                 //webhook.setActive(true);
                 //log.info("{}", repo.getWebhooks().put(webhook));

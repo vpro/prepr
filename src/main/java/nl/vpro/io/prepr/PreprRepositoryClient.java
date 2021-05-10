@@ -160,6 +160,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         if (this.clientSecret == null && this.clientToken == null) {
             throw new IllegalArgumentException("Either a client token, or a client secret must be configured for " + clientId + "@" + channel);
         }
+        if (StringUtils.isBlank(this.clientToken)) {
+            log.warn("{}@{} ({}) is configured with a client secret. This is deprecated, use a client token", this.clientId, this.api, this.channel);
+        }
         this.guideId = guideId == null ? null : UUID.fromString(guideId);
         this.scopes = scopes == null ? Collections.emptyList() : Arrays.stream(scopes.split("\\s*,\\s*")).map(Scope::valueOf).collect(Collectors.toList());
         if (logAsCurl != null) {
@@ -371,10 +374,11 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         return StringUtils.isNotBlank(clientToken) && StringUtils.isBlank(clientSecret);
     }
 
-    protected synchronized  void getToken() throws  IOException {
-        if (lifetimeToken()) {
-            return;
-        }
+    /**
+     * @deprecated Use life time token
+     */
+    @Deprecated
+    private synchronized void getToken() throws  IOException {
         if (tokenResponse == null || expiration.isBefore(Instant.now().plus(mininumExpiration))) {
 
             List<Scope> scopesToUse = scopes;
