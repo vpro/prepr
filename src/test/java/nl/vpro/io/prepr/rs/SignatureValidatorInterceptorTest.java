@@ -21,7 +21,7 @@ public class SignatureValidatorInterceptorTest {
 
     SignatureValidatorInterceptor impl = new SignatureValidatorInterceptor();
 
-    {
+    static {
         SignatureValidatorInterceptor.put("RAD5", UUID.fromString("62d77be4-d41d-4878-bffc-ed4a047a9101"));
     }
 
@@ -31,19 +31,15 @@ public class SignatureValidatorInterceptorTest {
         assertThat(signed).isEqualTo(signature);
     }
 
-
     @Test
     public void validate() throws NoSuchAlgorithmException, InvalidKeyException {
         impl.validate(signature, example, "RAD5");
-
     }
 
-
     @Test
-    public void validateInvalid() throws InvalidKeyException {
-        assertThrows(SecurityException.class, () -> {
-            impl.validate("signature doesn't match", example, "RAD5");
-        });
-
+    public void validateInvalid() {
+        assertThrows(SecurityException.class, () ->
+            impl.validate("signature doesn't match", example, "RAD5")
+        );
     }
 }

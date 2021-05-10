@@ -10,6 +10,7 @@ import java.util.UUID;
  */
 @Getter
 public abstract class SignatureException extends SecurityException {
+
     private final byte[] payload;
 
     private final boolean temporary;

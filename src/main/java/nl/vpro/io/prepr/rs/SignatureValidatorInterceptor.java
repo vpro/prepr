@@ -4,7 +4,6 @@ package nl.vpro.io.prepr.rs;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -23,6 +22,7 @@ import org.apache.http.HttpStatus;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.MDC;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.http.HttpHeaders.USER_AGENT;
 
 
@@ -45,7 +45,6 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     private static final String[] SIGNATURES = {"Mediaconnect-Signature", "Prepr-Signature"};
     static final Map<String, List<UUID>> WEBHOOK_IDS = new ConcurrentHashMap<>();
-
 
     private static boolean ready = false;
 
@@ -112,7 +111,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     protected void validate(
         @NonNull String signature,
-        @NonNull byte[] payload,
+        byte @NonNull[] payload,
         @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException {
         final List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
         if (webhookuuids== null || webhookuuids.isEmpty())  {
@@ -125,7 +124,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             String sign = sign(webhookId, payload);
 
             if (!Objects.equals(sign, signature)) {
-                warns.add(() -> log.warn("Incoming signature {} didn't match {} (payload (signed with webookid: {}):\n{}", signature, sign, webhookId, new String(payload, StandardCharsets.UTF_8)));
+                warns.add(() -> log.warn("Incoming signature {} didn't match {} (payload (signed with webookid: {}):\n{}", signature, sign, webhookId, new String(payload, UTF_8)));
             } else {
                 log.debug("Validated {}", signature);
                 matched = webhookId;
@@ -133,6 +132,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
             }
         }
         if ( matched == null) {
+
             warns.forEach(Runnable::run);
             if (webhookuuids.size() == 1) {
                 throw new SignatureMatchException(webhookuuids.get(0), "Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
@@ -146,7 +146,6 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
                     if (n.equals(matched)) {
                         break;
                     } else {
-
                         //log.info("Removed {}, because now {} is matching", n, matched);
                         //i.remove();
                     }
@@ -157,7 +156,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
 
     String sign(UUID webhookId, byte[] json) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(webhookId.toString().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(webhookId.toString().getBytes(UTF_8), "HmacSHA256");
         sha256_HMAC.init(secret_key);
         return new String(Hex.encodeHex(sha256_HMAC.doFinal(json)));
     }
@@ -165,6 +164,7 @@ public class SignatureValidatorInterceptor implements ContainerRequestFilter {
     public static Optional<UUID> getWebhookIdForChannel(String channel) {
         return Optional.ofNullable(WEBHOOK_IDS.get(channel)).map(e -> e.get(0));
     }
+
     public static PreprWebhookAnswer createAnswer(String channel, String message) {
         return new PreprWebhookAnswer(message, getWebhookIdForChannel(channel).orElse(null), channel);
     }
