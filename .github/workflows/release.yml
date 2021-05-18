@@ -15,7 +15,7 @@ jobs:
         path: ~/.m2/repository
         key: maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
-          maven-${{ hashFiles('**/pom.xml') }}
+          maven-
       if: always()
     - name: Build with Maven
       run: mvn --batch-mode release:branch
