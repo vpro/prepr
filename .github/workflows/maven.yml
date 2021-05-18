@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+    branches: [ master, "REL-*" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+       MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Clean settings.xml
+      run: rm -rf ~/.m2/settings.xml
+    - name: Create settings.xml
+      uses: s4u/maven-settings-action@v1
+      with:
+        servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}]'
+    - id: install-secret-key
+      name: Install gpg secret key
+      run: |
+        cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+        gpg --list-secret-keys --keyid-format LONG
+    - name: Build with Maven
+      run: mvn -fae -B -Pdeploy,sonatype deploy  -Dgpg.skip=false
+    - name: Publish to codecov
+      run: bash <(curl -s https://codecov.io/bash)
+      continue-on-error: true
+    - name: Publish Test Report
+      uses: scacap/action-surefire-report@v1
+      if: always()
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
