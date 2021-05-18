@@ -23,6 +23,7 @@ public class SignatureValidatorInterceptorTest {
 
     static {
         SignatureValidatorInterceptor.put("RAD5", UUID.fromString("62d77be4-d41d-4878-bffc-ed4a047a9101"));
+        SignatureValidatorInterceptor.readyForRequests();
     }
 
     @Test

@@ -148,7 +148,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
         }
         if ( matched == null) {
             warns.forEach(Runnable::run);
-            if (! invalidSignatureAction.test(ready.plus(Duration.ofMinutes(5)))) {
+            if (! invalidSignatureAction.test(Optional.ofNullable(ready).orElse(Instant.now()).plus(Duration.ofMinutes(5)))) {
                 if (webhookuuids.size() == 1) {
                     throw new SignatureMatchException(invalidSignatureAction, webhookuuids.get(0), "Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
                 } else {
