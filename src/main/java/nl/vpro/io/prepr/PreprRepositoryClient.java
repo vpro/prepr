@@ -117,6 +117,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private Duration readTimeoutForGet = Duration.ofMinutes(2);
 
     @Getter
+    @Setter
     private Duration mininumExpiration = Duration.ofSeconds(20);
 
     @Getter

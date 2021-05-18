@@ -38,8 +38,6 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
     private final static String CLIENT_PREF = CPREF + ".client";
 
     private final String[] propertiesResources;
-    private Map<String, String> moreProperties;
-
 
     @Autowired
     @Named("properties")
@@ -57,7 +55,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        registerBeans(beanDefinitionRegistry);;
+        registerBeans(beanDefinitionRegistry);
     }
 
     @Override
@@ -66,7 +64,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
 
     }
 
