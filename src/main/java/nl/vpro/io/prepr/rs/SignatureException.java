@@ -17,8 +17,11 @@ public abstract class SignatureException extends SecurityException {
 
     private final UUID webhookId;
 
-    protected SignatureException(UUID webhookId, String s, byte[] payload, boolean temporary) {
+    private final InvalidSignatureAction invalidSignatureAction;
+
+    protected SignatureException(InvalidSignatureAction invalidSignatureAction, UUID webhookId, String s, byte[] payload, boolean temporary) {
         super(s);
+        this.invalidSignatureAction = invalidSignatureAction;
         this.webhookId = webhookId;
         this.payload = payload;
         this.temporary = temporary;
