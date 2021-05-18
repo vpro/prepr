@@ -31,9 +31,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        key: maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
-          ${{ runner.os }}-maven-
+          maven-${{ hashFiles('**/pom.xml') }}
     - name: Build with Maven
       run: mvn -fae -B -Pdeploy,sonatype deploy  -Dgpg.skip=false
     - name: Publish to codecov
