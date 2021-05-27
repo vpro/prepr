@@ -7,7 +7,7 @@ import java.util.UUID;
  * @since 1.0
  */
 public class SignatureMatchException extends SignatureException {
-    public SignatureMatchException(InvalidSignatureAction invalidSignatureAction, UUID webhookId, String s, byte[] payload) {
-        super(invalidSignatureAction, webhookId, s, payload, false);
+    public SignatureMatchException(InvalidSignatureAction invalidSignatureAction, String channel, UUID webhookId, String s, byte[] payload) {
+        super(invalidSignatureAction, channel, webhookId, s, payload, false);
     }
 }

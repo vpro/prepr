@@ -11,6 +11,8 @@ import java.util.UUID;
 @Getter
 public abstract class SignatureException extends SecurityException {
 
+    private final String channel;
+
     private final byte[] payload;
 
     private final boolean temporary;
@@ -19,8 +21,9 @@ public abstract class SignatureException extends SecurityException {
 
     private final InvalidSignatureAction invalidSignatureAction;
 
-    protected SignatureException(InvalidSignatureAction invalidSignatureAction, UUID webhookId, String s, byte[] payload, boolean temporary) {
+    protected SignatureException(InvalidSignatureAction invalidSignatureAction, String channel, UUID webhookId, String s, byte[] payload, boolean temporary) {
         super(s);
+        this.channel = channel;
         this.invalidSignatureAction = invalidSignatureAction;
         this.webhookId = webhookId;
         this.payload = payload;

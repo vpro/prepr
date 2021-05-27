@@ -102,12 +102,13 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
                     break;
                 }
             }
-            if (signature == null) {
-                log.warn("No signature found {} in ({})", SIGNATURES, requestContext.getHeaders().keySet());
-                throw new NoSignatureException(invalidSignatureAction, "No signature found", null);
-            }
             String[] split = requestContext.getUriInfo().getPath().split("/");
             String channel = split[split.length - 1];
+
+            if (signature == null) {
+                log.warn("No signature found {} in ({})", SIGNATURES, requestContext.getHeaders().keySet());
+                throw new NoSignatureException(invalidSignatureAction, channel, "No signature found", null);
+            }
 
             ByteArrayOutputStream payload = new ByteArrayOutputStream();
             IOUtils.copy(requestContext.getEntityStream(), payload);
@@ -131,7 +132,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
         final List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
         if (webhookuuids== null || webhookuuids.isEmpty())  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
-            throw new NotRegisteredSignatureException(invalidSignatureAction, "Webhook id currently not registered for " + channel,  payload);
+            throw new NotRegisteredSignatureException(invalidSignatureAction, channel, "Webhook id currently not registered for " + channel,  payload);
         }
         UUID matched = null;
         List<Runnable> warns = new ArrayList<>();
@@ -150,9 +151,9 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
             warns.forEach(Runnable::run);
             if (! invalidSignatureAction.test(Optional.ofNullable(ready).orElse(Instant.now()).plus(Duration.ofMinutes(5)))) {
                 if (webhookuuids.size() == 1) {
-                    throw new SignatureMatchException(invalidSignatureAction, webhookuuids.get(0), "Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
+                    throw new SignatureMatchException(invalidSignatureAction, channel, webhookuuids.get(0), "Validation for failed for " + channel + " webhook id: " + webhookuuids, payload);
                 } else {
-                    throw new SignatureMatchException(invalidSignatureAction, webhookuuids.get(0), "No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
+                    throw new SignatureMatchException(invalidSignatureAction, channel, webhookuuids.get(0), "No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
                 }
             } else {
                 log.info("Not matched call for channel {} but accepting any ways because {}", channel, invalidSignatureAction);
