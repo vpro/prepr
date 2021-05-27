@@ -155,7 +155,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
                     throw new SignatureMatchException(invalidSignatureAction, webhookuuids.get(0), "No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
                 }
             } else {
-                log.info("Not matched but matching any ways because " + invalidSignatureAction);
+                log.info("Not matched call for channel {} but accepting any ways because {}", channel, invalidSignatureAction);
             }
         }
         MDC.put("userName", "webhook:" + matched);
