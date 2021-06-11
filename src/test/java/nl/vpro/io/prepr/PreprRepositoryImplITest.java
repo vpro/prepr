@@ -260,14 +260,16 @@ public class PreprRepositoryImplITest {
     @MethodSource("getRepos")
     public void getWebhooksAndDelete(PreprRepository repo) {
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
-        log.info("webhooks: {}", webhooks);
+       //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
             log.trace("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api")) {
-                log.info("{}", webhook);
+            if (webhook.getCallback_url().startsWith("https://proxy.meeuw")) {
+                //
+                // log.info("{}", webhook);
                 //webhook.setActive(true);
+                log.info("Deleting {}", webhook);
                 //log.info("{}", repo.getWebhooks().put(webhook));
-                //repo.getWebhooks().delete(webhook.getUUID());
+                repo.getWebhooks().delete(webhook.getUUID());
             }
 
         }
