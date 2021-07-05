@@ -1,5 +1,4 @@
-name: maven release
-
+name: create release branch
 on:
   workflow_dispatch:
 
@@ -17,7 +16,13 @@ jobs:
         restore-keys: |
           maven-
       if: always()
-    - name: Build with Maven
+    - uses: oleksiyrudenko/gha-git-credentials@v2.1
+      with:
+        global: true
+        name: 'github'
+        email: 'digitaal-techniek@vpro.nl'
+        token: '${{ secrets.GITHUB_TOKEN  }}'
+    - name: Release branch with Maven
       run: mvn --batch-mode release:branch
 
 
