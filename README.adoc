@@ -6,7 +6,7 @@ https://prepr.dev[API Documentation for Prepr]
 
 image:https://github.com/vpro/prepr/workflows/build/badge.svg?[Build Status,link=https://github.com/vpro/prepr/actions?query=workflow%3Abuild]
 image:https://img.shields.io/maven-central/v/nl.vpro/prepr.svg?label=Maven%20Central[Maven Central,link=https://search.maven.org/search?q=g:%22nl.vpro%22%20AND%20a:%22prepr%22]
-image:https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg[snapshots,link=https://oss.sonatype.org/content/repositories/staging/nl/vpro/prepr]
+image:https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg[snapshots,link=https://oss.sonatype.org/content/repositories/snapshots/nl/vpro/prepr/]
 image:http://www.javadoc.io/badge/nl.vpro/prepr.svg?color=blue[javadoc,link=http://www.javadoc.io/doc/nl.vpro/prepr]
 image:https://codecov.io/gh/vpro/prepr/branch/master/graph/badge.svg[codecov,link=https://codecov.io/gh/vpro/prepr]
 
