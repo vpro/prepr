@@ -49,7 +49,7 @@
     <vpro.shared.version>2.26.0</vpro.shared.version>
     <spring.version>5.3.7</spring.version> <!-- spring dependency is optional -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <gpg.keyname>62556C10383981F1</gpg.keyname>
+    <!-- <gpg.keyname>62556C10383981F1</gpg.keyname>-->
   </properties>
 
 
