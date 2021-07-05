@@ -22,11 +22,19 @@ jobs:
       uses: s4u/maven-settings-action@v1
       with:
         servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}, {"id": "gpg.passphrase", "passphrase": "${{secrets.OSSRH_GPG_SECRET_PASSPHRASE}}"}]'
-    - id: install-secret-key
-      name: Install gpg secret key
+    -
+      name: Import GPG key
+      id: import_gpg
+      uses: crazy-max/ghaction-import-gpg@v3
+      with:
+        gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSPHRASE }}
+    - name: GPG user IDs
       run: |
-        cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | base64 --decode | gpg --batch --import
-        gpg --list-secret-keys --keyid-format LONG
+        echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+        echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
+        echo "name:        ${{ steps.import_gpg.outputs.name }}"
+        echo "email:       ${{ steps.import_gpg.outputs.email }}"
     - name: Cache local Maven repository
       uses: actions/cache@v2
       with:
@@ -35,7 +43,7 @@ jobs:
         restore-keys: |
           maven-${{ hashFiles('**/pom.xml') }}
     - name: Build with Maven
-      run: mvn -fae -B -Pdeploy,sonatype deploy  -Dgpg.skip=false
+      run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
     - name: Publish to codecov
       run: bash <(curl -s https://codecov.io/bash)
       continue-on-error: true
