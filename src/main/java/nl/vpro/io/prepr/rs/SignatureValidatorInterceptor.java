@@ -116,7 +116,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
             try {
                 validate(signature, payload.toByteArray(), channel);
             } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-                log.error(e.getMessage(), e);
+                log.error(e.getMessage());
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -140,7 +140,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
             String sign = sign(webhookId, payload);
 
             if (!Objects.equals(sign, signature)) {
-                warns.add(() -> log.warn("Incoming signature {} didn't match {} (payload (signed with webookid: {}):\n{}", signature, sign, webhookId, new String(payload, UTF_8)));
+                warns.add(() -> log.warn("Incoming signature {} didn't match {} (payload (signed with webhookid: {}):\n{}", signature, sign, webhookId, new String(payload, UTF_8)));
             } else {
                 log.debug("Validated {}", signature);
                 matched = webhookId;
