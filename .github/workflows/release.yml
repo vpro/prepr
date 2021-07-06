@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/*-SNAPSHOT'
+    if: contains(github.ref, 'SNAPSHOT')
     steps:
     - uses: actions/checkout@v2
     - name: Cache local Maven repository
