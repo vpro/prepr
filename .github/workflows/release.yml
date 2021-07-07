@@ -15,10 +15,9 @@ jobs:
         key: maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           maven-
-      if: always()
-
+      if: always()   
     - name: Create settings.xml
-      uses: s4u/maven-settings-action@v1
+      uses: s4u/maven-settings-action@v2.4.0
       with:
         servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}, {"id": "gpg.passphrase", "passphrase": "${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}"}]'
     -
