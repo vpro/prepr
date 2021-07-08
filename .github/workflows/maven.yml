@@ -20,10 +20,7 @@ jobs:
       uses: s4u/maven-settings-action@v2.4.0
       with:
         servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}]'
-    -
-      name: Import GPG key
-      id: import_gpg
-      uses: crazy-max/ghaction-import-gpg@v3
+    - uses: crazy-max/ghaction-import-gpg@v3
       with:
         gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
         passphrase: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
@@ -44,6 +41,7 @@ jobs:
       run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false
     - name: Publish to codecov
       run: bash <(curl -s https://codecov.io/bash)
+      if: github.ref == 'refs/heads/master'
       continue-on-error: true
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
