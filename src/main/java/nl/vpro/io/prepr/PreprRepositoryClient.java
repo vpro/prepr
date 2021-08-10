@@ -268,9 +268,19 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     protected void consumeGraphrlHeaders(HttpResponse response) {
-        rateLimitReset  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_RESET));
-        rateLimitHourRemaining  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURREMAINING));
-        rateLimitHourLimit  = Integer.parseInt(response.getHeaders().getFirstHeaderStringValue(RATELIMIT_HOURLIMIT));
+        rateLimitReset  = parseIntHeader(response, RATELIMIT_RESET);
+        rateLimitHourRemaining  = parseIntHeader(response, RATELIMIT_HOURREMAINING);
+        rateLimitHourLimit  = parseIntHeader(response, RATELIMIT_HOURLIMIT);
+    }
+
+    private Integer parseIntHeader(final HttpResponse response, final String header) {
+        String value = response.getHeaders().getFirstHeaderStringValue(header);
+        try {
+            return value == null ? null : Integer.parseInt(value);
+        } catch (NumberFormatException nfe) {
+            log.warn("Could not parse {} of header {}", value, header);
+            return null;
+        }
     }
 
 
@@ -344,7 +354,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 } else {
                     log.warn("Didn't recognized {}", content);
                 }
-                data = " -d '" + out.toString() + "'";
+                data = " -d '" + out + "'";
             }
             if (lifetimeToken()) {
                 log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl(), data);
