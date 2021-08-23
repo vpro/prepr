@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: [ master, "*SNAPSHOT" ]
+    branches: [ main, "*SNAPSHOT" ]
   workflow_dispatch:
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
       run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false
     - name: Publish to codecov
       run: bash <(curl -s https://codecov.io/bash)
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       continue-on-error: true
     - name: Publish Test Report
       uses: scacap/action-surefire-report@v1
