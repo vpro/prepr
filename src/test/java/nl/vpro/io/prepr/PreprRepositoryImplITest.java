@@ -13,9 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import nl.vpro.io.prepr.domain.*;
-import nl.vpro.logging.Slf4jHelper;
 
 import static nl.vpro.io.prepr.Paging.limit;
+import static nl.vpro.logging.Slf4jHelper.debugOrInfo;
 
 
 /**
@@ -263,7 +263,7 @@ public class PreprRepositoryImplITest {
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
        //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
-            Slf4jHelper.debugOrInfo(log, webhook.getCallback_url().contains("poms"), "Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
+            debugOrInfo(log, webhook.getCallback_url().contains("poms"), "Found webhook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
             if (webhook.getCallback_url().startsWith("https://api-itest.poms.omroep.nl")) {
                 //
                 // log.info("{}", webhook);
