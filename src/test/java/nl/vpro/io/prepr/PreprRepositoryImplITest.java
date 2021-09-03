@@ -13,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import nl.vpro.io.prepr.domain.*;
+import nl.vpro.logging.Slf4jHelper;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -262,8 +263,8 @@ public class PreprRepositoryImplITest {
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
        //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
-            log.trace("Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://proxy.meeuw")) {
+            Slf4jHelper.debugOrInfo(log, webhook.getCallback_url().contains("poms"), "Found webook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
+            if (webhook.getCallback_url().startsWith("https://api-itest.poms.omroep.nl")) {
                 //
                 // log.info("{}", webhook);
                 //webhook.setActive(true);
@@ -271,6 +272,7 @@ public class PreprRepositoryImplITest {
                 //log.info("{}", repo.getWebhooks().put(webhook));
                 repo.getWebhooks().delete(webhook.getUUID());
             }
+
 
         }
 
