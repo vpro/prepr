@@ -118,6 +118,8 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
             } catch (NoSuchAlgorithmException | InvalidKeyException e) {
                 log.error(e.getMessage());
             }
+        } catch (SignatureException signatureMatchException) {
+            throw signatureMatchException;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw e;
