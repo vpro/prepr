@@ -54,8 +54,8 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
 
     private static Instant ready = null;
 
-    public static boolean put(@NonNull String channel, @NonNull UUID webhookId) {
-        List<UUID> uuids = WEBHOOK_IDS.computeIfAbsent(channel, (i) -> Collections.synchronizedList(new ArrayList<>()));
+    public static boolean put(@NonNull final String channel, @NonNull final UUID webhookId) {
+        final List<UUID> uuids = WEBHOOK_IDS.computeIfAbsent(channel, (i) -> Collections.synchronizedList(new ArrayList<>()));
         if (uuids.contains(webhookId)) {
             log.debug("webhook for {} was registered already {}", channel, webhookId);
             return false;
@@ -82,13 +82,13 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
 
 
     @Override
-    public void filter(@NonNull ContainerRequestContext requestContext) throws IOException {
+    public void filter(@NonNull final ContainerRequestContext requestContext) throws IOException {
         if (ready == null) {
             log.info("Received webhook while we are not yet ready and can't validate it yet");
             throw new ServerErrorException( "Received webhook while we are not yet ready and can't validate it yet", HttpStatus.SC_SERVICE_UNAVAILABLE);
         }
         try {
-            String userAgent = requestContext.getHeaderString(USER_AGENT);
+            final String userAgent = requestContext.getHeaderString(USER_AGENT);
             if (userAgent != null) {
                 MDC.put("userAgent", userAgent);
                 // TODO maybe it's better to use the userAgent to check the actual prepr API version.
@@ -102,15 +102,15 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
                     break;
                 }
             }
-            String[] split = requestContext.getUriInfo().getPath().split("/");
-            String channel = split[split.length - 1];
+            final String[] split = requestContext.getUriInfo().getPath().split("/");
+            final String channel = split[split.length - 1];
 
             if (signature == null) {
                 log.warn("No signature found {} in ({})", SIGNATURES, requestContext.getHeaders().keySet());
                 throw new NoSignatureException(invalidSignatureAction, channel, "No signature found", null);
             }
 
-            ByteArrayOutputStream payload = new ByteArrayOutputStream();
+            final ByteArrayOutputStream payload = new ByteArrayOutputStream();
             IOUtils.copy(requestContext.getEntityStream(), payload);
             requestContext.setEntityStream(new ByteArrayInputStream(payload.toByteArray()));
             try {
@@ -128,16 +128,16 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
 
 
     protected void validate(
-        @NonNull String signature,
-        byte @NonNull[] payload,
-        @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException, SignatureMatchException {
+        final @NonNull String signature,
+        final byte @NonNull[] payload,
+        final @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException, SignatureMatchException {
         final List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
         if (webhookuuids== null || webhookuuids.isEmpty())  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new NotRegisteredSignatureException(invalidSignatureAction, channel, "Webhook id currently not registered for " + channel,  payload);
         }
         UUID matched = null;
-        List<Runnable> warns = new ArrayList<>();
+        final List<Runnable> warns = new ArrayList<>();
         for (UUID webhookId : webhookuuids) {
             String sign = sign(webhookId, payload);
 
@@ -158,7 +158,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
                     throw new SignatureMatchException(invalidSignatureAction, channel, webhookuuids.get(0), "No signing webhook ids matched. For channel " + channel + "  we see the following webhook ids:  " + webhookuuids, payload);
                 }
             } else {
-                log.info("Not matched call for channel {} but accepting any ways because {}", channel, invalidSignatureAction);
+                log.info("Not matched call for channel {} but accepting anyways because {}", channel, invalidSignatureAction);
             }
         }
         MDC.put("userName", "webhook:" + matched);
@@ -188,6 +188,5 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
     public static PreprWebhookAnswer createAnswer(String channel, String message) {
         return new PreprWebhookAnswer(message, getWebhookIdForChannel(channel).orElse(null), channel);
     }
-
 
 }
