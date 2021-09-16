@@ -264,7 +264,7 @@ public class PreprRepositoryImplITest {
        //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
             debugOrInfo(log, webhook.getCallback_url().contains("poms"), "Found webhook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api-itest.poms.omroep.nl")) {
+            if (webhook.getCallback_url().startsWith("https://api-test-os.poms.omroep.nl")) {
                 //
                 // log.info("{}", webhook);
                 //webhook.setActive(true);

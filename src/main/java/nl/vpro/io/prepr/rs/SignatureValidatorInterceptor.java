@@ -132,7 +132,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
         final byte @NonNull[] payload,
         final @NonNull String channel) throws NoSuchAlgorithmException, InvalidKeyException, SignatureMatchException {
         final List<UUID> webhookuuids = WEBHOOK_IDS.get(channel);
-        if (webhookuuids== null || webhookuuids.isEmpty())  {
+        if (webhookuuids == null || webhookuuids.isEmpty())  {
             log.warn("No webhookId found for {} (Only known for {})", channel, WEBHOOK_IDS.keySet());
             throw new NotRegisteredSignatureException(invalidSignatureAction, channel, "Webhook id currently not registered for " + channel,  payload);
         }
@@ -149,7 +149,7 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
                 break;
             }
         }
-        if ( matched == null) {
+        if (matched == null) {
             warns.forEach(Runnable::run);
             if (! invalidSignatureAction.test(Optional.ofNullable(ready).orElse(Instant.now()).plus(Duration.ofMinutes(5)))) {
                 if (webhookuuids.size() == 1) {

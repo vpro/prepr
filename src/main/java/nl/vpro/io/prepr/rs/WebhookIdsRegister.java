@@ -12,11 +12,14 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.event.Level;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
 import nl.vpro.io.prepr.PreprRepositories;
 import nl.vpro.io.prepr.PreprRepository;
+import nl.vpro.logging.simple.SimpleLogger;
+import nl.vpro.logging.simple.StringBuilderSimpleLogger;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
@@ -28,7 +31,7 @@ import static nl.vpro.io.prepr.Paging.limit;
 @Slf4j
 @ManagedResource(
     description = "Makes sure the mediaconnect webhooks are recognized",
-    objectName = "nl.vpro.media:name=prepr-webookids"
+    objectName = "nl.vpro.io.prepr:name=prepr-webookids"
 )
 public class WebhookIdsRegister {
 
@@ -64,31 +67,43 @@ public class WebhookIdsRegister {
 
 
     @ManagedOperation
-    public void registerWebhooks()  {
+    public String registerWebhooks()  {
+        StringBuilder builder = new StringBuilder();
+        SimpleLogger logger = StringBuilderSimpleLogger.builder()
+            .level(Level.INFO)
+            .stringBuilder(builder).chain(SimpleLogger.slfj4(log));
         int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         for (PreprRepository repository : repositories) {
             try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
-                    if (mc.getCallback_url().startsWith(baseUrl)) {
-                        URI uri = URI.create(mc.getCallback_url());
-                        String[] path = uri.getPath().split("/");
-                        if (SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID())) {
-                            log.info("Registered {}", mc);
+                    boolean found = false;
+                    for (String b : baseUrl.split(",")) {
+                        if (mc.getCallback_url().startsWith(b)) {
+                            URI uri = URI.create(mc.getCallback_url());
+                            String[] path = uri.getPath().split("/");
+                            if (SignatureValidatorInterceptor.put(path[path.length - 1], mc.getUUID())) {
+                                logger.info("Registered {}", mc);
+                            } else {
+                                logger.debug("Ready registered {}", mc);
+                            }
+                            found = true;
                         }
-                    } else {
-                        log.debug("Ignoring {}", mc);
+                    }
+                    if (!found) {
+                        logger.debug("Ignoring {}", mc);
                     }
                     }
                 );
             } catch (Exception e) {
-                log.error("For {}: {}", repository, e.getMessage(), e);
+                logger.error("For {}: {}", repository, e.getMessage(), e);
             }
         }
         int after =  SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         if (before != after) {
-            log.info("Registered {} webhooks", after - before);
+            logger.info("Registered {} webhooks", after - before);
         }
         SignatureValidatorInterceptor.readyForRequests();
+        return builder.toString();
     }
 
 
