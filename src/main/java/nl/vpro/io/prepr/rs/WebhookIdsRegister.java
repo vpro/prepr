@@ -30,7 +30,7 @@ import static nl.vpro.io.prepr.Paging.limit;
  */
 @Slf4j
 @ManagedResource(
-    description = "Makes sure the mediaconnect webhooks are recognized",
+    description = "Makes sure the prepr webhooks are recognized",
     objectName = "nl.vpro.io.prepr:name=prepr-webookids"
 )
 public class WebhookIdsRegister {
