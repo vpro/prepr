@@ -68,11 +68,11 @@ public class WebhookIdsRegister {
 
     @ManagedOperation
     public String registerWebhooks()  {
-        StringBuilder builder = new StringBuilder();
-        SimpleLogger logger = StringBuilderSimpleLogger.builder()
+        final StringBuilder builder = new StringBuilder();
+        final SimpleLogger logger = StringBuilderSimpleLogger.builder()
             .level(Level.INFO)
             .stringBuilder(builder).chain(SimpleLogger.slfj4(log));
-        int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
+        final int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         for (PreprRepository repository : repositories) {
             try {
                 repository.getWebhooks().get(limit(100)).forEach((mc) -> {
@@ -98,7 +98,7 @@ public class WebhookIdsRegister {
                 logger.error("For {}: {}", repository, e.getMessage(), e);
             }
         }
-        int after =  SignatureValidatorInterceptor.WEBHOOK_IDS.size();
+        final int after =  SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         if (before != after) {
             logger.info("Registered {} webhooks", after - before);
         }
