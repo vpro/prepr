@@ -36,8 +36,8 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/vpro/prepr.git</connection>
-    <developerConnection>scm:git:https://github.com/vpro/prepr.git</developerConnection>
+    <connection>scm:git:${project.scm.url}</connection>
+    <developerConnection>scm:git:${project.scm.url}</developerConnection>
     <url>https://github.com/vpro/prepr</url>
     <tag>HEAD</tag>
   </scm>
