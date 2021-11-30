@@ -1,50 +1,51 @@
+---
 name: build
 
 on:
   push:
-    branches: [ main, "*SNAPSHOT" ]
+    branches: [main, "*SNAPSHOT"]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-       MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+      MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-    - name: Create settings.xml
-      uses: s4u/maven-settings-action@v2.4.0
-      with:
-        servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}]'
-    - uses: crazy-max/ghaction-import-gpg@v3
-      with:
-        gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-        passphrase: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
-    - name: GPG user IDs
-      run: |
-        echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
-        echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
-        echo "name:        ${{ steps.import_gpg.outputs.name }}"
-        echo "email:       ${{ steps.import_gpg.outputs.email }}"
-    - name: Cache local Maven repository
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          maven-${{ hashFiles('**/pom.xml') }}
-    - name: Build with Maven
-      run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false
-    - name: Publish to codecov
-      run: bash <(curl -s https://codecov.io/bash)
-      if: github.ref == 'refs/heads/main'
-      continue-on-error: true
-    - name: Publish Test Report
-      uses: scacap/action-surefire-report@v1
-      if: always()
-      with:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Create settings.xml
+        uses: s4u/maven-settings-action@v2.4.0
+        with:
+          servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}]'
+      - uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          passphrase: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
+      - name: GPG user IDs
+        run: |
+          echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
+          echo "name:        ${{ steps.import_gpg.outputs.name }}"
+          echo "email:       ${{ steps.import_gpg.outputs.email }}"
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ hashFiles('**/pom.xml') }}
+      - name: Build with Maven
+        run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false
+      - name: Publish to codecov
+        run: bash <(curl -s https://codecov.io/bash)
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+      - name: Publish Test Report
+        uses: scacap/action-surefire-report@v1
+        if: always()
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
