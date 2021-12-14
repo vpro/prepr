@@ -263,8 +263,8 @@ public class PreprRepositoryImplITest {
         PreprItems<PreprWebhook> webhooks = repo.getWebhooks().get(limit(100L));
        //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
-            debugOrInfo(log, webhook.getCallback_url().contains("poms"), "Found webhook {} {}:, {}", webhook.getId(), webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://api-test-os.poms.omroep.nl")) {
+            debugOrInfo(log, webhook.getCallback_url().contains("poms") || webhook.getCallback_url().contains("meeuw"), "Found webhook {} {}:, {}", webhook.getId(),  webhook, webhook.getCreated_on());
+            if (webhook.getCallback_url().startsWith("https://proxy.meeuw.org")) {
                 //
                 // log.info("{}", webhook);
                 //webhook.setActive(true);
