@@ -12,14 +12,12 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.slf4j.event.Level;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
 import nl.vpro.io.prepr.PreprRepositories;
 import nl.vpro.io.prepr.PreprRepository;
-import nl.vpro.logging.simple.SimpleLogger;
-import nl.vpro.logging.simple.StringBuilderSimpleLogger;
+import nl.vpro.logging.simple.*;
 
 import static nl.vpro.io.prepr.Paging.limit;
 
