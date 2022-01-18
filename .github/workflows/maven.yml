@@ -25,12 +25,6 @@ jobs:
         with:
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           passphrase: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
-      - name: GPG user IDs
-        run: |
-          echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
-          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
-          echo "name:        ${{ steps.import_gpg.outputs.name }}"
-          echo "email:       ${{ steps.import_gpg.outputs.email }}"
       - name: Cache local Maven repository
         uses: actions/cache@v2
         with:
