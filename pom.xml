@@ -49,11 +49,13 @@
   <properties>
     <lombok.version>1.18.22</lombok.version>
     <google.oauth.client.version>1.32.1</google.oauth.client.version>
-    <google.client.version>1.40.1</google.client.version>
+    <google.client.version>1.41.0</google.client.version>
     <jackson2.version>2.13.1</jackson2.version>
     <slf4j.version>1.7.32</slf4j.version>
-    <vpro.shared.version>2.29.0</vpro.shared.version>
-    <spring.version>5.3.14</spring.version> <!-- spring dependency is optional -->
+    <vpro.shared.version>2.29.2</vpro.shared.version>
+    <spring.version>5.3.15</spring.version> <!-- spring dependency is optional -->
+    <checkerframework.version>3.22.0</checkerframework.version>
+    <assertj.version>3.22.0</assertj.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- <gpg.keyname>62556C10383981F1</gpg.keyname>-->
   </properties>
@@ -248,7 +250,7 @@
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>3.21.0</version>
+      <version>${checkerframework.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.inject</groupId>
@@ -280,7 +282,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.21.0</version>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
