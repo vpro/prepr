@@ -73,7 +73,7 @@ public class WebhookIdsRegister {
         final StringBuilder builder = new StringBuilder();
         final SimpleLogger logger = StringBuilderSimpleLogger.builder()
             .level(Level.INFO)
-            .stringBuilder(builder).chain(SimpleLogger.slfj4(log));
+            .stringBuilder(builder).chain(Slf4jSimpleLogger.of(log));
 
         for (PreprRepository repository : repositories) {
             try {

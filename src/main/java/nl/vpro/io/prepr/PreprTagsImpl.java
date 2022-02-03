@@ -15,7 +15,7 @@ import nl.vpro.io.prepr.domain.PreprTag;
 import nl.vpro.io.prepr.domain.PreprTagGroup;
 
 /**
- * TODO Cacheable annotations need to be implemented by proxy. That does not really work togehter with {@link StandalonePreprRepositories} we now use to implement a bunch of these.
+ * TODO Cacheable annotations need to be implemented by proxy. That does not really work together with {@link StandalonePreprRepositories} we now use to implement a bunch of these.
  * @author Michiel Meeuwissen
  * @since 0.3
  */

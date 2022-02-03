@@ -26,7 +26,7 @@ public class PreprPreprImpl implements PreprPrepr {
 
 
     /**
-     * @deprecated Use {@link PreprGuides#getSchedule(UUID, LocalDate, LocalDate)})
+     * @deprecated Use {@link PreprGuides#getSchedule(LocalDate, LocalDate)}
      */
     @Override
     @Deprecated

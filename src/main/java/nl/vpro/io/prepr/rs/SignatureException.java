@@ -11,6 +11,8 @@ import java.util.UUID;
 @Getter
 public abstract class SignatureException extends SecurityException {
 
+    private static final long serialVersionUID = -360511422844442766L;
+
     private final String channel;
 
     private final byte[] payload;

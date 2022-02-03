@@ -8,7 +8,7 @@ import java.net.URI;
  * Currently this is in no way complete. It only is complete in so far as that was needed by <a href="https://poms.omroep.nl">POMS</a>, because
  * POMS syncs metadata from prepr to its own database (as far as that concerns the dutch public broadcasters).</p>
  *
- * <p>That data therefore can also be accessed via the <a href="https://rs.poms.omroep.nl">NPO frontend API</a> (as soon as this is taken in use).</p>
+ * <p>That data therefore can also be accessed via the <a href="https://rs.poms.omroep.nl">NPO frontend API</a> </p>
  *
  *
  * @author Michiel Meeuwissen

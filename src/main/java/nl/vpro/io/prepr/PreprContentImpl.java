@@ -62,8 +62,7 @@ public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
         GenericUrl url = impl.createUrl("publications", id.toString());
 
         url.set("fields", PUBLICATION_FIELDS);
-        T result = (T) impl.get(url, AbstractPreprContent.class);
-        return result;
+        return (T) impl.get(url, AbstractPreprContent.class);
     }
 
 
