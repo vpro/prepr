@@ -56,6 +56,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private static final String RATELIMIT_RESET         = "X-Graphlr-RateLimit-Reset";
     private static final String RATELIMIT_HOURREMAINING = "X-Graphlr-RateLimit-Hour-Remaining";
     private static final String RATELIMIT_HOURLIMIT     = "X-Graphlr-RateLimit-Hour-Limit";
+    private static final String CACHE_HITS              = "X-Prepr-Cache_hits";
 
     private static final NetHttpTransport NET_HTTP_TRANSPORT = new NetHttpTransport.Builder()
         .build();
@@ -272,10 +273,16 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     }
 
 
-    protected void consumeGraphrlHeaders(HttpResponse response) {
+    protected void consumeHeaders(HttpResponse response) {
         rateLimitReset  = parseIntHeader(response, RATELIMIT_RESET);
         rateLimitHourRemaining  = parseIntHeader(response, RATELIMIT_HOURREMAINING);
         rateLimitHourLimit  = parseIntHeader(response, RATELIMIT_HOURLIMIT);
+        Integer cacheHits = parseIntHeader(response, CACHE_HITS);
+        if (cacheHits != null && cacheHits > 0) {
+            log.info("Hit a prepr cache? {}", cacheHits);
+
+        }
+
     }
 
     private Integer parseIntHeader(final HttpResponse response, final String header) {
@@ -290,8 +297,10 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     protected HttpResponse get(GenericUrl url) throws IOException {
-        return execute(NET_HTTP_TRANSPORT.createRequestFactory(getInitializer)
-            .buildGetRequest(url));
+        return execute(
+            NET_HTTP_TRANSPORT.createRequestFactory(getInitializer)
+                .buildGetRequest(url)
+        );
     }
 
     @SneakyThrows(IOException.class)
@@ -370,13 +379,14 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             callLog.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }
         HttpResponse response = httpRequest.execute();
-        consumeGraphrlHeaders(response);
+        consumeHeaders(response);
         return response;
     }
 
 
     protected void authenticate(HttpRequest request) throws IOException {
         callCount++;
+        request.getHeaders().setCacheControl("no-cache");
         if (lifetimeToken()) {
             request.getHeaders().setAuthorization("Bearer " + clientToken);
         } else {
