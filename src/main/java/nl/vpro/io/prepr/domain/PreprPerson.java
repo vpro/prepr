@@ -39,7 +39,7 @@ public class PreprPerson extends PreprAbstractObject {
     /**
      * Has to do with prijsvragen
      */
-    boolean exclude_until;
+    Boolean exclude_until;
 
     String job_title;
 

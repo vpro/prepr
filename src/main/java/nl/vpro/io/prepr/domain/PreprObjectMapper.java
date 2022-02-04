@@ -13,8 +13,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import nl.vpro.jackson2.DurationToJsonTimestamp;
-import nl.vpro.jackson2.LocalDateTimeToJsonDateWithSpace;
+import nl.vpro.jackson2.*;
 
 /**
  * Provides a jackson2 {@link ObjectMapper} configured to correctly read in the actually provided json by Prepr.
@@ -64,6 +63,10 @@ public class PreprObjectMapper extends ObjectMapper {
 
             addDeserializer(LocalDateTime.class, LocalDateTimeToJsonDateWithSpace.Deserializer.INSTANCE);
             addSerializer(LocalDateTime.class, LocalDateTimeToJsonDateWithSpace.Serializer.INSTANCE);
+
+            addDeserializer(Boolean.class, LenientBooleanDeserializer.INSTANCE);
+            addDeserializer(boolean.class, LenientBooleanDeserializer.INSTANCE);
+
         }
     }
 
