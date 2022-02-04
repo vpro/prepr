@@ -86,7 +86,10 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
     @Override
     MoreObjects.ToStringHelper toStringHelper() {
-        return super.toStringHelper()
+        return MoreObjects.toStringHelper(this)
+            .omitNullValues()
+            .add("id", id)
+            .add("body", body)
             .add("name", name)
             .add("reference", reference)
             .add("author", author)
