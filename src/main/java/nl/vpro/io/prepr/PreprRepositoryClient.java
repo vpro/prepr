@@ -64,6 +64,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     private final Logger log;
 
+    private final Logger callLog;
+
+
     private final String api;
 
     private final String clientId;
@@ -151,7 +154,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         Version version
 
         ) {
-        this.log = LoggerFactory.getLogger(PreprRepositoryImpl.class.getName() + "." + channel);
+        this.log = LoggerFactory.getLogger(PreprRepositoryClient.class.getName() + "." + channel);
+        this.callLog = LoggerFactory.getLogger(PreprRepositoryClient.class.getName() + ".CALL." + channel);
+
         this.api = getApiUrl(api, this.log);
         this.version = version == null ? Version.v5 : version;
         this.channel = channel;
@@ -357,12 +362,12 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 data = " -d '" + out + "'";
             }
             if (lifetimeToken()) {
-                log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl(), data);
+                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl(), data);
             } else {
-                log.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
+                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
             }
         } else {
-            log.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
+            callLog.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
         }
         HttpResponse response = httpRequest.execute();
         consumeGraphrlHeaders(response);
