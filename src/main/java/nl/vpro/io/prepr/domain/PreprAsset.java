@@ -95,6 +95,8 @@ public abstract class PreprAsset extends PreprAbstractObject {
             .add("author", author)
             .add("cdn_file", cdn_files)
             .add("source_file", source_file)
-            .add("reference_id", reference_id);
+            .add("reference_id", reference_id)
+            .add("custom_type", custom_type)
+            ;
     }
 }
