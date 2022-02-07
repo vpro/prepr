@@ -66,7 +66,6 @@ public class PreprRepositoryImplITest {
         LocalDate date = LocalDate.of(2019, 6, 4);
         getSchedule(test, date);
         //getSchedule(fnxa, date);
-
     }
 
     @Test
@@ -79,11 +78,7 @@ public class PreprRepositoryImplITest {
 
         log.info("last: {}", lastEvent);
         log.info("first: {}", firstEvent);
-
-
     }
-
-
 
     protected PreprSchedule getSchedule(PreprRepository impl, LocalDate date) {
 
@@ -98,9 +93,6 @@ public class PreprRepositoryImplITest {
         return schedule;
     }
 
-
-
-
     @Test
     void getGuides() {
         PreprItems<PreprGuide> result = test.getGuides().getGuides(null);
@@ -109,9 +101,6 @@ public class PreprRepositoryImplITest {
         }
     }
 
-
-
-
     @Test
     public void getGuidesFunx() {
         PreprItems<PreprGuide> result = funx.getGuides().getGuides(null);
@@ -119,8 +108,6 @@ public class PreprRepositoryImplITest {
             log.info("guide: {}", guide);
         }
     }
-
-
 
     @Test
     public void getPublicationsForChannel() {
@@ -154,18 +141,14 @@ public class PreprRepositoryImplITest {
         log.info("{}",
             rad2.getContent().getPublication(UUID.fromString("cf80db4c-40d7-40ee-9f25-4bfbcfd1e351")) // a showdetails. This is deprecated!
         );
-
     }
-
 
     @Test
     public void getProgram2() {
         log.info("{}",
             rad2.getContent().getPublication(UUID.fromString("0033f611-188e-438f-878b-ca976dfa18dd")) // a showdetails. This is deprecated!
         );
-
     }
-
 
     @Test
     public void getPost() {
@@ -174,15 +157,11 @@ public class PreprRepositoryImplITest {
 
     }
 
-
-
     @Test
     public void getShow() {
         log.info("{}",
             rad3.getContent().getPublication(UUID.fromString("5ca9fb3b-9fcb-4666-8f5f-6673acabd11f")));
-
     }
-
 
     @Test
     public void getTag() {
@@ -191,14 +170,12 @@ public class PreprRepositoryImplITest {
         );
     }
 
-
-     @Test
+    @Test
     public void getTagFunx() {
         log.info("{}",
             funx.getTags().getTag(UUID.fromString("233238cb-5b35-499f-919e-a59f20ec9b83"))
         );
     }
-
 
     @Test
     public void getTagGroups() {
@@ -207,16 +184,11 @@ public class PreprRepositoryImplITest {
         );
     }
 
-
-
     @Test
     public void getTagGroup() {
         log.info("{}",
             funx.getTags().getGroups(Paging.builder().build(), "Rollen")
         );
-
-
-
     }
 
     @Test
@@ -235,18 +207,16 @@ public class PreprRepositoryImplITest {
             .getContainers(Paging.builder().build());
         log.info("channels : {}", publications);
     }
+
     @Test
     public void getContentContainer() {
-
           log.info("{}",
             rad2.getContent().getContainer(UUID.fromString("d82fb840-cd42-4eea-b11c-d24d809f1a47"))
         );
     }
 
-
      @Test
     public void getContainer2() {
-
           log.info("{}",
               rad2.getContent().getContainer(UUID.fromString("5d3e2d15-7bfa-4ab2-96d8-20a4f86847cf"))
         );
@@ -272,12 +242,8 @@ public class PreprRepositoryImplITest {
                 //log.info("{}", repo.getWebhooks().put(webhook));
                 repo.getWebhooks().delete(webhook.getUUID());
             }
-
-
         }
-
     }
-
 
     @Test
     public void createWebhook() {
@@ -287,21 +253,16 @@ public class PreprRepositoryImplITest {
              "showschedule.deleted"));
     }
 
-
     @Test
     public void getAssets() {
         PreprItems<PreprAsset> assets  = rad2.getAssets().get(limit(100L));
         log.info("assets: {}", assets);
-
-
     }
 
     @Test
     public void getTimeline() {
         PreprTimeline timeline = test.getContainers().getTimeline(UUID.fromString("7c94ebfe-3555-4ea7-a4e1-69c6db06c415"));
         log.info("timeline: {}", timeline);
-
-
     }
 
 
@@ -309,6 +270,5 @@ public class PreprRepositoryImplITest {
     public void getPerson() {
         PreprPerson person = funx.getPersons().get(UUID.fromString("6ab9b623-6815-4696-b276-de43cde4d06f"));
         log.info("psers: {}", person);
-
     }
 }
