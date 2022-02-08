@@ -24,6 +24,8 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
 
     String reference_id;
 
+    String reference_unique;
+
     PreprStatus status;
 
     /**
@@ -43,8 +45,15 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
 
     Duration duration;
 
-
     String name;
+
+    String note;
+
+    String artist_text;
+
+    PreprChannel channel;
+
+    List<PreprTag> tags;
 
 
     @JsonProperty("private")

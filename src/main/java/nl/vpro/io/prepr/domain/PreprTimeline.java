@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
+import com.google.common.annotations.Beta;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 
@@ -58,6 +60,8 @@ public class PreprTimeline extends AbstractPreprContent {
 
     PreprPhoto cover;
 
+    @Beta
+    JsonNode recipients_all;
 
     public Range<LocalDateTime> asRange() {
         return Range.closedOpen(from, until);

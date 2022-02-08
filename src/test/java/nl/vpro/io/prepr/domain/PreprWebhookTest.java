@@ -1,17 +1,26 @@
 package nl.vpro.io.prepr.domain;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static nl.vpro.io.prepr.domain.PreprObjectMapper.INSTANCE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
  */
+@Slf4j
 public class PreprWebhookTest {
 
+
+    @BeforeAll
+    public static void init() {
+        PreprObjectMapper.configureInstance(false);
+    }
 
     @Test
     public void unmarshal() throws IOException {
@@ -28,11 +37,9 @@ public class PreprWebhookTest {
             "      ]\n" +
             "    }";
 
-        PreprWebhook webhook = PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)
+        PreprWebhook webhook = INSTANCE.readerFor(PreprWebhook.class)
             .readValue(example);
         assertThat(webhook.getEvents()).hasSize(3);
-
-
     }
 
 

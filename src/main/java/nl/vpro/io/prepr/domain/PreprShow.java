@@ -5,6 +5,8 @@ import lombok.*;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.annotations.Beta;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -21,13 +23,22 @@ public class PreprShow extends AbstractPreprContent {
 
     String name;
 
-    List<PreprTag> tags;
-
     PreprPhoto cover;
 
     String reference;
 
     List<PreprPerson> scheduled_users;
+
+
+    // just encountered null
+    @Beta
+    JsonNode from;
+
+    @Beta
+    JsonNode until;
+
+    @Beta
+    JsonNode recipients_all;
 
     @Override
     MoreObjects.ToStringHelper toStringHelper() {

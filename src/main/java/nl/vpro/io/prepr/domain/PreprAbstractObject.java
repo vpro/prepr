@@ -50,6 +50,7 @@ import com.google.common.base.MoreObjects;
     @JsonSubTypes.Type(value = PreprCommercial.class,  name = PreprCommercial.LABEL),
     @JsonSubTypes.Type(value = PreprNewsBulletin.class,name = PreprNewsBulletin.LABEL),
     @JsonSubTypes.Type(value = PreprPublication.class,name = PreprPublication.LABEL),
+    @JsonSubTypes.Type(value = PreprPublicationModel.class,name = PreprPublicationModel.LABEL),
     @JsonSubTypes.Type(value = PreprPublished_NLNL.class,name = PreprPublished_NLNL.LABEL),
     @JsonSubTypes.Type(value = PreprNLNL.class,name = PreprNLNL.LABEL)
 
@@ -80,6 +81,8 @@ public class PreprAbstractObject {
     String body;
 
     String description;
+
+    String summary;
 
     public String getCrid() {
         String label = getLabel();

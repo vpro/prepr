@@ -61,6 +61,7 @@ public abstract class PreprAsset extends PreprAbstractObject {
 
     String mime_type;
 
+    Boolean replaceable;
 
     public Optional<String> getCridForReference(@NonNull PreprPost post) {
         if (reference_id == null) {
