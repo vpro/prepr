@@ -33,7 +33,6 @@ import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
 
 /**
-
  *
  * @author Michiel Meeuwissen
  * @since 0.1
@@ -66,7 +65,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private final Logger log;
 
     private final Logger callLog;
-
 
     private final String api;
 
@@ -153,7 +151,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         @Nullable Integer guideCallsMaxDays,
         @Named("prepr.delayAfterToken") Duration delayAfterToken,
         Version version
-
         ) {
         this.log = LoggerFactory.getLogger(PreprRepositoryClient.class.getName() + "." + channel);
         this.callLog = LoggerFactory.getLogger(PreprRepositoryClient.class.getName() + ".CALL." + channel);
