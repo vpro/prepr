@@ -19,7 +19,6 @@ import nl.vpro.io.prepr.domain.PreprWebhook;
 
 /**
  * @author Michiel Meeuwissen
- * @since ...
  */
 @Named
 public class PreprWebhooksImpl implements PreprWebhooks {
@@ -41,38 +40,43 @@ public class PreprWebhooksImpl implements PreprWebhooks {
         return impl.get(url, PreprItems.class);
     }
 
-
     @Override
     @SneakyThrows
     public PreprWebhook put(PreprWebhook webhook) {
         GenericUrl url = impl.createUrl(WEBHOOKS, webhook.getId());
         HttpResponse put = impl.put(url, webhook);
         try {
-            return  PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)
+            return PreprObjectMapper.INSTANCE
+                .readerFor(PreprWebhook.class)
                 .readValue(put.getContent());
         } finally {
             put.disconnect();
         }
     }
+
     @Override
     @SneakyThrows(IOException.class)
     public PreprWebhook create(String callback_url, String... events)  {
-        GenericUrl url = impl.createUrl(WEBHOOKS);
-        Map<String, Object> post = new HashMap<>();
+        final GenericUrl url = impl.createUrl(WEBHOOKS);
+        final Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
         post.put("events", events);
         post.put("active", "1");
 
-
-
-        HttpResponse response = impl.post(url, post);
-        return PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)
-            .readValue(response.getContent());
+        final HttpResponse response = impl.post(url, post);
+        try {
+            return PreprObjectMapper.INSTANCE.readerFor(PreprWebhook.class)
+                .readValue(response.getContent());
+        } finally {
+            response.disconnect();
+        }
     }
 
+    @SneakyThrows
     @Override
-    public void delete(UUID webhook) {
+    public void delete(UUID webhook)  {
         GenericUrl url = impl.createUrl(WEBHOOKS, webhook);
-        impl.delete(url);
+        HttpResponse delete = impl.delete(url);
+        delete.disconnect();
     }
 }

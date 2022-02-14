@@ -40,7 +40,6 @@ import nl.vpro.io.prepr.domain.PreprObjectMapper;
 @Named
 public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
-
     public enum Version {
         v5("v5/"),
         v6("");
@@ -73,7 +72,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     private final String clientSecret;
 
     private final String clientToken;
-
 
     @Getter
     private Integer rateLimitReset = null;
@@ -120,7 +118,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     @Getter
     @Setter
-    private Duration mininumExpiration = Duration.ofSeconds(20);
+    private Duration minimumExpiration = Duration.ofSeconds(20);
 
     @Getter
     @Setter
@@ -134,7 +132,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Getter
     @Setter
     private Version version;
-
 
     @lombok.Builder(builderClassName = "Builder")
     PreprRepositoryClient(
@@ -215,7 +212,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         }
     }
 
-
     protected void addListParameters(GenericUrl url, Paging paging) {
         if (paging.getSkip() != null) {
             url.set("skip", paging.getSkip());
@@ -231,24 +227,20 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         }
     }
 
-
     @Override
     public String toString() {
         return channel + "=" + clientId + "@" + getBaseUrl();
     }
 
-
     protected <T> T _get(GenericUrl url, Class<T> clazz) throws IOException {
         HttpResponse execute = get(url);
-        try {
-            InputStream content = execute.getContent();
+        try (InputStream content = execute.getContent()) {
             return PreprObjectMapper.INSTANCE.readerFor(clazz)
                 .readValue(content);
         } finally {
             execute.disconnect();
         }
     }
-
 
     @SneakyThrows(IOException.class)
     protected <T> Optional<T> optionalGet(GenericUrl url, Class<T> clazz)  {
@@ -269,7 +261,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         return optionalGet(url, clazz).orElse(null);
     }
 
-
     protected void consumeHeaders(HttpResponse response) {
         rateLimitReset  = parseIntHeader(response, RATELIMIT_RESET);
         rateLimitHourRemaining  = parseIntHeader(response, RATELIMIT_HOURREMAINING);
@@ -277,9 +268,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         Integer cacheHits = parseIntHeader(response, CACHE_HITS);
         if (cacheHits != null && cacheHits > 0) {
             log.info("Hit a prepr cache? {}", cacheHits);
-
         }
-
     }
 
     private Integer parseIntHeader(final HttpResponse response, final String header) {
@@ -291,7 +280,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             return null;
         }
     }
-
 
     protected HttpResponse get(GenericUrl url) throws IOException {
         return execute(
@@ -313,7 +301,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         return execute(NET_HTTP_TRANSPORT.createRequestFactory()
             .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray())));
     }
-
 
     @SuppressWarnings("unchecked")
     @SneakyThrows(IOException.class)
@@ -342,8 +329,12 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @SneakyThrows(IOException.class)
     protected <T> T post(GenericUrl url, Map<String, Object> map, Class<T> clazz) {
         HttpResponse execute = post(url, map);
-        return PreprObjectMapper.INSTANCE.readerFor(clazz)
-            .readValue(execute.getContent());
+        try {
+            return PreprObjectMapper.INSTANCE.readerFor(clazz)
+                .readValue(execute.getContent());
+        } finally {
+            execute.disconnect();
+        }
     }
 
     protected String toString(Object o) {
@@ -380,7 +371,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         return response;
     }
 
-
     protected void authenticate(HttpRequest request) throws IOException {
         callCount++;
         request.getHeaders().setCacheControl("no-cache");
@@ -402,7 +392,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
      */
     @Deprecated
     private synchronized void getToken() throws  IOException {
-        if (tokenResponse == null || expiration.isBefore(Instant.now().plus(mininumExpiration))) {
+        if (tokenResponse == null || expiration.isBefore(Instant.now().plus(minimumExpiration))) {
 
             List<Scope> scopesToUse = scopes;
             if (scopesToUse == null || scopesToUse.isEmpty()) {
@@ -425,13 +415,13 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                     .set("scope", scopesToUse.stream().map(Enum::name).collect(Collectors.joining(",")))
                     .execute();
             expiration = Instant.now().plusSeconds(tokenResponse.getExpiresInSeconds());
-            Instant refreshToken = expiration.minus(mininumExpiration);
+            Instant refreshToken = expiration.minus(minimumExpiration);
             Duration duration = Duration.between(Instant.now(), refreshToken);
             String prefix = refresh ? "Refreshed authentication" : "Authenticated";
             if (duration.isNegative()) {
-                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, which is immediately!)", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, minimumExpiration, refreshToken);
             } else {
-                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, mininumExpiration, refreshToken, duration);
+                log.info("{} {}@{} -> Token  {} (will be refreshed at {} - {} = {}, i.e. after {})", prefix, clientId, getBaseUrl(), tokenResponse.getAccessToken(), expiration, minimumExpiration, refreshToken, duration);
             }
             authenticationCount++;
             long delayInMillis = delayAfterToken.toMillis();
@@ -452,7 +442,6 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         tokenResponse = null;
     }
 
-
     @Override
     public String getScopesAsString() {
         return String.valueOf(this.scopes.toString());
@@ -461,14 +450,11 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Override
     public String getExpirationAsString() {
         return expiration.toString();
-
-
     }
 
     @Override
     public String getRefreshesAfterAsString() {
-        return expiration.minus(mininumExpiration).toString();
-
+        return expiration.minus(minimumExpiration).toString();
     }
 
     @Override
@@ -479,13 +465,11 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     @Override
     public void setConnectTimeoutForGetAsString(String connectTimeoutForGetAsString) {
         this.connectTimeoutForGet = Duration.parse(connectTimeoutForGetAsString);
-
     }
 
     @Override
     public String getReadTimeoutForGetAsString() {
         return readTimeoutForGet.toString();
-
     }
 
     @Override
