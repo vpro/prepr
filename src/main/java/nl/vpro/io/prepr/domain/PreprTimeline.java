@@ -56,6 +56,7 @@ public class PreprTimeline extends AbstractPreprContent {
 
     PreprPhoto cover;
 
+    List<PreprTag> tags;
 
     public Range<LocalDateTime> asRange() {
         return Range.closedOpen(from, until);
