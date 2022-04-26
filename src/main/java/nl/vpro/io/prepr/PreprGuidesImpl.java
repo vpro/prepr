@@ -41,9 +41,11 @@ public class PreprGuidesImpl implements PreprGuides {
 
     private static final Fields SCHEDULE_FIELDS = Fields.builder()
         .field(
-            Field.builder("timelines")
+            Field
+                .builder("timelines")
                 .field(Fields.ASSETS)
                 .f("custom")
+                .f("tags")
                 .field(Fields.COVER)
                 .field(Field.builder("publications")
                     /* .fs("tags")
@@ -130,7 +132,7 @@ public class PreprGuidesImpl implements PreprGuides {
         if (q != null) {
             url.set("q", q);
         }
-        url.set("fields", "timelines,guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
+        url.set("fields", "timelines{tags},guide,show{slug,name,body,tags,status,cover{" + Fields.SOURCEFILE_FIELD + "}},users");
 
         return impl.get(url, PreprItems.class);
     }

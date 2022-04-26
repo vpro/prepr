@@ -359,9 +359,9 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
                 data = " -d '" + out + "'";
             }
             if (lifetimeToken()) {
-                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl(), data);
+                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), "Bearer", clientToken, httpRequest.getUrl().toURL(), data);
             } else {
-                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl(), data);
+                callLog.info("Calling \ncurl -X{} -H 'Authorization: {} {}' '{}' {}\n", httpRequest.getRequestMethod(), tokenResponse.getTokenType(), tokenResponse.getAccessToken(), httpRequest.getUrl().toURL(), data);
             }
         } else {
             callLog.info("Calling {} {}", httpRequest.getRequestMethod(), httpRequest.getUrl());
