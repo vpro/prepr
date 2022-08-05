@@ -12,6 +12,9 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 
+import nl.vpro.logging.Slf4jHelper;
+import nl.vpro.logging.simple.Level;
+
 import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
 
 /**
@@ -114,6 +117,8 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         }
     }
 
+    public static Set<String> warnedForDay = Collections.synchronizedSet(new HashSet<>());
+
     public Optional<String> episodeId() {
           if (event == null) {
               log.warn("{} has no event", this);
@@ -121,8 +126,8 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
           }
         PreprEpisode episode = event.getEpisode();
         if (episode == null) {
-            // this is happening a lot, so not warning, but info-ing
-            log.info("{} {} has no episode! Ignoring", day, event);
+            // this is happening a lot, so not warning every time, but info-ing
+            Slf4jHelper.log(log, warnedForDay.add(day + ":" + event.getGuide().getId()) ? Level.WARN : Level.INFO, "{} {} has no episode! Ignoring", day, event);
             return Optional.empty();
         }
         if (episode.getId() == null) {
@@ -141,7 +146,7 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         // use to be this
         //Function<PreprEventWithDay, String> matcher = PreprEventWithDay::showId;
 
-        unfilteredResult.forEach((e) -> {
+        unfilteredResult.forEach(e -> {
             for (PreprEvent mcEvent : e.getValue()) {
                 PreprEventWithDay withDay = new PreprEventWithDay(e.getKey(), zoneId, mcEvent);
                 String episodeId= matcher.apply(withDay).orElse(null);
@@ -161,7 +166,11 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         return result;
     }
 
-    public static List<PreprEventWithDay> fromSchedule(@NonNull PreprSchedule unfilteredResult, @NonNull ZoneId zoneId, @NonNull LocalDateTime from, @NonNull LocalDateTime until) {
+    public static List<PreprEventWithDay> fromSchedule(
+        @NonNull PreprSchedule unfilteredResult,
+        @NonNull ZoneId zoneId,
+        @NonNull LocalDateTime from,
+        @NonNull LocalDateTime until) {
         Range<Instant> range = Range.closedOpen(from.atZone(zoneId).toInstant(), until.atZone(zoneId).toInstant());
         List<PreprEventWithDay> result = fromSchedule(unfilteredResult, zoneId);
 

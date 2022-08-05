@@ -25,14 +25,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Slf4j
 public class PreprSchedule implements Iterable<Map.Entry<LocalDate, List<PreprEvent>>> {
 
-
     SortedMap<LocalDate, List<PreprEvent>> days;
 
     @NonNull
     @Override
     public Iterator<Map.Entry<LocalDate, List<PreprEvent>>> iterator() {
         return days.entrySet().iterator();
-
     }
 
 
