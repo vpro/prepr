@@ -123,10 +123,10 @@ public class PreprGuidesImpl implements PreprGuides {
         url.set("exceptions", exceptions);
 
 
-        PreprSchedule schedule = impl.optionalGet(url, PreprSchedule.class).orElseThrow(() -> new IllegalArgumentException("Couldn't get " + url));
-        return schedule;
+        return impl.optionalGet(url, PreprSchedule.class).orElseThrow(() -> new IllegalArgumentException("Couldn't get " + url));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public PreprItems<PreprGuide> getGuides(@Nullable String q) {
         GenericUrl url = impl.createUrl(PATH);
