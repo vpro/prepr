@@ -288,11 +288,10 @@
       <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
-     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-       <version>${slf4j.version}</version>
-       <scope>test</scope>
+    <dependency>
+      <groupId>nl.vpro.shared</groupId>
+      <artifactId>vpro-shared-log4j2</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>nl.vpro.shared</groupId>
