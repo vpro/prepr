@@ -42,6 +42,7 @@ public class PreprObjectMapper extends ObjectMapper {
         if (lenient) {
             INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true); // forward compatibility
             INSTANCE.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);// forward compatibility
+            INSTANCE.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
         } else {
             INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, false);
             INSTANCE.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

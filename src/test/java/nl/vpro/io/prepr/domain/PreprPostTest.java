@@ -21,8 +21,7 @@ public class PreprPostTest {
         PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprPost.class)
              .readValue(getClass().getResourceAsStream("/post.json"));
         log.info("{}", post);
-
-
+        assertThat(post.getStatus()).isEqualTo(PreprStatus.arla_completed);
 
     }
 
