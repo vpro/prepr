@@ -8,24 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.ref, 'SNAPSHOT')
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          java-version: 11
-      - name: Create settings.xml
-        uses: s4u/maven-settings-action@v2.4.0
-        with:
-          servers: '[{"id": "vpro-ossrh", "username": "vpro", "password": "${{secrets.SONATYPE_PASSWORD}}"}]'
-      - uses: crazy-max/ghaction-import-gpg@v3
-        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: maven
+          server-id: vpro-ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-          passphrase: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1
-        with:
-          global: true
-          name: 'github'
-          email: 'digitaal-techniek@vpro.nl'
-          token: '${{ secrets.GITHUB_TOKEN  }}'
+          gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
       - name: Release
         run: mvn -Pdeploy --batch-mode release:prepare release:perform
+        env:
+          SONATYPE_USERNAME: vpro
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_SECRET_KEY_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
