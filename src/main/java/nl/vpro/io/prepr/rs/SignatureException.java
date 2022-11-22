@@ -2,6 +2,7 @@ package nl.vpro.io.prepr.rs;
 
 import lombok.Getter;
 
+import java.io.Serial;
 import java.util.UUID;
 
 /**
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Getter
 public abstract class SignatureException extends SecurityException {
 
+    @Serial
     private static final long serialVersionUID = -360511422844442766L;
 
     private final String channel;

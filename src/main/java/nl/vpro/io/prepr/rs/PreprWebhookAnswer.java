@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * When implementing a webhook as defined by prepr APIs we use this as a return object for (successful) responses (i.e. its
  * json binding)
- *
+ * <p>
  * It is afaik not defined
  * @author Michiel Meeuwissen
  * @since 1.0

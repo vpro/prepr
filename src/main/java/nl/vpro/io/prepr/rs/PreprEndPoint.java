@@ -10,7 +10,7 @@ import javax.ws.rs.NameBinding;
 /**
  *
  * This annotation can be used on your JAXRS implementation of a webhook callback. Because {@link SignatureValidatorInterceptor} has it too, the signatures will be validated implicitly then.
- *
+ * <p>
  * E.g.:
  *<pre>{@code
 @literal @Path("/prepr")

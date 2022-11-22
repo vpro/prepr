@@ -34,11 +34,11 @@ import static org.apache.http.HttpHeaders.USER_AGENT;
 
 /**
  * This can be used to verify webhook calls made by prepr to your server
- *
+ * <p>
  * See
  * https://developers.mediaconnect.io/docs/webhooks
  * It supposes an url of the form <code>../<channel id></code>
- *
+ * <p>
  * It needs to know the webhook id, which must be registered via {#put(String channel, UUID)}
  *
  * @author Michiel Meeuwissen
