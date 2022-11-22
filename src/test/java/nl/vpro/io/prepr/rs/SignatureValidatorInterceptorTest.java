@@ -17,8 +17,8 @@ public class SignatureValidatorInterceptorTest {
 
 
     byte[] example = """
-    {"id":"08bc6cd2-7da5-4708-8e61-6754ee0c158c","created_on":1525703268,"event":"showschedule.deleted","payload":{"from":"00:10:00","until":"06:00:00","offset":600,"limit":21000,"rules":{"id":"34c1ec2e-0f62-4f9f-8585-b7c09b040014","created_on":"2018-05-07T14:27:42+00:00","changed_on":null,"label":"ShowSchedule","offset":600,"limit":21000,"valid_from":"2018-05-10","valid_until":"2018-05-10","exception":true,"days":["1","2","3","4","5","7"]}}}
-    """.getBytes();
+    {"id":"08bc6cd2-7da5-4708-8e61-6754ee0c158c","created_on":1525703268,"event":"showschedule.deleted","payload":{"from":"00:10:00","until":"06:00:00","offset":600,"limit":21000,"rules":{"id":"34c1ec2e-0f62-4f9f-8585-b7c09b040014","created_on":"2018-05-07T14:27:42+00:00","changed_on":null,"label":"ShowSchedule","offset":600,"limit":21000,"valid_from":"2018-05-10","valid_until":"2018-05-10","exception":true,"days":["1","2","3","4","5","7"]}}}"""
+        .getBytes();
     String signature = "24388cb0112ac5448ba4da3079260c3d28fdbb2a7ea59f1e791d7c09843c0ad8";
 
     SignatureValidatorInterceptor impl = new SignatureValidatorInterceptor();
