@@ -30,6 +30,8 @@ public class PreprPerson extends PreprAbstractObject {
 
     String lastname;
 
+    String full_name;
+
     String nickname;
 
     boolean tracking;
