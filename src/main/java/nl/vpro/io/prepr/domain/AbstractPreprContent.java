@@ -22,6 +22,18 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
 
     Instant unpublish_on;
 
+    /**
+     * Not known what this is. Introduced to fix warnings.
+     * @since 2.0
+     */
+    long published_on_int;
+
+    /**
+     * Not known what this is. Introduced to fix warnings.
+     * @since 2.0
+     */
+    long unpublish_on_int;
+
     String reference_id;
 
     String reference_unique;

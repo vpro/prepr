@@ -31,7 +31,7 @@ public class PreprPerson extends PreprAbstractObject {
     String lastname;
 
     /**
-     *
+     * Not known what this is. Introduced to fix warnings.
      * @since 2.0
      */
     String full_name;
