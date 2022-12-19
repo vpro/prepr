@@ -30,6 +30,10 @@ public class PreprPerson extends PreprAbstractObject {
 
     String lastname;
 
+    /**
+     *
+     * @since 2.0
+     */
     String full_name;
 
     String nickname;
