@@ -1,14 +1,12 @@
 package nl.vpro.io.prepr.spring;
 
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
-
 import javax.inject.Named;
-
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import nl.vpro.io.prepr.*;
+import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.beans.BeansException;
@@ -18,10 +16,6 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-
-import nl.vpro.io.prepr.*;
-
-import static nl.vpro.io.prepr.PreprRepositoryClient.Version.v5;
 
 /**
  * This is used to instantiate all classes by spring. The advantage is that spring than also will proxy them (e.g. for the @CacheResult annotation)
@@ -83,7 +77,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
             .map(Map.Entry::getKey)
             .filter((k) -> k.startsWith(prefix))
             .map((k) -> k.substring(prefix.length()))
-            .collect(Collectors.toList());
+            .toList();
 
 
 
@@ -97,6 +91,7 @@ public abstract class AbstractSpringPreprRepositoriesConfiguration implements In
             AbstractBeanDefinition clientV5Definition = BeanDefinitionBuilder
                 .genericBeanDefinition(PreprRepositoryClient.class)
                 .addConstructorArgValue(get(properties, "api"))
+                .addConstructorArgValue(getWithDefault(properties, "apiAlternative", null))
                 .addConstructorArgValue(channel)
                 .addConstructorArgValue(get(properties, "clientId", channel))
                 .addConstructorArgValue(get(properties, "clientSecret", channel))

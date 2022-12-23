@@ -67,6 +67,8 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
     private final String api;
 
+    private final String apiAlternative;
+
     private final String clientId;
 
     private final String clientSecret;
@@ -137,6 +139,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     PreprRepositoryClient(
         // Look out with adding parameters.  This method is also used in nl.vpro.io.prepr.spring.AbstractSpringPreprRepositoriesConfiguration.postProcessBeanDefinitionRegistry
         @Nullable @Named("prepr.api") String api,
+        @Nullable @Named("prepr.apiAlternative") String apiAlternative,
         @NonNull String channel,
         @NonNull String clientId,
         @Nullable String clientSecret,
@@ -153,6 +156,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         this.callLog = LoggerFactory.getLogger(PreprRepositoryClient.class.getName() + ".CALL." + channel);
 
         this.api = getApiUrl(api, this.log);
+        this.apiAlternative = apiAlternative == null ? this.api : getApiUrl(apiAlternative, this.log);
         this.version = version == null ? Version.v5 : version;
         this.channel = channel;
         this.clientId = clientId;
@@ -302,7 +306,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             .buildPutRequest(url, new ByteArrayContent(MediaType.APPLICATION_JSON, outputStream.toByteArray())));
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @SneakyThrows(IOException.class)
     protected HttpResponse post(GenericUrl url, Map<String, Object> form) {
         log.debug("{}: Posting {}", channel, form);
@@ -348,8 +352,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
             String data = "";
             if (content != null) {
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-                if (content instanceof UrlEncodedContent) {
-                    UrlEncodedContent urlEncoded = (UrlEncodedContent) content;
+                if (content instanceof UrlEncodedContent urlEncoded) {
                     urlEncoded.writeTo(out);
                 } else if (content instanceof ByteArrayContent) {
                     IOUtils.copy(((ByteArrayContent) content).getInputStream(), out);
@@ -388,7 +391,7 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
     }
 
     /**
-     * @deprecated Use life time token
+     * @deprecated Use lifetime token
      */
     @Deprecated
     private synchronized void getToken() throws  IOException {
@@ -489,6 +492,14 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     GenericUrl createUrl(Object ... path) {
+        return createUrl(getBaseUrl(), path);
+    }
+
+    GenericUrl createAlternativeUrl(Object ... path) {
+        return createUrl(getAlternativeBaseUrl(), path);
+    }
+
+    GenericUrl createUrl(String baseUrl, Object ... path) {
         GenericUrl url = new GenericUrl(getBaseUrl());
         boolean append = false;
         for (Object p : path) {
@@ -505,13 +516,16 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
         return api + version.getPath();
     }
 
+    protected String getAlternativeBaseUrl() {
+        return apiAlternative + version.getPath();
+    }
     public static class Builder {
         public Builder scope(Scope... scopes) {
             return scopes(Arrays.stream(scopes).map(Enum::name).collect(Collectors.joining(",")));
         }
 
         /**
-         * @deprecated Use life time token {@link #clientToken(String)}
+         * @deprecated Use lifetime token {@link #clientToken(String)}
          */
         @Deprecated
         public Builder clientSecret(String clientSecret) {

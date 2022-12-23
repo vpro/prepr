@@ -35,7 +35,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @SuppressWarnings("unchecked")
     @Override
     public PreprItems<PreprWebhook> get(Paging paging) {
-        GenericUrl url = impl.createUrl(WEBHOOKS);
+        GenericUrl url = impl.createAlternativeUrl(WEBHOOKS);
         impl.addListParameters(url, paging);
         return impl.get(url, PreprItems.class);
     }
@@ -43,7 +43,9 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @Override
     @SneakyThrows
     public PreprWebhook put(PreprWebhook webhook) {
-        GenericUrl url = impl.createUrl(WEBHOOKS, webhook.getId());
+        GenericUrl url = impl.createAlternativeUrl(WEBHOOKS, webhook.getId());
+
+        // TODO: put on doesn't always work
         HttpResponse put = impl.put(url, webhook);
         try {
             return PreprObjectMapper.INSTANCE
@@ -57,7 +59,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @Override
     @SneakyThrows(IOException.class)
     public PreprWebhook create(String callback_url, String... events)  {
-        final GenericUrl url = impl.createUrl(WEBHOOKS);
+        final GenericUrl url = impl.createAlternativeUrl(WEBHOOKS);
         final Map<String, Object> post = new HashMap<>();
         post.put("callback_url", callback_url);
         post.put("events", events);
@@ -75,7 +77,7 @@ public class PreprWebhooksImpl implements PreprWebhooks {
     @SneakyThrows
     @Override
     public void delete(UUID webhook)  {
-        GenericUrl url = impl.createUrl(WEBHOOKS, webhook);
+        GenericUrl url = impl.createAlternativeUrl(WEBHOOKS, webhook);
         HttpResponse delete = impl.delete(url);
         delete.disconnect();
     }

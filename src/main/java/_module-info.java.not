@@ -6,11 +6,12 @@ module nl.vpro.io.prepr {
 
 
 	requires static lombok;
-	requires  org.checkerframework.checker.qual;
+	requires static java.validation;
+	requires static org.checkerframework.checker.qual;
 
 	requires com.google.api.client;
 	requires com.fasterxml.jackson.annotation;
-	requires slf4j.api;
+
 	requires vpro.shared.jackson2;
 	requires com.fasterxml.jackson.databind;
 	requires com.google.common;
@@ -22,16 +23,17 @@ module nl.vpro.io.prepr {
 	requires javax.inject;
 	requires org.apache.commons.lang3;
 	requires spring.core;
-	requires jsr250.api;
 	requires java.management;
 	requires com.google.api.client.auth;
-	requires com.google.api.client.json.jackson2;
 	requires org.apache.commons.collections4;
 	requires org.apache.httpcomponents.httpcore;
 	requires cache.api;
+	requires org.slf4j;
+	requires com.google.api.client.json.gson;
+	requires vpro.shared.logging;
+	requires vpro.shared.util;
 
 	exports nl.vpro.io.prepr;
-
-
+	exports nl.vpro.io.prepr.domain;
 
 }

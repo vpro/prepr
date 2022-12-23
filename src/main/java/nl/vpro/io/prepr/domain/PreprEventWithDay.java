@@ -20,13 +20,13 @@ import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
 /**
  * The guides call returns data in format which is often unsuitable for processing. It will group by day, but broadcasts may span days.
  * Also, the contained event objects are not self contained, and need the day to calculate the actual time.
- *
+ * <p>
  * I don't know yet how it works with time zones.
- *
+ * <p>
  * This class wraps the {@link PreprEvent} with {@link LocalDate} object to get a complete small bundle of information which can be used as an entry in lists which represent a schedule.
- *
+ * <p>
  * The utility {@link #asRange()} returns the actual range the event is representing.
- *
+ * <p>
  * The {@link #append(PreprEventWithDay)} utility targets to be able to 'glue' events together.
  *
  * @author Michiel Meeuwissen
@@ -186,7 +186,7 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         });
         result.removeIf(event -> {
             Optional<String> epId = event.episodeId();
-            if (! epId.isPresent()) {
+            if (epId.isEmpty()) {
                 return true;
             }
             boolean episodeInRange = episodes.contains(epId.get());
