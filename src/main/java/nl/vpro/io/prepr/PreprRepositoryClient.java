@@ -492,15 +492,15 @@ public class PreprRepositoryClient implements PreprRepositoryClientMXBean {
 
 
     GenericUrl createUrl(Object ... path) {
-        return createUrl(getBaseUrl(), path);
+        return createUrlWithBase(getBaseUrl(), path);
     }
 
     GenericUrl createAlternativeUrl(Object ... path) {
-        return createUrl(getAlternativeBaseUrl(), path);
+        return createUrlWithBase(getAlternativeBaseUrl(), path);
     }
 
-    GenericUrl createUrl(String baseUrl, Object ... path) {
-        GenericUrl url = new GenericUrl(getBaseUrl());
+    GenericUrl createUrlWithBase(String baseUrl, Object ... path) {
+        GenericUrl url = new GenericUrl(baseUrl);
         boolean append = false;
         for (Object p : path) {
             if (append) {
