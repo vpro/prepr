@@ -104,8 +104,8 @@ public class WebhookIdsRegister {
         if (before != after) {
             logger.info("Registered {} webhooks", after - before);
         }
-        if (after == 0) {
-             logger.debug("No webhooks registered for {}", repositories);
+        if (after == 0 && ! SignatureValidatorInterceptor.isReadyForRequests()) {
+             logger.info("No webhooks registered for {}", repositories);
         }
         SignatureValidatorInterceptor.readyForRequests();
         return builder.toString();
