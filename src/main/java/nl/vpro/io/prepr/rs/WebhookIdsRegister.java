@@ -67,7 +67,7 @@ public class WebhookIdsRegister {
     @ManagedOperation
     public String registerWebhooks()  {
         final int before = SignatureValidatorInterceptor.WEBHOOK_IDS.size();
-        if (before == 0) {
+        if (! SignatureValidatorInterceptor.isReadyForRequests()) {
             log.info("Registering webhooks");
         }
         final StringBuilder builder = new StringBuilder();
@@ -77,7 +77,7 @@ public class WebhookIdsRegister {
 
         for (PreprRepository repository : repositories) {
             try {
-                repository.getWebhooks().get(limit(100)).forEach((mc) -> {
+                repository.getWebhooks().get(limit(500)).forEach((mc) -> {
                     boolean found = false;
                     for (String b : baseUrl.split(",")) {
                         if (mc.getCallback_url().startsWith(b)) {
@@ -103,6 +103,9 @@ public class WebhookIdsRegister {
         final int after =  SignatureValidatorInterceptor.WEBHOOK_IDS.size();
         if (before != after) {
             logger.info("Registered {} webhooks", after - before);
+        }
+        if (after == 0) {
+             logger.debug("No webhooks registered for {}", repositories);
         }
         SignatureValidatorInterceptor.readyForRequests();
         return builder.toString();

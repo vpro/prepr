@@ -70,6 +70,11 @@ public class SignatureValidatorInterceptor implements  SignatureValidatorInterce
         ready = Instant.now();
     }
 
+    public static boolean isReadyForRequests() {
+        return ready != null;
+
+    }
+
     @Getter
     @Setter
     private InvalidSignatureAction invalidSignatureAction = InvalidSignatureAction.UNAUTHORIZED;
