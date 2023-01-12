@@ -41,14 +41,13 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
     PreprStatus status;
 
     /**
-     * What does this mean?
+     *
      */
     String slug;
 
     /**
-     * What does this mean?
      *
-     * This custom field may for example contains radiobox 'times' objects.
+     * This custom field may for example contain radiobox 'times' objects.
      */
     JsonNode custom;
 

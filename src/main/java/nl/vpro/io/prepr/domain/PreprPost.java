@@ -29,7 +29,7 @@ public class PreprPost extends AbstractPreprContent {
     String tease;
 
      /**
-     * We map the Timeline with a Broadcast (a Program of ProgramType.BROADCAST)
+     * We map the Timeline with a Broadcast (a {@code Program} of {@code ProgramType.BROADCAST})
      */
     PreprTimeline container;
 
