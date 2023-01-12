@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -99,6 +99,36 @@ public class PreprAbstractObject {
     @Override
     public final String toString() {
         return toStringHelper().toString();
+    }
+
+
+    /**
+     * In some posts you can have a content:null
+     * Ik zie inderdaad weer 'element' en niet 'elements'.
+
+     * Bij Heading and Text heb je nu 'content: null'.
+
+     * Tom Swinkels
+     *   2:31 PM
+     * Klopt, dat is even niet anders voor nu
+
+     * Michiel Meeuwissen
+     *   2:32 PM
+     * Kan het ook niet null zijn?
+     *
+     *
+     * Tom Swinkels
+     *   2:32 PM
+     * Nee behalve bij media
+     *
+     * So, this makes it ignored
+     */
+    @JsonProperty
+    public void setContent(List<PreprAsset> ignored) {
+        if (ignored != null) {
+            log.warn("Incoming value that is ignored {}", ignored);
+        }
+
     }
 
 

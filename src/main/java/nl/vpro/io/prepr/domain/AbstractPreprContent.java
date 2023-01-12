@@ -59,12 +59,12 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
      * the 'element' version can still happen too?
      *
      */
-    @JsonProperty("elements")
+   /* @JsonProperty("elements")
     @Deprecated
     public void setElements_(List<PreprAbstractObject> elements) {
         this.elements = elements;
     }
-
+*/
 
     Duration duration;
 
