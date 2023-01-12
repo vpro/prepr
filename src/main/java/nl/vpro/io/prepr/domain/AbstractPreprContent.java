@@ -52,8 +52,17 @@ public abstract class AbstractPreprContent extends PreprAbstractObject {
      */
     JsonNode custom;
 
-    @JsonProperty("element")
+    @JsonProperty("elements")
     List<PreprAbstractObject> elements;
+
+    /**
+     * Around jan 2023 I noticed that the json property renamed from 'element' to 'elements'. I don't know if
+     * the 'element' version can still happen too?
+     */
+    @JsonProperty
+    public void setElement(List<PreprAbstractObject> elements) {
+        this.elements = elements;
+    }
 
     Duration duration;
 

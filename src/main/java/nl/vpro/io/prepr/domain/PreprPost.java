@@ -33,7 +33,15 @@ public class PreprPost extends AbstractPreprContent {
      */
     PreprTimeline container;
 
+    /**
+     * Seems to be the same thing as container
+     */
+    PreprTimeline timeline;
+
     PreprChannel channel;
 
     List<PreprTag> tags;
+
+
+
 }

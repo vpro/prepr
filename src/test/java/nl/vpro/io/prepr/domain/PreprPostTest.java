@@ -22,6 +22,7 @@ public class PreprPostTest {
              .readValue(getClass().getResourceAsStream("/post.json"));
         log.info("{}", post);
         assertThat(post.getStatus()).isEqualTo(PreprStatus.arla_completed);
+        assertThat(post.getElements()).hasSize(3);
 
     }
 
