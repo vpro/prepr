@@ -47,6 +47,7 @@ import com.google.common.base.MoreObjects;
     @JsonSubTypes.Type(value = PreprTalk.class,        name = PreprTalk.LABEL),
     @JsonSubTypes.Type(value = PreprTrafficTalk.class, name = PreprTrafficTalk.LABEL),
     @JsonSubTypes.Type(value = PreprWeatherTalk.class, name = PreprWeatherTalk.LABEL),
+    @JsonSubTypes.Type(value = PreprWeatherServiceProvider.class, name = PreprWeatherServiceProvider.LABEL),
     @JsonSubTypes.Type(value = PreprCommercial.class,  name = PreprCommercial.LABEL),
     @JsonSubTypes.Type(value = PreprNewsBulletin.class,name = PreprNewsBulletin.LABEL),
     @JsonSubTypes.Type(value = PreprPublication.class,name = PreprPublication.LABEL),

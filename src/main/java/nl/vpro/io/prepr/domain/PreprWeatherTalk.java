@@ -24,5 +24,6 @@ public class PreprWeatherTalk extends AbstractPreprContent {
 
     private String tease;
 
+    private PreprWeatherServiceProvider weatherserviceprovider;
 
 }
