@@ -111,7 +111,7 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
 
     public String showId() {
         if (event.getTimelines() != null) {
-            return event.getTimelines().stream().map(AbstractPreprContent::getReference_id).findFirst().orElse(null);
+            return event.getTimelines().stream().map(PreprAbstractContent::getReference_id).findFirst().orElse(null);
         } else {
             return null;
         }

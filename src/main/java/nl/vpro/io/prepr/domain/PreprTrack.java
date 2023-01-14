@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprTrack.LABEL)
-public class PreprTrack extends AbstractPreprContent {
+public class PreprTrack extends PreprAbstractContent {
 
     public static final String LABEL = "Track";
 

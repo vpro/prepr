@@ -43,7 +43,7 @@ public class PreprEventTest {
 
         assertThat(event.getTimelines()).hasSize(2);
 
-        AbstractPreprContent abstractPreprContent = event.getTimelines().get(1).getPublications().get(7);
+        PreprAbstractContent abstractPreprContent = event.getTimelines().get(1).getPublications().get(7);
         assertThat(abstractPreprContent).isInstanceOf(PreprTalk.class);
         assertThat(((PreprTalk) abstractPreprContent).getPrivate()).isEqualTo("0");
         log.info("{}", event);

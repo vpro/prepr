@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
  * @since 0.1
  */
 @Slf4j
-public class AbstractPreprContentTest {
+public class PreprAbstractContentTest {
 
     static {
         PreprObjectMapper.configureInstance(false);
     }
     @Test
     public void unmarshal() throws IOException {
-        PreprPost post = PreprObjectMapper.INSTANCE.readerFor(AbstractPreprContent.class)
+        PreprPost post = PreprObjectMapper.INSTANCE.readerFor(PreprAbstractContent.class)
              .readValue(getClass().getResourceAsStream("/content.json"));
         log.info("{}", post);
 

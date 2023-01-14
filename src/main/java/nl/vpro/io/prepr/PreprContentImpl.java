@@ -7,7 +7,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import com.google.api.client.http.GenericUrl;
 
-import nl.vpro.io.prepr.domain.AbstractPreprContent;
+import nl.vpro.io.prepr.domain.PreprAbstractContent;
 import nl.vpro.io.prepr.domain.PreprItems;
 
 /**
@@ -57,12 +57,12 @@ public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
 
     @SuppressWarnings("unchecked")
     @Override
-    public  <T extends AbstractPreprContent> T getPublication(
+    public  <T extends PreprAbstractContent> T getPublication(
         @NonNull  UUID id) {
         GenericUrl url = impl.createUrl("publications", id.toString());
 
         url.set("fields", PUBLICATION_FIELDS);
-        return (T) impl.get(url, AbstractPreprContent.class);
+        return (T) impl.get(url, PreprAbstractContent.class);
     }
 
 
@@ -87,12 +87,12 @@ public class PreprContentImpl implements nl.vpro.io.prepr.PreprContent {
     }
 
     @Override
-    public <T extends AbstractPreprContent> T getContainer(UUID id) {
+    public <T extends PreprAbstractContent> T getContainer(UUID id) {
         GenericUrl url = impl.createUrl("containers", id.toString());
         //url.set("label", "Post");
 
         url.set("fields", PUBLICATION_FIELDS);
-        T result = (T) impl.get(url, AbstractPreprContent.class);
+        T result = (T) impl.get(url, PreprAbstractContent.class);
         return result;
 
     }

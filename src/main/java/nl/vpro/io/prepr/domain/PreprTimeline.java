@@ -24,7 +24,7 @@ import com.google.common.collect.Range;
 @JsonTypeName(PreprTimeline.LABEL)
 @JsonDeserialize(converter= PreprTimeline.Deserializer.class)
 @Slf4j
-public class PreprTimeline extends AbstractPreprContent {
+public class PreprTimeline extends PreprAbstractContent {
 
     public static final String LABEL = "Timeline";
 
@@ -40,7 +40,7 @@ public class PreprTimeline extends AbstractPreprContent {
 
     List<PreprAbstractMedia> assets;
 
-    List<AbstractPreprContent> publications;
+    List<PreprAbstractContent> publications;
 
     String show_id;
 
@@ -98,7 +98,7 @@ public class PreprTimeline extends AbstractPreprContent {
                 if (mcTimeline.publications != null) {
                     try {
                         mcTimeline.publications.removeIf(Objects::isNull);
-                        mcTimeline.publications.sort(Comparator.nullsLast(Comparator.comparing(AbstractPreprContent::getPublished_on, Comparator.nullsLast(Comparator.naturalOrder()))));
+                        mcTimeline.publications.sort(Comparator.nullsLast(Comparator.comparing(PreprAbstractContent::getPublished_on, Comparator.nullsLast(Comparator.naturalOrder()))));
                     } catch (Exception e) {
                         log.error(e.getMessage(), e);
                     }

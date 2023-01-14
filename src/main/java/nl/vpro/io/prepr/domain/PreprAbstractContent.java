@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractPreprContent extends PreprAbstractObject {
+public abstract class PreprAbstractContent extends PreprAbstractObject {
 
     Instant published_on;
 

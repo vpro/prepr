@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprNewsBulletin.LABEL)
-public class PreprNewsBulletin extends AbstractPreprContent {
+public class PreprNewsBulletin extends PreprAbstractContent {
 
     public static final String LABEL = "NewsBulletin";
 

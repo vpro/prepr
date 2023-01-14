@@ -17,7 +17,7 @@ import com.google.common.base.MoreObjects;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprShow.LABEL)
-public class PreprShow extends AbstractPreprContent {
+public class PreprShow extends PreprAbstractContent {
 
     public static final String LABEL = "Show";
 
@@ -39,6 +39,9 @@ public class PreprShow extends AbstractPreprContent {
 
     @Beta
     JsonNode recipients_all;
+
+    @Beta
+    List<PreprAbstractContent> publications;
 
     @Override
     MoreObjects.ToStringHelper toStringHelper() {

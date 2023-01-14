@@ -121,7 +121,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getPublication() {
-        AbstractPreprContent publications = funx.getContent().getPublication(
+        PreprAbstractContent publications = funx.getContent().getPublication(
             UUID.fromString("0c83faf9-2524-4ebe-a26f-070be9ec4415") // an post?
         );
         log.info("publications : {}", publications);
@@ -130,7 +130,7 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void getArchivedPublication() {
-        AbstractPreprContent publications = rad2.getContent().getPublication(
+        PreprAbstractContent publications = rad2.getContent().getPublication(
             UUID.fromString("bbf74244-9c76-4588-aa96-cf6e89671801") // an post?
         );
         log.info("publications : {}", publications);

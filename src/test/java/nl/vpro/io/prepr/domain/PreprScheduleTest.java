@@ -53,7 +53,7 @@ public class PreprScheduleTest {
         PreprEvent next = schedule.getDays().get(LocalDate.of(2020, 2, 7)).iterator().next();
         assertThat(next.getFrom()).isEqualTo(LocalTime.of(0, 0));
         assertThat(next.getShow().getName()).isEqualTo("Kevin");
-        List<AbstractPreprContent> publications = next.getTimelines().get(0).getPublications();
+        List<PreprAbstractContent> publications = next.getTimelines().get(0).getPublications();
 
         assertThat(publications).hasSize(14); // actually 15, but there is one 'Publication_NLUNKNOWN" that could not be read.
 

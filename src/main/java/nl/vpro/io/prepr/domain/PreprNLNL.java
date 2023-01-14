@@ -22,7 +22,7 @@ import com.google.common.annotations.Beta;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName(PreprNLNL.LABEL)
-public  class PreprNLNL extends AbstractPreprContent {
+public  class PreprNLNL extends PreprAbstractContent {
 
     public static final String LABEL = "NLNL";
 
