@@ -58,7 +58,7 @@ public class PreprEvent implements Comparable<PreprEvent> {
     /**
      * We want the timelines to be in a logical order. That is, the first one first.
      * We get them in a kind of random order back from the API.
-     *
+     * <p>
      * We use the _first_ timeline to generate a ID, so it should always be the same one.
      */
 
