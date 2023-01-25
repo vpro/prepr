@@ -9,15 +9,18 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      - name: Cache local Maven repository
-        uses: actions/cache@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-        if: always()
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1
+          distribution: 'temurin'
+          java-version: 17
+          cache: maven
+          server-id: vpro-ossrh
+          server-username: SONATYPE_USERNAME
+          server-password: SONATYPE_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
+      - uses: oleksiyrudenko/gha-git-credentials@v2.1.1
         with:
           global: true
           name: 'github'
@@ -25,7 +28,7 @@ jobs:
           token: '${{ secrets.GITHUB_TOKEN  }}'
       - name: Release branch with Maven
         run: |
-          VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
+          VERSION=`mvn -ntp help:evaluate -Dexpression=project.version -q -DforceStdout`
           RELEASE_VERSION=`echo $VERSION | sed -r 's/-SNAPSHOT/.0-SNAPSHOT/'`
           DEVELOPMENT_VERSION=`echo $VERSION | gawk 'match($1, /([0-9]+)\.([0-9]+)([\.-])(.*)/, a) {print a[1]"."(a[2]+1)a[3]a[4]}'`
-          mvn  -DupdateBranchVersions=true -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${DEVELOPMENT_VERSION} release:branch
+          mvn  -ntp -DupdateBranchVersions=true -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${DEVELOPMENT_VERSION} release:branch

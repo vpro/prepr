@@ -7,6 +7,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: contains(github.ref, 'SNAPSHOT')
+    env:
+      MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK
@@ -21,7 +23,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
       - name: Release
-        run: mvn -Pdeploy --batch-mode release:prepare release:perform
+        run: mvn -ntp -Pdeploy --batch-mode release:prepare release:perform
         env:
           SONATYPE_USERNAME: vpro
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}

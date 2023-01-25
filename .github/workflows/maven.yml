@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK
@@ -25,7 +23,7 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
       - name: Build with Maven
-        run: mvn -fae -B -Pdeploy deploy  -Dgpg.skip=false
+        run: mvn -ntp -fae -B -Pdeploy deploy  -Dgpg.skip=false
         env:
           SONATYPE_USERNAME: vpro
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
@@ -35,7 +33,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         continue-on-error: true
       - name: Publish Test Report
-        uses: EnricoMi/publish-unit-test-result-action@v2.2.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.3.0
         if: always()
         with:
           junit_files: "**/target/surefire-reports/*.xml"

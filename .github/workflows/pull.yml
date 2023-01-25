@@ -19,23 +19,14 @@ jobs:
           distribution: 'temurin'
           java-version: 17
           cache: maven
-          server-id: vpro-ossrh
-          server-username: SONATYPE_USERNAME
-          server-password: SONATYPE_PASSWORD
-          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-          gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
       - name: Build with Maven
-        run: mvn -fae -DskipITs=false -Dinteg.cluster.name=docker-elasticsearch -B  package
-        env:
-          SONATYPE_USERNAME: vpro
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_SECRET_KEY_PASSPHRASE: ${{ secrets.GPG_SECRET_KEY_PASSPHRASE }}
+        run: mvn -ntp -fae -DskipITs=false -Dinteg.cluster.name=docker-elasticsearch -B  package
       - name: Publish to codecov
         uses: codecov/codecov-action@v3
         if: github.ref == 'refs/heads/main'
         continue-on-error: true
       - name: Publish Test Report
-        uses: EnricoMi/publish-unit-test-result-action@v2.2.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.3.0
         if: always()
         with:
           junit_files: "**/target/surefire-reports/*.xml"
