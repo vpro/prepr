@@ -22,6 +22,12 @@ jobs:
           server-password: SONATYPE_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           gpg-passphrase: GPG_SECRET_KEY_PASSPHRASE
+      - uses: oleksiyrudenko/gha-git-credentials@v2.1.1
+        with:
+          global: true
+          name: 'github'
+          email: 'digitaal-techniek@vpro.nl'
+          token: '${{ secrets.GITHUB_TOKEN  }}'
       - name: Release
         run: mvn -ntp -Pdeploy --batch-mode release:prepare release:perform
         env:
