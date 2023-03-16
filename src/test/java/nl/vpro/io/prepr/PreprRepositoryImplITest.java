@@ -224,7 +224,8 @@ public class PreprRepositoryImplITest {
 
 
     public static Stream<PreprRepository> getRepos() {
-        return Stream.of(rad1, rad2, rad3, rad4, rad5, funx);
+       return Stream.of(rad1, rad2, rad3, rad4, rad5, funx, test);
+
     }
 
     @ParameterizedTest
@@ -234,7 +235,15 @@ public class PreprRepositoryImplITest {
        //log.info("webhooks: {}", webhooks);
         for (PreprWebhook webhook : webhooks) {
             debugOrInfo(log, webhook.getCallback_url().contains("poms") || webhook.getCallback_url().contains("meeuw"), "Found webhook {} {}:, {}", webhook.getId(),  webhook, webhook.getCreated_on());
-            if (webhook.getCallback_url().startsWith("https://proxy.meeuw.org")) {
+            if (webhook.getCallback_url().startsWith("https://api-acc.poms.omroep.nl")) {
+                if (!webhook.getActive()) {
+                    repo.getWebhooks().delete(webhook.getUUID());
+                    //webhook.setActive(true);
+                    //og.info("{}", repo.getWebhooks().put(webhook));
+                }
+            }
+
+            if (webhook.getCallback_url().startsWith("https://api-test-nb.poms.omroep.nl")) {
                 //
                 // log.info("{}", webhook);
                 //webhook.setActive(true);
@@ -247,8 +256,8 @@ public class PreprRepositoryImplITest {
 
     @Test
     public void createWebhook() {
-         String url = "https://api-itest.poms.omroep.nl/mediaconnect/FUNX";
-         log.info("new webook {}", funx.getWebhooks().create(url,  "showschedule.created",
+         String url = "https://api-itest.poms.omroep.nl/mediaconnect/XXXX";
+         log.info("new webook {}", test.getWebhooks().create(url,  "showschedule.created",
              "showschedule.changed",
              "showschedule.deleted"));
     }
