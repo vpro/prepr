@@ -174,7 +174,7 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
         Range<Instant> range = Range.closedOpen(from.atZone(zoneId).toInstant(), until.atZone(zoneId).toInstant());
         List<PreprEventWithDay> result = fromSchedule(unfilteredResult, zoneId);
 
-        // episodes spanning day limits may have multliple events, keep them complete
+        // episodes spanning day limits may have multiple events, keep them complete
         Set<String> episodes = new HashSet<>();
         result.forEach(event -> {
             Range<Instant> erange = event.asRange();
@@ -182,6 +182,8 @@ public class PreprEventWithDay implements Comparable<PreprEventWithDay> {
 
             if (startInRange) {
                 event.episodeId().ifPresent(episodes::add);
+            } else {
+                log.debug("Start not in range {}", event);
             }
         });
         result.removeIf(event -> {
