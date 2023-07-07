@@ -5,11 +5,9 @@ import lombok.Singular;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import nl.vpro.io.prepr.domain.PreprObjectMapper;
 
@@ -56,7 +54,7 @@ public class StandalonePreprRepositories implements PreprRepositories {
             .map(Map.Entry::getKey)
             .filter((k) -> k.startsWith(prefix))
             .map((k) -> k.substring(prefix.length()))
-            .collect(Collectors.toList());
+            .toList();
         for (String channel : channels) {
             String secret = configuration.get("prepr.clientSecret." + channel);
             if (StringUtils.isNotEmpty(secret)) {

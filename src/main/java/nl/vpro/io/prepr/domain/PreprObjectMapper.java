@@ -2,6 +2,7 @@ package nl.vpro.io.prepr.domain;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serial;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -27,6 +28,8 @@ import nl.vpro.jackson2.*;
 public class PreprObjectMapper extends ObjectMapper {
 
     public static final PreprObjectMapper INSTANCE = new PreprObjectMapper();
+    @Serial
+    private static final long serialVersionUID = -6294808396132210200L;
 
     static {
         INSTANCE.registerModule(new JavaTimeModule());
@@ -39,10 +42,12 @@ public class PreprObjectMapper extends ObjectMapper {
         INSTANCE.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         INSTANCE.configure(JsonParser.Feature.ALLOW_COMMENTS, true); // always nice for examples
         if (lenient) {
+            log.info("Configuring lenient");
             INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, true); // forward compatibility
             INSTANCE.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);// forward compatibility
             INSTANCE.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
         } else {
+            log.info("Configuring strict");
             INSTANCE.configure(JsonParser.Feature.IGNORE_UNDEFINED, false);
             INSTANCE.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         }
@@ -54,6 +59,7 @@ public class PreprObjectMapper extends ObjectMapper {
 
     public static class PreprModule extends SimpleModule {
 
+        @Serial
         private static final long serialVersionUID = 1L;
 
         public PreprModule() {
