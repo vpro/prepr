@@ -52,7 +52,7 @@
     <slf4j.version>2.0.7</slf4j.version>
     <vpro.shared.version>3.5.4</vpro.shared.version>
     <spring.version>5.3.28</spring.version> <!-- spring dependency is optional -->
-    <checkerframework.version>3.36.0</checkerframework.version>
+    <checkerframework.version>3.37.0</checkerframework.version>
     <assertj.version>3.24.2</assertj.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -147,7 +147,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.9.3</version>
+        <version>5.10.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
