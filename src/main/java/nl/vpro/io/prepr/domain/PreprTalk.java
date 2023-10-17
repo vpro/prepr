@@ -34,6 +34,10 @@ public class PreprTalk extends PreprAbstractContent {
 
     private List<PreprTag> tags;
 
-
+    /**
+     * No idea what this is.
+     * @since 2.3
+     */
+    private String type;
 
 }
