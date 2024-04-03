@@ -10,7 +10,10 @@ image:https://img.shields.io/nexus/s/https/oss.sonatype.org/nl.vpro/prepr.svg[sn
 image:http://www.javadoc.io/badge/nl.vpro/prepr.svg?color=blue[javadoc,link=http://www.javadoc.io/doc/nl.vpro/prepr]
 image:https://codecov.io/gh/vpro/prepr/branch/main/graph/badge.svg[codecov,link=https://codecov.io/gh/vpro/prepr]
 
-This was created because https://rs.poms.omroep.nl/v1[POMS] sychronizes data from Prepr for radio related data of the Dutch public broadcasters
+This was created because https://rs.poms.omroep.nl/v1[POMS] sychronized (until april 2024) data from Prepr for radio related data of the Dutch public broadcasters. It doesn't do that anymore, so this project may be archived soon.
+
+
+
 
 Example code:
 
